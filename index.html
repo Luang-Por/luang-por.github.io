@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หลวงพ่อสด วัดปากน้ำ — Dhammakaya Meditation Master</title>
+
+    <!-- SVG Favicon: Stylized monk headshot -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23e8c060'/%3E%3Cstop offset='100%25' stop-color='%23c89b3c'/%3E%3C/radialGradient%3E%3CradialGradient id='h' cx='50%25' cy='35%25' r='55%25'%3E%3Cstop offset='0%25' stop-color='%23d4a853'/%3E%3Cstop offset='100%25' stop-color='%238b6914'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0604'/%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23c89b3c' stroke-width='1.5' opacity='0.6'/%3E%3C!-- Head --%3E%3Cellipse cx='50' cy='34' rx='16' ry='18' fill='url(%23h)'/%3E%3C!-- Ears --%3E%3Cellipse cx='34' cy='36' rx='3.5' ry='5.5' fill='%23c8956c'/%3E%3Cellipse cx='66' cy='36' rx='3.5' ry='5.5' fill='%23c8956c'/%3E%3C!-- Eyes --%3E%3Cellipse cx='43' cy='33' rx='2' ry='1' fill='%230a0604' opacity='0.7'/%3E%3Cellipse cx='57' cy='33' rx='2' ry='1' fill='%230a0604' opacity='0.7'/%3E%3C!-- Eyebrows --%3E%3Cpath d='M39 30 Q43 28 47 30' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3Cpath d='M53 30 Q57 28 61 30' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3C!-- Nose --%3E%3Cpath d='M50 34 L48.5 39 L51.5 39 Z' fill='%23b8884a' opacity='0.5'/%3E%3C!-- Serene smile --%3E%3Cpath d='M45 42 Q50 45 55 42' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3C!-- Robe --%3E%3Cpath d='M30 55 Q32 48 50 50 Q68 48 70 55 L75 85 Q50 78 25 85 Z' fill='url(%23g)'/%3E%3Cpath d='M35 52 Q50 58 65 52' fill='none' stroke='%23e8c060' stroke-width='0.8' opacity='0.6'/%3E%3C!-- Halo --%3E%3Ccircle cx='50' cy='30' r='24' fill='none' stroke='%23e8c060' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='50' cy='30' r='28' fill='none' stroke='%23c89b3c' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Noto+Serif+Thai:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- D3 & Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <style>
+        @layer base, layout, components, utilities, animations;
+
+        @layer base {
+            :root {
+                --void: #0a0604;
+                --surface: #1a100b;
+                --surface-elevated: #2a1f1a;
+                --surface-deep: #120c08;
+                --gold-primary: #c89b3c;
+                --gold-bright: #e8c060;
+                --gold-dim: #8b6914;
+                --gold-glow: rgba(200, 155, 60, 0.15);
+                --gold-glow-strong: rgba(200, 155, 60, 0.35);
+                --copper: #c8956c;
+                --temple-red: #c41e3a;
+                --emerald: #2d6a4f;
+                --saffron: #e8a020;
+                --text-cream: #f5e6c8;
+                --text-muted: #8a7560;
+                --text-dim: #5a4a3a;
+                --glass-border: rgba(200, 155, 60, 0.15);
+                --glass-border-hover: rgba(200, 155, 60, 0.4);
+                --ease-temple: cubic-bezier(0.16, 1, 0.3, 1);
+                --ease-sacred: cubic-bezier(0.22, 0.61, 0.36, 1);
+                --font-display: 'Cinzel', serif;
+                --font-body: 'Sarabun', sans-serif;
+                --font-thai-serif: 'Noto Serif Thai', serif;
+                --font-mono: 'JetBrains Mono', monospace;
+            }
+
+            *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+            html { scroll-behavior: smooth; }
+
+            body {
+                background: var(--void);
+                color: var(--text-cream);
+                font-family: var(--font-body);
+                overflow-x: hidden;
+                line-height: 1.7;
+                min-height: 100vh;
+            }
+
+            ::selection {
+                background: var(--gold-primary);
+                color: var(--void);
+            }
+
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: var(--void); }
+            ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+            /* i18n System */
+            [lang="th"] { display: none; }
+            body[data-lang="th"] [lang="en"] { display: none; }
+            body[data-lang="th"] [lang="th"] { display: inline; }
+            body[data-lang="th"] span[lang="th"],
+            body[data-lang="th"] p[lang="th"],
+            body[data-lang="th"] div[lang="th"],
+            body[data-lang="th"] h1[lang="th"],
+            body[data-lang="th"] h2[lang="th"],
+            body[data-lang="th"] h3[lang="th"],
+            body[data-lang="th"] h4[lang="th"],
+            body[data-lang="th"] section[lang="th"] { display: block; }
+            body[data-lang="th"] span[lang="en"],
+            body[data-lang="th"] p[lang="en"],
+            body[data-lang="th"] div[lang="en"],
+            body[data-lang="th"] h1[lang="en"],
+            body[data-lang="th"] h2[lang="en"],
+            body[data-lang="th"] h3[lang="en"],
+            body[data-lang="th"] h4[lang="en"],
+            body[data-lang="th"] section[lang="en"] { display: none; }
+        }
+
+        @layer layout {
+            .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+            .grid-2 { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+            .grid-3 { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+
+            @media (min-width: 768px) {
+                .grid-2 { grid-template-columns: 1fr 1fr; }
+                .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+            }
+
+            @media (min-width: 1024px) {
+                .container { padding: 0 2rem; }
+            }
+        }
+
+        @layer components {
+            /* Glass Panel */
+            .glass-panel {
+                background: rgba(26, 16, 11, 0.85);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(200, 155, 60, 0.05);
+                transition: transform 0.4s var(--ease-temple), border-color 0.4s, box-shadow 0.4s;
+            }
+            .glass-panel:hover {
+                border-color: var(--glass-border-hover);
+                transform: translateY(-3px);
+                box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 40px var(--gold-glow);
+            }
+            .glass-panel-static {
+                background: rgba(26, 16, 11, 0.85);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            }
+
+            /* Header */
+            .site-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                background: rgba(10, 6, 4, 0.92);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border-bottom: 1px solid var(--glass-border);
+                padding: 0.8rem 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .header-title {
+                font-family: var(--font-display);
+                font-size: 0.85rem;
+                font-weight: 700;
+                letter-spacing: 0.15em;
+                color: var(--text-cream);
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .header-title .accent { color: var(--gold-primary); }
+
+            .header-nav {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                font-family: var(--font-display);
+                font-size: 0.65rem;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                text-decoration: none;
+                padding: 0.4rem 0.8rem;
+                border-radius: 6px;
+                transition: all 0.3s;
+                cursor: pointer;
+                border: none;
+                background: none;
+            }
+            .nav-link:hover { color: var(--gold-primary); background: var(--gold-glow); }
+
+            .lang-btn {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: var(--gold-primary);
+                border: 1px solid var(--gold-primary);
+                background: var(--gold-glow);
+                padding: 0.3rem 0.8rem;
+                border-radius: 99px;
+                cursor: pointer;
+                transition: all 0.3s;
+                letter-spacing: 0.05em;
+            }
+            .lang-btn:hover {
+                background: var(--gold-primary);
+                color: var(--void);
+            }
+
+            /* Hero Section */
+            .hero-section {
+                position: relative;
+                padding: 8rem 0 4rem;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            .hero-portrait {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid var(--gold-primary);
+                box-shadow: 0 0 60px var(--gold-glow-strong), 0 0 120px var(--gold-glow);
+                margin: 0 auto 2rem;
+                display: block;
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero-title {
+                font-family: var(--font-display);
+                font-size: clamp(1.8rem, 4vw, 3rem);
+                font-weight: 900;
+                color: var(--gold-bright);
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5rem;
+                text-shadow: 0 0 40px var(--gold-glow-strong);
+            }
+
+            .hero-subtitle {
+                font-family: var(--font-thai-serif);
+                font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+                color: var(--copper);
+                margin-bottom: 1rem;
+                font-weight: 400;
+            }
+
+            .hero-meta {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+            }
+
+            .divider {
+                width: 120px;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+                margin: 2rem auto;
+            }
+
+            .divider-wide {
+                width: 80%;
+                max-width: 600px;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+                margin: 3rem auto;
+            }
+
+            /* Section Headers */
+            .section-header {
+                font-family: var(--font-display);
+                font-size: clamp(1rem, 2vw, 1.3rem);
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                color: var(--gold-primary);
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .section-header::before {
+                content: '';
+                width: 24px;
+                height: 2px;
+                background: var(--gold-primary);
+                flex-shrink: 0;
+            }
+
+            .section-label {
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--text-dim);
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Video Embed */
+            .video-wrapper {
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                overflow: hidden;
+                border-radius: 8px;
+            }
+            .video-wrapper iframe {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                border: none;
+                border-radius: 8px;
+            }
+
+            .video-short-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 360px;
+                margin: 0 auto;
+                aspect-ratio: 9/16;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            .video-short-wrapper iframe {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                border: none;
+            }
+
+            /* Audio Player / Karaoke */
+            .karaoke-container {
+                position: relative;
+                padding: 2rem;
+            }
+
+            .audio-controls {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .play-btn {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                border: 2px solid var(--gold-primary);
+                background: var(--gold-glow);
+                color: var(--gold-primary);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+                flex-shrink: 0;
+            }
+            .play-btn:hover {
+                background: var(--gold-primary);
+                color: var(--void);
+                box-shadow: 0 0 30px var(--gold-glow-strong);
+            }
+            .play-btn svg { width: 24px; height: 24px; }
+
+            .audio-progress-bar {
+                flex: 1;
+                min-width: 200px;
+                height: 6px;
+                background: var(--surface-elevated);
+                border-radius: 3px;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            }
+            .audio-progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, var(--gold-dim), var(--gold-primary), var(--gold-bright));
+                border-radius: 3px;
+                width: 0%;
+                transition: width 0.1s linear;
+            }
+
+            .audio-time {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                min-width: 80px;
+                text-align: right;
+            }
+
+            .karaoke-display {
+                min-height: 280px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 1rem;
+                position: relative;
+            }
+
+            .karaoke-line {
+                font-family: var(--font-thai-serif);
+                font-size: clamp(1rem, 2.5vw, 1.35rem);
+                line-height: 2;
+                color: var(--text-dim);
+                transition: all 0.5s var(--ease-sacred);
+                padding: 0.3rem 0;
+                max-width: 700px;
+            }
+            .karaoke-line.active {
+                color: var(--gold-bright);
+                text-shadow: 0 0 30px var(--gold-glow-strong);
+                transform: scale(1.05);
+                font-weight: 700;
+            }
+            .karaoke-line.past {
+                color: var(--text-muted);
+                opacity: 0.6;
+            }
+            .karaoke-line.far {
+                opacity: 0.25;
+                font-size: clamp(0.85rem, 2vw, 1.1rem);
+            }
+
+            .karaoke-scroll-area {
+                max-height: 300px;
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+            }
+            .karaoke-scroll-area::before,
+            .karaoke-scroll-area::after {
+                content: '';
+                position: absolute;
+                left: 0; right: 0;
+                height: 60px;
+                z-index: 2;
+                pointer-events: none;
+            }
+            .karaoke-scroll-area::before {
+                top: 0;
+                background: linear-gradient(to bottom, rgba(26,16,11,0.95), transparent);
+            }
+            .karaoke-scroll-area::after {
+                bottom: 0;
+                background: linear-gradient(to top, rgba(26,16,11,0.95), transparent);
+            }
+
+            .karaoke-inner {
+                transition: transform 0.6s var(--ease-sacred);
+                padding: 100px 0;
+            }
+
+            /* Speed Control */
+            .speed-control {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+            .speed-btn {
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--text-muted);
+                background: none;
+                border: 1px solid var(--glass-border);
+                padding: 0.2rem 0.5rem;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .speed-btn:hover, .speed-btn.active {
+                color: var(--gold-primary);
+                border-color: var(--gold-primary);
+                background: var(--gold-glow);
+            }
+
+            /* Network Viz */
+            .network-container {
+                width: 100%;
+                height: 500px;
+                position: relative;
+                overflow: hidden;
+                border-radius: 8px;
+            }
+            .network-container svg { width: 100%; height: 100%; }
+
+            /* Slide Panel */
+            .slide-panel {
+                position: fixed;
+                top: 0; right: 0;
+                width: 100%;
+                max-width: 480px;
+                height: 100%;
+                background: var(--surface);
+                border-left: 1px solid var(--glass-border);
+                transform: translateX(100%);
+                transition: transform 0.5s var(--ease-temple);
+                z-index: 200;
+                overflow-y: auto;
+                padding: 2rem;
+            }
+            .slide-panel.open { transform: translateX(0); }
+
+            .panel-close {
+                position: absolute;
+                top: 1rem; right: 1rem;
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: color 0.3s;
+                width: 36px; height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+            }
+            .panel-close:hover { color: var(--gold-primary); background: var(--gold-glow); }
+
+            .panel-title {
+                font-family: var(--font-display);
+                font-size: 1.1rem;
+                color: var(--gold-primary);
+                margin-bottom: 1rem;
+                padding-right: 2rem;
+            }
+            .panel-body {
+                font-size: 0.95rem;
+                line-height: 1.8;
+                color: var(--text-cream);
+            }
+            .panel-body p { margin-bottom: 1rem; }
+
+            /* Badges */
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.15rem 0.6rem;
+                border-radius: 99px;
+                font-size: 0.65rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-family: var(--font-mono);
+            }
+            .badge-gold {
+                border: 1px solid var(--gold-primary);
+                color: var(--gold-primary);
+                background: var(--gold-glow);
+            }
+            .badge-saffron {
+                border: 1px solid var(--saffron);
+                color: var(--saffron);
+                background: rgba(232, 160, 32, 0.1);
+            }
+            .badge-emerald {
+                border: 1px solid var(--emerald);
+                color: var(--emerald);
+                background: rgba(45, 106, 79, 0.1);
+            }
+
+            /* Loader */
+            .loader-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                background: var(--void);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.8s var(--ease-sacred);
+            }
+            .loader-overlay.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .lotus-spinner {
+                width: 60px;
+                height: 60px;
+                position: relative;
+                margin-bottom: 1.5rem;
+            }
+            .lotus-spinner .ring {
+                position: absolute;
+                inset: 0;
+                border: 2px solid transparent;
+                border-radius: 50%;
+            }
+            .lotus-spinner .ring:nth-child(1) {
+                border-top-color: var(--gold-primary);
+                animation: lotus-spin 1.2s linear infinite;
+            }
+            .lotus-spinner .ring:nth-child(2) {
+                inset: 6px;
+                border-right-color: var(--copper);
+                animation: lotus-spin 1.8s linear infinite reverse;
+            }
+            .lotus-spinner .ring:nth-child(3) {
+                inset: 12px;
+                border-bottom-color: var(--gold-dim);
+                animation: lotus-spin 2.4s linear infinite;
+            }
+            .lotus-spinner .dot {
+                position: absolute;
+                top: 50%; left: 50%;
+                width: 6px; height: 6px;
+                background: var(--gold-bright);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 12px var(--gold-primary);
+            }
+
+            .loader-text {
+                font-family: var(--font-display);
+                font-size: 0.7rem;
+                color: var(--gold-primary);
+                letter-spacing: 0.3em;
+            }
+
+            /* Canvas */
+            #sacred-canvas {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            /* Teaching Cards */
+            .teaching-card {
+                padding: 1.5rem;
+                cursor: pointer;
+            }
+            .teaching-card h4 {
+                font-family: var(--font-display);
+                font-size: 0.85rem;
+                color: var(--gold-primary);
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+            }
+            .teaching-card p {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                line-height: 1.6;
+            }
+
+            /* Biography prose */
+            .bio-prose {
+                font-size: 1rem;
+                line-height: 2;
+                color: var(--text-cream);
+                max-width: 720px;
+            }
+            .bio-prose p { margin-bottom: 1.5rem; }
+            .bio-prose .highlight {
+                color: var(--gold-primary);
+                font-weight: 600;
+            }
+
+            /* Overlay backdrop */
+            .overlay-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(10, 6, 4, 0.6);
+                z-index: 199;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s;
+            }
+            .overlay-backdrop.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Quote block */
+            .sacred-quote {
+                position: relative;
+                padding: 2rem 2rem 2rem 3rem;
+                font-family: var(--font-thai-serif);
+                font-size: 1.1rem;
+                line-height: 2.2;
+                color: var(--copper);
+                font-style: italic;
+            }
+            .sacred-quote::before {
+                content: '❝';
+                position: absolute;
+                top: 0.5rem;
+                left: 0.5rem;
+                font-size: 2.5rem;
+                color: var(--gold-dim);
+                opacity: 0.5;
+                font-style: normal;
+            }
+
+            /* Footer */
+            .site-footer {
+                text-align: center;
+                padding: 3rem 1.5rem;
+                border-top: 1px solid var(--glass-border);
+                margin-top: 4rem;
+            }
+            .site-footer p {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: var(--text-dim);
+                letter-spacing: 0.1em;
+            }
+        }
+
+        @layer utilities {
+            .mt-1 { margin-top: 0.5rem; }
+            .mt-2 { margin-top: 1rem; }
+            .mt-3 { margin-top: 1.5rem; }
+            .mt-4 { margin-top: 2rem; }
+            .mt-6 { margin-top: 3rem; }
+            .mb-2 { margin-bottom: 1rem; }
+            .mb-3 { margin-bottom: 1.5rem; }
+            .mb-4 { margin-bottom: 2rem; }
+            .p-4 { padding: 1.5rem; }
+            .p-6 { padding: 2rem; }
+            .text-center { text-align: center; }
+            .text-gold { color: var(--gold-primary); }
+            .text-muted { color: var(--text-muted); }
+            .text-sm { font-size: 0.85rem; }
+            .text-xs { font-size: 0.75rem; }
+            .font-display { font-family: var(--font-display); }
+            .font-mono { font-family: var(--font-mono); }
+            .relative { position: relative; }
+            .z-10 { z-index: 10; }
+        }
+
+        @layer animations {
+            @keyframes lotus-spin {
+                to { transform: rotate(360deg); }
+            }
+            @keyframes fade-in-up {
+                from { opacity: 0; transform: translateY(24px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes pulse-glow {
+                0%, 100% { opacity: 0.5; }
+                50% { opacity: 1; }
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-8px); }
+            }
+
+            .animate-fade-in {
+                animation: fade-in-up 0.8s var(--ease-sacred) both;
+            }
+            .animate-delay-1 { animation-delay: 0.15s; }
+            .animate-delay-2 { animation-delay: 0.3s; }
+            .animate-delay-3 { animation-delay: 0.45s; }
+            .animate-delay-4 { animation-delay: 0.6s; }
+            .animate-delay-5 { animation-delay: 0.75s; }
+            .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+            .animate-float { animation: float 4s ease-in-out infinite; }
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <!-- Sacred Canvas Background -->
+    <canvas id="sacred-canvas"></canvas>
+
+    <!-- Loader -->
+    <div id="loading-overlay" class="loader-overlay">
+        <div class="lotus-spinner">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="loader-text animate-pulse-glow">
+            <span lang="en">AWAKENING THE DHAMMA...</span>
+            <span lang="th">กำลังปลุกพระธรรม...</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-title">
+            <div id="logo-slot"></div>
+            <span>
+                <span lang="en">LUANG POR SOD <span class="accent">// DHAMMA</span></span>
+                <span lang="th">หลวงพ่อสด <span class="accent">// ธรรม</span></span>
+            </span>
+        </div>
+        <div class="header-nav">
+            <a href="#biography" class="nav-link">
+                <span lang="en">Biography</span>
+                <span lang="th">ประวัติ</span>
+            </a>
+            <a href="#teachings" class="nav-link">
+                <span lang="en">Teachings</span>
+                <span lang="th">พระธรรม</span>
+            </a>
+            <a href="#karaoke-section" class="nav-link">
+                <span lang="en">Listen</span>
+                <span lang="th">ฟังธรรม</span>
+            </a>
+            <a href="#network-section" class="nav-link">
+                <span lang="en">Network</span>
+                <span lang="th">เครือข่าย</span>
+            </a>
+            <button class="lang-btn" onclick="APP.toggleLang()">EN / TH</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+
+        <!-- HERO -->
+        <section class="hero-section container">
+            <div class="animate-fade-in">
+                <img src="http://lunarwisdom.luangpor.com/Firefly_LuangPorSod.png"
+                     alt="Luang Por Sod Wat Paknam"
+                     class="hero-portrait animate-float"
+                     onerror="this.style.background='var(--gold-glow)'; this.style.display='flex';">
+            </div>
+            <h1 class="hero-title animate-fade-in animate-delay-1">
+                <span lang="en">LUANG POR SOD</span>
+                <span lang="th">หลวงพ่อสด</span>
+            </h1>
+            <div class="hero-subtitle animate-fade-in animate-delay-2">
+                <span lang="en">พระมงคลเทพมุนี (สด จนฺทสโร)</span>
+                <span lang="th">พระมงคลเทพมุนี (สด จนฺทสโร)</span>
+            </div>
+            <div class="hero-meta animate-fade-in animate-delay-3">
+                <span lang="en">WAT PAKNAM BHASICHAROEN · B.E. 2427–2502 · DHAMMAKAYA MEDITATION MASTER</span>
+                <span lang="th">วัดปากน้ำภาษีเจริญ · พ.ศ. ๒๔๒๗–๒๕๐๒ · ผู้ค้นพบวิชชาธรรมกาย</span>
+            </div>
+            <div class="divider animate-fade-in animate-delay-4"></div>
+        </section>
+
+        <!-- BIOGRAPHY -->
+        <section id="biography" class="container mt-6">
+            <div class="section-header animate-fade-in">
+                <span lang="en">BIOGRAPHY & GREAT DEEDS</span>
+                <span lang="th">ประวัติและปฏิปทา</span>
+            </div>
+
+            <div class="glass-panel p-6 animate-fade-in animate-delay-1">
+                <div class="bio-prose" lang="en">
+                    <p><span class="highlight">Phra Mongkol Thepmuni</span> (หลวงพ่อสด จนฺทสโร), known reverently as Luang Por Sod, was born on October 10, B.E. 2427 (1884 CE) in Song Phi Nong District, Suphan Buri Province. From humble beginnings as a farmer's son, he would rise to become one of the most influential meditation masters in Thai Buddhism.</p>
+
+                    <p>Ordained at the age of 22, he devoted himself wholeheartedly to meditation practice. On the full moon night of the tenth lunar month, B.E. 2460 (1917), while practicing meditation at Wat Bodhisomphon in Udon Thani Province, <span class="highlight">he attained the profound realization of Vijja Dhammakaya</span> — the inner body of enlightenment — a discovery that would transform the landscape of Thai Buddhist meditation.</p>
+
+                    <p>As abbot of <span class="highlight">Wat Paknam Bhasicharoen</span> in Thonburi from B.E. 2459 to 2502, he established a rigorous program of meditation, Pali studies, and scriptural education. Under his leadership, Wat Paknam became a renowned center of learning and practice, attracting thousands of monks and lay practitioners. He developed the <span class="highlight">Dhammakaya meditation method</span>, which guides practitioners through successive refinements of the mind toward the "body of Dhamma" (ธรรมกาย) — the ultimate reality within every being.</p>
+
+                    <p>His teaching emphasized that the true essence of Buddhism lies not in rituals or external forms, but in the <span class="highlight">direct inner experience of Dhamma</span>. He urged his disciples to explore the depths of their own consciousness, asserting that only by reaching the "ultimate point" (ที่สุด) of one's own being could one attain true freedom from suffering and the dominion of Mara.</p>
+
+                    <p>Luang Por Sod passed away on February 3, B.E. 2502 (1959), leaving behind a legacy that continues to inspire millions worldwide. His meditation method is now practiced across the globe, and his teachings on the Dhammakaya remain a cornerstone of Thai Buddhist contemplative tradition.</p>
+                </div>
+                <div class="bio-prose" lang="th">
+                    <p><span class="highlight">พระมงคลเทพมุนี (หลวงพ่อสด จนฺทสโร)</span> เกิดเมื่อวันที่ ๑๐ ตุลาคม พ.ศ. ๒๔๒๗ ที่อำเภอสองพี่น้อง จังหวัดสุพรรณบุรี จากครอบครัวชาวนาผู้มีศรัทธาอันมั่นคงในพระพุทธศาสนา</p>
+
+                    <p>อุปสมบทเมื่ออายุ ๒๒ ปี ท่านมุ่งมั่นปฏิบัติสมาธิภาวนาอย่างเข้มข้น จนกระทั่งในคืนวันเพ็ญขึ้น ๑๕ ค่ำ เดือน ๑๐ พ.ศ. ๒๔๖๐ ขณะเจริญภาวนาอยู่ ณ วัดโบสถ์บน อำเภอบางคูเวียง จังหวัดนนทบุรี <span class="highlight">ท่านได้บรรลุวิชชาธรรมกาย</span> — ธรรมกายภายในซึ่งเป็นแก่นแท้แห่งพระพุทธศาสนา</p>
+
+                    <p>ในฐานะเจ้าอาวาส<span class="highlight">วัดปากน้ำภาษีเจริญ</span> ตั้งแต่ พ.ศ. ๒๔๕๙ ถึง ๒๕๐๒ ท่านได้สร้างระบบการศึกษาพระปริยัติธรรม บาลี และการปฏิบัติสมาธิอย่างเป็นระบบ วัดปากน้ำจึงกลายเป็นศูนย์กลางแห่งการศึกษาและปฏิบัติธรรมที่มีชื่อเสียง</p>
+
+                    <p>คำสอนของท่านเน้นว่าแก่นแท้ของพระพุทธศาสนาอยู่ที่<span class="highlight">การประจักษ์แจ้งธรรมภายใน</span>ด้วยตนเอง ท่านเตือนสติศิษยานุศิษย์ว่า ต้องค้นให้ถึง "ที่สุดของตัว" จึงจะพ้นจากอำนาจของมารและเป็นอิสระอย่างแท้จริง</p>
+
+                    <p>หลวงพ่อสดมรณภาพเมื่อวันที่ ๓ กุมภาพันธ์ พ.ศ. ๒๕๐๒ ทิ้งมรดกธรรมอันล้ำค่าที่ยังคงเป็นแรงบันดาลใจให้ผู้คนทั่วโลกสืบมาจนถึงปัจจุบัน</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEACHINGS KEY PRINCIPLES -->
+        <section id="teachings" class="container mt-6">
+            <div class="section-header animate-fade-in">
+                <span lang="en">CORE DHARMA TEACHINGS</span>
+                <span lang="th">หลักธรรมคำสอนสำคัญ</span>
+            </div>
+
+            <div class="grid-3" id="teaching-cards">
+                <!-- Cards generated by JS -->
+            </div>
+        </section>
+
+        <div class="divider-wide"></div>
+
+        <!-- KARAOKE DHARMA AUDIO -->
+        <section id="karaoke-section" class="container">
+            <div class="section-header animate-fade-in">
+                <span lang="en">DHARMA DISCOURSE — LISTEN & FOLLOW</span>
+                <span lang="th">พระธรรมเทศนา — ฟังและอ่านตาม</span>
+            </div>
+
+            <div class="section-label">
+                <span lang="en">AUDIO RECORDING · FEB 11TH DHARMA TALK · KARAOKE TRANSCRIPTION</span>
+                <span lang="th">บันทึกเสียง · พระธรรมเทศนาวันที่ ๑๑ กุมภาพันธ์ · ถอดความแบบคาราโอเกะ</span>
+            </div>
+
+            <div class="glass-panel-static karaoke-container animate-fade-in">
+                <div class="audio-controls">
+                    <button class="play-btn" id="playBtn" onclick="APP.toggleAudio()">
+                        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                        <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                    </button>
+                    <div class="audio-progress-bar" id="progressBar" onclick="APP.seekAudio(event)">
+                        <div class="audio-progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="audio-time" id="audioTime">0:00 / 0:00</div>
+                </div>
+
+                <div class="karaoke-scroll-area">
+                    <div class="karaoke-inner" id="karaokeInner">
+                        <!-- Lines generated by JS -->
+                    </div>
+                </div>
+
+                <div class="speed-control">
+                    <span class="text-xs text-muted font-mono" style="margin-right:0.3rem;">SPEED:</span>
+                    <button class="speed-btn" onclick="APP.setSpeed(0.75)">0.75×</button>
+                    <button class="speed-btn active" onclick="APP.setSpeed(1)">1×</button>
+                    <button class="speed-btn" onclick="APP.setSpeed(1.25)">1.25×</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-wide"></div>
+
+        <!-- VIDEOS -->
+        <section class="container">
+            <div class="section-header animate-fade-in">
+                <span lang="en">VISUAL DHARMA</span>
+                <span lang="th">ธรรมวีดิทัศน์</span>
+            </div>
+
+            <div class="grid-2">
+                <!-- Long Video -->
+                <div class="glass-panel p-4 animate-fade-in animate-delay-1">
+                    <div class="section-label mb-2">
+                        <span lang="en">DHARMA DISCOURSE · FULL LENGTH</span>
+                        <span lang="th">พระธรรมเทศนา · ฉบับเต็ม</span>
+                    </div>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/Ppy5GG-Zoq0"
+                                title="Luang Por Sod Dharma Discourse"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Short Video -->
+                <div class="glass-panel p-4 animate-fade-in animate-delay-2">
+                    <div class="section-label mb-2">
+                        <span lang="en">SHORT CLIP · SACRED MOMENTS</span>
+                        <span lang="th">คลิปสั้น · ช่วงเวลาศักดิ์สิทธิ์</span>
+                    </div>
+                    <div class="video-short-wrapper">
+                        <iframe src="https://www.youtube.com/embed/zPW34A2LabI"
+                                title="Luang Por Sod Short"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-wide"></div>
+
+        <!-- SACRED QUOTE -->
+        <section class="container">
+            <div class="glass-panel animate-fade-in">
+                <div class="sacred-quote">
+                    <span lang="en">"เมื่อรู้จักหลักอันนี้แล้ว นี่แหละเป็นความจริงทางพระพุทธศาสนาตัวจริงทีเดียว"<br>
+                    <span style="font-size:0.85rem; color:var(--text-muted); font-style:normal;">"When you understand this principle, this is the genuine truth of Buddhism itself."</span></span>
+                    <span lang="th">"เมื่อรู้จักหลักอันนี้แล้ว นี่แหละเป็นความจริงทางพระพุทธศาสนาตัวจริงทีเดียว"<br>
+                    <span style="font-size:0.85rem; color:var(--text-muted); font-style:normal;">— หลวงพ่อสด วัดปากน้ำ</span></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-wide"></div>
+
+        <!-- D3 TEACHING NETWORK -->
+        <section id="network-section" class="container">
+            <div class="section-header animate-fade-in">
+                <span lang="en">DHARMA TEACHING NETWORK</span>
+                <span lang="th">เครือข่ายพระธรรมคำสอน</span>
+            </div>
+            <div class="section-label">
+                <span lang="en">INTERACTIVE MAP · CLICK NODES FOR DETAILS · DRAG TO EXPLORE</span>
+                <span lang="th">แผนผังเชิงโต้ตอบ · คลิกที่จุดเพื่อดูรายละเอียด · ลากเพื่อสำรวจ</span>
+            </div>
+
+            <div class="glass-panel-static animate-fade-in">
+                <div class="network-container" id="network-viz"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                <span lang="en">A DIGITAL TRIBUTE TO LUANG POR SOD · WAT PAKNAM BHASICHAROEN · NEXUS SACRED ARTIFACT</span>
+                <span lang="th">สื่อดิจิทัลเชิดชูเกียรติหลวงพ่อสด · วัดปากน้ำภาษีเจริญ · NEXUS SACRED ARTIFACT</span>
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Slide Panel -->
+    <div class="overlay-backdrop" id="panelBackdrop" onclick="APP.closePanel()"></div>
+    <aside id="slide-panel" class="slide-panel">
+        <button class="panel-close" onclick="APP.closePanel()">✕</button>
+        <div id="panel-content"></div>
+    </aside>
+
+    <!-- Hidden Audio Element -->
+    <audio id="dharmaAudio" preload="auto">
+        <source src="http://lunarwisdom.luangpor.com/LuangPorSod_Dharma_Feb11th.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    // ============================================================================
+    // 1. INLINE SVG ICONS
+    // ============================================================================
+    const ICONS = {
+        logo: `<svg viewBox="0 0 100 100" width="28" height="28" fill="none">
+            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+            <circle cx="50" cy="50" r="28" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <circle cx="50" cy="38" r="10" fill="currentColor" opacity="0.7"/>
+            <path d="M35 60 Q50 72 65 60 L68 82 Q50 90 32 82 Z" fill="currentColor" opacity="0.5"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+        </svg>`,
+        lotus: `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" opacity="0.7">
+            <path d="M12 2C10 6 6 9 2 10c4 1 8 4 10 8 2-4 6-7 10-8-4-1-8-4-10-8z"/>
+        </svg>`,
+        meditation: `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="6" r="3"/><path d="M12 10c-4 0-7 3-7 5v1h14v-1c0-2-3-5-7-5z"/><path d="M8 20h8" stroke-linecap="round"/>
+        </svg>`
+    };
+
+    // ============================================================================
+    // 2. SIMPLEX NOISE ENGINE
+    // ============================================================================
+    class SimplexNoise{constructor(){this.p=new Uint8Array(256);for(let i=0;i<256;i++)this.p[i]=Math.floor(256*Math.random());this.perm=new Uint8Array(512);for(let i=0;i<512;i++)this.perm[i]=this.p[i&255]}dot(g,x,y){return g[0]*x+g[1]*y}noise(xin,yin){const F2=.5*(Math.sqrt(3)-1),G2=(3-Math.sqrt(3))/6;let i=Math.floor(xin+((xin+yin)*F2)),j=Math.floor(yin+((xin+yin)*F2)),t=(i+j)*G2,X0=i-t,Y0=j-t,x0=xin-X0,y0=yin-Y0;let i1,j1;if(x0>y0){i1=1;j1=0}else{i1=0;j1=1}let x1=x0-i1+G2,y1=y0-j1+G2,x2=x0-1+2*G2,y2=y0-1+2*G2,ii=i&255,jj=j&255,gi0=this.perm[ii+this.perm[jj]]%12,gi1=this.perm[ii+i1+this.perm[jj+j1]]%12,gi2=this.perm[ii+1+this.perm[jj+1]]%12,t0=.5-x0*x0-y0*y0,n0=t0<0?0:Math.pow(t0,4)*this.dot([Math.cos(gi0),Math.sin(gi0)],x0,y0),t1=.5-x1*x1-y1*y1,n1=t1<0?0:Math.pow(t1,4)*this.dot([Math.cos(gi1),Math.sin(gi1)],x1,y1),t2=.5-x2*x2-y2*y2,n2=t2<0?0:Math.pow(t2,4)*this.dot([Math.cos(gi2),Math.sin(gi2)],x2,y2);return 70*(n0+n1+n2)}}
+
+    // ============================================================================
+    // 3. ANTIGRAVITY CANVAS ENGINE
+    // ============================================================================
+    class AntigravityEngine {
+        constructor() {
+            this.canvas = document.getElementById('sacred-canvas');
+            this.ctx = this.canvas.getContext('2d');
+            this.simplex = new SimplexNoise();
+            this.particles = [];
+            this.mouse = { x: -1000, y: -1000 };
+            this.time = 0;
+            this.resize();
+            this.createParticles();
+            this.bindEvents();
+            this.animate();
+        }
+        resize() {
+            this.w = this.canvas.width = window.innerWidth;
+            this.h = this.canvas.height = window.innerHeight;
+        }
+        createParticles() {
+            const count = Math.min(Math.floor((this.w * this.h) / 12000), 120);
+            this.particles = [];
+            for (let i = 0; i < count; i++) {
+                this.particles.push({
+                    x: Math.random() * this.w,
+                    y: Math.random() * this.h,
+                    size: Math.random() * 2 + 0.5,
+                    speedX: 0, speedY: 0,
+                    life: Math.random(),
+                    hue: Math.random() * 30 + 25 // golden range
+                });
+            }
+        }
+        bindEvents() {
+            window.addEventListener('resize', () => { this.resize(); this.createParticles(); });
+            document.addEventListener('mousemove', (e) => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; });
+            document.addEventListener('mouseleave', () => { this.mouse.x = -1000; this.mouse.y = -1000; });
+        }
+        animate() {
+            this.time += 0.003;
+            this.ctx.clearRect(0, 0, this.w, this.h);
+
+            for (const p of this.particles) {
+                const nx = this.simplex.noise(p.x * 0.002, this.time) * 0.4;
+                const ny = this.simplex.noise(p.y * 0.002, this.time + 100) * 0.4;
+
+                // Mouse repulsion
+                const dx = p.x - this.mouse.x;
+                const dy = p.y - this.mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    const force = (150 - dist) / 150;
+                    p.speedX += (dx / dist) * force * 0.5;
+                    p.speedY += (dy / dist) * force * 0.5;
+                }
+
+                p.speedX += nx;
+                p.speedY += ny;
+                p.speedX *= 0.95;
+                p.speedY *= 0.95;
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                // Wrap
+                if (p.x < -10) p.x = this.w + 10;
+                if (p.x > this.w + 10) p.x = -10;
+                if (p.y < -10) p.y = this.h + 10;
+                if (p.y > this.h + 10) p.y = -10;
+
+                // Draw
+                p.life += 0.005;
+                const alpha = (Math.sin(p.life * Math.PI * 2) * 0.3 + 0.3) * 0.6;
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                this.ctx.fillStyle = `hsla(${p.hue}, 70%, 55%, ${alpha})`;
+                this.ctx.fill();
+            }
+
+            // Draw subtle connecting lines
+            for (let i = 0; i < this.particles.length; i++) {
+                for (let j = i + 1; j < this.particles.length; j++) {
+                    const a = this.particles[i], b = this.particles[j];
+                    const d = Math.hypot(a.x - b.x, a.y - b.y);
+                    if (d < 100) {
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(a.x, a.y);
+                        this.ctx.lineTo(b.x, b.y);
+                        this.ctx.strokeStyle = `rgba(200, 155, 60, ${(1 - d / 100) * 0.08})`;
+                        this.ctx.lineWidth = 0.5;
+                        this.ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(() => this.animate());
+        }
+    }
+
+    // ============================================================================
+    // 4. KARAOKE TIMING DATA
+    // ============================================================================
+    const KARAOKE_LINES = [
+        { start: 0, end: 6, text: "นี่… ศาสนาตัวจริงของกายมนุษย์เป็นอย่างนี้" },
+        { start: 6, end: 12, text: "เมื่อเป็นพระอรหันต์ขึ้น ก็ต้องไปตรวจกายของตัว" },
+        { start: 12, end: 17, text: "เข้านิพพานแล้ว ต้องไปตรวจกายของตัวอย่างนี้แหละ" },
+        { start: 17, end: 23, text: "ว่าที่สุดอยู่ที่ไหน ต้องไป… ต้องไปถึงที่สุดให้ได้ ต้องไปบอกที่สุดให้ได้" },
+        { start: 23, end: 30, text: "นี่ความจริงเป็นอย่างนี้ เมื่อรู้จักความจริงอย่างนี้แล้วล่ะก็ อย่าไหลเล่อ อย่าเลอะเทอะ" },
+        { start: 30, end: 36, text: "ที่อื่นไม่ใช่ของตัว ให้เอาใจจรดจี้อยู่ในของตัวนี่ อย่าถอยกลับ" },
+        { start: 36, end: 41, text: "ให้เข้า… ให้เข้าไปถึงกายที่สุดของตัวให้ได้" },
+        { start: 41, end: 47, text: "เพราะกายที่สุดของตัวอยู่ที่ไหน เมื่อไปถึงที่สุดของตัวได้แล้วล่ะก็" },
+        { start: 47, end: 53, text: "ทีนี้ตัวก็รักษาตัวได้ทีเดียว เป็นอิสระ ไม่มีใครมาบังคับบัญชา" },
+        { start: 53, end: 59, text: "ถ้าว่ายังไม่ถึงที่สุดของตัวแล้วล่ะก็ อย่าหมายเลย" },
+        { start: 59, end: 65, text: "เขาจะต้องบังคับบัญชาแกท่าเดียวเท่านั้นแหละ แกจะต้องเป็นบ่าวเป็นทาสเขา" },
+        { start: 65, end: 72, text: "เวลานี้พญามารเขาบังคับ ใช้เป็นบ่าวเป็นทาส ให้ทำอะไรทำได้" },
+        { start: 72, end: 78, text: "ให้ด่า ให้ตี ให้ชก ให้ฆ่า ให้ฟันกันได้" },
+        { start: 78, end: 85, text: "บังคับได้อย่างนี้นะ ให้เป็นบ่าวเป็นทาสเขา ให้เลวทรามต่ำช้า" },
+        { start: 85, end: 91, text: "ให้เป็นคนจนอนาถา ติดขัดทุกสิ่งทุกอย่าง" },
+        { start: 91, end: 97, text: "เครื่องกินเครื่องใช้ขาดตกบกพร่อง" },
+        { start: 97, end: 104, text: "เครื่องกินเครื่องใช้มากมีมูลมอง เครื่องใช้ไม้สอยก็มี ทำได้ มารเขาทำได้ บังคับได้" },
+        { start: 104, end: 111, text: "เมื่อเป็นเช่นนี้ เพราะตัวไม่เป็นอิสระในตัว เพราะตัวไม่เป็นใหญ่ในตัว" },
+        { start: 111, end: 116, text: "เพราะตัวไม่รู้จักที่สุดของตัว" },
+        { start: 116, end: 122, text: "นี่… มนุษย์โง่ขนาดนี้เห็นไหมล่ะ ไม่ใช่มนุษย์โง่เท่านั้น" },
+        { start: 122, end: 129, text: "พระพุทธเจ้า พระอรหันต์ ถ้าใครไป… ถ้าใครยังไปไม่ถึงที่สุดเหมือนกัน" },
+        { start: 129, end: 135, text: "ถ้าใครยังไปไม่ถึงที่สุด ก็ยังไม่ฉลาดเต็มที่" },
+        { start: 135, end: 143, text: "ต่อเมื่อใดไปถึงที่สุด กายของตัวไม่มีที่สุดต่อไปแล้ว นั่น… ฉลาดเต็มที่แล้ว" },
+        { start: 143, end: 149, text: "ตัวของตัวเองเป็นที่พึ่งแก่ตัวเองได้แล้ว" },
+        { start: 149, end: 156, text: "นี่เป็นข้อสำคัญอย่างนี้นะ นี่เจอพุทธศาสนา นี่แหละเป้าหมายใจดำ" },
+        { start: 156, end: 162, text: "อย่าไปทำแง่อื่น อย่าไปหลงเล่อ อย่าไปหลงเลอะเทอะไหลเล่อ" },
+        { start: 162, end: 168, text: "เอ้า… ต่างว่ามีครอบครัวแล้ว เราได้อะไรบ้างล่ะ" },
+        { start: 168, end: 174, text: "เลี้ยงลูกคนหนึ่ง เราเกิดเอามาทำไมล่ะ เอามาเลี้ยง" },
+        { start: 174, end: 181, text: "ได้ 10 คนเอ้า เอาไปเลี้ยงยังไงก็เลี้ยงไป บ่นโอ๊กแล้วถ้าได้ 10 คนนั่นนะ" },
+        { start: 181, end: 187, text: "เอ้า ได้ 50 คนเอ้า เอาล่ะสิคราวนี้ รกเปะปะไปล่ะสิ" },
+        { start: 187, end: 193, text: "เอ้า อยากได้ลูก ยังไงล่ะ" },
+        { start: 193, end: 200, text: "ไม่จริง เหลว โกงตัวเอง โกงตัวเอง… พาให้เลอะเลือนเสีย" },
+        { start: 200, end: 207, text: "ไม่ให้… ไม่ให้เข้าไปค้นกายของตัวให้ถึงที่สุด" },
+        { start: 207, end: 213, text: "ไม่ให้ตรวจตัวถึงที่สุด เป็นมนุษย์กับเขาทั้งที" },
+        { start: 213, end: 220, text: "เพราะเชื่อ… กิเลสเหลวไหลเหล่านี้นี่แหละ พาให้เลอะเลือน" },
+        { start: 220, end: 228, text: "จะครองเรือนไปสักกี่ร้อยปีก็ครองไปเถิด มันงานเรื่องของคนอื่นเขาทั้งนั้น" },
+        { start: 228, end: 234, text: "เรื่องของพญามารทั้งนั้น ไม่ใช่เรื่องของตัว ไม่ใช่งานของตัว" },
+        { start: 234, end: 241, text: "ไปทำงานให้พญามารเขาทั้งวันทั้งคืน เอาเรื่องอะไรไม่ได้" },
+        { start: 241, end: 246, text: "เพราะอะไรล่ะ เพราะไม่รู้อิโหน่อิเหน่" },
+        { start: 246, end: 252, text: "เกิดมาภพยังไงก็ไปอย่างงั้นแหละ" },
+        { start: 252, end: 258, text: "เพราะไม่ได้ฟังธรรมพระพุทธเจ้า พระอรหันต์" },
+        { start: 258, end: 264, text: "ไม่ได้ฝึกใจในธรรมพระพุทธเจ้า พระอรหันต์" },
+        { start: 264, end: 271, text: "ไม่ได้ฟังธรรมของสัปปุรุษ ไม่ได้ฝึกฝนใจในธรรมของสัปปุรุษ" },
+        { start: 271, end: 277, text: "ความเห็นก็พิรุธเหลวไหลไปดังนี้" },
+        { start: 277, end: 286, text: "เมื่อรู้จักหลักอันนี้แล้ว นี่แหละเป็นความจริงทางพระพุทธศาสนาตัวจริงทีเดียว" },
+    ];
+
+    // ============================================================================
+    // 5. TEACHING DATA
+    // ============================================================================
+    const TEACHINGS = [
+        {
+            titleEN: "Dhammakaya Within",
+            titleTH: "ธรรมกายภายใน",
+            badgeClass: "badge-gold",
+            badgeEN: "Core",
+            badgeTH: "หลักสำคัญ",
+            descEN: "Every being possesses the body of Dhamma (ธรรมกาย) within. Through meditation, one can directly perceive this luminous inner reality — the true self beyond all conditioned phenomena.",
+            descTH: "สรรพสัตว์ทุกตนล้วนมีธรรมกายอยู่ภายใน ผ่านการเจริญสมาธิภาวนา ผู้ปฏิบัติสามารถประจักษ์แจ้งสภาวธรรมอันสว่างไสวภายในนี้ได้โดยตรง",
+            detail: "Luang Por Sod taught that within the center of every human body lies a succession of ever-subtler bodies: the human body, the celestial body, the Brahma body, the Arupa-Brahma body, and the Dhammakaya. By focusing the mind at the center of the body — the seventh base — one can access these layers and ultimately reach the Dhammakaya, which is the true refuge."
+        },
+        {
+            titleEN: "Reaching the Ultimate",
+            titleTH: "ถึงที่สุดของตัว",
+            badgeClass: "badge-saffron",
+            badgeEN: "Practice",
+            badgeTH: "การปฏิบัติ",
+            descEN: "One must penetrate to the 'ultimate point' of one's being. Only then can one become truly free — master of oneself, beyond the control of Mara and all defilements.",
+            descTH: "ต้องเข้าไปถึง 'ที่สุดของตัว' ให้ได้ เมื่อนั้นจึงจะเป็นอิสระอย่างแท้จริง เป็นใหญ่ในตัวเอง พ้นจากอำนาจของมารและกิเลสทั้งปวง",
+            detail: "In the discourse, Luang Por Sod emphasizes: 'When you reach the ultimate point of yourself, you can protect yourself completely. You become sovereign — no one can command you.' This teaching underscores that liberation is not theoretical but experiential — it requires going to the very limit of one's inner exploration."
+        },
+        {
+            titleEN: "Freedom from Mara",
+            titleTH: "หลุดพ้นจากพญามาร",
+            badgeClass: "badge-emerald",
+            badgeEN: "Liberation",
+            badgeTH: "วิมุตติ",
+            descEN: "Without knowing oneself fully, one remains enslaved to Mara — compelled to anger, violence, poverty, and suffering. True sovereignty comes from inner knowledge alone.",
+            descTH: "หากยังไม่รู้จักตัวเองอย่างถ่องแท้ ก็ยังเป็นบ่าวเป็นทาสพญามาร ถูกบังคับให้โกรธ รุนแรง ยากจน และทุกข์ ความเป็นอิสระแท้จริงมาจากการรู้จักภายในเท่านั้น",
+            detail: "Luang Por Sod describes vividly how Mara controls those who have not reached the ultimate — forcing them to fight, to be poor, to be base. This is not mere metaphor but describes the actual mechanism of suffering: when one has not discovered one's innermost reality, one is subject to external forces. Only the fully awakened being is truly free."
+        },
+        {
+            titleEN: "The Heart of Buddhism",
+            titleTH: "เป้าหมายใจดำ",
+            badgeClass: "badge-gold",
+            badgeEN: "Essence",
+            badgeTH: "แก่นธรรม",
+            descEN: "The 'bullseye target' of Buddhism is knowing the ultimate point of one's own being. All else — worldly pursuits, family entanglements — are distractions from this central mission.",
+            descTH: "เป้าหมายใจดำของพุทธศาสนาคือการรู้จักที่สุดของตัวเอง สิ่งอื่นทั้งหมด ทั้งเรื่องทางโลกและครอบครัว ล้วนเป็นสิ่งที่ทำให้หลงทางจากภารกิจหลักนี้",
+            detail: "Using direct, sometimes provocative language, Luang Por Sod cuts through spiritual complacency: 'This is the bullseye target — don't go chasing other things, don't get lost and confused.' He challenges practitioners to prioritize inner exploration above all worldly concerns, framing household life as 'working for Mara day and night.'"
+        },
+        {
+            titleEN: "Hearing True Dhamma",
+            titleTH: "การฟังพระสัทธรรม",
+            badgeClass: "badge-saffron",
+            badgeEN: "Foundation",
+            badgeTH: "พื้นฐาน",
+            descEN: "Ignorance persists because beings have never heard the Dhamma of the Buddha and the Arahants, nor trained their minds in the teaching of the wise.",
+            descTH: "ความไม่รู้ยังคงดำรงอยู่เพราะสัตว์ทั้งหลายไม่เคยได้ฟังธรรมของพระพุทธเจ้าและพระอรหันต์ ไม่ได้ฝึกฝนจิตในคำสอนของสัปปุรุษ",
+            detail: "The discourse concludes by attributing ongoing suffering to the lack of contact with authentic Dhamma. Luang Por Sod stresses that both hearing (สุตะ) and training (ภาวนา) are essential — mere intellectual knowledge is insufficient without practical cultivation under proper guidance."
+        },
+        {
+            titleEN: "Self as Refuge",
+            titleTH: "ตนเป็นที่พึ่งแห่งตน",
+            badgeClass: "badge-emerald",
+            badgeEN: "Attainment",
+            badgeTH: "ผลสำเร็จ",
+            descEN: "When one has gone to the ultimate — where the body has no further body beyond it — one is 'fully wise' and becomes one's own true refuge.",
+            descTH: "เมื่อไปถึงที่สุดแล้ว กายไม่มีที่สุดต่อไปอีก ผู้นั้นฉลาดเต็มที่แล้ว ตัวของตัวเองเป็นที่พึ่งแก่ตัวเองได้",
+            detail: "This echoes the Buddha's own teaching: 'Attā hi attano nātho' — oneself is one's own refuge. Luang Por Sod makes this concrete: the refuge is not abstract faith but the lived experience of having penetrated every layer of one's being to the absolute limit. At that point, 'you can take care of yourself completely.'"
+        }
+    ];
+
+    // ============================================================================
+    // 6. D3 NETWORK DATA
+    // ============================================================================
+    const NETWORK_DATA = {
+        nodes: [
+            { id: "lpsod", label: "หลวงพ่อสด", labelEN: "Luang Por Sod", type: "monk", group: 1, size: 28 },
+            { id: "dhammakaya", label: "ธรรมกาย", labelEN: "Dhammakaya", type: "concept", group: 2, size: 22 },
+            { id: "vijja", label: "วิชชา", labelEN: "Vijja (Knowledge)", type: "concept", group: 2, size: 18 },
+            { id: "nibbana", label: "นิพพาน", labelEN: "Nibbana", type: "concept", group: 2, size: 20 },
+            { id: "watpaknam", label: "วัดปากน้ำ", labelEN: "Wat Paknam", type: "temple", group: 3, size: 20 },
+            { id: "meditation", label: "สมาธิภาวนา", labelEN: "Meditation", type: "practice", group: 4, size: 18 },
+            { id: "mara", label: "พญามาร", labelEN: "Mara", type: "concept", group: 5, size: 16 },
+            { id: "freedom", label: "อิสระ", labelEN: "Freedom", type: "concept", group: 2, size: 16 },
+            { id: "center", label: "ศูนย์กลางกาย", labelEN: "Center of Body", type: "practice", group: 4, size: 16 },
+            { id: "pali", label: "บาลีศึกษา", labelEN: "Pali Studies", type: "artifact", group: 3, size: 14 },
+            { id: "refuge", label: "ที่พึ่งแห่งตน", labelEN: "Self-Refuge", type: "concept", group: 2, size: 15 },
+            { id: "kilesa", label: "กิเลส", labelEN: "Defilements", type: "concept", group: 5, size: 14 },
+            { id: "sila", label: "ศีล", labelEN: "Morality", type: "practice", group: 4, size: 14 },
+            { id: "samadhi", label: "สมาธิ", labelEN: "Concentration", type: "practice", group: 4, size: 16 },
+            { id: "panna", label: "ปัญญา", labelEN: "Wisdom", type: "practice", group: 4, size: 16 },
+            { id: "arahant", label: "พระอรหันต์", labelEN: "Arahant", type: "monk", group: 1, size: 15 },
+        ],
+        links: [
+            { source: "lpsod", target: "dhammakaya", strength: 3 },
+            { source: "lpsod", target: "watpaknam", strength: 2 },
+            { source: "lpsod", target: "vijja", strength: 2 },
+            { source: "lpsod", target: "meditation", strength: 2 },
+            { source: "dhammakaya", target: "nibbana", strength: 2 },
+            { source: "dhammakaya", target: "vijja", strength: 2 },
+            { source: "dhammakaya", target: "freedom", strength: 1 },
+            { source: "meditation", target: "center", strength: 2 },
+            { source: "meditation", target: "samadhi", strength: 2 },
+            { source: "center", target: "dhammakaya", strength: 2 },
+            { source: "mara", target: "kilesa", strength: 2 },
+            { source: "freedom", target: "mara", strength: 1 },
+            { source: "freedom", target: "refuge", strength: 2 },
+            { source: "watpaknam", target: "pali", strength: 1 },
+            { source: "watpaknam", target: "meditation", strength: 1 },
+            { source: "sila", target: "samadhi", strength: 1 },
+            { source: "samadhi", target: "panna", strength: 1 },
+            { source: "panna", target: "vijja", strength: 1 },
+            { source: "arahant", target: "nibbana", strength: 2 },
+            { source: "arahant", target: "dhammakaya", strength: 1 },
+            { source: "lpsod", target: "arahant", strength: 1 },
+            { source: "refuge", target: "nibbana", strength: 1 },
+            { source: "kilesa", target: "meditation", strength: 1 },
+        ]
+    };
+
+    // ============================================================================
+    // 7. APP CONTROLLER
+    // ============================================================================
+    const APP = {
+        lang: 'en',
+        audio: null,
+        isPlaying: false,
+        currentLine: -1,
+        animFrame: null,
+
+        init() {
+            // Logo
+            document.getElementById('logo-slot').innerHTML = ICONS.logo;
+
+            // Audio
+            this.audio = document.getElementById('dharmaAudio');
+            this.audio.addEventListener('timeupdate', () => this.updateKaraoke());
+            this.audio.addEventListener('ended', () => this.onAudioEnd());
+            this.audio.addEventListener('loadedmetadata', () => this.updateTimeDisplay());
+
+            // Build UI
+            this.buildKaraokeLines();
+            this.buildTeachingCards();
+            this.initD3Network();
+
+            // Physics
+            new AntigravityEngine();
+
+            // Hide loader
+            setTimeout(() => {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }, 800);
+
+            // Scroll animations
+            this.initScrollObserver();
+        },
+
+        // --- Language ---
+        toggleLang() {
+            this.lang = this.lang === 'en' ? 'th' : 'en';
+            document.body.dataset.lang = this.lang;
+            // Update D3 labels
+            d3.selectAll('.node-label').text(d => this.lang === 'th' ? d.label : d.labelEN);
+        },
+
+        // --- Audio / Karaoke ---
+        toggleAudio() {
+            if (!this.audio) return;
+            if (this.isPlaying) {
+                this.audio.pause();
+                this.isPlaying = false;
+                document.getElementById('playIcon').style.display = 'block';
+                document.getElementById('pauseIcon').style.display = 'none';
+            } else {
+                this.audio.play().catch(e => console.warn('Audio play blocked:', e));
+                this.isPlaying = true;
+                document.getElementById('playIcon').style.display = 'none';
+                document.getElementById('pauseIcon').style.display = 'block';
+            }
+        },
+
+        onAudioEnd() {
+            this.isPlaying = false;
+            document.getElementById('playIcon').style.display = 'block';
+            document.getElementById('pauseIcon').style.display = 'none';
+            this.currentLine = -1;
+            this.highlightLine(-1);
+        },
+
+        seekAudio(e) {
+            if (!this.audio || !this.audio.duration) return;
+            const bar = document.getElementById('progressBar');
+            const rect = bar.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            this.audio.currentTime = pct * this.audio.duration;
+        },
+
+        setSpeed(rate) {
+            if (this.audio) this.audio.playbackRate = rate;
+            document.querySelectorAll('.speed-btn').forEach(b => {
+                b.classList.toggle('active', parseFloat(b.textContent) === rate);
+            });
+        },
+
+        updateKaraoke() {
+            const t = this.audio.currentTime;
+            const dur = this.audio.duration || 1;
+
+            // Progress bar
+            document.getElementById('progressFill').style.width = `${(t / dur) * 100}%`;
+            this.updateTimeDisplay();
+
+            // Find active line
+            let active = -1;
+            for (let i = 0; i < KARAOKE_LINES.length; i++) {
+                if (t >= KARAOKE_LINES[i].start && t < KARAOKE_LINES[i].end) {
+                    active = i;
+                    break;
+                }
+            }
+
+            if (active !== this.currentLine) {
+                this.currentLine = active;
+                this.highlightLine(active);
+            }
+        },
+
+        updateTimeDisplay() {
+            const t = this.audio.currentTime || 0;
+            const d = this.audio.duration || 0;
+            const fmt = (s) => {
+                const m = Math.floor(s / 60);
+                const sec = Math.floor(s % 60);
+                return `${m}:${sec.toString().padStart(2, '0')}`;
+            };
+            document.getElementById('audioTime').textContent = `${fmt(t)} / ${fmt(d)}`;
+        },
+
+        buildKaraokeLines() {
+            const inner = document.getElementById('karaokeInner');
+            inner.innerHTML = KARAOKE_LINES.map((line, i) =>
+                `<div class="karaoke-line far" data-index="${i}">${line.text}</div>`
+            ).join('');
+        },
+
+        highlightLine(activeIndex) {
+            const lines = document.querySelectorAll('.karaoke-line');
+            const inner = document.getElementById('karaokeInner');
+
+            lines.forEach((el, i) => {
+                el.classList.remove('active', 'past', 'far');
+                if (i === activeIndex) {
+                    el.classList.add('active');
+                } else if (i < activeIndex) {
+                    el.classList.add('past');
+                } else if (Math.abs(i - activeIndex) > 3) {
+                    el.classList.add('far');
+                }
+            });
+
+            // Scroll to center active line
+            if (activeIndex >= 0 && lines[activeIndex]) {
+                const lineEl = lines[activeIndex];
+                const containerH = 300;
+                const lineTop = lineEl.offsetTop;
+                const lineH = lineEl.offsetHeight;
+                const scrollTo = lineTop - (containerH / 2) + (lineH / 2);
+                inner.style.transform = `translateY(${-Math.max(0, scrollTo)}px)`;
+            }
+        },
+
+        // --- Teaching Cards ---
+        buildTeachingCards() {
+            const grid = document.getElementById('teaching-cards');
+            grid.innerHTML = TEACHINGS.map((t, i) => `
+                <div class="glass-panel teaching-card animate-fade-in animate-delay-${Math.min(i+1, 5)}"
+                     onclick="APP.openPanel(${i})">
+                    <span class="badge ${t.badgeClass}" style="margin-bottom:0.75rem">
+                        <span lang="en">${t.badgeEN}</span>
+                        <span lang="th">${t.badgeTH}</span>
+                    </span>
+                    <h4>
+                        <span lang="en">${t.titleEN}</span>
+                        <span lang="th">${t.titleTH}</span>
+                    </h4>
+                    <p>
+                        <span lang="en">${t.descEN}</span>
+                        <span lang="th">${t.descTH}</span>
+                    </p>
+                </div>
+            `).join('');
+        },
+
+        // --- Panel ---
+        openPanel(index) {
+            const t = TEACHINGS[index];
+            const panel = document.getElementById('slide-panel');
+            const content = document.getElementById('panel-content');
+            content.innerHTML = `
+                <div class="panel-title">${this.lang === 'th' ? t.titleTH : t.titleEN}</div>
+                <div class="panel-body">
+                    <span class="badge ${t.badgeClass}" style="margin-bottom:1rem">
+                        ${this.lang === 'th' ? t.badgeTH : t.badgeEN}
+                    </span>
+                    <p style="margin-top:1rem">${this.lang === 'th' ? t.descTH : t.descEN}</p>
+                    <div style="border-top: 1px solid var(--glass-border); margin: 1.5rem 0; padding-top: 1rem;">
+                        <div class="section-label" style="margin-bottom:0.75rem">DEEPER INSIGHT</div>
+                        <p style="color: var(--text-cream); line-height: 1.9">${t.detail}</p>
+                    </div>
+                </div>
+            `;
+            panel.classList.add('open');
+            document.getElementById('panelBackdrop').classList.add('active');
+        },
+
+        openNodePanel(node) {
+            const panel = document.getElementById('slide-panel');
+            const content = document.getElementById('panel-content');
+
+            const typeLabels = {
+                monk: { en: 'Venerable Person', th: 'พระภิกษุผู้ทรงคุณ' },
+                concept: { en: 'Dharma Concept', th: 'แนวคิดทางธรรม' },
+                temple: { en: 'Sacred Place', th: 'สถานที่ศักดิ์สิทธิ์' },
+                practice: { en: 'Practice Method', th: 'วิธีปฏิบัติ' },
+                artifact: { en: 'Study Area', th: 'สาขาวิชา' }
+            };
+            const typeBadge = {
+                monk: 'badge-saffron', concept: 'badge-gold',
+                temple: 'badge-emerald', practice: 'badge-saffron', artifact: 'badge-gold'
+            };
+
+            const typeInfo = typeLabels[node.type] || { en: 'Node', th: 'จุดเชื่อมต่อ' };
+            content.innerHTML = `
+                <div class="panel-title">${this.lang === 'th' ? node.label : node.labelEN}</div>
+                <span class="badge ${typeBadge[node.type] || 'badge-gold'}" style="margin-bottom:1rem">
+                    ${this.lang === 'th' ? typeInfo.th : typeInfo.en}
+                </span>
+                <div class="panel-body" style="margin-top:1rem">
+                    <p style="color: var(--text-muted)">
+                        ${this.lang === 'th'
+                            ? `"${node.label}" เป็นส่วนสำคัญในเครือข่ายคำสอนของหลวงพ่อสด เชื่อมโยงกับแนวคิดและการปฏิบัติอื่นๆ ในระบบวิชชาธรรมกาย`
+                            : `"${node.labelEN}" is an integral part of Luang Por Sod's teaching network, interconnected with other concepts and practices within the Vijja Dhammakaya system.`
+                        }
+                    </p>
+                    <div style="margin-top:1.5rem; padding-top:1rem; border-top: 1px solid var(--glass-border);">
+                        <div class="section-label" style="margin-bottom:0.5rem">CONNECTIONS</div>
+                        <div id="node-connections"></div>
+                    </div>
+                </div>
+            `;
+
+            // Show connections
+            const connections = NETWORK_DATA.links.filter(l =>
+                l.source.id === node.id || l.target.id === node.id ||
+                l.source === node.id || l.target === node.id
+            );
+            const connDiv = document.getElementById('node-connections');
+            connDiv.innerHTML = connections.map(l => {
+                const otherId = (l.source.id || l.source) === node.id ? (l.target.id || l.target) : (l.source.id || l.source);
+                const otherNode = NETWORK_DATA.nodes.find(n => n.id === otherId);
+                if (!otherNode) return '';
+                return `<div style="padding:0.4rem 0; color:var(--text-cream); font-size:0.9rem;">
+                    → ${this.lang === 'th' ? otherNode.label : otherNode.labelEN}
+                </div>`;
+            }).join('');
+
+            panel.classList.add('open');
+            document.getElementById('panelBackdrop').classList.add('active');
+        },
+
+        closePanel() {
+            document.getElementById('slide-panel').classList.remove('open');
+            document.getElementById('panelBackdrop').classList.remove('active');
+        },
+
+        // --- D3 Network ---
+        initD3Network() {
+            const container = document.getElementById('network-viz');
+            const width = container.clientWidth;
+            const height = container.clientHeight || 500;
+
+            const svg = d3.select('#network-viz')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`);
+
+            // Defs for glow
+            const defs = svg.append('defs');
+            const filter = defs.append('filter').attr('id', 'glow');
+            filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
+            const merge = filter.append('feMerge');
+            merge.append('feMergeNode').attr('in', 'coloredBlur');
+            merge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+            const g = svg.append('g');
+
+            // Zoom
+            const zoom = d3.zoom()
+                .scaleExtent([0.3, 4])
+                .on('zoom', (e) => g.attr('transform', e.transform));
+            svg.call(zoom);
+
+            const colorMap = {
+                monk: '#e8a020',
+                concept: '#c89b3c',
+                temple: '#2d6a4f',
+                practice: '#3b82f6',
+                artifact: '#c8956c'
+            };
+
+            const simulation = d3.forceSimulation(NETWORK_DATA.nodes)
+                .force('link', d3.forceLink(NETWORK_DATA.links).id(d => d.id).distance(d => 120 / (d.strength || 1)))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(d => d.size + 10));
+
+            // Links
+            const link = g.selectAll('.link')
+                .data(NETWORK_DATA.links)
+                .enter().append('line')
+                .attr('stroke', 'rgba(200, 155, 60, 0.15)')
+                .attr('stroke-width', d => (d.strength || 1) * 0.8);
+
+            // Nodes
+            const node = g.selectAll('.node')
+                .data(NETWORK_DATA.nodes)
+                .enter().append('g')
+                .attr('cursor', 'pointer')
+                .attr('filter', 'url(#glow)')
+                .call(d3.drag()
+                    .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+                    .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+                )
+                .on('click', (e, d) => { e.stopPropagation(); APP.openNodePanel(d); });
+
+            // Polymorphic shapes
+            node.each(function(d) {
+                const el = d3.select(this);
+                const color = colorMap[d.type] || '#c89b3c';
+
+                if (d.type === 'monk') {
+                    el.append('circle')
+                        .attr('r', d.size / 2)
+                        .attr('fill', color)
+                        .attr('fill-opacity', 0.2)
+                        .attr('stroke', color)
+                        .attr('stroke-width', 1.5);
+                } else if (d.type === 'temple') {
+                    // Triangle / polygon
+                    const s = d.size / 2;
+                    el.append('polygon')
+                        .attr('points', `0,${-s} ${s*0.87},${s*0.5} ${-s*0.87},${s*0.5}`)
+                        .attr('fill', color)
+                        .attr('fill-opacity', 0.2)
+                        .attr('stroke', color)
+                        .attr('stroke-width', 1.5);
+                } else if (d.type === 'artifact') {
+                    // Diamond
+                    const s = d.size / 2;
+                    el.append('polygon')
+                        .attr('points', `0,${-s} ${s},0 0,${s} ${-s},0`)
+                        .attr('fill', color)
+                        .attr('fill-opacity', 0.2)
+                        .attr('stroke', color)
+                        .attr('stroke-width', 1.5);
+                } else {
+                    // Rounded rect for concepts, practices
+                    const s = d.size;
+                    el.append('rect')
+                        .attr('x', -s/2)
+                        .attr('y', -s/2)
+                        .attr('width', s)
+                        .attr('height', s)
+                        .attr('rx', 4)
+                        .attr('fill', color)
+                        .attr('fill-opacity', 0.2)
+                        .attr('stroke', color)
+                        .attr('stroke-width', 1.5);
+                }
+            });
+
+            // Labels
+            node.append('text')
+                .attr('class', 'node-label')
+                .attr('dy', d => d.size / 2 + 14)
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#f5e6c8')
+                .attr('font-size', '10px')
+                .attr('font-family', "'Sarabun', sans-serif")
+                .text(d => this.lang === 'th' ? d.label : d.labelEN);
+
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+                node.attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+        },
+
+        // --- Scroll Observer ---
+        initScrollObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.style.animationPlayState = 'running';
+                        observer.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+    };
+
+    // ============================================================================
+    // 8. RESILIENT LOADER
+    // ============================================================================
+    function waitForLibs(retries = 0) {
+        if (typeof d3 !== 'undefined' && typeof Chart !== 'undefined') {
+            console.log(`[Sacred Artifact] Ready after ${retries * 100}ms`);
+            APP.init();
+        } else if (retries < 50) {
+            setTimeout(() => waitForLibs(retries + 1), 100);
+        } else {
+            console.warn('[Sacred Artifact] Libraries failed to load');
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => waitForLibs());
+    </script>
+</body>
+</html>
