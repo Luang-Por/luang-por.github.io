@@ -248,6 +248,25 @@
                 text-transform: uppercase;
             }
 
+            .hero-full-figure {
+                width: 100%;
+                max-width: 900px;
+                margin: 2rem auto;
+                padding: 0.8rem;
+                background: rgba(26, 16, 11, 0.82);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                box-shadow: 0 0 40px var(--gold-glow), inset 0 1px 0 rgba(200, 155, 60, 0.08);
+            }
+
+            .hero-full-image {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                display: block;
+                border-radius: 8px;
+            }
+
             .divider {
                 width: 120px;
                 height: 1px;
@@ -404,7 +423,11 @@
                 color: var(--text-dim);
                 transition: all 0.5s var(--ease-sacred);
                 padding: 0.3rem 0;
-                max-width: 700px;
+                max-width: 760px;
+                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
             }
             .karaoke-line.active {
                 color: var(--gold-bright);
@@ -652,7 +675,12 @@
                 font-size: 1rem;
                 line-height: 2;
                 color: var(--text-cream);
-                max-width: 720px;
+                max-width: 1080px;
+                width: 100%;
+                margin: 0 auto;
+                text-align: justify;
+                text-justify: inter-word;
+                hyphens: auto;
             }
             .bio-prose p { margin-bottom: 1.5rem; }
             .bio-prose .highlight {
@@ -835,7 +863,13 @@
                 <span lang="en">WAT PAKNAM BHASICHAROEN · B.E. 2427–2502 · DHAMMAKAYA MEDITATION MASTER</span>
                 <span lang="th">วัดปากน้ำภาษีเจริญ · พ.ศ. ๒๔๒๗–๒๕๐๒ · ผู้ค้นพบวิชชาธรรมกาย</span>
             </div>
-            <div class="divider animate-fade-in animate-delay-4"></div>
+            <figure class="hero-full-figure animate-fade-in animate-delay-4">
+                <img src="http://lunarwisdom.luangpor.com/Firefly_LuangPorSod.png"
+                     alt="Full portrait image of Luang Por Sod Wat Paknam"
+                     class="hero-full-image"
+                     onerror="this.parentElement.style.display='none';">
+            </figure>
+            <div class="divider animate-fade-in animate-delay-5"></div>
         </section>
 
         <!-- BIOGRAPHY -->
@@ -1326,9 +1360,24 @@
 
             // Audio
             this.audio = document.getElementById('dharmaAudio');
-            this.audio.addEventListener('timeupdate', () => this.updateKaraoke());
+            this.audio.addEventListener('timeupdate', () => this.updateKaraoke()); // Fallback sync
+            this.audio.addEventListener('play', () => {
+                this.setPlaybackState(true);
+                this.startKaraokeLoop();
+                this.updateKaraoke();
+            });
+            this.audio.addEventListener('pause', () => {
+                if (!this.audio.ended) {
+                    this.setPlaybackState(false);
+                }
+                this.stopKaraokeLoop();
+                this.updateKaraoke();
+            });
+            this.audio.addEventListener('seeking', () => this.updateKaraoke());
+            this.audio.addEventListener('seeked', () => this.updateKaraoke());
             this.audio.addEventListener('ended', () => this.onAudioEnd());
             this.audio.addEventListener('loadedmetadata', () => this.updateTimeDisplay());
+            this.audio.addEventListener('durationchange', () => this.updateKaraoke());
 
             // Build UI
             this.buildKaraokeLines();
@@ -1358,25 +1407,61 @@
         // --- Audio / Karaoke ---
         toggleAudio() {
             if (!this.audio) return;
-            if (this.isPlaying) {
-                this.audio.pause();
-                this.isPlaying = false;
-                document.getElementById('playIcon').style.display = 'block';
-                document.getElementById('pauseIcon').style.display = 'none';
-            } else {
+            const duration = Number.isFinite(this.audio.duration) ? this.audio.duration : 0;
+
+            if (this.audio.paused || this.audio.ended) {
+                if (duration > 0 && this.audio.currentTime >= duration - 0.05) {
+                    this.audio.currentTime = 0;
+                    this.currentLine = -1;
+                    this.highlightLine(-1);
+                    this.updateKaraoke();
+                }
                 this.audio.play().catch(e => console.warn('Audio play blocked:', e));
-                this.isPlaying = true;
-                document.getElementById('playIcon').style.display = 'none';
-                document.getElementById('pauseIcon').style.display = 'block';
+            } else {
+                this.audio.pause();
             }
         },
 
+        setPlaybackState(playing) {
+            this.isPlaying = playing;
+            document.getElementById('playIcon').style.display = playing ? 'none' : 'block';
+            document.getElementById('pauseIcon').style.display = playing ? 'block' : 'none';
+        },
+
+        startKaraokeLoop() {
+            if (this.animFrame) return;
+            const tick = () => {
+                this.updateKaraoke();
+                if (this.audio && !this.audio.paused && !this.audio.ended) {
+                    this.animFrame = requestAnimationFrame(tick);
+                } else {
+                    this.animFrame = null;
+                }
+            };
+            this.animFrame = requestAnimationFrame(tick);
+        },
+
+        stopKaraokeLoop() {
+            if (!this.animFrame) return;
+            cancelAnimationFrame(this.animFrame);
+            this.animFrame = null;
+        },
+
         onAudioEnd() {
-            this.isPlaying = false;
-            document.getElementById('playIcon').style.display = 'block';
-            document.getElementById('pauseIcon').style.display = 'none';
-            this.currentLine = -1;
-            this.highlightLine(-1);
+            this.stopKaraokeLoop();
+            this.setPlaybackState(false);
+
+            const duration = Number.isFinite(this.audio?.duration) ? this.audio.duration : 0;
+            document.getElementById('progressFill').style.width = '100%';
+            if (duration > 0) {
+                this.updateTimeDisplay(duration, duration);
+            } else {
+                this.updateTimeDisplay();
+            }
+
+            const lastIndex = KARAOKE_LINES.length ? KARAOKE_LINES.length - 1 : -1;
+            this.currentLine = lastIndex;
+            this.highlightLine(lastIndex);
         },
 
         seekAudio(e) {
@@ -1384,7 +1469,9 @@
             const bar = document.getElementById('progressBar');
             const rect = bar.getBoundingClientRect();
             const pct = (e.clientX - rect.left) / rect.width;
-            this.audio.currentTime = pct * this.audio.duration;
+            const clampedPct = Math.min(1, Math.max(0, pct));
+            this.audio.currentTime = clampedPct * this.audio.duration;
+            this.updateKaraoke();
         },
 
         setSpeed(rate) {
@@ -1395,21 +1482,21 @@
         },
 
         updateKaraoke() {
-            const t = this.audio.currentTime;
-            const dur = this.audio.duration || 1;
+            if (!this.audio) return;
+            const rawTime = Number.isFinite(this.audio.currentTime) ? this.audio.currentTime : 0;
+            const duration = Number.isFinite(this.audio.duration) ? this.audio.duration : 0;
+            const isEnded = this.audio.ended && duration > 0;
+            const t = isEnded ? duration : (duration > 0 ? Math.min(rawTime, duration) : rawTime);
+            const progressPct = isEnded
+                ? 100
+                : (duration > 0 ? Math.min(100, Math.max(0, (t / duration) * 100)) : 0);
 
             // Progress bar
-            document.getElementById('progressFill').style.width = `${(t / dur) * 100}%`;
-            this.updateTimeDisplay();
+            document.getElementById('progressFill').style.width = `${progressPct}%`;
+            this.updateTimeDisplay(t, duration);
 
             // Find active line
-            let active = -1;
-            for (let i = 0; i < KARAOKE_LINES.length; i++) {
-                if (t >= KARAOKE_LINES[i].start && t < KARAOKE_LINES[i].end) {
-                    active = i;
-                    break;
-                }
-            }
+            const active = this.getActiveLineIndex(t);
 
             if (active !== this.currentLine) {
                 this.currentLine = active;
@@ -1417,9 +1504,24 @@
             }
         },
 
-        updateTimeDisplay() {
-            const t = this.audio.currentTime || 0;
-            const d = this.audio.duration || 0;
+        getActiveLineIndex(timeSeconds) {
+            if (!KARAOKE_LINES.length) return -1;
+            if (!this.isPlaying && timeSeconds <= 0.05 && this.currentLine < 0) return -1;
+
+            for (let i = 0; i < KARAOKE_LINES.length; i++) {
+                if (timeSeconds >= KARAOKE_LINES[i].start && timeSeconds < KARAOKE_LINES[i].end) {
+                    return i;
+                }
+            }
+
+            const lastIndex = KARAOKE_LINES.length - 1;
+            if (timeSeconds >= KARAOKE_LINES[lastIndex].start) return lastIndex;
+            return -1;
+        },
+
+        updateTimeDisplay(currentTime = this.audio?.currentTime || 0, duration = this.audio?.duration || 0) {
+            const t = Number.isFinite(currentTime) ? Math.max(0, currentTime) : 0;
+            const d = Number.isFinite(duration) ? Math.max(0, duration) : 0;
             const fmt = (s) => {
                 const m = Math.floor(s / 60);
                 const sec = Math.floor(s % 60);
