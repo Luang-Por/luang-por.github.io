@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วิเคราะห์พุทธคุณวัตถุมงคลหลวงพ่อคง วัดบางกะพ้อม</title>
+
+  <!-- Essential CDN Libraries -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: 'hsl(20, 95%, 95%)',
+              100: 'hsl(20, 95%, 85%)',
+              200: 'hsl(20, 95%, 75%)',
+              300: 'hsl(20, 95%, 65%)',
+              400: 'hsl(20, 95%, 55%)',
+              500: 'hsl(20, 90%, 50%)',
+              600: 'hsl(20, 90%, 45%)',
+              700: 'hsl(20, 90%, 35%)',
+              800: 'hsl(20, 90%, 25%)',
+              900: 'hsl(20, 90%, 15%)'
+            },
+            accent: {
+              50: 'hsl(35, 85%, 95%)',
+              100: 'hsl(35, 85%, 85%)',
+              200: 'hsl(35, 85%, 75%)',
+              300: 'hsl(35, 85%, 65%)',
+              400: 'hsl(35, 85%, 60%)',
+              500: 'hsl(35, 80%, 55%)',
+              600: 'hsl(35, 80%, 50%)',
+              700: 'hsl(35, 80%, 40%)',
+              800: 'hsl(35, 80%, 30%)',
+              900: 'hsl(35, 80%, 20%)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Preline UI Components -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.js"></script>
+
+  <!-- Micro-interactions & Custom Styles -->
+  <style>
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    .btn-interactive {
+      transition: all 0.2s ease-out;
+    }
+    
+    .btn-interactive:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .btn-interactive:active {
+      transform: scale(0.95);
+    }
+
+    .card-interactive {
+      transition: all 0.3s ease-out;
+      border: 1px solid transparent;
+      --border-lightness: 40%;
+    }
+
+    .dark .card-interactive {
+      --border-lightness: 60%;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      filter: brightness(0.98);
+    }
+    
+    /* Primary colored cards */
+    .card-interactive[class*="primary"]:hover,
+    .card-interactive[class*="white"]:hover,
+    .card-interactive[class*="gray-"]:hover {
+      border-color: hsl(20, 90%, var(--border-lightness));
+    }
+    
+    /* Accent colored cards */
+    .card-interactive[class*="accent"]:hover {
+      border-color: hsl(35, 80%, var(--border-lightness));
+    }
+
+    .dark .card-interactive:hover {
+      filter: brightness(1.05);
+    }
+  </style>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      document.getElementById('sunIcon').style.display = isDark ? 'block' : 'none';
+      document.getElementById('moonIcon').style.display = isDark ? 'none' : 'block';
+    }
+  </script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <!-- Citation System Script -->
+  <script>
+    function initCitationSystem() {
+      let i = 1, map = new Map();
+      document.querySelectorAll('[data-ref]').forEach(el => {
+        if (el.dataset.citationProcessed) return;
+        const raw = (el.getAttribute('data-ref')||'').trim();
+        if (!raw) return;
+
+        const parts = raw.split('|');
+        const url = parts[0].trim();
+        const idx = (parts[1]||'').trim() || map.get(raw) || (map.set(raw, String(i)), String(i++));
+
+        if (!el.textContent || !el.textContent.trim()) { el.dataset.citationProcessed = 'true'; return; }
+
+        const btn = document.createElement('sup'); btn.textContent = String(idx);
+        Object.assign(btn.style, { fontSize:'8px', color:'#fff', cursor:'pointer', top: '1px', fontWeight:'bold', backgroundColor:'#ea580c', borderRadius:'50%', transition:'all .15s', userSelect:'none', minWidth:'19px', height:'19px', marginLeft:'6px', display:'inline-flex', alignItems:'center', justifyContent:'center', boxShadow:'0 1px 3px rgba(0,0,0,.2)', lineHeight:'1'});
+        btn.addEventListener('mouseenter', ()=> Object.assign(btn.style, { backgroundColor:'#c2410c', transform:'scale(1.12)' }));
+        btn.addEventListener('mouseleave', ()=> Object.assign(btn.style, { backgroundColor:'#ea580c', transform:'scale(1)' }));
+        btn.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); window.open(url, '_blank'); });
+
+        el.appendChild(btn); el.dataset.citationProcessed = 'true';
+      });
+    }
+  </script>
+
+  <!-- Progress Bar -->
+  <div class="fixed top-0 left-0 h-1 bg-primary-500 dark:bg-primary-400 z-[60] transition-all duration-300 ease-out" id="progressBar"></div>
+
+  <!-- Floating Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-gray-50/90 dark:bg-gray-900/90 border-b border-primary-500/20 dark:border-primary-600/20">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <h1 class="text-xl font-bold text-primary-700 dark:text-primary-300">วิเคราะห์พุทธคุณวัตถุมงคลหลวงพ่อคง</h1>
+        
+        <nav class="hidden md:flex items-center space-x-6">
+          <a href="#home" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">หน้าแรก</a>
+          <a href="#overview" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">ภาพรวม</a>
+          <a href="#power" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">พลัง</a>
+          <a href="#amulets" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">วัตถุมงคล</a>
+          <a href="#strength" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">ความแรง</a>
+          <a href="#experiences" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">ประสบการณ์</a>
+          <a href="#conclusion" class="btn-interactive text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">สรุป</a>
+        </nav>
+
+        <button onclick="toggleDarkMode()" class="btn-interactive p-2 rounded-lg bg-primary-100 dark:bg-primary-800 text-primary-600 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-700 transition-all">
+          <i data-lucide="sun" id="sunIcon" class="w-5 h-5" style="display:none;"></i>
+          <i data-lucide="moon" id="moonIcon" class="w-5 h-5" style="display:block;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section id="home" class="py-40 bg-primary-50/50 dark:bg-gray-900" data-aos="fade-up">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center space-y-6">
+          <h2 class="text-4xl md:text-5xl font-bold text-primary-700 dark:text-primary-300">
+            วิเคราะห์พุทธคุณเฉพาะด้านของวัตถุมงคลหลวงพ่อคง วัดบางกะพ้อม
+          </h2>
+          <p class="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            การเปรียบเทียบตะกรุดมหาระงับ ธงมหาระงับ เสื้อยันต์วิรุฬจำบัง ลูกอมมหากัน และเหรียญหลวงพ่อคง โดยเน้นกลไกและลักษณะเฉพาะของพลังในแต่ละสายพุทธคุณ
+          </p>
+          <div class="flex justify-center space-x-4 pt-6">
+            <div class="card-interactive px-6 py-3 bg-white/90 backdrop-blur-sm dark:bg-gray-800 rounded-lg shadow-md">
+              <p class="text-sm text-gray-600 dark:text-gray-400">วัดบางกะพ้อม</p>
+              <p class="text-lg font-semibold text-primary-700 dark:text-primary-300">สมุทรสงคราม</p>
+            </div>
+            <div class="card-interactive px-6 py-3 bg-white/90 backdrop-blur-sm dark:bg-gray-800 rounded-lg shadow-md">
+              <p class="text-sm text-gray-600 dark:text-gray-400">ปีสร้าง</p>
+              <p class="text-lg font-semibold text-primary-700 dark:text-primary-300">พ.ศ. 2484</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-20 bg-white/80 dark:bg-gray-900" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">ภาพรวมวัตถุมงคลและพุทธคุณ</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300">วัตถุมงคลหลักของหลวงพ่อคง</h3>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%AD%E0%B8%A1%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87|77">
+              วัตถุมงคลของหลวงพ่อคงได้แก่ เหรียญรุ่นแรก ปี พ.ศ.๒๔๘๔ และเหรียญหล่ออรุณเทพบุตร เหรียญหล่อหนุมานแบกพระสาวก ลูกอมมหากัน ตะกรุดมหาปราบ ธงมหาระงับ และเสื้อยันต์วิรุฬจำบัง มีพุทธคุณทางด้านแคล้วคลาดปลอดภัยและกำบังตา
+            </p>
+            
+            <div class="pl-4 pr-3 py-3 border-l-4 border-primary-500 bg-primary-50/40 dark:bg-primary-900/30 rounded-r-lg">
+              <p class="text-sm font-medium text-primary-900 dark:text-primary-100 leading-relaxed" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">
+                <i data-lucide="info" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+                ลูกอมมหากันของหลวงพ่อคงท่านสำเร็จวิชานะปัดทะมัง ซึ่งท่านได้ลบผงนะปัดทะมัง นำมาปั้นเป็นลูกอม พุทธคุณลูกอมมหากันของท่าน ดีเด่นทางสารพัดกัน
+              </p>
+            </div>
+          </div>
+          
+          <img
+            src="https://cdn.qwenlm.ai/99885889-08b4-460a-babe-1abb29b54c7b/d1ee4497-73ee-42b7-8dc1-2af1c9e38c0b/ac413574-8076-442f-8461-7d9fe6e76716.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiOTk4ODU4ODktMDhiNC00NjBhLWJhYmUtMWFiYjI5YjU0YzdiIiwicmVzb3VyY2VfaWQiOiJkMWVlNDQ5Ny03M2VlLTQyYjctOGRjMS0yYWYxYzllMzhjMGIiLCJyZXNvdXJjZV9jaGF0X2lkIjpudWxsfQ.UMLlRCqPusXQqxkOV4VPKvGoGhrhwqPgGdILk5sn1bM"
+            alt="ภาพประกอบวัตถุมงคลหลวงพ่อคง วัดบางกะพ้อม บนพื้นผิวไม้สีเข้มแบบไม้สักธรรมชาติ ประกอบด้วยเหรียญหลวงพ่อคงรุ่นแรกเนื้อทองแดงขนาดประมาณ 4 เซนติเมตร มีรูปเหมือนหลวงพ่อคงสลักชัดเจนตรงกลาง ลูกอมมหากันทรงกลมขนาดเล็กสีน้ำตาลอ่อน มีลวดลายยันต์เล็กๆ ปรากฏบนผิวหน้า ตะกรุดมหาปราบทรงยาวขนาด 10 เซนติเมตร ปลายแหลม ผิวโลหะเงินวาว ปักรวมกับเสื้อยันต์วิรุฬจำบังสีขาวสะอาดขนาดพอดีมือ มีลวดลายยันต์สีดำเข้มปรากฏอยู่บนผ้า ทุกวัตถุมงคลมีแสงเงาสะท้อนนุ่มนวลจากมุมขวาบน แสดงรายละเอียดผิววัสดุอย่างชัดเจน มีพื้นหลังเป็นผ้าไหมสีแดงเข้มแบบไทยโบราณ วางเรียงอย่างมีศิลปะ ไม่มีข้อความภาษาอังกฤษหรือตัวเลขใดๆ ปรากฏบนภาพ"
+            class="w-full rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+          />
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="shield" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-accent-700 dark:text-accent-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">เสื้อยันต์วิรุฬจำบัง</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              แคล้วคลาดปลอดภัย และกำบังตาเป็นเลิศ หลวงพ่อคงท่านศึกษาและสร้างเสื้อยันต์วิรุฬจำบัง โดยมีพุทธคุณที่ชัดเจนคือสวมเสื้อยันต์แล้วข้าศึกจะมองไม่เห็นตัว
+            </p>
+          </div>
+
+          <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="zap" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-accent-700 dark:text-accent-300" data-ref="https://www.tiktok.com/@dyxmiymmkv1n/video/7562508481308200212|3">ตะกรุดมหาปราบ</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              อานุภาพของยันต์นี้วิเศษยิ่งนัก เป็นหนึ่งในผู้สร้างเหรียญพระเบญจภาคีอันดับ 1 ของเมืองไทย
+            </p>
+          </div>
+
+          <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="droplet" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-accent-700 dark:text-accent-300" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">ลูกอมมหากัน</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              ดีเด่นทางสารพัดกัน ท่านสำเร็จวิชานะปัดทะมัง ได้ลบผงนะปัดทะมัง นำมาปั้นเป็นลูกอม
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Power Mechanisms Section -->
+    <section id="power" class="py-20 bg-primary-50/50 dark:bg-gray-800" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">กลไกและลักษณะเฉพาะของพลัง</h2>
+        
+        <div class="mb-12">
+          <h3 class="text-2xl font-semibold text-primary-700 dark:text-primary-300 mb-6">คาถาและวิชาอาคม</h3>
+          
+          <div class="space-y-6">
+            <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="book-open" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3" data-ref="https://www.tiktok.com/@piset.pong/video/7329278226008755457|2">คาถาวิรุฬจำบัง</h4>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    คาถาวิรุฬจำบังของหลวงพ่อคงที่ช่วยให้แคล้วคลาดจากศัตรูและอันตรายต่างๆ
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="waves" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3" data-ref="https://www.tiktok.com/@sunamolo88/video/7291663884199496966|32">วิธีใช้คาถาวิรุฬจำบัง</h4>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    ใช้กำลังกายหายตัวเมื่อยามมีภัย ช่วยให้แคล้วคลาดจากศัตรู ก่อนอื่นให้พนมมือท่องนะโมสามจบแล้วบริกรรมคาถา ร้องก็ไม่เจอเดินผ่านก็ไม่เห็น
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="heart" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3" data-ref="https://www.tiktok.com/@piset.pong/video/7285494691846573317|66">คาถามณฑาทิพย์ (คาถาเนื้อหอม)</h4>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    คาถามณฑาทิพย์ (คาถาเนื้อหอม) หลวงพ่อคงวัดบางกะพ้อม สุดยอดคาถาเมตามหาสเน่ห์ ตั้งนะโม 3 จบ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pl-4 pr-3 py-3 border-l-4 border-primary-500 bg-primary-50/40 dark:bg-primary-900/30 rounded-r-lg">
+          <p class="text-sm font-medium text-primary-900 dark:text-primary-100 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%AD%E0%B8%B2%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%AE%E0%B8%87%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B8%A7%E0%B8%B1%E0%B8%A5%E0%B8%A2%E0%B9%8C|57">
+            <i data-lucide="circle-check" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+            หลวงพ่อคง วัดบางกะพ้อม: เด่นในด้าน "แคล้วคลาดปลอดภัยและกำบังตา" ด้วยพุทธานุภาพอันบริสุทธิ์จากหัวใจพระคาถา
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Amulets Section -->
+    <section id="amulets" class="py-20 bg-white/80 dark:bg-gray-900" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">วัตถุมงคลรายละเอียดเฉพาะ</h2>
+        
+        <div class="hs-accordion-group space-y-4">
+          <!-- Accordion Item 1: เสื้อยันต์วิรุฬจำบัง -->
+          <div class="hs-accordion card-interactive bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <button class="hs-accordion-toggle w-full flex justify-between items-center p-5 text-left hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors rounded-xl" id="hs-amulet-1">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="shirt" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <span class="font-semibold text-lg text-primary-700 dark:text-primary-300">เสื้อยันต์วิรุฬจำบัง</span>
+              </div>
+              <i data-lucide="chevron-down" class="hs-accordion-active:rotate-180 transition-transform duration-300 w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+            </button>
+            <div id="hs-collapse-amulet-1" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-amulet-1">
+              <div class="p-6 pt-0 space-y-4">
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+                  แคล้วคลาดปลอดภัย และกำบังตาเป็นเลิศ: หลวงพ่อคงท่านศึกษาและสร้างเสื้อยันต์วิรุฬจำบัง (ที่โด่งดังมากในยุคสงครามอินโดจีน) โดยมีพุทธคุณที่ชัดเจนคือ "สวมเสื้อยันต์แล้วข้าศึกจะมองไม่เห็นตัว" หรือ "ล้อมก็ไม่เห็น"
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@sudklaochannel/video/7456009737293942034|1">
+                  ราคาเริ่มต้น
+                  <span class="mx-1 px-1.5 py-0.5 rounded-md bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 font-semibold text-sm">2,500,000 บาท</span>
+                  พร้อมฟีเจอร์เด็ดๆ และข้อมูลการเช่าพระ!
+                </p>
+                <div class="pl-4 pr-3 py-3 border-l-4 border-amber-500 bg-amber-50/40 dark:bg-amber-900/30 rounded-r-lg">
+                  <p class="text-sm font-medium text-amber-900 dark:text-amber-100 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+                    <i data-lucide="info" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+                    เสื้อยันต์วิรุฬจำบังโด่งดังมากในยุคสงครามอินโดจีน ใช้กำบังตัวจากศัตรูในสนามรบ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 2: ลูกอมมหากัน -->
+          <div class="hs-accordion card-interactive bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <button class="hs-accordion-toggle w-full flex justify-between items-center p-5 text-left hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors rounded-xl" id="hs-amulet-2">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="droplet" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                </div>
+                <span class="font-semibold text-lg text-accent-700 dark:text-accent-300">ลูกอมมหากัน</span>
+              </div>
+              <i data-lucide="chevron-down" class="hs-accordion-active:rotate-180 transition-transform duration-300 w-5 h-5 text-accent-600 dark:text-accent-400"></i>
+            </button>
+            <div id="hs-collapse-amulet-2" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-amulet-2">
+              <div class="p-6 pt-0 space-y-4">
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">
+                  ลูกอมมหากัน หลวงพ่อคง วัดบางกะพ้อม จ.สมุทรสงคราม หลวงพ่อคงท่านสำเร็จวิชานะปัดทะมัง ซึ่งท่านได้ลบผงนะปัดทะมัง นำมาปั้นเป็นลูกอม พุทธคุณลูกอมมหากันของท่าน ดีเด่นทางสารพัดกัน กัน
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@lanlansupsomboon/video/7373998682762464513|4">
+                  ลูกอมมหากัน หลวงพ่อคง วัดบางกะพ้อม ปี 2484 และความสำคัญที่มีในวงการพระเครื่อง
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@pkshop_v1/video/7384408956635991312|6">
+                  ลูกอมหลวงพ่อคงที่ไม่เหนียวน้อยมือใคร ฉบับ 11 ลูกอมที่ใครก็ว่าเหนียวไม่แพ้เกจิไหน
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 3: ตะกรุดมหาปราบ -->
+          <div class="hs-accordion card-interactive bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <button class="hs-accordion-toggle w-full flex justify-between items-center p-5 text-left hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors rounded-xl" id="hs-amulet-3">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="zap" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <span class="font-semibold text-lg text-primary-700 dark:text-primary-300">ตะกรุดมหาปราบ</span>
+              </div>
+              <i data-lucide="chevron-down" class="hs-accordion-active:rotate-180 transition-transform duration-300 w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+            </button>
+            <div id="hs-collapse-amulet-3" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-amulet-3">
+              <div class="p-6 pt-0 space-y-4">
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@dyxmiymmkv1n/video/7562508481308200212|3">
+                  เบญจภาคีตระกรุด "ตะกรุดมหาปราบหลวงพ่อคงวัดบางกะพ้อม หนึ่งในผู้สร้างเหรียญพระเบญจภาคีอันดับ 1 ของเมืองไทย "อานุภาพของยันต์นี้วิเศษยิ่งนัก!!!!!" "ตะกรุดมหาปราบ"
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@goi9878/video/7089824027983760667|41">
+                  ตะกรุดมหาระงับของหลวงพ่อคงที่วัดบางกะพ้อม รู้จักกับตะกรุดมหาระงับและเส้นทางความเชื่อของพระเกจิอาจารย์
+                </p>
+                <div class="pl-4 pr-3 py-3 border-l-4 border-primary-500 bg-primary-50/40 dark:bg-primary-900/30 rounded-r-lg">
+                  <p class="text-sm font-medium text-primary-900 dark:text-primary-100 leading-relaxed" data-ref="https://www.tiktok.com/@watthakhanun/video/7277156616141606150|31">
+                    <i data-lucide="info" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+                    อานุภาพเบี้ยแก้และตะกรุดมหาระงับกับพระครูวิลาศกาญจนธรรม ดร.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 4: เหรียญหลวงพ่อคง -->
+          <div class="hs-accordion card-interactive bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <button class="hs-accordion-toggle w-full flex justify-between items-center p-5 text-left hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors rounded-xl" id="hs-amulet-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="circle" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                </div>
+                <span class="font-semibold text-lg text-accent-700 dark:text-accent-300">เหรียญหลวงพ่อคง</span>
+              </div>
+              <i data-lucide="chevron-down" class="hs-accordion-active:rotate-180 transition-transform duration-300 w-5 h-5 text-accent-600 dark:text-accent-400"></i>
+            </button>
+            <div id="hs-collapse-amulet-4" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-amulet-4">
+              <div class="p-6 pt-0 space-y-4">
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@tonebangkae/video/7410404956064206081|30">
+                  เหรียญหลวงพ่อคง รุ่นแรก วัดบางกะพ้อม สมุทรสงคราม พ.ศ.2484 ซึ่งเป็นเหรียญรุ่นแรกที่มีความเกี่ยวพันกับเนื้อทองแดงและเนื้อหาเชิงประวัติศาสตร์
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@ruksriket/video/7486735110981815570|45">
+                  เหรียญหลักยอดนิยม หลวงพ่อคงวัดบางกะพ้อม ที่มีความเกี่ยวพันกับเนื้อทองแดงและเนื้อหาเชิงประวัติศาสตร์
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@sudklaochannel/video/7456009737293942034|1">
+                  เหรียญหลวงพ่อคงวัดบางกะพ้อมรุ่นแรก ราคาเหรียญหลวงพ่อคง
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 5: ธงมหาระงับ -->
+          <div class="hs-accordion card-interactive bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <button class="hs-accordion-toggle w-full flex justify-between items-center p-5 text-left hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors rounded-xl" id="hs-amulet-5">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="flag" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <span class="font-semibold text-lg text-primary-700 dark:text-primary-300">ธงมหาระงับ</span>
+              </div>
+              <i data-lucide="chevron-down" class="hs-accordion-active:rotate-180 transition-transform duration-300 w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+            </button>
+            <div id="hs-collapse-amulet-5" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-amulet-5">
+              <div class="p-6 pt-0 space-y-4">
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%AD%E0%B8%A1%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87|77">
+                  ธงมหาระงับเป็นหนึ่งในวัตถุมงคลหลักของหลวงพ่อคง มีพุทธคุณทางด้านแคล้วคลาดปลอดภัยและกำบังตา
+                </p>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@monkhlangkhamangwet/video/7188184074371075354|14">
+                  ความเชื่ออย่างที่บอกก็คือ จะป้องกันเหตุเภทภัย ระงับไผ่ ซึ่งเป็นอีกหนึ่งวัตถุมงคลที่ควรจะมีติดตัว
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strength Comparison Section -->
+    <section id="strength" class="py-20 bg-primary-50/50 dark:bg-gray-800" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">ระดับความแรงของพุทธคุณ</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300">การประเมินจากบริบทการใช้งานจริง</h3>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%AD%E0%B8%A1%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87|77">
+              วัตถุมงคลของหลวงพ่อคงมีพุทธคุณทางด้านแคล้วคลาดปลอดภัยและกำบังตา ซึ่งเป็นพุทธคุณที่มีการยืนยันจากประสบการณ์จริงในหลายบริบท
+            </p>
+            
+            <div class="pl-4 pr-3 py-3 border-l-4 border-primary-500 bg-primary-50/40 dark:bg-primary-900/30 rounded-r-lg">
+              <p class="text-sm font-medium text-primary-900 dark:text-primary-100 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+                <i data-lucide="trending-up" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+                เสื้อยันต์วิรุฬจำบังโด่งดังมากในยุคสงครามอินโดจีน แสดงถึงความแรงของพุทธคุณในบริบทสงคราม
+              </p>
+            </div>
+          </div>
+          
+          <img
+            src="https://cdn.qwenlm.ai/99885889-08b4-460a-babe-1abb29b54c7b/d1ee4497-73ee-42b7-8dc1-2af1c9e38c0b/c9e3682d-497f-4c0e-bb6c-b267602c9cf6.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiOTk4ODU4ODktMDhiNC00NjBhLWJhYmUtMWFiYjI5YjU0YzdiIiwicmVzb3VyY2VfaWQiOiJkMWVlNDQ5Ny03M2VlLTQyYjctOGRjMS0yYWYxYzllMzhjMGIiLCJyZXNvdXJjZV9jaGF0X2lkIjpudWxsfQ.UMLlRCqPusXQqxkOV4VPKvGoGhrhwqPgGdILk5sn1bM"
+            alt="ภาพประกอบการประเมินระดับความแรงของพุทธคุณ บนพื้นผิวไม้สีเข้มแบบไม้สักธรรมชาติ ประกอบด้วยสัญลักษณ์ยันต์วิรุฬจำบังขนาดใหญ่สีดำเข้มอยู่ตรงกลาง ล้อมรอบด้วยวงกลม 3 วงแสดงระดับความแรง วงในสุดมีข้อความภาษาไทยเขียนว่า 'สูงมาก' สีขาว วงกลางมีข้อความ 'ปานกลาง' สีขาว วงนอกสุดมีข้อความ 'ต่ำ' สีขาว แต่ละวงมีลวดลายยันต์เล็กๆ ปรากฏอยู่บนเส้นวง ด้านขวามือมีแถบสีสามแถบเรียงกัน แถบบนสุดสีแดงเข้มแสดงระดับสูงสุด แถบกลางสีส้มแสดงระดับปานกลาง แถบล่างสุดสีเหลืองแสดงระดับต่ำ มีลวดลายยันต์เล็กๆ ปรากฏอยู่บนแต่ละแถบ มีพื้นหลังเป็นผ้าไหมสีแดงเข้มแบบไทยโบราณ ไม่มีข้อความภาษาอังกฤษหรือตัวเลขใดๆ ปรากฏบนภาพ"
+            class="w-full rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+          />
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="star" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-primary-700 dark:text-primary-300">เสื้อยันต์วิรุฬจำบัง</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+              ระดับความแรงสูงสุดในบริบทสงครามอินโดจีน สามารถป้องกันศัตรูมองเห็นตัวได้จริง
+            </p>
+          </div>
+
+          <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="star" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-accent-700 dark:text-accent-300">ลูกอมมหากัน</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">
+              ดีเด่นทางสารพัดกัน มีพุทธคุณป้องกันอันตรายได้หลายรูปแบบ
+            </p>
+          </div>
+
+          <div class="card-interactive p-6 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                <i data-lucide="star" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-primary-700 dark:text-primary-300">ตะกรุดมหาปราบ</h4>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@dyxmiymmkv1n/video/7562508481308200212|3">
+              อานุภาพของยันต์นี้วิเศษยิ่งนัก เป็นหนึ่งในผู้สร้างเหรียญพระเบญจภาคีอันดับ 1 ของเมืองไทย
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real Experiences Section -->
+    <section id="experiences" class="py-20 bg-white/80 dark:bg-gray-900" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">ประสบการณ์จริงในการระงับภัย</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300">กรณีพิพาทและความขัดแย้ง</h3>
+            
+            <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="message-square" class="w-5 h-5 text-accent-600 dark:text-accent-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-accent-700 dark:text-accent-300 mb-2" data-ref="https://www.scribd.com/document/651988043/%E0%B8%9A%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B6%E0%B8%81%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9-%E0%B9%80%E0%B8%AA%E0%B8%B7-%E0%B8%AD%E0%B9%81%E0%B8%9E%E0%B8%A3-201-300|11">กรณีถูกใส่ร้ายป้ายสี</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    "จิ่นอี โหว ข้ารู้ว่าเบื้องหลังมีคนกลับผิดเป็นถูก มีคนใส่ร้าย ป้ายสีทำให้ข้ามีราคี แต่ว่าข้าไม่เคยใส่ใจ" แสดงถึงการเผชิญหน้ากับการใส่ร้ายโดยไม่หวาดกลัว
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="shield-alert" class="w-5 h-5 text-accent-600 dark:text-accent-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-accent-700 dark:text-accent-300 mb-2" data-ref="https://www.tiktok.com/@dr.som.hr/video/7555506638694796565|19">กรณีถูกกล่าวหาหมิ่นประมาท</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    5 วิธีโต้แย้งข้อกล่าวหาเรื่องหมิ่นประมาทเพื่อปกป้องชื่อเสียง แสดงถึงความจำเป็นในการมีเครื่องมือป้องกันทางวาจา
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-accent-50/50 dark:bg-accent-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="gavel" class="w-5 h-5 text-accent-600 dark:text-accent-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-accent-700 dark:text-accent-300 mb-2" data-ref="https://www.tiktok.com/@thaitaichannel/video/7605155833961401620|47">กรณีคดีความดูหมิ่นสถาบัน</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    ศาลอาญานัดฟังคำพิพากษาคดีดูหมิ่นสถาบันเบื้องสูง แสดงถึงความเสี่ยงจากการพูดในเรื่องละเอียดอ่อน
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300">คดีอาญาและความรุนแรง</h3>
+            
+            <div class="card-interactive p-6 bg-primary-50/50 dark:bg-primary-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="swords" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-primary-700 dark:text-primary-300 mb-2" data-ref="https://www.tiktok.com/@amarintvhd/video/7571430528109251848|23">กรณีโจรลักมอเตอร์ไซค์</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    การปิดล้อมจับคนร้ายลักขโมยมอเตอร์ไซค์ในระยองที่จนเกิดเหตุยิงปืนขู่ตำรวจ แสดงถึงความเสี่ยงจากผู้ไม่หวังดี
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-primary-50/50 dark:bg-primary-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="crosshair" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-primary-700 dark:text-primary-300 mb-2" data-ref="https://www.tiktok.com/@zag_nattawin/video/7512151792977792276|24">กรณียิงวัยรุ่นในปทุมธานี</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    ชายแต่งชุดไรเดอร์ยิงวัยรุ่นนั่งหน้าบ้าน2คน หนำซ้ำยังตามมายิงหน้า รพ.ดับ แสดงถึงความรุนแรงในสังคมปัจจุบัน
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-interactive p-6 bg-primary-50/50 dark:bg-primary-900/20 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+                  <i data-lucide="file-text" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-base font-semibold text-primary-700 dark:text-primary-300 mb-2" data-ref="https://www.tiktok.com/@ounkamon/video/7533528662403009810|18">กรณีถูกหลอกเป็นกรรมการบริษัทฉ้อโกง</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    โปรแกรมเมอร์ถูกหลอกเป็นกรรมการบริษัทฉ้อโกง แสดงถึงความเสี่ยงจากการถูกกล่าวหาในคดีที่ตนเองไม่ได้ก่อ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pl-4 pr-3 py-3 border-l-4 border-amber-500 bg-amber-50/40 dark:bg-amber-900/30 rounded-r-lg">
+          <p class="text-sm font-medium text-amber-900 dark:text-amber-100 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+            <i data-lucide="alert-triangle" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+            คำเตือน: วัตถุมงคลมีประสิทธิภาพต้องใช้ควบคู่กับศีลธรรมและสติปัญญา ไม่ใช่เครื่องมือหลบเลี่ยงความรับผิดชอบ
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section id="conclusion" class="py-20 bg-primary-50/50 dark:bg-gray-800" data-aos="fade-up">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-primary-700 dark:text-primary-300 text-center">สรุปและข้อสังเกต</h2>
+        
+        <div class="space-y-6">
+          <div class="card-interactive p-8 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300 mb-4">พุทธคุณเฉพาะด้านของวัตถุมงคลหลวงพ่อคง</h3>
+            <div class="space-y-3">
+              <div class="flex items-start space-x-3">
+                <i data-lucide="circle-check" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+                  <strong>เสื้อยันต์วิรุฬจำบัง:</strong> แคล้วคลาดปลอดภัยและกำบังตาเป็นเลิศ โด่งดังมากในยุคสงครามอินโดจีน
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="circle-check" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">
+                  <strong>ลูกอมมหากัน:</strong> ดีเด่นทางสารพัดกัน ท่านสำเร็จวิชานะปัดทะมัง ได้ลบผงนะปัดทะมัง นำมาปั้นเป็นลูกอม
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="circle-check" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@dyxmiymmkv1n/video/7562508481308200212|3">
+                  <strong>ตะกรุดมหาปราบ:</strong> อานุภาพของยันต์นี้วิเศษยิ่งนัก เป็นหนึ่งในผู้สร้างเหรียญพระเบญจภาคีอันดับ 1 ของเมืองไทย
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="circle-check" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@monkhlangkhamangwet/video/7188184074371075354|14">
+                  <strong>ธงมหาระงับ:</strong> ป้องกันเหตุเภทภัย ระงับไผ่ ซึ่งเป็นอีกหนึ่งวัตถุมงคลที่ควรจะมีติดตัว
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-interactive p-8 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <h3 class="text-xl font-semibold text-accent-700 dark:text-accent-300 mb-4">กลไกและลักษณะเฉพาะของพลัง</h3>
+            <div class="space-y-3">
+              <div class="flex items-start space-x-3">
+                <i data-lucide="zap" class="w-5 h-5 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@piset.pong/video/7329278226008755457|2">
+                  คาถาวิรุฬจำบังของหลวงพ่อคงที่ช่วยให้แคล้วคลาดจากศัตรูและอันตรายต่างๆ
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="zap" class="w-5 h-5 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@sunamolo88/video/7291663884199496966|32">
+                  ใช้กำลังกายหายตัวเมื่อยามมีภัย ช่วยให้แคล้วคลาดจากศัตรู ก่อนอื่นให้พนมมือท่องนะโมสามจบแล้วบริกรรมคาถา
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="zap" class="w-5 h-5 text-accent-600 dark:text-accent-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@piset.pong/video/7285494691846573317|66">
+                  คาถามณฑาทิพย์ (คาถาเนื้อหอม) หลวงพ่อคงวัดบางกะพ้อม สุดยอดคาถาเมตามหาสเน่ห์ ตั้งนะโม 3 จบ
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-interactive p-8 bg-white/90 backdrop-blur-sm dark:bg-gray-900 rounded-xl shadow-md">
+            <h3 class="text-xl font-semibold text-primary-700 dark:text-primary-300 mb-4">ระดับความแรงจากประสบการณ์จริง</h3>
+            <div class="space-y-3">
+              <div class="flex items-start space-x-3">
+                <i data-lucide="trending-up" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/discover/%E0%B8%A2%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B8%B8%E0%B8%AC%E0%B8%88%E0%B9%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0%E0%B8%9E%E0%B9%89%E0%B8%AD%E0%B8%A1|33">
+                  เสื้อยันต์วิรุฬจำบังมีระดับความแรงสูงสุดในบริบทสงครามอินโดจีน สามารถป้องกันศัตรูมองเห็นตัวได้จริง
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="trending-up" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@mongkhonklung/video/7279402360521133318?lang=en|21">
+                  ลูกอมมหากันมีพุทธคุณป้องกันอันตรายได้หลายรูปแบบ ดีเด่นทางสารพัดกัน
+                </p>
+              </div>
+              <div class="flex items-start space-x-3">
+                <i data-lucide="trending-up" class="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-gray-700 dark:text-gray-300" data-ref="https://www.tiktok.com/@dyxmiymmkv1n/video/7562508481308200212|3">
+                  ตะกรุดมหาปราบมีอานุภาพของยันต์วิเศษยิ่งนัก เป็นหนึ่งในผู้สร้างเหรียญพระเบญจภาคีอันดับ 1 ของเมืองไทย
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pl-4 pr-3 py-3 border-l-4 border-primary-500 bg-primary-50/40 dark:bg-primary-900/30 rounded-r-lg">
+            <p class="text-sm font-medium text-primary-900 dark:text-primary-100 leading-relaxed" data-ref="https://www.tiktok.com/discover/%E0%B8%AD%E0%B8%B2%E0%B8%88%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%AE%E0%B8%87%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B8%A7%E0%B8%B1%E0%B8%A5%E0%B8%A2%E0%B9%8C|57">
+              <i data-lucide="info" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i>
+              หลวงพ่อคง วัดบางกะพ้อม: เด่นในด้าน "แคล้วคลาดปลอดภัยและกำบังตา" ด้วยพุทธานุภาพอันบริสุทธิ์จากหัวใจพระคาถา
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-primary-900 dark:bg-gray-950 text-gray-300 py-12 border-t border-primary-700 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold text-primary-300 dark:text-primary-400 mb-4">เกี่ยวกับการวิจัย</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            การวิเคราะห์พุทธคุณเฉพาะด้านของวัตถุมงคลหลวงพ่อคง วัดบางกะพ้อม โดยเน้นกลไกและลักษณะเฉพาะของพลังในแต่ละสายพุทธคุณ
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-primary-300 dark:text-primary-400 mb-4">วัตถุมงคลหลัก</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex items-center space-x-2">
+              <i data-lucide="chevron-right" class="w-4 h-4 text-primary-400"></i>
+              <span>เสื้อยันต์วิรุฬจำบัง</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <i data-lucide="chevron-right" class="w-4 h-4 text-primary-400"></i>
+              <span>ลูกอมมหากัน</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <i data-lucide="chevron-right" class="w-4 h-4 text-primary-400"></i>
+              <span>ตะกรุดมหาปราบ</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <i data-lucide="chevron-right" class="w-4 h-4 text-primary-400"></i>
+              <span>เหรียญหลวงพ่อคง</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-primary-300 dark:text-primary-400 mb-4">ข้อมูลเพิ่มเติม</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            วัดบางกะพ้อม จังหวัดสมุทรสงคราม เป็นศูนย์กลางทางวัตถุมงคลที่มีชื่อเสียง มีประวัติศาสตร์ยาวนานตั้งแต่ปี พ.ศ. 2484
+          </p>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-primary-800 dark:border-gray-800 text-center">
+        <p class="text-sm text-gray-500">
+          © 2024 การวิเคราะห์พุทธคุณวัตถุมงคลหลวงพ่อคง วัดบางกะพ้อม | วัตถุประสงค์เพื่อการศึกษาและวิจัย
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Initialize Libraries -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
+
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Progress bar functionality
+      const progressBar = document.getElementById('progressBar');
+      
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+      });
+
+      // Citation system
+      setTimeout(() => {
+        if (window.initCitationSystem) {
+          window.initCitationSystem();
+        } else {
+          console.warn('initCitationSystem function not found');
+        }
+      }, 100);
+
+      // Preline components
+      if (window.HSStaticMethods) {
+        window.HSStaticMethods.autoInit();
+      }
+    });
+  </script>
+</body>
+</html>
+
