@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หลวงพ่อคง วัดบางกะพ้อม: ตำนานวัตถุมงคลและพุทธคุณ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', sans-serif; }
+        .gold-gradient { background: linear-gradient(135deg, #d4af37, #f3e5ab, #aa8c2c); }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 600px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 350px; 
+            max-height: 400px; 
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5f5f4; }
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+        
+        .artifact-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .active-tab { border-bottom: 3px solid #b45309; color: #78350f; font-weight: bold; }
+        .inactive-tab { color: #78716c; }
+    </style>
+    <!-- Chosen Palette: Sacred Gold & Earth (Warm Neutrals, Gold accents, Deep Brown text) -->
+    <!-- Application Structure Plan: 
+         1. Intro: Establish authority and mystical tone.
+         2. Artifact Explorer: Grid of items. Clicking updates the "Analysis" section.
+         3. Power Analysis (Chart): Radar chart comparing "attributes" (Suppression, Evasion, Invulnerability, Charm).
+         4. Deep Dive (Maha Rangap): Specific focus on the "Suppression" aspect with WWII story and "Conflict Resolution" guide.
+         5. Methodology: Explaining the mechanism of power (Mechanism of Action).
+         This structure moves from "What are they?" to "How do they compare?" to "How do they work in specific crises?" -->
+    <!-- Visualization & Content Choices:
+         - Radar Chart: Ideal for comparing multi-dimensional attributes of amulets (e.g., Metta vs. Kong Kraphan).
+         - Interactive Cards: To handle the density of text regarding rankings and history without overwhelming the user.
+         - Timeline/Step View: For the WWII legend to make it engaging.
+         - Comparison Tables: For the direct "Mechanism" comparison requested (Rangap vs. Wirun Chambang).
+         - No SVG/Mermaid: Using CSS shapes and Chart.js canvas only. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-100 text-stone-800">
+
+    <!-- Navbar -->
+    <nav class="bg-stone-900 text-amber-100 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wider">หลวงพ่อคง วัดบางกะพ้อม</h1>
+            <div class="hidden md:flex space-x-6 text-sm">
+                <a href="#artifacts" class="hover:text-amber-400 transition">วัตถุมงคล</a>
+                <a href="#analysis" class="hover:text-amber-400 transition">วิเคราะห์พุทธคุณ</a>
+                <a href="#maharangap" class="hover:text-amber-400 transition">ตำนานมหาระงับ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-stone-800 text-center py-16 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 gold-gradient z-0"></div>
+        <div class="relative z-10 container mx-auto">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-amber-400 mb-4 text-shadow">สุดยอดเบญจภาคีแห่งลุ่มน้ำแม่กลอง</h2>
+            <p class="text-lg md:text-xl text-stone-300 max-w-2xl mx-auto mb-8">
+                เปิดตำนานวัตถุมงคลที่ "หยุด" แม้กระทั่งสงคราม และ "ระงับ" ทุกภัยพาล<br>
+                จากการค้นคว้าสู่บทวิเคราะห์เชิงเปรียบเทียบพุทธคุณอันลึกล้ำ
+            </p>
+            <button onclick="scrollToSection('artifacts')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+                เข้าสู่พิพิธภัณฑ์ข้อมูล
+            </button>
+        </div>
+    </header>
+
+    <!-- Section 1: The Artifacts (Interactive Grid) -->
+    <section id="artifacts" class="py-12 px-4 container mx-auto">
+        <div class="mb-10 text-center">
+            <h3 class="text-3xl font-bold text-stone-800 border-b-4 border-amber-500 inline-block pb-2 mb-4">ทำเนียบวัตถุมงคล</h3>
+            <p class="text-stone-600 max-w-3xl mx-auto">
+                หลวงพ่อคงสร้างวัตถุมงคลไว้หลายชนิด แต่ละชนิดติดอันดับท็อปของประเทศไทย คลิกที่การ์ดเพื่อดูรายละเอียดและเปรียบเทียบค่าพลัง
+            </p>
+        </div>
+
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Takrut -->
+            <div class="artifact-card bg-white p-6 rounded-xl shadow-md border-l-8 border-red-800 cursor-pointer transition" onclick="selectArtifact('takrut')">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">1 ใน 5 เบญจภาคีตะกรุด</div>
+                    <div class="text-2xl">📜</div>
+                </div>
+                <h4 class="text-xl font-bold mb-2">ตะกรุดมหาระงับ</h4>
+                <p class="text-sm text-stone-600 line-clamp-3">สุดยอดเครื่องรางที่หายากที่สุด "ระงับ" เหตุร้าย ดับความร้อนแรง หายตัวได้ จนหลวงพ่อต้องเลิกสร้างเพราะความขลังที่เกินควบคุม</p>
+                <div class="mt-4 text-right text-amber-700 text-sm font-semibold">คลิกเพื่อดูพลัง ></div>
+            </div>
+
+            <!-- Suea Yan -->
+            <div class="artifact-card bg-white p-6 rounded-xl shadow-md border-l-8 border-blue-800 cursor-pointer transition" onclick="selectArtifact('suea')">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">อันดับ 1 เสื้อยันต์เมืองไทย</div>
+                    <div class="text-2xl">👕</div>
+                </div>
+                <h4 class="text-xl font-bold mb-2">เสื้อยันต์วิรุฬจำบัง</h4>
+                <p class="text-sm text-stone-600 line-clamp-3">เน้นพุทธคุณด้านการหายตัว กำบังตา ข้าศึกมองไม่เห็น เป็นเสื้อยันต์อันดับหนึ่งของประเทศที่หาใครเทียบยาก</p>
+                <div class="mt-4 text-right text-amber-700 text-sm font-semibold">คลิกเพื่อดูพลัง ></div>
+            </div>
+
+            <!-- Luk Om -->
+            <div class="artifact-card bg-white p-6 rounded-xl shadow-md border-l-8 border-green-800 cursor-pointer transition" onclick="selectArtifact('lukom')">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">1 ใน 5 เบญจภาคีลูกอม</div>
+                    <div class="text-2xl">🔮</div>
+                </div>
+                <h4 class="text-xl font-bold mb-2">ลูกอมมหากัน</h4>
+                <p class="text-sm text-stone-600 line-clamp-3">โดดเด่นด้านการกันภัยสารพัด "มหากัน" คือกันอาวุธ กันคุณไสย กันอันตราย แคล้วคลาดปลอดภัย</p>
+                <div class="mt-4 text-right text-amber-700 text-sm font-semibold">คลิกเพื่อดูพลัง ></div>
+            </div>
+
+             <!-- Rian -->
+             <div class="artifact-card bg-white p-6 rounded-xl shadow-md border-l-8 border-yellow-600 cursor-pointer transition" onclick="selectArtifact('rian')">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">1 ใน 5 เบญจภาคีเหรียญ</div>
+                    <div class="text-2xl">🥇</div>
+                </div>
+                <h4 class="text-xl font-bold mb-2">เหรียญรุ่นแรก</h4>
+                <p class="text-sm text-stone-600 line-clamp-3">รวมพุทธคุณรอบด้าน มหาอุตม์ คงกระพัน เมตตา เป็นหนึ่งในเหรียญที่แพงและหายากที่สุด</p>
+                <div class="mt-4 text-right text-amber-700 text-sm font-semibold">คลิกเพื่อดูพลัง ></div>
+            </div>
+
+            <!-- Thong (Flag) -->
+            <div class="artifact-card bg-white p-6 rounded-xl shadow-md border-l-8 border-orange-700 cursor-pointer transition" onclick="selectArtifact('thong')">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded">ตำนานเครื่องไฟ</div>
+                    <div class="text-2xl">🚩</div>
+                </div>
+                <h4 class="text-xl font-bold mb-2">ธงมหาระงับ</h4>
+                <p class="text-sm text-stone-600 line-clamp-3">คู่บารมีตะกรุดมหาระงับ ใช้กางคลุมพื้นที่เพื่ออำพรางสายตาและระงับภัยพิบัติทางอากาศ</p>
+                <div class="mt-4 text-right text-amber-700 text-sm font-semibold">คลิกเพื่อดูพลัง ></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Comparative Analysis (Charts & Logic) -->
+    <section id="analysis" class="py-12 bg-white shadow-inner">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- Left Column: The Radar Chart -->
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-6">เปรียบเทียบสมดุลพุทธคุณ (Power Profile)</h3>
+                    <p class="text-stone-600 mb-4 text-sm">
+                        กราฟแสดงความโดดเด่นของพลังในแต่ละด้าน (คะแนนโดยประมาณจากการวิเคราะห์ความเชื่อและประสบการณ์)
+                    </p>
+                    <div class="bg-stone-50 p-4 rounded-xl shadow-lg">
+                        <!-- Chart Container as required -->
+                        <div class="chart-container">
+                            <canvas id="powerRadarChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex flex-wrap gap-2 justify-center">
+                        <button onclick="toggleDataset(0)" class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm border border-red-300 hover:bg-red-200">ตะกรุดมหาระงับ</button>
+                        <button onclick="toggleDataset(1)" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm border border-blue-300 hover:bg-blue-200">เสื้อยันต์วิรุฬจำบัง</button>
+                        <button onclick="toggleDataset(2)" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm border border-green-300 hover:bg-green-200">ลูกอมมหากัน</button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Mechanism of Action (Detail View) -->
+                <div class="w-full lg:w-1/2 flex flex-col">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-6">กลไกการทำงานของพุทธคุณ</h3>
+                    
+                    <div id="mechanism-display" class="bg-stone-100 p-8 rounded-xl border border-stone-200 flex-grow shadow-md transition-all duration-300">
+                        <h4 class="text-xl font-bold text-amber-700 mb-4" id="detail-title">กรุณาเลือกวัตถุมงคลด้านบน</h4>
+                        <p class="text-stone-600 mb-6" id="detail-desc">
+                            คลิกที่การ์ดวัตถุมงคลในส่วน "ทำเนียบวัตถุมงคล" หรือปุ่มใต้กราฟ เพื่อดูรายละเอียดเชิงลึกเกี่ยวกับกลไกการทำงานที่แตกต่างกัน
+                        </p>
+                        
+                        <!-- Dynamic Content Area -->
+                        <div id="detail-content" class="space-y-4 hidden">
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-stone-500">
+                                <span class="font-bold block mb-1">จุดเด่น (Key Strength):</span>
+                                <span id="detail-strength" class="text-stone-700"></span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-stone-500">
+                                <span class="font-bold block mb-1">ลักษณะการทำงาน (Mechanism):</span>
+                                <span id="detail-mechanism" class="text-stone-700"></span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-stone-500">
+                                <span class="font-bold block mb-1">เหมาะสำหรับ (Best For):</span>
+                                <span id="detail-usage" class="text-stone-700"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Maha Rangap Legend (Storytelling) -->
+    <section id="maharangap" class="py-16 bg-stone-900 text-stone-200 relative overflow-hidden">
+        <!-- Decoration circles -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-amber-400 mb-12 text-center text-shadow">ประสบการณ์มหาระงับ: หยุดเหตุร้าย พลิกชะตา</h2>
+
+            <!-- The Legend Timeline -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4 border-b border-stone-600 pb-2">ตำนานเครื่องไฟท้าทายเครื่องบินญี่ปุ่น</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center font-bold text-amber-400">1</div>
+                            <div>
+                                <h4 class="font-bold text-lg">งานศพหลวงพ่อคง</h4>
+                                <p class="text-stone-400 text-sm">ในช่วงสงครามโลกครั้งที่ 2 กองทัพญี่ปุ่นส่งเครื่องบินทิ้งระเบิดทั่วไทย งานศพหลวงพ่อจัดขึ้นอย่างยิ่งใหญ่</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-stone-700 rounded-full flex items-center justify-center font-bold text-amber-400">2</div>
+                            <div>
+                                <h4 class="font-bold text-lg">เย้ยฟ้าท้าดิน</h4>
+                                <p class="text-stone-400 text-sm">ลูกศิษย์นำ <span class="text-amber-300">ธงและตะกรุดมหาระงับ</span> ขึ้นติดยอดเมรุ แล้วเปิดไฟสว่างไสวไม่เกรงกลัวระเบิด</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center font-bold text-white">3</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-300">การอำพรางตาที่ยิ่งใหญ่</h4>
+                                <p class="text-stone-400 text-sm">เครื่องบินญี่ปุ่นบินผ่านไปโดย "มองไม่เห็น" แสงไฟหรือเป้าหมาย ราวกับพื้นที่นั้นว่างเปล่า นี่คืออานุภาพแห่งการระงับภัย</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The "Why it works" Box -->
+                <div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 shadow-2xl">
+                    <h3 class="text-xl font-bold text-amber-400 mb-6 flex items-center gap-2">
+                        <span>⚖️</span> การระงับคดีความและเหตุร้าย
+                    </h3>
+                    <p class="text-stone-300 mb-4 leading-relaxed">
+                        ตะกรุดมหาระงับ ไม่ใช่เพียงแค่คงกระพัน แต่หัวใจคือ <span class="text-amber-200 font-semibold">"การทำให้เหตุร้ายสงบลง"</span> 
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="bg-stone-700/50 p-3 rounded hover:bg-stone-700 transition cursor-default">
+                            <span class="text-red-400 font-bold mr-2">ปัญหา:</span> 
+                            โดนใส่ร้ายป้ายสี เป็นแพะรับบาป
+                            <br>
+                            <span class="text-green-400 font-bold mr-2">ผลลัพธ์:</span>
+                            เรื่องเงียบหาย ศัตรูกลับใจ หรือหลักฐานเท็จเสื่อมสภาพ
+                        </li>
+                        <li class="bg-stone-700/50 p-3 rounded hover:bg-stone-700 transition cursor-default">
+                            <span class="text-red-400 font-bold mr-2">ปัญหา:</span> 
+                            ทะเลาะเบาะแว้ง วาจารุนแรง
+                            <br>
+                            <span class="text-green-400 font-bold mr-2">ผลลัพธ์:</span>
+                            ระงับโทสะ ดับความร้อนใจของคู่กรณี ให้สถานการณ์คลี่คลาย
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-amber-900/30 border border-amber-900/50 rounded text-center text-sm text-amber-200 italic">
+                        "หลวงพ่อท่านถึงกับต้องนำไปทิ้งน้ำ เพราะเมื่อคนพาลนำไปใช้แล้วระงับได้ทุกอย่าง ตำรวจจับไม่ได้ จึงกลายเป็นดาบสองคม"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-500 py-8 text-center text-sm">
+        <div class="container mx-auto">
+            <p>วิเคราะห์และเรียบเรียงจากข้อมูลประวัติหลวงพ่อคง วัดบางกะพ้อม</p>
+            <p class="mt-2 text-xs opacity-50">© 2024 Interactive Archive Project</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Store
+        const artifactData = {
+            'takrut': {
+                name: 'ตะกรุดมหาระงับ (Takrut Maha Rangap)',
+                color: 'text-red-800',
+                borderColor: 'border-red-800',
+                strength: 'การระงับเหตุร้าย, การดับความร้อนแรง, การหายตัว (Stealth/Suppression)',
+                mechanism: 'ทำงานโดยการ "กด" หรือ "ดับ" ต้นเหตุแห่งภัย (ดับไฟ) ทำให้ศัตรูมองไม่เห็น (อำพราง) หรือทำให้จิตใจที่คิดร้ายสงบลง เปลี่ยนจากหนักเป็นเบา',
+                usage: 'ใช้เมื่อมีคดีความ, ถูกปองร้าย, ต้องการความสงบจากศัตรู, หรือสถานการณ์คับขันที่ต้องการการหลบหนี'
+            },
+            'suea': {
+                name: 'เสื้อยันต์วิรุฬจำบัง (Suea Yan Wirun Chambang)',
+                color: 'text-blue-800',
+                borderColor: 'border-blue-800',
+                strength: 'การกำบังตา, แคล้วคลาด (Evasion/Cloaking)',
+                mechanism: 'เน้นไปที่การ "หลบหลีก" และ "พรางตา" อย่างสมบูรณ์แบบ (Active Camouflage) ศัตรูอาจยืนอยู่ตรงหน้าแต่มองไม่เห็น',
+                usage: 'การเข้าหาข้าศึก, การเดินทางในพื้นที่เสี่ยงภัย, การหลบหนีจากการไล่ล่า'
+            },
+            'lukom': {
+                name: 'ลูกอมมหากัน (Luk Om Maha Kan)',
+                color: 'text-green-800',
+                borderColor: 'border-green-800',
+                strength: 'คุ้มครองป้องกันภัยรอบด้าน (General Protection)',
+                mechanism: 'เปรียบเสมือนเกราะ (Shield) ที่คอยกันไม่ให้สิ่งไม่ดีเข้าตัว กันอาวุธ กันคุณไสย กันยาพิษ',
+                usage: 'พกติดตัวในชีวิตประจำวัน เพื่อความอุ่นใจและป้องกันภัยที่ไม่คาดคิด'
+            },
+            'rian': {
+                name: 'เหรียญรุ่นแรก (Rian)',
+                color: 'text-yellow-800',
+                borderColor: 'border-yellow-600',
+                strength: 'ครอบจักรวาล (Universal Power)',
+                mechanism: 'รวมบารมีทั้งหมดของหลวงพ่อ ทั้งเมตตา มหาอุตม์ และคงกระพัน เป็นตัวแทนของหลวงพ่อในการอำนวยพร',
+                usage: 'การปกครองคน, การเลื่อนยศตำแหน่ง, และการคุ้มครองทั่วไป'
+            },
+            'thong': {
+                name: 'ธงมหาระงับ (Thong Maha Rangap)',
+                color: 'text-orange-800',
+                borderColor: 'border-orange-700',
+                strength: 'คุ้มครองพื้นที่ (Area Protection)',
+                mechanism: 'ขยายอาณาเขตของตะกรุดมหาระงับ ใช้กางเพื่อคลุมพื้นที่บ้าน หรือสถานที่จัดงาน ให้รอดพ้นจากภัยพิบัติ',
+                usage: 'ป้องกันบ้านเรือน, ป้องกันสถานที่จากภัยธรรมชาติหรือสงคราม'
+            }
+        };
+
+        // Scroll Helper
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Interaction: Select Artifact
+        function selectArtifact(key) {
+            const data = artifactData[key];
+            const display = document.getElementById('mechanism-display');
+            const content = document.getElementById('detail-content');
+            
+            // Update Text
+            document.getElementById('detail-title').innerText = data.name;
+            document.getElementById('detail-title').className = `text-2xl font-bold mb-4 ${data.color}`;
+            document.getElementById('detail-desc').innerText = ''; // Clear instruction text
+            
+            document.getElementById('detail-strength').innerText = data.strength;
+            document.getElementById('detail-mechanism').innerText = data.mechanism;
+            document.getElementById('detail-usage').innerText = data.usage;
+
+            // Show Content
+            content.classList.remove('hidden');
+            
+            // Highlight Logic (Visual feedback on selection)
+            display.className = `p-8 rounded-xl border-l-8 bg-white shadow-xl transition-all duration-300 ${data.borderColor}`;
+
+            // Optional: Scroll to analysis on mobile
+            if (window.innerWidth < 1024) {
+                scrollToSection('analysis');
+            }
+        }
+
+        // Chart Configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('powerRadarChart').getContext('2d');
+            
+            const data = {
+                labels: [
+                    'มหาระงับ (Suppression)', 
+                    'แคล้วคลาด (Evasion)', 
+                    'คงกระพัน (Invulnerability)', 
+                    'เมตตา/อำนาจ (Authority)', 
+                    'ป้องกันคุณไสย (Anti-Black Magic)'
+                ],
+                datasets: [
+                    {
+                        label: 'ตะกรุดมหาระงับ',
+                        data: [10, 9, 7, 6, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(220, 38, 38, 0.2)',
+                        borderColor: 'rgb(220, 38, 38)',
+                        pointBackgroundColor: 'rgb(220, 38, 38)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(220, 38, 38)',
+                        hidden: false
+                    },
+                    {
+                        label: 'เสื้อยันต์วิรุฬจำบัง',
+                        data: [5, 10, 6, 5, 5],
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderColor: 'rgb(37, 99, 235)',
+                        pointBackgroundColor: 'rgb(37, 99, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(37, 99, 235)',
+                        hidden: false
+                    },
+                    {
+                        label: 'ลูกอมมหากัน',
+                        data: [6, 7, 9, 5, 9],
+                        fill: true,
+                        backgroundColor: 'rgba(22, 163, 74, 0.2)',
+                        borderColor: 'rgb(22, 163, 74)',
+                        pointBackgroundColor: 'rgb(22, 163, 74)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(22, 163, 74)',
+                        hidden: false
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e5e7eb' },
+                            grid: { color: '#e5e7eb' },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    family: "'Sarabun', sans-serif",
+                                    weight: 'bold'
+                                },
+                                color: '#44403c'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: { display: false } // Hide numbers for cleaner look
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Sarabun', sans-serif" },
+                                color: '#44403c'
+                            }
+                        },
+                        tooltip: {
+                            titleFont: { family: "'Sarabun', sans-serif" },
+                            bodyFont: { family: "'Sarabun', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            window.myRadarChart = new Chart(ctx, config);
+        });
+
+        // Toggle Dataset Function
+        function toggleDataset(index) {
+            const chart = window.myRadarChart;
+            const meta = chart.getDatasetMeta(index);
+            
+            // Toggle visibility
+            meta.hidden = meta.hidden === null ? !chart.data.datasets[index].hidden : null;
+            
+            chart.update();
+        }
+
+    </script>
+</body>
+</html>
