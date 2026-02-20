@@ -1,0 +1,1968 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sacred Talismans of Luang Phor Kong: A Comprehensive Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tiempos+Text:wght@400;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --saffron: #D4A574;
+            --gold: #D4AF37;
+            --deep-red: #8B0000;
+            --sacred-blue: #1E3A8A;
+            --cream: #FAF7F0;
+            --dark-brown: #3C2415;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #F8F5ED 100%);
+            color: var(--dark-brown);
+            line-height: 1.7;
+        }
+        
+        .tiempos {
+            font-family: 'Tiempos Text', serif;
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--saffron) 0%, var(--gold) 100%);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--deep-red) 0%, var(--sacred-blue) 100%);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-overlay {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(2px);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            height: 70vh;
+        }
+        
+        .bento-main {
+            grid-row: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem;
+        }
+        
+        .bento-side-top {
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .bento-side-bottom {
+            background: rgba(139, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+        }
+        
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .power-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--saffron);
+            transition: all 0.3s ease;
+        }
+        
+        .power-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        
+        .citation-link {
+            color: var(--sacred-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--sacred-blue);
+            transition: all 0.2s ease;
+        }
+        
+        .citation-link:hover {
+            background: var(--gold);
+            color: white;
+            border-bottom-color: transparent;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+        }
+        
+        .timeline-item {
+            border-left: 3px solid var(--gold);
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-fixed.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                height: auto;
+                gap: 1rem;
+            }
+            
+            .bento-main {
+                grid-row: auto;
+                padding: 1.5rem;
+            }
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .scroll-dot.active {
+            background: var(--sacred-blue);
+            transform: scale(1.3);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--cream);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: var(--sacred-blue);
+            transform: translateX(4px);
+        }
+        
+        .toc-link.level-2 {
+            padding-left: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .toc-link.level-3 {
+            padding-left: 3rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .bento-main h1 {
+                font-size: 2.5rem;
+            }
+            .bento-main p {
+                font-size: 1rem;
+            }
+            .bento-grid {
+                padding: 1rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .hero-section .tiempos {
+                font-size: 1.5rem;
+            }
+            .power-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item {
+                word-wrap: break-word;
+            }
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body>
+    <!-- Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="mb-8">
+        <h3 class="tiempos text-xl font-bold text-white mb-4">Sacred Navigation</h3>
+      </div>
+
+      <div class="space-y-1">
+        <a href="#hero" class="toc-link level-1">Sacred Introduction</a>
+        <a href="#executive-summary" class="toc-link level-2">Executive Summary</a>
+
+        <a href="#foundational-context" class="toc-link level-1">Foundational Context</a>
+        <a href="#biographical" class="toc-link level-2">Luang Phor Kong&#39;s Authority</a>
+        <a href="#temple-context" class="toc-link level-2">Wat Bang Kapi Legacy</a>
+
+        <a href="#conceptual-framework" class="toc-link level-1">Power Framework</a>
+        <a href="#maha-wang" class="toc-link level-2">Maha Wang Subjugation</a>
+        <a href="#wirogo-kambang" class="toc-link level-2">Wirogo Kambang Concealment</a>
+        <a href="#maha-kan" class="toc-link level-2">Maha Kan Prevention</a>
+
+        <a href="#amulet-analysis" class="toc-link level-1">Amulet Analysis</a>
+        <a href="#takrud-maha-wang" class="toc-link level-2">Takrud Maha Wang</a>
+        <a href="#thong-maha-wang" class="toc-link level-2">Thong Maha Wang</a>
+        <a href="#suea-yant" class="toc-link level-2">Suea Yant Wirogo Kambang</a>
+        <a href="#luk-am" class="toc-link level-2">Luk Am Maha Kan</a>
+        <a href="#rian-coins" class="toc-link level-2">Sacred Coins</a>
+
+        <a href="#comparative-synthesis" class="toc-link level-1">Comparative Synthesis</a>
+        <a href="#documented-experiences" class="toc-link level-1">Historical Evidence</a>
+        <a href="#ww2-incident" class="toc-link level-2">WWII Cremation Protection</a>
+        <a href="#suea-glai" class="toc-link level-2">Suea Glai Phenomenon</a>
+
+        <a href="#contemporary-status" class="toc-link level-1">Contemporary Status</a>
+        <a href="#devotional-considerations" class="toc-link level-1">Practical Applications</a>
+        <a href="#conclusion" class="toc-link level-1">Sacred Conclusion</a>
+      </div>
+    </nav>
+
+    <!-- Mobile TOC Toggle -->
+    <button class="lg:hidden fixed top-4 left-4 z-50 bg-saffron text-white p-3 rounded-full shadow-lg" onclick="toggleTOC()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section id="hero" class="hero-section">
+        <div class="hero-overlay">
+          <div class="container mx-auto px-6 py-12">
+            <div class="bento-grid">
+              <div class="bento-main">
+                <h1 class="tiempos text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                  <em>Sacred Talismans</em>
+                  <br/>
+                  <span class="text-3xl lg:text-5xl opacity-90">of Luang Phor Kong</span>
+                </h1>
+                <p class="text-xl lg:text-2xl mb-8 opacity-90 leading-relaxed">
+                  A comprehensive analysis of the five sacred amulet categories from Wat Bang Kapi,
+                  distinguished by their specialized protective powers and historical verification.
+                </p>
+                <div class="flex items-center space-x-6 text-sm opacity-75">
+                  <span><i class="fas fa-map-marker-alt mr-2"></i>Wat Bang Kapi, Samut Songkhram</span>
+                  <span><i class="fas fa-calendar mr-2"></i>2446-2486 BE (1903-1943 CE)</span>
+                  <span><i class="fas fa-shield-alt mr-2"></i>5 Sacred Categories</span>
+                </div>
+              </div>
+
+              <div class="bento-side-top">
+                <h3 class="tiempos text-xl font-bold mb-4">Sacred Powers</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex items-center">
+                    <i class="fas fa-crown text-gold mr-3"></i>
+                    <span><strong>Maha Wang:</strong> Subjugation &amp; Control</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-eye-slash text-saffron mr-3"></i>
+                    <span><strong>Wirogo Kambang:</strong> Concealment &amp; Evasion</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-deep-red mr-3"></i>
+                    <span><strong>Maha Kan:</strong> Great Prevention</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bento-side-bottom">
+                <h3 class="tiempos text-xl font-bold mb-4">Historical Foundation</h3>
+                <p class="text-sm leading-relaxed">
+                  During WWII Japanese bombing campaigns, sacred objects demonstrated
+                  <strong>mass-witnessed protective efficacy</strong> through the famous
+                  cremation ceremony incident—establishing epistemological foundations
+                  for Maha Wang power claims.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section id="executive-summary" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+          <div class="text-center mb-12">
+            <h2 class="tiempos text-4xl font-bold text-deep-red mb-6">Executive Summary</h2>
+            <div class="w-24 h-1 bg-gold mx-auto"></div>
+          </div>
+
+          <div class="prose prose-lg max-w-none">
+            <div class="bg-saffron bg-opacity-10 rounded-lg p-8 mb-8 border-l-4 border-saffron">
+              <p class="text-lg leading-relaxed mb-6">
+                <strong>Luang Phor Kong of Wat Bang Kapi</strong> (หลวงพ่อคง วัดบางกะพ้อม) created five categories of sacred amulets distinguished by their specialized protective powers, establishing a systematic approach to spiritual protection that remains unparalleled in Thai amulet history.
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div>
+                  <h4 class="font-bold text-deep-red mb-3">Power Categories</h4>
+                  <ul class="space-y-2 text-sm">
+                    <li><strong>Takrud Maha Wang &amp; Thong Maha Wang:</strong> Subjugation and neutralization of hostile forces</li>
+                    <li><strong>Suea Yant Wirogo Kambang:</strong> Unique concealment power with no comparable rivals</li>
+                    <li><strong>Luk Am Maha Kan:</strong> Comprehensive prevention across all threat categories</li>
+                    <li><strong>Rian coins:</strong> Generalized blessings and foundational protection</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-bold text-deep-red mb-3">Historical Verification</h4>
+                  <ul class="space-y-2 text-sm">
+                    <li><strong>WWII Incident:</strong> Japanese aircraft failed to bomb illuminated target during cremation ceremony</li>
+                    <li><strong>Suea Glai Phenomenon:</strong> Bandit&#39;s bullet-proofing demonstrated through criminal misuse</li>
+                    <li><strong>Mass Witnessing:</strong> Multiple independent observers established foundational verification</li>
+                    <li><strong>Ethical Governance:</strong> Creator&#39;s destruction of misused objects enhanced legendary status</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Foundational Context -->
+      <section id="foundational-context" class="py-16 bg-cream">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Foundational Context</h2>
+
+          <!-- Biographical Section -->
+          <div id="biographical" class="mb-16">
+            <h3 class="tiempos text-2xl font-bold text-saffron mb-8">Luang Phor Kong&#39;s Spiritual Authority</h3>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+              <div>
+                <h4 class="text-xl font-bold text-deep-red mb-4">Monastic Background</h4>
+                <div class="space-y-4">
+                  <div class="timeline-item">
+                    <h5 class="font-semibold">Ordination (2427 BE / 1884 CE)</h5>
+                    <p class="text-sm">Ordained under Phra Ajarn Duang with Phra Ajarn Jui as Gammawajajarn, attended by 25 monks</p>
+                  </div>
+                  <div class="timeline-item">
+                    <h5 class="font-semibold">Chaya Name: &#34;Tammachoto&#34;</h5>
+                    <p class="text-sm">&#34;He who Advances in Dhamma&#34;—prophetic designation for his spiritual trajectory</p>
+                  </div>
+                  <div class="timeline-item">
+                    <h5 class="font-semibold">Annual Tudong Practice</h5>
+                    <p class="text-sm">Month-long cemetery retreat for self-purification and contemplative foundation</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="text-xl font-bold text-deep-red mb-4">Mastery of Esoteric Arts</h4>
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                  <table class="w-full text-sm">
+                    <thead>
+                      <tr class="border-b border-saffron">
+                        <th class="text-left py-2 font-semibold">Master</th>
+                        <th class="text-left py-2 font-semibold">Temple</th>
+                        <th class="text-left py-2 font-semibold">Specialized Knowledge</th>
+                      </tr>
+                    </thead>
+                    <tbody class="space-y-2">
+                      <tr class="border-b border-gray-100">
+                        <td class="py-2 font-medium">Luang Phor Lai</td>
+                        <td class="py-2">Wat Khao Kaew</td>
+                        <td class="py-2">Takrud creation, Yant empowerment</td>
+                      </tr>
+                      <tr class="border-b border-gray-100">
+                        <td class="py-2 font-medium">Luang Phor Thad</td>
+                        <td class="py-2">Wat Chai Na</td>
+                        <td class="py-2">Alternative formulations, regional variations</td>
+                      </tr>
+                      <tr class="border-b border-gray-100">
+                        <td class="py-2 font-medium">Somdet Phra Buddhavaisai</td>
+                        <td class="py-2">Wat Suthat</td>
+                        <td class="py-2">Court-associated Wityakom, advanced techniques</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 font-medium">Luang Phor Pan</td>
+                        <td class="py-2">Wat Pradu Rongtham</td>
+                        <td class="py-2">Specialized Takrud and Yant science</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Temple Context -->
+          <div id="temple-context">
+            <h3 class="tiempos text-2xl font-bold text-saffron mb-8">Wat Bang Kapi: Sacred Geography</h3>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+              <div class="power-card">
+                <i class="fas fa-map-marked-alt text-2xl text-saffron mb-4"></i>
+                <h4 class="font-bold text-deep-red mb-3">Location</h4>
+                <p class="text-sm">Amphoe Ampawa, Samut Songkhram province—strategic position in Mae Klong River delta facilitating resource accumulation and dissemination</p>
+              </div>
+              <div class="power-card">
+                <i class="fas fa-clock text-2xl text-gold mb-4"></i>
+                <h4 class="font-bold text-deep-red mb-3">Production Period</h4>
+                <p class="text-sm">2446-2486 BE (1903-1943 CE)—encompassing transformative historical developments including WWII Japanese occupation</p>
+              </div>
+              <div class="power-card">
+                <i class="fas fa-shield-alt text-2xl text-deep-red mb-4"></i>
+                <h4 class="font-bold text-deep-red mb-3">WWII Context</h4>
+                <p class="text-sm">Japanese aerial bombing campaigns created conditions for dramatic verification of protective powers</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-8 shadow-lg">
+              <h4 class="text-xl font-bold text-deep-red mb-6">Five Primary Categories of Sacred Objects</h4>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b-2 border-saffron">
+                      <th class="text-left py-3 font-semibold">Category</th>
+                      <th class="text-left py-3 font-semibold">Primary Power</th>
+                      <th class="text-left py-3 font-semibold">Form Factor</th>
+                      <th class="text-left py-3 font-semibold">Availability</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b border-gray-100">
+                      <td class="py-3 font-medium">Takrud Maha Wang</td>
+                      <td class="py-3">Maha Wang (subjugation)</td>
+                      <td class="py-3">Cylindrical metal</td>
+                      <td class="py-3 text-red-600 font-semibold">Extremely rare</td>
+                    </tr>
+                    <tr class="border-b border-gray-100">
+                      <td class="py-3 font-medium">Thong Maha Wang</td>
+                      <td class="py-3">Maha Wang (subjugation)</td>
+                      <td class="py-3">Fabric/metal banner</td>
+                      <td class="py-3 text-orange-600">Rare (reproductions exist)</td>
+                    </tr>
+                    <tr class="border-b border-gray-100">
+                      <td class="py-3 font-medium">Suea Yant Wirogo Kambang</td>
+                      <td class="py-3">Wirogo Kambang (concealment)</td>
+                      <td class="py-3">Worn garment</td>
+                      <td class="py-3 text-red-600 font-semibold">Extremely rare</td>
+                    </tr>
+                    <tr class="border-b border-gray-100">
+                      <td class="py-3 font-medium">Luk Am Maha Kan</td>
+                      <td class="py-3">Maha Kan (prevention)</td>
+                      <td class="py-3">Spherical pill</td>
+                      <td class="py-3 text-green-600">Available</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 font-medium">Rian Luang Phor Kong</td>
+                      <td class="py-3">Generalized blessings</td>
+                      <td class="py-3">Coin</td>
+                      <td class="py-3 text-green-600">Accessible</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conceptual Framework -->
+      <section id="conceptual-framework" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Understanding Specialized Powers</h2>
+
+          <!-- Maha Wang Power -->
+          <div id="maha-wang" class="mb-16">
+            <h3 class="tiempos text-2xl font-bold text-saffron mb-8">Maha Wang: The Power of Subjugation</h3>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-4">
+                  <i class="fas fa-crown text-gold mr-2"></i>
+                  Etymology &amp; Core Meaning
+                </h4>
+                <div class="space-y-4">
+                  <p><strong>&#34;Maha Wang&#34;</strong> (มหาระงับ) combines:</p>
+                  <ul class="space-y-2 ml-4">
+                    <li><strong>&#34;Maha&#34;</strong> (มหา): great, supreme</li>
+                    <li><strong>&#34;Wang/Rangab&#34;</strong> (ระงับ): to subdue, suppress, neutralize</li>
+                  </ul>
+                  <p class="text-sm italic">Designates <strong>preemptive neutralization of hostile forces through authoritative domination</strong></p>
+                </div>
+              </div>
+
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-4">
+                  <i class="fas fa-cogs text-saffron mr-2"></i>
+                  Operational Mechanisms
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <i class="fas fa-arrow-right text-gold mr-2 mt-1"></i>
+                    <div>
+                      <strong>Commanding Influence:</strong> Projection of spiritual authority hostile forces recognize and submit to
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-shield-alt text-gold mr-2 mt-1"></i>
+                    <div>
+                      <strong>Prevention Before Manifestation:</strong> Transformation of karmic conditions supporting hostile action
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-expand-arrows-alt text-gold mr-2 mt-1"></i>
+                    <div>
+                      <strong>Territorial Expansion:</strong> Extension of protective sphere beyond individual bearer
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wirogo Kambang Power -->
+          <div id="wirogo-kambang" class="mb-16">
+            <h3 class="tiempos text-2xl font-bold text-saffron mb-8">Wirogo Kambang: The Power of Concealment</h3>
+
+            <div class="bg-gradient-to-r from-cream to-white rounded-lg p-8 mb-8 border-l-4 border-saffron">
+              <div class="flex items-start">
+                <i class="fas fa-gem text-3xl text-gold mr-4 mt-1"></i>
+                <div>
+                  <h4 class="text-xl font-bold text-deep-red mb-3">Luang Phor Kong&#39;s Exclusive Innovation</h4>
+                  <p class="mb-4">
+                    <strong>&#34;Wirogo Kambang&#34;</strong> (วิรุฬจำบัง) represents a Yant formula with <strong>no documented precedent or subsequent successful replication</strong> by other Thai monk-amulet makers.
+                  </p>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <p><strong>Wirogo:</strong> Transformation</p>
+                      <p><strong>Kambang:</strong> Concealment/Covering</p>
+                    </div>
+                    <div>
+                      <p class="text-sm italic">Protection through perceptual manipulation and target elimination rather than confrontation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-3">
+                  <i class="fas fa-eye-slash text-saffron mr-2"></i>
+                  Physical Invisibility
+                </h4>
+                <p class="text-sm">Sensory processing failure—officers passed within meters without visual registration</p>
+              </div>
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-3">
+                  <i class="fas fa-ghost text-saffron mr-2"></i>
+                  Metaphysical Invisibility
+                </h4>
+                <p class="text-sm">Spiritual/magical detection blocking—cordon operations failed despite confirmed proximity</p>
+              </div>
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-3">
+                  <i class="fas fa-mirror text-saffron mr-2"></i>
+                  Reality Transformation
+                </h4>
+                <p class="text-sm">Cognitive misidentification—systematic search procedures yielded no detection</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maha Kan Power -->
+          <div id="maha-kan" class="mb-16">
+            <h3 class="tiempos text-2xl font-bold text-saffron mb-8">Maha Kan: The Power of Great Prevention</h3>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-4">
+                  <i class="fas fa-shield-alt text-gold mr-2"></i>
+                  Etymology &amp; Orientation
+                </h4>
+                <div class="space-y-4">
+                  <p><strong>&#34;Maha Kan&#34;</strong> (มหากัน) combines:</p>
+                  <ul class="space-y-2 ml-4">
+                    <li><strong>&#34;Maha&#34;</strong> (มหา): great</li>
+                    <li><strong>&#34;Kan&#34;</strong> (กัน): to prevent, protect, shield</li>
+                  </ul>
+                  <p class="text-sm italic">Designates <strong>comprehensive, undifferentiated protection</strong>—generalized barrier against all danger forms</p>
+                  <p class="text-xs text-gray-600">Breadth-over-intensity orientation: sacrifices peak efficacy for consistent coverage</p>
+                </div>
+              </div>
+
+              <div class="power-card">
+                <h4 class="font-bold text-deep-red mb-4">
+                  <i class="fas fa-layer-group text-saffron mr-2"></i>
+                  Protective Mechanisms
+                </h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-circle text-gold mr-2 mt-1 text-xs"></i>
+                    <div>
+                      <strong>Active Shielding:</strong> Continuous barrier interception across threat categories
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-heart text-gold mr-2 mt-1 text-xs"></i>
+                    <div>
+                      <strong>Resilience Enhancement:</strong> Fortification of bearer&#39;s vital force
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-globe text-gold mr-2 mt-1 text-xs"></i>
+                    <div>
+                      <strong>Ambient Protection:</strong> Omnidirectional, non-focused coverage
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detailed Amulet Analysis -->
+      <section id="amulet-analysis" class="py-16 bg-cream">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Detailed Amulet Analysis</h2>
+
+          <!-- Takrud Maha Wang -->
+          <div id="takrud-maha-wang" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-gold">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-cylinder text-gold mr-3"></i>
+                Takrud Maha Wang: The Cylinder of Supreme Subjugation
+              </h3>
+
+              <div class="grid lg:grid-cols-3 gap-8">
+                <div>
+                  <h4 class="font-bold text-saffron mb-4">Physical Characteristics</h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                      <span>Dimensions:</span>
+                      <span class="font-medium">3-8cm × 0.5-1.5cm</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Material:</span>
+                      <span class="font-medium">Copper, sacred alloys (Chanuan)</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Geometry:</span>
+                      <span class="font-medium">Cylindrical (concentrated power)</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Interior:</span>
+                      <span class="font-medium">Hollow (empowered materials)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-saffron mb-4">Attributed Powers</h4>
+                  <div class="space-y-2">
+                    <div class="flex items-center">
+                      <i class="fas fa-crown text-gold mr-2 text-xs"></i>
+                      <span class="text-sm"><strong>Primary:</strong> Maha Wang (subjugation)</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="fas fa-heart text-saffron mr-2 text-xs"></i>
+                      <span class="text-sm"><strong>Secondary:</strong> Metta (loving-kindness)</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="fas fa-shield-alt text-saffron mr-2 text-xs"></i>
+                      <span class="text-sm"><strong>Secondary:</strong> Klaew Klaad (accident protection)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-saffron mb-4">Historical Significance</h4>
+                  <div class="bg-gold bg-opacity-10 rounded p-4">
+                    <p class="text-sm mb-2"><strong>WWII Verification:</strong></p>
+                    <p class="text-xs italic">Japanese aircraft visually detected illuminated cremation ceremony but repeatedly failed to release ordnance—demonstrating territorial protection through intention neutralization</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 p-4 bg-red-50 rounded-lg border-l-4 border-red-400">
+                <h5 class="font-bold text-red-700 mb-2">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  Extreme Rarity Notice
+                </h5>
+                <p class="text-sm text-red-600">
+                  Deliberately destroyed by Luang Phor Kong following criminal misuse by Suea Glai bandit network.
+                  <strong>Extremely rare</strong> with authentication challenges and exceptional valuation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thong Maha Wang -->
+          <div id="thong-maha-wang" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-saffron">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-flag text-saffron mr-3"></i>
+                Thong Maha Wang: The Banner of Great Subjugation
+              </h3>
+
+              <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 class="font-bold text-saffron mb-4">Material Variants</h4>
+                  <div class="space-y-4">
+                    <div class="border-l-4 border-gold pl-4">
+                      <h5 class="font-semibold text-sm">Silk/Cotton (Flexible)</h5>
+                      <p class="text-xs text-gray-600">&#34;Breathing&#34; fabric for continuous contact</p>
+                    </div>
+                    <div class="border-l-4 border-saffron pl-4">
+                      <h5 class="font-semibold text-sm">Copper/Brass (Durable)</h5>
+                      <p class="text-xs text-gray-600">Concentrated power, ritual display</p>
+                    </div>
+                  </div>
+
+                  <h4 class="font-bold text-saffron mb-4 mt-6">Color Significance</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-center">
+                      <div class="w-4 h-4 bg-white rounded-full mr-2 border border-gray-300"></div>
+                      <span><strong>White:</strong> Purity, general protection</span>
+                    </div>
+                    <div class="flex items-center">
+                      <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+                      <span><strong>Red:</strong> Power, aggression modulation</span>
+                    </div>
+                    <div class="flex items-center">
+                      <div class="w-4 h-4 bg-yellow-400 rounded-full mr-2"></div>
+                      <span><strong>Yellow:</strong> Royalty, authority emphasis</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-saffron mb-4">Mechanistic Differentiation</h4>
+                  <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <p class="text-sm mb-2"><strong>Takrud:</strong> Influence projection</p>
+                    <p class="text-xs">Neutralizes hostile intention before manifestation</p>
+                  </div>
+                  <div class="bg-orange-50 rounded-lg p-4">
+                    <p class="text-sm mb-2"><strong>Thong:</strong> Barrier formation</p>
+                    <p class="text-xs">Physical interception and confrontation survival</p>
+                  </div>
+
+                  <h4 class="font-bold text-saffron mb-4 mt-6">Contemporary Access</h4>
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <p class="text-sm font-semibold text-green-700">Authorized Reproduction (2557 BE / 2014 CE)</p>
+                    <p class="text-xs text-green-600">26-inch banners with multiple monk consecration—maintained devotional access</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-bold text-deep-red mb-4">Synergistic Deployment Pattern</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-2">Takrud (Apex Placement)</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Territorial influence projection</li>
+                      <li>• Preemptive neutralization</li>
+                      <li>• Intention interference</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Thong (Array Configuration)</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Distributed barrier coverage</li>
+                      <li>• Terminal defense backup</li>
+                      <li>• Physical interception</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suea Yant Wirogo Kambang -->
+          <div id="suea-yant" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-purple-600">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-tshirt text-purple-600 mr-3"></i>
+                Suea Yant Wirogo Kambang: The Shirt of Concealment
+              </h3>
+
+              <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 mb-8 border-l-4 border-purple-600">
+                <div class="flex items-start">
+                  <i class="fas fa-star text-2xl text-purple-600 mr-4 mt-1"></i>
+                  <div>
+                    <h4 class="text-xl font-bold text-purple-700 mb-2">#1 Yant Shirt of Thailand</h4>
+                    <p class="mb-2"><strong>Uncontested ranking</strong> with no comparable competitors</p>
+                    <p class="text-sm text-gray-600">Luang Phor Kong&#39;s exclusive formula innovation—never successfully replicated by other masters</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 class="font-bold text-purple-600 mb-4">Construction Features</h4>
+                  <div class="space-y-4">
+                    <div class="border-l-4 border-purple-400 pl-4">
+                      <h5 class="font-semibold text-sm">Dense Yant Coverage</h5>
+                      <p class="text-xs text-gray-600">Near-complete surface inscription requiring dozens of hours per garment</p>
+                    </div>
+                    <div class="border-l-4 border-pink-400 pl-4">
+                      <h5 class="font-semibold text-sm">Strategic Placement</h5>
+                      <p class="text-xs text-gray-600">Concentration at heart, navel, spine—vital energy centers</p>
+                    </div>
+                    <div class="border-l-4 border-purple-300 pl-4">
+                      <h5 class="font-semibold text-sm">Continuous Contact</h5>
+                      <p class="text-xs text-gray-600">Worn as vest, shirt, or sash for sustained power exchange</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-purple-600 mb-4">The Suea Glai Documentation</h4>
+                  <div class="bg-red-50 rounded-lg p-4 mb-4">
+                    <h5 class="font-semibold text-red-700 mb-2">Criminal Evasion Pattern</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Multi-province robbery and extortion</li>
+                      <li>• Years of successful police evasion</li>
+                      <li>• Intensive cordon and pursuit failures</li>
+                      <li>• Police reports noted &#34;uncanny quality&#34;</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-yellow-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-yellow-700 mb-2">Mechanism Demonstration</h5>
+                    <p class="text-sm">Protection through <strong>perceptual manipulation</strong> rather than confrontation—officers passed within meters without detection despite confirmed proximity</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-bold text-deep-red mb-4">Power Hierarchy and Limitations</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-2">Primary Function</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>✓ Complete evasion through invisibility</li>
+                      <li>✓ Perceptual manipulation</li>
+                      <li>✓ Environment-independent operation</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Strategic Limitation</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>⚠ No protection if detection occurs</li>
+                      <li>⚠ Requires supplementation for confrontation</li>
+                      <li>⚠ Suea Glai later added Thong Maha Wang</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Luk Am Maha Kan -->
+          <div id="luk-am" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-green-600">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-pills text-green-600 mr-3"></i>
+                Luk Am Maha Kan: The Pill of Great Prevention
+              </h3>
+
+              <div class="grid lg:grid-cols-3 gap-8">
+                <div>
+                  <h4 class="font-bold text-green-600 mb-4">Physical Properties</h4>
+                  <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                      <span>Form:</span>
+                      <span class="font-medium">Spherical/ovoid</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                      <span>Size:</span>
+                      <span class="font-medium">1-3 cm diameter</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                      <span>Material:</span>
+                      <span class="font-medium">Herbal/metallic compounds</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                      <span>Deployment:</span>
+                      <span class="font-medium">Oral/ingestion</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-6 bg-green-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-green-700 mb-2">Democratic Accessibility</h5>
+                    <p class="text-xs text-green-600">Protection without specialized knowledge—ordinary devotees, no expertise required</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-green-600 mb-4">Protective Mechanism</h4>
+                  <div class="space-y-4">
+                    <div class="border-l-4 border-green-400 pl-4">
+                      <h5 class="font-semibold text-sm">Active Shielding</h5>
+                      <p class="text-xs text-gray-600">Continuous barrier interception</p>
+                    </div>
+                    <div class="border-l-4 border-blue-400 pl-4">
+                      <h5 class="font-semibold text-sm">Resilience Enhancement</h5>
+                      <p class="text-xs text-gray-600">Fortification of vital force</p>
+                    </div>
+                    <div class="border-l-4 border-purple-400 pl-4">
+                      <h5 class="font-semibold text-sm">Ambient Protection</h5>
+                      <p class="text-xs text-gray-600">Omnidirectional coverage</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-green-600 mb-4">Documentation Pattern</h4>
+                  <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <p class="text-sm mb-2"><strong>&#34;Dozens of reports&#34;</strong> over decades</p>
+                    <ul class="text-xs space-y-1">
+                      <li>• Accident survival</li>
+                      <li>• Illness recovery</li>
+                      <li>• Attack escape</li>
+                      <li>• Misfortune mitigation</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-yellow-50 rounded-lg p-4">
+                    <p class="text-xs italic">Cumulative, distributed validation through consistent pattern across diverse cases rather than singular dramatic incident</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6">
+                <h4 class="font-bold text-deep-red mb-4">Strategic Positioning</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-2">Foundation Layer</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Always-active baseline protection</li>
+                      <li>• Addresses unpredictable ambient dangers</li>
+                      <li>• Individual-scale continuous operation</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Complementarity</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Supplements Maha Wang for specific threats</li>
+                      <li>• Accessible foundation for all devotees</li>
+                      <li>• Entry point and sustained practice</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rian Coins -->
+          <div id="rian-coins">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-blue-600">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-coins text-blue-600 mr-3"></i>
+                Rian Luang Phor Kong: Sacred Coins of Generalized Blessings
+              </h3>
+
+              <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 class="font-bold text-blue-600 mb-4">Notable Issues</h4>
+                  <div class="space-y-3">
+                    <div class="border-l-4 border-blue-400 pl-4">
+                      <h5 class="font-semibold text-sm">Rian Run Raek (2484 BE)</h5>
+                      <p class="text-xs text-gray-600">First Generation: ~200 serrated, ~2,800 smooth edges</p>
+                    </div>
+                    <div class="border-l-4 border-yellow-400 pl-4">
+                      <h5 class="font-semibold text-sm">Rian Badtr Dtan Tee Raleuk</h5>
+                      <p class="text-xs text-gray-600">Silver with Rachawadee enamels—&#34;very famed for miraculous events&#34;</p>
+                    </div>
+                    <div class="border-l-4 border-green-400 pl-4">
+                      <h5 class="font-semibold text-sm">Rian Lor Arunthepbut</h5>
+                      <p class="text-xs text-gray-600">Cast deity image with Brahma vehicle symbolism</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-blue-600 mb-4">Functional Differentiation</h4>
+                  <div class="bg-green-50 rounded-lg p-4 mb-4">
+                    <p class="text-sm mb-2"><strong>No Specific Power Specialization</strong></p>
+                    <p class="text-xs">Generalized blessings rather than threat-specific protection</p>
+                  </div>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-center">
+                      <i class="fas fa-heart text-pink-500 mr-2"></i>
+                      <span><strong>Metta Mahaniyom:</strong> Social harmony, favorable reception</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="fas fa-shield-alt text-blue-500 mr-2"></i>
+                      <span><strong>Modest Klaew Klaad:</strong> General accident protection</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6">
+                <h4 class="font-bold text-deep-red mb-4">Democratic Accessibility &amp; Ranking</h4>
+                <div class="grid md:grid-cols-3 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-2">Popularity Recognition</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• #2 most popular monk coins of era</li>
+                      <li>• #4 in Benjaphakee Coin Amulet Family</li>
+                      <li>• Top 5 monk coins of Thailand&#39;s regions</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Strategic Role</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Entry point for devotees</li>
+                      <li>• Foundation for progression</li>
+                      <li>• Democratic protection access</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Advantages</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Portable and durable</li>
+                      <li>• Mass-producible</li>
+                      <li>• Minimal deployment complexity</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparative Synthesis -->
+      <section id="comparative-synthesis" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Comparative Synthesis</h2>
+
+          <div class="grid lg:grid-cols-2 gap-12">
+            <div class="power-card">
+              <h3 class="font-bold text-deep-red mb-6">
+                <i class="fas fa-balance-scale text-gold mr-2"></i>
+                Power-Specific Analysis
+              </h3>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-gold pl-4">
+                  <h4 class="font-semibold text-saffron mb-2">Maha Wang Objects</h4>
+                  <p class="text-sm mb-2"><strong>Preemptive Subjugation</strong> - Neutralizes hostile forces before manifestation</p>
+                  <p class="text-xs text-gray-600">Territorial scalability demonstrated through WWII mass-witnessed incident</p>
+                </div>
+
+                <div class="border-l-4 border-purple-400 pl-4">
+                  <h4 class="font-semibold text-purple-600 mb-2">Wirogo Kambang</h4>
+                  <p class="text-sm mb-2"><strong>Evasive Avoidance</strong> - Removes target from threat perception entirely</p>
+                  <p class="text-xs text-gray-600">Exclusive formula with no comparable competitors—categorical isolation</p>
+                </div>
+
+                <div class="border-l-4 border-green-400 pl-4">
+                  <h4 class="font-semibold text-green-600 mb-2">Maha Kan</h4>
+                  <p class="text-sm mb-2"><strong>Comprehensive Blocking</strong> - Intercepts threats as they approach</p>
+                  <p class="text-xs text-gray-600">Generalized prevention with democratic accessibility</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="power-card">
+              <h3 class="font-bold text-deep-red mb-6">
+                <i class="fas fa-crosshairs text-saffron mr-2"></i>
+                Strategic Deployment
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-700 mb-2">Optimal Layering Strategy</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-center">
+                      <i class="fas fa-layer-group text-blue-500 mr-2"></i>
+                      <span><strong>Foundation:</strong> Luk Am Maha Kan (continuous baseline)</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="fas fa-target text-red-500 mr-2"></i>
+                      <span><strong>Targeted:</strong> Maha Wang for identified threats</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="fas fa-eye-slash text-purple-500 mr-2"></i>
+                      <span><strong>Evasion:</strong> Wirogo Kambang when avoidance preferred</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-yellow-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-yellow-700 mb-2">Suea Glai Case Study</h4>
+                  <p class="text-sm">Demonstrated <strong>sequential deployment strategy</strong>:</p>
+                  <ol class="text-xs mt-2 space-y-1">
+                    <li>1. Wirogo Kambang alone → complete evasion</li>
+                    <li>2. Added Thong Maha Wang → confrontation survival</li>
+                    <li>3. Illustrates complementary power application</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 bg-gradient-to-r from-saffron to-gold bg-opacity-10 rounded-lg p-8">
+            <h3 class="tiempos text-2xl font-bold text-deep-red mb-6 text-center">Ethical Governance and Scarcity Creation</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-bold text-deep-red mb-4">Creator&#39;s Response to Misuse</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="flex items-start">
+                    <i class="fas fa-ban text-red-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>Deliberate Destruction:</strong> Remaining stock destroyed following criminal appropriation by Suea Glai network
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-stop-circle text-orange-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>Production Discontinuation:</strong> Ethical withdrawal to prevent continued harmful application
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-balance-scale text-blue-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>Living Karmic Connection:</strong> Demonstrated ongoing responsibility and ethical governance
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-deep-red mb-4">Legendary Status Enhancement</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="flex items-start">
+                    <i class="fas fa-gem text-gold mr-2 mt-1"></i>
+                    <div>
+                      <strong>Extreme Rarity:</strong> Intentional destruction created scarcity premium enhancing mythical status
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-shield-alt text-green-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>Authenticity Validation:</strong> Creator&#39;s ethical stance reinforces Patipata credentials
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-crown text-purple-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>Unreplicable Trajectory:</strong> Criminal misuse → ethical withdrawal → intensified desirability
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Documented Experiences -->
+      <section id="documented-experiences" class="py-16 bg-cream">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Documented Historical Experiences</h2>
+
+          <!-- WWII Incident -->
+          <div id="ww2-incident" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-red-600">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-fighter-jet text-red-600 mr-3"></i>
+                World War II Cremation Ceremony Protection
+              </h3>
+
+              <div class="grid lg:grid-cols-3 gap-8 mb-8">
+                <div class="power-card bg-red-50 border-l-4 border-red-400">
+                  <h4 class="font-bold text-red-700 mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    High-Stakes Context
+                  </h4>
+                  <ul class="text-sm space-y-2">
+                    <li><strong>Systematic Aggression:</strong> Japanese bombing campaign established in Samut Songkhram</li>
+                    <li><strong>Multiple Prior Attacks:</strong> Confirmed operational capacity and hostile intent</li>
+                    <li><strong>Optimal Targeting Conditions:</strong> Illuminated pavilion, large congregation, extended duration</li>
+                    <li><strong>Ceremonial Necessity:</strong> Religious obligation despite existential risk</li>
+                  </ul>
+                </div>
+
+                <div class="power-card bg-blue-50 border-l-4 border-blue-400">
+                  <h4 class="font-bold text-blue-700 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    Protection Deployment
+                  </h4>
+                  <ul class="text-sm space-y-2">
+                    <li><strong>Takrud Maha Wang:</strong> Structural apex placement for territorial influence</li>
+                    <li><strong>Thong Maha Wang:</strong> Array configuration for distributed coverage</li>
+                    <li><strong>Temporal Scope:</strong> Multiple days of sustained protection requirement</li>
+                    <li><strong>Mass Witnessing:</strong> Multiple independent observers from congregation</li>
+                  </ul>
+                </div>
+
+                <div class="power-card bg-green-50 border-l-4 border-green-400">
+                  <h4 class="font-bold text-green-700 mb-4">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Observed Outcomes
+                  </h4>
+                  <ul class="text-sm space-y-2">
+                    <li><strong>Repeated Overflights:</strong> Visual detection confirmed—pilots saw target</li>
+                    <li><strong>Zero Ordnance Release:</strong> Tactical response absent despite optimal conditions</li>
+                    <li><strong>Systematic Pattern:</strong> Not incidental—rules out single-operation factors</li>
+                    <li><strong>Complete Protection:</strong> Zero casualties, zero structural damage</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
+                <h4 class="font-bold text-yellow-700 mb-4">
+                  <i class="fas fa-microscope mr-2"></i>
+                  Epistemological Significance
+                </h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-2">Controlled Conditions Satisfied</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Established enemy pattern provides baseline</li>
+                      <li>• Optimal targeting conditions present</li>
+                      <li>• Repeated opportunities for attack</li>
+                      <li>• Multiple independent witnesses</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-2">Alternative Explanations Inadequate</h5>
+                    <ul class="text-sm space-y-1">
+                      <li>• Weather conditions favorable</li>
+                      <li>• Operational cancellation inconsistent with pattern</li>
+                      <li>• Fuel constraints don&#39;t explain repeated overflights</li>
+                      <li>• Visual detection confirmed by pilot behavior</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 bg-white rounded border">
+                  <p class="text-sm font-semibold text-yellow-800">
+                    <i class="fas fa-star mr-2"></i>
+                    Foundational verification for Maha Wang claims—mass-observed historical incident exceeding individual testimony limitations
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suea Glai Phenomenon -->
+          <div id="suea-glai" class="mb-16">
+            <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-purple-600">
+              <h3 class="tiempos text-2xl font-bold text-deep-red mb-6">
+                <i class="fas fa-mask text-purple-600 mr-3"></i>
+                Suea Glai Phenomenon: Comparative Power Demonstration
+              </h3>
+
+              <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="power-card">
+                  <h4 class="font-bold text-purple-600 mb-4">
+                    <i class="fas fa-user-secret mr-2"></i>
+                    Criminal Background
+                  </h4>
+                  <ul class="text-sm space-y-2">
+                    <li><strong>Network:</strong> Suea Glai bandit organization</li>
+                    <li><strong>Activities:</strong> Multi-province robbery, extortion, violence</li>
+                    <li><strong>Duration:</strong> Extended criminal career with successful evasion</li>
+                    <li><strong>Resources:</strong> Well-funded operations with protective objects</li>
+                  </ul>
+                </div>
+
+                <div class="power-card">
+                  <h4 class="font-bold text-purple-600 mb-4">
+                    <i class="fas fa-search mr-2"></i>
+                    Police Response
+                  </h4>
+                  <ul class="text-sm space-y-2">
+                    <li><strong>Intensive Pursuit:</strong> Multi-province cordon operations</li>
+                    <li><strong>Confirmed Proximity:</strong> Recent sightings before searches</li>
+                    <li><strong>Systematic Procedures:</strong> Standard search protocols employed</li>
+                    <li><strong>Resource Allocation:</strong> Significant manpower and time investment</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-8 mb-8">
+                <h4 class="font-bold text-purple-700 mb-6 text-center">Sequential Deployment Pattern</h4>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                  <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h5 class="font-bold text-purple-600 mb-4 text-center">Phase 1: Wirogo Kambang Alone</h5>
+                    <div class="space-y-3">
+                      <div class="flex items-center">
+                        <i class="fas fa-eye-slash text-purple-500 mr-2"></i>
+                        <span class="text-sm">Complete evasion, no police contact</span>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="fas fa-ghost text-purple-500 mr-2"></i>
+                        <span class="text-sm">Perceptual manipulation success</span>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="fas fa-running text-purple-500 mr-2"></i>
+                        <span class="text-sm">Invisibility maintained for extended period</span>
+                      </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-purple-100 rounded text-center">
+                      <p class="text-sm font-semibold text-purple-700">Optimal Operation Achieved</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h5 class="font-bold text-red-600 mb-4 text-center">Phase 2: Added Thong Maha Wang</h5>
+                    <div class="space-y-3">
+                      <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-red-500 mr-2"></i>
+                        <span class="text-sm">Confrontation survival when evasion failed</span>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="fas fa-bullseye text-red-500 mr-2"></i>
+                        <span class="text-sm">Bullet interception at fabric barrier</span>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="fas fa-fist-raised text-red-500 mr-2"></i>
+                        <span class="text-sm">Physical confrontation became necessary</span>
+                      </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-red-100 rounded text-center">
+                      <p class="text-sm font-semibold text-red-700">Backup Protection Activated</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-100 rounded-lg p-6">
+                <h4 class="font-bold text-deep-red mb-4">
+                  <i class="fas fa-lightbulb mr-2"></i>
+                  Comparative Insight and Limitations
+                </h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold mb-3">Strategic Preference Hierarchy</h5>
+                    <ol class="text-sm space-y-2">
+                      <li class="flex items-start">
+                        <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">1</span>
+                        <div>
+                          <strong>Wirogo Kambang</strong> - Complete avoidance (preferred when possible)
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-yellow-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">2</span>
+                        <div>
+                          <strong>Maha Wang</strong> - Confrontation survival (necessary backup)
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">3</span>
+                        <div>
+                          <strong>Direct Confrontation</strong> - Least desirable but survivable
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-3">Power Limitations Revealed</h5>
+                    <ul class="text-sm space-y-2">
+                      <li>• Powers effective against <strong>external threats only</strong></li>
+                      <li>• <strong>No protection</strong> from karmic consequences of harmful action</li>
+                      <li>• Eventually captured despite sustained efficacy</li>
+                      <li>• Creator&#39;s destruction affirmed ethical governance</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contemporary Status -->
+      <section id="contemporary-status" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Contemporary Status &amp; Collecting Hierarchy</h2>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="power-card bg-red-50 border-l-4 border-red-500">
+              <h3 class="font-bold text-red-700 mb-4">
+                <i class="fas fa-ban mr-2"></i>
+                Extremely Rare Tier
+              </h3>
+              <div class="space-y-3">
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Takrud Maha Wang</h4>
+                  <p class="text-xs text-gray-600">Original WWII-era cylinders, deliberately destroyed</p>
+                </div>
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Suea Yant Wirogo Kambang</h4>
+                  <p class="text-xs text-gray-600">Original concealment shirts, production discontinued</p>
+                </div>
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Original Thong Maha Wang</h4>
+                  <p class="text-xs text-gray-600">Pre-destruction banners with WWII association</p>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-red-100 rounded">
+                <p class="text-xs text-red-700"><strong>Access:</strong> Auction/private collections, authentication challenges, exceptional pricing</p>
+              </div>
+            </div>
+
+            <div class="power-card bg-orange-50 border-l-4 border-orange-500">
+              <h3 class="font-bold text-orange-700 mb-4">
+                <i class="fas fa-gem mr-2"></i>
+                Rare Tier
+              </h3>
+              <div class="space-y-3">
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Thong Maha Wang (2557 BE)</h4>
+                  <p class="text-xs text-gray-600">Authorized reproduction with lineage consecration</p>
+                </div>
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Premium Luk Am Maha Kan</h4>
+                  <p class="text-xs text-gray-600">Special edition prevention pills</p>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-orange-100 rounded">
+                <p class="text-xs text-orange-700"><strong>Access:</strong> Temple distribution, authorized dealers, moderate to high pricing</p>
+              </div>
+            </div>
+
+            <div class="power-card bg-green-50 border-l-4 border-green-500">
+              <h3 class="font-bold text-green-700 mb-4">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                Accessible Tier
+              </h3>
+              <div class="space-y-3">
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Rian Luang Phor Kong</h4>
+                  <p class="text-xs text-gray-600">Ongoing reproduction of sacred coins</p>
+                </div>
+                <div class="bg-white rounded p-3 shadow-sm">
+                  <h4 class="font-semibold text-sm mb-1">Standard Luk Am Maha Kan</h4>
+                  <p class="text-xs text-gray-600">Regular production prevention pills</p>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-green-100 rounded">
+                <p class="text-xs text-green-700"><strong>Access:</strong> Temple shops, commercial market, wide price range</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-saffron to-gold bg-opacity-10 rounded-lg p-8">
+            <h3 class="tiempos text-2xl font-bold text-deep-red mb-8 text-center">Hierarchical Rankings in Thai Amulet Culture</h3>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-bold text-saffron mb-6">National Recognition</h4>
+                <div class="space-y-4">
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-trophy text-gold mr-2"></i>
+                      <span class="font-semibold text-purple-700">#1 Yant Shirt of Thailand</span>
+                    </div>
+                    <p class="text-sm">Suea Yant Wirogo Kambang - Uncontested across decades</p>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-medal text-saffron mr-2"></i>
+                      <span class="font-semibold text-green-700">Top 5 Luk Am of Thailand</span>
+                    </div>
+                    <p class="text-sm">Luk Am Maha Kan - Sustained efficacy reports</p>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-award text-gold mr-2"></i>
+                      <span class="font-semibold text-red-700">Top 5 Takrud of Thailand</span>
+                    </div>
+                    <p class="text-sm">Takrud Maha Wang - WWII verification, extreme rarity</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-saffron mb-6">Popularity &amp; Cultural Impact</h4>
+                <div class="space-y-4">
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                      <span class="font-semibold text-blue-700">#2 Most Popular Monk Coins</span>
+                    </div>
+                    <p class="text-sm">Rian Kanajarn - After Luang Por Gaew of Wat Puang Malai</p>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-coins text-gold mr-2"></i>
+                      <span class="font-semibold text-orange-700">#4 Benjaphakee Coin Family</span>
+                    </div>
+                    <p class="text-sm">Rian Roop Muean - Top five regional monk coins</p>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-users text-green-500 mr-2"></i>
+                      <span class="font-semibold text-green-700">Democratic Accessibility</span>
+                    </div>
+                    <p class="text-sm">Continued production enables broad devotional access</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Devotional Considerations -->
+      <section id="devotional-considerations" class="py-16 bg-cream">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Devotional &amp; Practical Considerations</h2>
+
+          <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Selection Criteria -->
+            <div class="power-card">
+              <h3 class="font-bold text-deep-red mb-6">
+                <i class="fas fa-crosshairs text-saffron mr-2"></i>
+                Selection Criteria for Specific Needs
+              </h3>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-red-500 pl-4">
+                  <h4 class="font-semibold text-red-700 mb-2">Threat Avoidance Priority</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                      <span><strong>Primary:</strong> Suea Yant Wirogo Kambang</span>
+                      <span class="text-xs text-gray-500">(if obtainable)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span><strong>Secondary:</strong> Thong Maha Wang</span>
+                      <span class="text-xs text-gray-500">(confrontation backup)</span>
+                    </div>
+                  </div>
+                  <p class="text-xs mt-2 text-gray-600">Complete evasion preferred over confrontation survival</p>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold text-blue-700 mb-2">Threat Confrontation Scenario</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                      <span><strong>Primary:</strong> Takrud Maha Wang</span>
+                      <span class="text-xs text-gray-500">(influence projection)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span><strong>Secondary:</strong> Thong Maha Wang</span>
+                      <span class="text-xs text-gray-500">(barrier protection)</span>
+                    </div>
+                  </div>
+                  <p class="text-xs mt-2 text-gray-600">Subjugation of hostile forces with physical backup</p>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold text-green-700 mb-2">General Protection Foundation</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                      <span><strong>Primary:</strong> Luk Am Maha Kan</span>
+                      <span class="text-xs text-gray-500">(comprehensive blocking)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span><strong>Secondary:</strong> Rian Luang Phor Kong</span>
+                      <span class="text-xs text-gray-500">(foundational blessings)</span>
+                    </div>
+                  </div>
+                  <p class="text-xs mt-2 text-gray-600">Accessible foundation with generalized prevention</p>
+                </div>
+
+                <div class="border-l-4 border-pink-500 pl-4">
+                  <h4 class="font-semibold text-pink-700 mb-2">Social Harmony Focus</h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                      <span><strong>Primary:</strong> Rian Luang Phor Kong</span>
+                      <span class="text-xs text-gray-500">(Metta emphasis)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span><strong>Secondary:</strong> Luk Am Maha Kan</span>
+                      <span class="text-xs text-gray-500">(Metta dimension)</span>
+                    </div>
+                  </div>
+                  <p class="text-xs mt-2 text-gray-600">Interpersonal harmony and favorable reception</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ethical Considerations -->
+            <div class="power-card">
+              <h3 class="font-bold text-deep-red mb-6">
+                <i class="fas fa-balance-scale text-gold mr-2"></i>
+                Ethical and Respectful Deployment
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-red-50 rounded-lg p-4 border-l-4 border-red-400">
+                  <h4 class="font-semibold text-red-700 mb-3">Lessons from Misuse History</h4>
+                  <ul class="text-sm space-y-2">
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt text-red-500 mr-2 mt-1"></i>
+                      <span>Powers intended for protection, not aggression or criminal activity</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-link text-red-500 mr-2 mt-1"></i>
+                      <span>Creator retains karmic connection and governance prerogative</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-balance-scale text-red-500 mr-2 mt-1"></i>
+                      <span>Karmic consequences of harmful action not negated by protection</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-gem text-red-500 mr-2 mt-1"></i>
+                      <span>Ethical qualification conditions power legitimacy</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+                  <h4 class="font-semibold text-blue-700 mb-3">Proper Aradhana (Invocation) Practices</h4>
+                  <div class="space-y-3">
+                    <div>
+                      <h5 class="font-semibold text-sm mb-1">Mantra Recitation</h5>
+                      <p class="text-xs text-gray-600">Traditional Kata for each object type—lineage-transmitted or grimoire-sourced</p>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold text-sm mb-1">Ritual Purity</h5>
+                      <p class="text-xs text-gray-600">Purity of body, speech, mind; appropriate timing; devotional intention</p>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold text-sm mb-1">Limitation Recognition</h5>
+                      <p class="text-xs text-gray-600">Address external threats, not karmic consequence; not absolute guarantees</p>
+                    </div>
+                    <div>
+                      <h5 class="font-semibold text-sm mb-1">Merit Dedication</h5>
+                      <p class="text-xs text-gray-600">Gratitude expression, creator&#39;s Baramee acknowledgment, sustained practice</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-400">
+                  <h4 class="font-semibold text-green-700 mb-3">
+                    <i class="fas fa-heart mr-2"></i>
+                    Integration of Patipata and Wityakom
+                  </h4>
+                  <p class="text-sm text-green-600">
+                    Technical competence validated by moral purity—both essential for authentic efficacy.
+                    Luang Phor Kong&#39;s &#34;Master Class&#34; designation reflects this integration of
+                    exemplary Patipata (monastic discipline) with Wityakom (esoteric knowledge).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section id="conclusion" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+          <h2 class="tiempos text-4xl font-bold text-deep-red mb-12 text-center">Sacred Conclusion</h2>
+
+          <div class="bg-gradient-to-r from-saffron to-gold bg-opacity-10 rounded-lg p-8 mb-12">
+            <h3 class="tiempos text-2xl font-bold text-deep-red mb-6 text-center">Distinctive Contributions to Thai Amulet Tradition</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <i class="fas fa-star text-gold mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">Unprecedented Power Specialization</h4>
+                    <p class="text-sm text-gray-600">Systematic creation across Maha Wang, Wirogo Kambang, Maha Kan paradigms</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-shield-alt text-saffron mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">Mastery of Multiple Mechanisms</h4>
+                    <p class="text-sm text-gray-600">Comprehensive coverage: subjugation, evasion, prevention</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-puzzle-piece text-gold mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">Multi-Lineage Synthesis</h4>
+                    <p class="text-sm text-gray-600">Integration of diverse knowledge into distinctive personal system</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <i class="fas fa-gem text-purple-500 mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">Exclusive Innovation</h4>
+                    <p class="text-sm text-gray-600">Wirogo Kambang formula without precedent or successful replication</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-balance-scale text-blue-500 mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">Ethical Governance Model</h4>
+                    <p class="text-sm text-gray-600">Deliberate destruction to prevent misuse—paradigm for subsequent creators</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-crown text-green-500 mr-3 mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold mb-1">&#34;Master Class&#34; Recognition</h4>
+                    <p class="text-sm text-gray-600">Integration of Patipata purity with Wityakom technical mastery</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-8 shadow-lg border-t-4 border-deep-red">
+            <h3 class="tiempos text-2xl font-bold text-deep-red mb-6 text-center">Enduring Significance of Documented Experiences</h3>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-fighter-jet text-2xl text-red-600"></i>
+                </div>
+                <h4 class="font-bold text-red-700 mb-3">WWII Mass Observation</h4>
+                <p class="text-sm text-gray-600">Epistemological foundation for Maha Wang territorial efficacy claims—exceeding individual testimony limitations through controlled conditions</p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-mask text-2xl text-purple-600"></i>
+                </div>
+                <h4 class="font-bold text-purple-700 mb-3">Comparative Power Illustration</h4>
+                <p class="text-sm text-gray-600">Suea Glai phenomenon demonstrates strategic differentiation between evasion (Wirogo Kambang) and confrontation survival (Maha Wang)</p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-heart text-2xl text-green-600"></i>
+                </div>
+                <h4 class="font-bold text-green-700 mb-3">Cumulative Validation</h4>
+                <p class="text-sm text-gray-600">Luk Am Maha Kan reports provide distributed validation of generalized prevention through sustained devotional practice across generations</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 bg-gradient-to-r from-deep-red to-saffron text-white rounded-lg p-8">
+            <h3 class="tiempos text-2xl font-bold mb-6 text-center">Comparative Framework for Future Study</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-bold mb-4">
+                  <i class="fas fa-microscope mr-2"></i>
+                  Analytical Principles
+                </h4>
+                <ul class="space-y-2 text-sm">
+                  <li>• Power-specific analysis superior to general efficacy evaluation</li>
+                  <li>• Context-appropriate deployment based on threat assessment</li>
+                  <li>• Recognition of creator&#39;s ongoing authority and karmic connection</li>
+                  <li>• Integration of Patipata and Wityakom as essential foundation</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-bold mb-4">
+                  <i class="fas fa-compass mr-2"></i>
+                  Strategic Application
+                </h4>
+                <ul class="space-y-2 text-sm">
+                  <li>• Match threat type to protective mechanism: Maha Wang for confrontation</li>
+                  <li>• Wirogo Kambang for evasion, Maha Kan for general prevention</li>
+                  <li>• Consider operational constraints and ethical dimensions</li>
+                  <li>• Acknowledge limitations and appropriate expectations</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-8 text-center">
+              <p class="text-lg leading-relaxed">
+                Luang Phor Kong&#39;s legacy endures not merely through material objects—however rare and valued—but through the
+                <strong class="text-yellow-200">demonstrated integration of ethical responsibility with technical mastery</strong>,
+                establishing a paradigm for authentic sacred object creation that subsequent generations continue to recognize, venerate, and attempt to emulate.
+              </p>
+            </div>
+          </div>
+
+          <div class="text-center mt-12">
+            <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+            <p class="text-sm text-gray-600 italic">
+              &#34;He who Advances in Dhamma&#34; — The prophetic Chaya name of Luang Phor Kong Tammachoto,
+              fulfilled through more than a century of enduring spiritual contribution to Thai sacred traditions.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-dot" onclick="scrollToSection(&#39;hero&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;foundational-context&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;conceptual-framework&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;amulet-analysis&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;comparative-synthesis&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;documented-experiences&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;contemporary-status&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;devotional-considerations&#39;)"></div>
+      <div class="scroll-dot" onclick="scrollToSection(&#39;conclusion&#39;)"></div>
+    </div>
+
+    <script>
+        // Mobile TOC Toggle
+        function toggleTOC() {
+            const toc = document.querySelector('.toc-fixed');
+            toc.classList.toggle('open');
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Update active TOC link
+        function updateActiveTOCLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const scrollDots = document.querySelectorAll('.scroll-dot');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            // Update TOC links
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update scroll dots
+            scrollDots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                const sectionIds = ['hero', 'foundational-context', 'conceptual-framework', 'amulet-analysis', 
+                                   'comparative-synthesis', 'documented-experiences', 'contemporary-status', 
+                                   'devotional-considerations', 'conclusion'];
+                if (sectionIds[index] === currentSection) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add scroll event listener
+        window.addEventListener('scroll', updateActiveTOCLink);
+        
+        // Initial call
+        updateActiveTOCLink();
+
+        // Close TOC when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const toc = document.querySelector('.toc-fixed');
+            const toggleBtn = document.querySelector('button[onclick="toggleTOC()"]');
+            
+            if (window.innerWidth <= 1024 && !toc.contains(e.target) && !toggleBtn.contains(e.target)) {
+                toc.classList.remove('open');
+            }
+        });
+    </script>
+  
+
+</body></html>
