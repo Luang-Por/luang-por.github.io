@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หลวงพ่อคง — เทพเจ้าแห่งลุ่มน้ำแม่กลอง</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23c89b3c'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    @layer base, layout, components, utilities, animations;
+
+    @layer base {
+      :root {
+        --void: #0a0604;
+        --surface: #1a100b;
+        --surface-el: #2a1a12;
+        --gold: #c89b3c;
+        --gold-bright: #e8c060;
+        --gold-dim: #8b6914;
+        --gold-glow: rgba(200,155,60,0.12);
+        --copper: #c8956c;
+        --temple-red: #c41e3a;
+        --emerald: #2d6a4f;
+        --neon: #3b82f6;
+        --text-main: #f5e6c8;
+        --text-muted: #8a7560;
+        --glass-border: rgba(200,155,60,0.18);
+        --ease: cubic-bezier(0.16,1,0.3,1);
+        --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--void);
+        color: var(--text-main);
+        font-family: 'Sarabun', sans-serif;
+        overflow-x: hidden;
+        line-height: 1.7;
+      }
+      /* i18n */
+      [lang="th"] { display: none; }
+      body[data-lang="th"] [lang="en"] { display: none; }
+      body[data-lang="th"] [lang="th"] { display: block; }
+      h1,h2,h3,h4 { font-family: 'Cinzel', serif; line-height: 1.3; }
+      a { color: var(--gold); text-decoration: none; }
+      ::selection { background: var(--gold); color: var(--void); }
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: var(--void); }
+      ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+    }
+
+    @layer layout {
+      .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+      .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+      .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+      @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } }
+      @media (max-width: 1100px) { .grid-3 { grid-template-columns: repeat(2,1fr); } }
+    }
+
+    @layer components {
+      .glass {
+        background: rgba(26,16,11,0.88);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        border-radius: 14px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(200,155,60,0.08);
+        transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s;
+      }
+      .glass:hover { border-color: rgba(200,155,60,0.4); transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,0,0,0.6), 0 0 30px rgba(200,155,60,0.08); }
+
+      .badge {
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        padding: 3px 12px; border-radius: 99px;
+        font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+        border: 1px solid; font-family: 'Cinzel', serif;
+      }
+      .badge-gold { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
+      .badge-red { border-color: var(--temple-red); color: var(--temple-red); background: rgba(196,30,58,0.1); }
+      .badge-emerald { border-color: var(--emerald); color: #4caf84; background: rgba(45,106,79,0.15); }
+      .badge-copper { border-color: var(--copper); color: var(--copper); background: rgba(200,149,108,0.1); }
+
+      .btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.55rem 1.3rem; border-radius: 8px;
+        font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.75rem;
+        letter-spacing: 0.1em; cursor: pointer; border: none;
+        background: linear-gradient(135deg, var(--gold), var(--copper));
+        color: var(--void); transition: all 0.3s var(--ease);
+      }
+      .btn:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,155,60,0.3); }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-muted);
+      }
+      .btn-ghost:hover { border-color: var(--gold); color: var(--gold); box-shadow: none; }
+
+      /* Progress Bar */
+      .progress-track { height: 5px; background: var(--surface-el); border-radius: 3px; overflow: hidden; margin-top: 0.4rem; }
+      .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright)); transition: width 1.2s var(--ease); }
+      .progress-fill.red { background: linear-gradient(90deg, #8b1a2a, var(--temple-red)); }
+      .progress-fill.emerald { background: linear-gradient(90deg, #1e4a35, #4caf84); }
+      .progress-fill.copper { background: linear-gradient(90deg, #8b5e3c, var(--copper)); }
+
+      /* Range slider */
+      input[type=range] {
+        -webkit-appearance: none; width: 100%; height: 3px;
+        background: var(--surface-el); border-radius: 2px; outline: none; cursor: pointer;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+        background: var(--gold); border: 2px solid var(--void); transition: transform 0.2s;
+      }
+      input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+      /* Slide Panel */
+      .slide-panel {
+        position: fixed; top: 0; right: 0; width: 100%; max-width: 500px; height: 100vh;
+        background: var(--surface); border-left: 1px solid var(--glass-border);
+        transform: translateX(100%); transition: transform 0.55s var(--ease);
+        z-index: 3000; overflow-y: auto; padding: 0;
+      }
+      .slide-panel.open { transform: translateX(0); box-shadow: -20px 0 80px rgba(0,0,0,0.6); }
+      .panel-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2999;
+        opacity: 0; pointer-events: none; transition: opacity 0.4s;
+      }
+      .panel-overlay.show { opacity: 1; pointer-events: all; }
+
+      /* Loader */
+      #loading-overlay {
+        position: fixed; inset: 0; z-index: 9999; background: var(--void);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        transition: opacity 0.8s var(--ease);
+      }
+      #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+      .lotus-spinner {
+        width: 60px; height: 60px; position: relative; margin-bottom: 1.5rem;
+      }
+      .lotus-ring {
+        position: absolute; inset: 0; border-radius: 50%;
+        border: 2px solid transparent; animation: orbit linear infinite;
+      }
+      .lotus-ring:nth-child(1) { border-top-color: var(--gold); animation-duration: 1.8s; }
+      .lotus-ring:nth-child(2) { inset: 8px; border-right-color: var(--copper); animation-duration: 1.2s; animation-direction: reverse; }
+      .lotus-ring:nth-child(3) { inset: 16px; border-bottom-color: var(--gold-bright); animation-duration: 2.4s; }
+
+      /* Divider */
+      .divider {
+        width: 100%; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+        margin: 3rem 0;
+      }
+
+      /* Stat */
+      .stat { padding: 0.3rem 0; }
+      .stat-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-family: 'Cinzel', serif; }
+      .stat-value { font-size: 1.1rem; font-weight: 700; color: var(--text-main); font-family: 'JetBrains Mono', monospace; }
+      .stat-value.gold { color: var(--gold); }
+      .stat-value.red { color: var(--temple-red); }
+    }
+
+    @layer utilities {
+      .font-display { font-family: 'Cinzel', serif; }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+      .text-gold { color: var(--gold); }
+      .text-copper { color: var(--copper); }
+      .text-muted { color: var(--text-muted); }
+      .text-sm { font-size: 0.85rem; }
+      .text-xs { font-size: 0.75rem; }
+      .text-lg { font-size: 1.15rem; }
+      .text-xl { font-size: 1.4rem; }
+      .text-2xl { font-size: 1.75rem; }
+      .text-3xl { font-size: 2.2rem; }
+      .fw-bold { font-weight: 700; }
+      .tracking-wide { letter-spacing: 0.08em; }
+      .tracking-widest { letter-spacing: 0.2em; }
+      .opacity-50 { opacity: 0.5; }
+      .opacity-70 { opacity: 0.7; }
+      .mb-1 { margin-bottom: 0.25rem; }
+      .mb-2 { margin-bottom: 0.5rem; }
+      .mb-3 { margin-bottom: 0.75rem; }
+      .mb-4 { margin-bottom: 1rem; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .mb-8 { margin-bottom: 2rem; }
+      .mt-2 { margin-top: 0.5rem; }
+      .mt-4 { margin-top: 1rem; }
+      .mt-6 { margin-top: 1.5rem; }
+      .gap-2 { gap: 0.5rem; }
+      .gap-3 { gap: 0.75rem; }
+      .flex { display: flex; }
+      .flex-col { flex-direction: column; }
+      .items-center { align-items: center; }
+      .justify-between { justify-content: space-between; }
+      .justify-center { justify-content: center; }
+      .flex-wrap { flex-wrap: wrap; }
+      .relative { position: relative; }
+      .overflow-hidden { overflow: hidden; }
+      .w-full { width: 100%; }
+      .h-full { height: 100%; }
+      .p-4 { padding: 1rem; }
+      .p-6 { padding: 1.5rem; }
+      .p-8 { padding: 2rem; }
+      .inline-flex { display: inline-flex; }
+    }
+
+    @layer animations {
+      @keyframes orbit { to { transform: rotate(360deg); } }
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes shimmer { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+      @keyframes glowPulse { 0%,100% { box-shadow: 0 0 20px rgba(200,155,60,0.1); } 50% { box-shadow: 0 0 50px rgba(200,155,60,0.25); } }
+      @keyframes flicker { 0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:0.6} 94%{opacity:1} 96%{opacity:0.8} 97%{opacity:1} }
+      .anim-fade-up { animation: fadeUp 0.7s var(--ease) both; }
+      .anim-fade-up-d1 { animation: fadeUp 0.7s 0.1s var(--ease) both; }
+      .anim-fade-up-d2 { animation: fadeUp 0.7s 0.2s var(--ease) both; }
+      .anim-fade-up-d3 { animation: fadeUp 0.7s 0.3s var(--ease) both; }
+      .anim-shimmer { animation: shimmer 2.5s ease-in-out infinite; }
+      .anim-glow { animation: glowPulse 3s ease-in-out infinite; }
+      .anim-flicker { animation: flicker 8s ease-in-out infinite; }
+    }
+
+    /* ── SECTION-SPECIFIC ─────────────────────────────────────── */
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(10,6,4,0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); transition: color 0.2s; font-family: 'Cinzel', serif; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 4rem;
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold-dim); font-family: 'Cinzel', serif;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 40px; height: 1px; background: var(--gold-dim); }
+    .hero-title {
+      font-size: clamp(2.2rem, 6vw, 5rem); font-weight: 900;
+      line-height: 1.1; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text-main) 0%, var(--gold) 50%, var(--copper) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--gold); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+    .hero-desc { font-size: 1rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 2.5rem; line-height: 1.8; }
+    .hero-stats { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); display: block; }
+    .hero-stat-lbl { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    /* Hero mandala decoration */
+    .hero-mandala {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: min(700px, 90vw); height: min(700px, 90vw); z-index: 0; opacity: 0.04;
+      animation: orbit 80s linear infinite;
+    }
+
+    /* SECTION HEADER */
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-eyebrow { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.75rem; display: block; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--text-main); margin-bottom: 0.75rem; }
+    .section-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 0.95rem; }
+
+    /* BIO SECTION */
+    #bio { padding: 6rem 0; }
+    .bio-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start; }
+    @media (max-width: 768px) { .bio-grid { grid-template-columns: 1fr; } }
+    .bio-card { padding: 2rem; }
+    .bio-portrait {
+      width: 100%; aspect-ratio: 1; border-radius: 12px;
+      background: var(--surface-el);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem; position: relative; overflow: hidden;
+    }
+    .bio-portrait::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(200,155,60,0.15), transparent 70%);
+    }
+    .bio-portrait svg { opacity: 0.7; }
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold-dim), transparent); }
+    .timeline-item { position: relative; margin-bottom: 1.5rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -1.5rem; top: 0.5rem; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); border: 2px solid var(--void); }
+    .timeline-year { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gold); margin-bottom: 0.2rem; }
+    .timeline-event { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .timeline-event strong { color: var(--text-main); }
+
+    /* ARTIFACTS */
+    #artifacts { padding: 6rem 0; }
+    .artifact-card { padding: 2rem; cursor: pointer; position: relative; }
+    .artifact-icon { width: 56px; height: 56px; border-radius: 12px; background: var(--surface-el); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; transition: transform 0.3s var(--ease-spring); }
+    .artifact-card:hover .artifact-icon { transform: scale(1.1) rotate(-5deg); }
+    .artifact-rank { position: absolute; top: 1.25rem; right: 1.25rem; }
+    .artifact-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .artifact-thai { font-family: 'Sarabun', sans-serif; font-size: 0.85rem; color: var(--gold); margin-bottom: 0.75rem; }
+    .artifact-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem; }
+    .artifact-metrics { display: flex; flex-direction: column; gap: 0.6rem; }
+    .metric-row { display: flex; align-items: center; justify-content: space-between; }
+    .metric-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-family: 'Cinzel', serif; }
+    .metric-value { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold); }
+
+    /* NETWORK SECTION */
+    #network { padding: 6rem 0; }
+    #network-container {
+      width: 100%; height: 520px; position: relative;
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: rgba(10,6,4,0.7);
+    }
+    #network-container svg { width: 100%; height: 100%; }
+    .network-controls {
+      display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; align-items: center;
+    }
+    .network-legend { display: flex; gap: 1.5rem; margin-left: auto; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; color: var(--text-muted); font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-sq { width: 10px; height: 10px; border-radius: 2px; }
+    .legend-tri { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid; }
+
+    /* FILTER SECTION */
+    #filter { padding: 2rem 0 4rem; }
+    .filter-panel { padding: 1.5rem 2rem; margin-bottom: 2rem; }
+    .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; align-items: end; }
+    .filter-group label { display: block; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-family: 'Cinzel', serif; margin-bottom: 0.5rem; }
+    .filter-group .val { color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+    #results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.25rem; }
+    .result-card { padding: 1.25rem; font-size: 0.88rem; }
+    .result-card.hidden { display: none; }
+    .result-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .result-name { font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700; }
+    .result-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold); }
+    .no-results { text-align: center; padding: 3rem; color: var(--text-muted); font-family: 'Cinzel', serif; letter-spacing: 0.1em; font-size: 0.85rem; grid-column: 1/-1; display: none; }
+
+    /* COMPARISON TABLE */
+    #compare { padding: 6rem 0; }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+    .compare-table td { padding: 0.9rem 1.25rem; font-size: 0.88rem; border-bottom: 1px solid rgba(200,155,60,0.06); vertical-align: top; }
+    .compare-table tr:hover td { background: rgba(200,155,60,0.04); }
+    .compare-table .row-label { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
+
+    /* LEGEND SECTION */
+    #legends { padding: 6rem 0; }
+    .legend-card { padding: 2rem; margin-bottom: 1.5rem; display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start; }
+    @media (max-width: 600px) { .legend-card { grid-template-columns: 1fr; } }
+    .legend-icon-wrap { width: 80px; height: 80px; border-radius: 12px; background: var(--surface-el); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .legend-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .legend-meta { font-size: 0.72rem; color: var(--gold-dim); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.75rem; }
+    .legend-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* LINEAGE CHART */
+    #lineage { padding: 6rem 0; }
+    #lineage-chart { height: 320px; }
+
+    /* SLIDE PANEL CONTENT */
+    .panel-header { padding: 2rem; border-bottom: 1px solid var(--glass-border); background: var(--void); position: sticky; top: 0; z-index: 10; }
+    .panel-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; padding: 0.25rem; transition: color 0.2s; float: right; }
+    .panel-close:hover { color: var(--gold); }
+    .panel-body { padding: 2rem; }
+    .panel-section { margin-bottom: 2rem; }
+    .panel-section h4 { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .panel-section p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+    .katha-box { background: var(--surface-el); border-left: 2px solid var(--gold); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; font-family: 'Sarabun', sans-serif; font-size: 0.88rem; font-style: italic; color: var(--text-main); line-height: 1.9; margin-top: 0.5rem; }
+    .copy-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; color: var(--text-muted); cursor: pointer; background: none; border: 1px solid var(--glass-border); padding: 4px 10px; border-radius: 4px; margin-top: 0.5rem; transition: all 0.2s; font-family: 'JetBrains Mono', monospace; }
+    .copy-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* FOOTER */
+    #footer { padding: 3rem 0; border-top: 1px solid var(--glass-border); text-align: center; }
+
+    /* Canvas */
+    #sacred-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    main { position: relative; z-index: 1; }
+  </style>
+</head>
+<body data-lang="en">
+
+<canvas id="sacred-canvas"></canvas>
+
+<!-- LOADING -->
+<div id="loading-overlay">
+  <div class="lotus-spinner">
+    <div class="lotus-ring"></div>
+    <div class="lotus-ring"></div>
+    <div class="lotus-ring"></div>
+  </div>
+  <div class="font-display text-xs tracking-widest text-gold anim-shimmer" style="letter-spacing:0.35em;">
+    INITIALIZING SACRED ARTIFACT
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo anim-flicker">
+    ⟡ &nbsp;LUANG PHOR KONG &nbsp;·&nbsp; วัดบางกะพ้อม
+  </div>
+  <div class="nav-links">
+    <a href="#bio" lang="en">Biography</a>
+    <a href="#artifacts" lang="en">Artifacts</a>
+    <a href="#network" lang="en">Lineage</a>
+    <a href="#legends" lang="en">Legends</a>
+    <a href="#bio" lang="th">ประวัติ</a>
+    <a href="#artifacts" lang="th">วัตถุมงคล</a>
+    <a href="#network" lang="th">สายวิชา</a>
+    <a href="#legends" lang="th">ตำนาน</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn" onclick="APP.toggleLang()" style="font-size:0.68rem; padding:0.4rem 1rem;">EN / TH</button>
+  </div>
+</nav>
+
+<!-- PANEL OVERLAY -->
+<div id="panel-overlay" class="panel-overlay" onclick="APP.closePanel()"></div>
+
+<!-- SLIDE PANEL -->
+<aside id="slide-panel" class="slide-panel">
+  <div class="panel-header">
+    <button class="panel-close" onclick="APP.closePanel()">✕</button>
+    <div id="panel-title" class="font-display text-lg text-gold fw-bold">Detail</div>
+    <div id="panel-subtitle" class="text-xs text-muted mt-2 font-mono tracking-wide"></div>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+</aside>
+
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <svg class="hero-mandala" viewBox="0 0 400 400" fill="none" stroke="#c89b3c">
+      <circle cx="200" cy="200" r="180"/><circle cx="200" cy="200" r="140"/><circle cx="200" cy="200" r="100"/>
+      <circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="20"/>
+      <line x1="200" y1="20" x2="200" y2="380"/><line x1="20" y1="200" x2="380" y2="200"/>
+      <line x1="73" y1="73" x2="327" y2="327"/><line x1="327" y1="73" x2="73" y2="327"/>
+      <polygon points="200,60 320,270 80,270" opacity="0.5"/>
+      <polygon points="200,340 80,130 320,130" opacity="0.5"/>
+    </svg>
+    <div class="hero-content">
+      <div class="hero-eyebrow anim-fade-up">
+        <span lang="en">Sacred Artifact Repository</span>
+        <span lang="th">คลังวัตถุมงคลศักดิ์สิทธิ์</span>
+      </div>
+      <h1 class="hero-title anim-fade-up-d1">Luang Phor Kong</h1>
+      <div class="hero-subtitle anim-fade-up-d1">
+        <span lang="en">วัดบางกะพ้อม · Deity of the Mae Klong River Basin</span>
+        <span lang="th">วัดบางกะพ้อม · เทพเจ้าแห่งลุ่มน้ำแม่กลอง</span>
+      </div>
+      <p class="hero-desc anim-fade-up-d2">
+        <span lang="en">One of the four legendary masters <em>"Jad–Jong–Kong–Ee"</em> whose sacred artifacts span every pinnacle of Thai amulet rankings — from the 4th Benjapakee coin to the nation's supreme Seua Yant.</span>
+        <span lang="th">หนึ่งใน 4 เสือเกจิ <em>"จาด–จง–คง–อี๋"</em> ผู้สร้างวัตถุมงคลที่ครองทุกทำเนียบสุดยอดเครื่องราง ตั้งแต่เหรียญเบญจภาคีอันดับ 4 สู่สุดยอดเสื้อยันต์ของประเทศ</span>
+      </p>
+      <div class="hero-stats anim-fade-up-d2">
+        <div class="hero-stat">
+          <span class="hero-stat-num">78</span>
+          <span class="hero-stat-lbl"><span lang="en">Years of Life</span><span lang="th">ปีแห่งชีวิต</span></span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">58</span>
+          <span class="hero-stat-lbl"><span lang="en">Rains in Robes</span><span lang="th">พรรษา</span></span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">#1</span>
+          <span class="hero-stat-lbl"><span lang="en">Seua Yant</span><span lang="th">เสื้อยันต์</span></span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">#4</span>
+          <span class="hero-stat-lbl"><span lang="en">Benjapakee Coin</span><span lang="th">เบญจภาคีเหรียญ</span></span>
+        </div>
+      </div>
+      <div class="hero-actions anim-fade-up-d3">
+        <button class="btn" onclick="document.getElementById('artifacts').scrollIntoView({behavior:'smooth'})">
+          <span lang="en">Explore Artifacts</span>
+          <span lang="th">สำรวจวัตถุมงคล</span>
+        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('legends').scrollIntoView({behavior:'smooth'})">
+          <span lang="en">Sacred Legends</span>
+          <span lang="th">ตำนานศักดิ์สิทธิ์</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section id="bio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow"><span lang="en">Origin & Lineage</span><span lang="th">ชาติภูมิและสายวิชา</span></span>
+        <h2 class="section-title"><span lang="en">The Making of a Deity</span><span lang="th">กำเนิดเทพเจ้า</span></h2>
+        <p class="section-desc"><span lang="en">Born April 3, 1864 in Samut Songkhram — a life woven between sacred knowledge, moral responsibility, and wartime legend.</span><span lang="th">เกิด 3 เมษายน พ.ศ. 2407 ณ สมุทรสงคราม ชีวิตที่ทอรวมระหว่างความรู้อันศักดิ์สิทธิ์ ความรับผิดชอบทางศีลธรรม และตำนานสงคราม</span></p>
+      </div>
+
+      <div class="bio-grid">
+        <!-- LEFT: Portrait + lineage masters -->
+        <div>
+          <div class="glass p-6">
+            <div class="bio-portrait">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Stylised monk silhouette -->
+                <circle cx="60" cy="35" r="22" stroke="#c89b3c" stroke-width="1.5" fill="rgba(200,155,60,0.08)"/>
+                <path d="M30 100 Q35 65 60 60 Q85 65 90 100" stroke="#c89b3c" stroke-width="1.5" fill="rgba(200,155,60,0.08)"/>
+                <circle cx="60" cy="35" r="28" stroke="rgba(200,155,60,0.3)" stroke-width="0.5" stroke-dasharray="4 3"/>
+                <path d="M60 8 L63 16 L72 16 L65 21 L68 30 L60 25 L52 30 L55 21 L48 16 L57 16Z" fill="#c89b3c" opacity="0.5"/>
+                <circle cx="60" cy="60" r="55" stroke="rgba(200,155,60,0.1)" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="text-center mb-4">
+              <div class="font-display fw-bold text-lg mb-1">พระอุปัชฌาย์คง ธัมมโชโต</div>
+              <div class="text-xs text-muted font-mono">Phra Upachaya Kong Dhammachoto</div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+              <div class="stat"><div class="stat-label">Born</div><div class="stat-value gold font-mono" style="font-size:0.85rem;">2407 BE</div></div>
+              <div class="stat"><div class="stat-label">Passed</div><div class="stat-value font-mono" style="font-size:0.85rem;">2486 BE</div></div>
+              <div class="stat"><div class="stat-label">Temple</div><div class="stat-value" style="font-size:0.8rem;">Wat Bang Ka Phom</div></div>
+              <div class="stat"><div class="stat-label">Province</div><div class="stat-value" style="font-size:0.8rem;">Samut Songkhram</div></div>
+            </div>
+          </div>
+
+          <div class="glass p-6 mt-4">
+            <h4 class="font-display text-xs tracking-widest text-gold mb-4" style="letter-spacing:0.2em;">KNOWLEDGE LINEAGE</h4>
+            <div style="display:flex; flex-direction:column; gap:0.6rem;">
+              <div class="glass" style="padding:0.6rem 0.9rem; background:rgba(200,155,60,0.05);">
+                <div class="text-xs font-mono text-muted">Takrut Maha Rangap</div>
+                <div class="text-sm" style="color:var(--text-main);">หลวงปู่เอี่ยม วัดปากลัด</div>
+              </div>
+              <div class="glass" style="padding:0.6rem 0.9rem; background:rgba(200,155,60,0.05);">
+                <div class="text-xs font-mono text-muted">Seua Yant Virunchambang</div>
+                <div class="text-sm" style="color:var(--text-main);">หลวงพ่อปาน วัดโรงธรรม</div>
+              </div>
+              <div class="glass" style="padding:0.6rem 0.9rem; background:rgba(200,155,60,0.05);">
+                <div class="text-xs font-mono text-muted">Na Pad Ta Lot</div>
+                <div class="text-sm" style="color:var(--text-main);">หลวงพ่อตาด วัดบางวันทอง</div>
+              </div>
+              <div class="glass" style="padding:0.6rem 0.9rem; background:rgba(200,155,60,0.05);">
+                <div class="text-xs font-mono text-muted">Invisible Body / Kay Tip</div>
+                <div class="text-sm" style="color:var(--text-main);">หลวงพ่อเทียน วัดละมุดใน</div>
+              </div>
+              <div class="glass" style="padding:0.6rem 0.9rem; background:rgba(200,155,60,0.05);">
+                <div class="text-xs font-mono text-muted">Luk Om Maha Kan</div>
+                <div class="text-sm" style="color:var(--text-main);">หลวงพ่อไล้ วัดเขายี่สาร</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Timeline -->
+        <div class="glass p-8">
+          <h3 class="font-display fw-bold text-xl text-gold mb-6">
+            <span lang="en">Life Chronicle</span>
+            <span lang="th">พงศาวดารชีวิต</span>
+          </h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">พ.ศ. 2407 · 1864</div>
+              <div class="timeline-event"><strong lang="en">Born into the Chan Prasert family</strong><strong lang="th">กำเนิดในตระกูลจันทร์ประเสริฐ</strong> <span lang="en">at Ban Samrong, Tambon Rong Heep, Bang Khonthi. Born aboard a house-boat of legend — along with future master Luang Phor Tim of Wat Muang Mai.</span><span lang="th">ณ บ้านสำโรง ตำบลโรงหีบ อำเภอบางคนที เกิดในเรือนแพในตำนาน พร้อมกับหลวงพ่อทิม วัดเหมืองใหม่</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">อายุ 12 ปี · Age 12</div>
+              <div class="timeline-event"><strong lang="en">Ordained as a novice monk</strong><strong lang="th">บรรพชาเป็นสามเณร</strong> <span lang="en">at Wat Muang Mai, Amphawa, beginning his sacred education.</span><span lang="th">ที่วัดเหมืองใหม่ อำเภออัมพวา เริ่มต้นการศึกษาวิชาศักดิ์สิทธิ์</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">พ.ศ. 2427 · 1884</div>
+              <div class="timeline-event"><strong lang="en">Full ordination at age 20</strong><strong lang="th">อุปสมบทเมื่ออายุ 20 ปี</strong> <span lang="en">— receiving the Dhamma name <em>Dhammachoto</em> (One Radiant in the Dhamma).</span><span lang="th">ได้รับฉายา <em>ธัมมโชโต</em> แปลว่า "ผู้รุ่งเรืองในธรรม"</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">พ.ศ. 2464 · 1921</div>
+              <div class="timeline-event"><strong lang="en">Appointed Royal Preceptor (Phra Upachaya)</strong><strong lang="th">ได้รับแต่งตั้งเป็นพระอุปัชฌาย์</strong> <span lang="en">— authorised to ordain monks across the Amphawa district.</span><span lang="th">มีอำนาจอุปสมบทพระภิกษุทั่วอำเภออัมพวา</span></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">ยุคสงครามโลก · WWII Era</div>
+              <div class="timeline-event"><strong lang="en">The <em>"Jad–Jong–Kong–Ee"</em> era</strong><strong lang="th">ยุค <em>"จาด–จง–คง–อี๋"</em></strong> <span lang="en">— four masters whose sacred protections created the legendary "Ghost Soldiers" invulnerable to enemy bullets.</span><span lang="th">เกจิผู้ยิ่งใหญ่ 4 รูปที่สร้างตำนาน "ทหารผี" ที่ข้าศึกยิงเท่าไรก็ไม่ตาย</span></div>
+            </div>
+            <div class="timeline-item" style="opacity:0.8;">
+              <div class="timeline-year">6 กุมภาพันธ์ พ.ศ. 2486 · 1943</div>
+              <div class="timeline-event"><strong lang="en">Passed into Parinibbana</strong><strong lang="th">มรณภาพ</strong> <span lang="en">while seated in meditation atop scaffolding after consecrating the new Buddha image — mid-WWII. His final miracle: enemy bombers flew past his funeral without attacking.</span><span lang="th">ขณะนั่งสมาธิบนนั่งร้านหลังฉลองพระประธาน กลางสงครามโลก ปาฏิหาริย์สุดท้าย: เครื่องบินระเบิดบินผ่านงานศพโดยไม่โจมตี</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ARTIFACTS -->
+  <section id="artifacts">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow"><span lang="en">Sacred Arsenal</span><span lang="th">คลังวัตถุมงคล</span></span>
+        <h2 class="section-title"><span lang="en">The Four Pillars of Power</span><span lang="th">สี่เสาหลักแห่งพุทธคุณ</span></h2>
+        <p class="section-desc"><span lang="en">Each artifact targets a distinct mechanism of protection — forming a complete, non-redundant defensive system unmatched by any single master in Thai history.</span><span lang="th">วัตถุมงคลแต่ละชิ้นมีกลไกการป้องกันที่แตกต่างกัน ก่อเป็นระบบป้องกันครบวงจรที่ไม่มีพระเกจิรูปใดสร้างได้เทียบเท่า</span></p>
+      </div>
+      <div class="grid-2" style="grid-template-columns: repeat(2,1fr);">
+        <!-- TAKRUT -->
+        <div class="glass artifact-card" onclick="APP.openPanel('takrut')">
+          <div class="artifact-rank"><span class="badge badge-gold">#1 TAKRUT</span></div>
+          <div class="artifact-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#c89b3c" stroke-width="1.5">
+              <rect x="4" y="14" width="24" height="4" rx="2" fill="rgba(200,155,60,0.2)"/>
+              <path d="M6 16 Q16 10 26 16 Q16 22 6 16Z" stroke-opacity="0.5"/>
+              <line x1="16" y1="4" x2="16" y2="28" stroke-dasharray="2 2"/>
+              <circle cx="16" cy="16" r="2" fill="#c89b3c"/>
+            </svg>
+          </div>
+          <h3 class="artifact-name" lang="en">Takrut Maha Rangap</h3>
+          <h3 class="artifact-name" lang="th">ตะกรุดมหาระงับ</h3>
+          <div class="artifact-thai" lang="en">ตะกรุดมหาระงับ · Lead/Copper Cylinder</div>
+          <div class="artifact-thai" lang="th">ตะกรุดเถื่อน ลาย "จระเข้ขบฟัน"</div>
+          <p class="artifact-desc">
+            <span lang="en">Suppresses danger at its <em>source</em> — not a barrier but a "switch-off" that makes enemies freeze, forget, or fall asleep before acting. One amulet protects an entire group.</span>
+            <span lang="th">ระงับภัยที่ <em>ต้นเหตุ</em> ทำให้ศัตรูหยุดนิ่ง หลงลืม หรือง่วงนอน ก่อนลงมือทำร้าย ตะกรุดดอกเดียวคุ้มกันทั้งหมู่คณะ</span>
+          </p>
+          <div class="artifact-metrics">
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Power Rating</span><span lang="th">ระดับพลัง</span></span>
+                <span class="metric-value">97%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" data-width="97"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Coverage Radius</span><span lang="th">รัศมีคุ้มครอง</span></span>
+                <span class="metric-value">Group</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" data-width="100"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Rarity</span><span lang="th">ความหายาก</span></span>
+                <span class="metric-value">95%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill red" data-width="95"></div></div>
+            </div>
+            <div class="flex gap-2 flex-wrap mt-2">
+              <span class="badge badge-gold">มหาระงับ</span>
+              <span class="badge badge-copper">พรางตา</span>
+              <span class="badge badge-emerald">มหาอำนาจ</span>
+            </div>
+            <div class="flex justify-between mt-2">
+              <span class="text-xs text-muted font-mono">หลักแสน–ล้านบาท</span>
+              <span class="text-xs text-gold">→ View Details</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEUA YANT -->
+        <div class="glass artifact-card" onclick="APP.openPanel('seua')">
+          <div class="artifact-rank"><span class="badge badge-red">#1 SEUA YANT</span></div>
+          <div class="artifact-icon" style="background:rgba(196,30,58,0.1);">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#c41e3a" stroke-width="1.5">
+              <rect x="7" y="6" width="18" height="22" rx="3" fill="rgba(196,30,58,0.15)"/>
+              <path d="M10 12 L22 12 M10 16 L22 16 M10 20 L18 20" stroke-opacity="0.6"/>
+              <circle cx="16" cy="12" r="4" fill="rgba(196,30,58,0.2)" stroke="#c41e3a"/>
+              <path d="M13 10 L16 7 L19 10 L19 14 L16 17 L13 14Z" fill="rgba(196,30,58,0.3)"/>
+            </svg>
+          </div>
+          <h3 class="artifact-name" lang="en">Seua Yant Virunchambang</h3>
+          <h3 class="artifact-name" lang="th">เสื้อยันต์วิรุฬจำบัง</h3>
+          <div class="artifact-thai" lang="en">เสื้อยันต์วิรุฬจำบัง · Enchanted Vest</div>
+          <div class="artifact-thai" lang="th">เสื้อกั๊กกำมะหยี่ดำ · ยันต์เกราะแก้ว</div>
+          <p class="artifact-desc">
+            <span lang="en">Named after a shape-shifting demon of Ramakian — makes the wearer <em>vanish from enemy perception</em> for one held breath. The only vest of its kind ever created in Thai history.</span>
+            <span lang="th">ตั้งชื่อตามยักษ์ในรามเกียรติ์ ทำให้ผู้สวมใส่ <em>หายตัวจากสายตาศัตรู</em> "อึดใจหนึ่ง" เสื้อยันต์ชนิดนี้มีแห่งเดียวในประวัติศาสตร์ไทย</span>
+          </p>
+          <div class="artifact-metrics">
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Concealment</span><span lang="th">อำพราง</span></span>
+                <span class="metric-value">100%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill red" data-width="100"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Uniqueness</span><span lang="th">เอกลักษณ์</span></span>
+                <span class="metric-value">Absolute</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill red" data-width="100"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Market Value</span><span lang="th">ค่านิยม</span></span>
+                <span class="metric-value">92%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill red" data-width="92"></div></div>
+            </div>
+            <div class="flex gap-2 flex-wrap mt-2">
+              <span class="badge badge-red">วิรุฬจำบัง</span>
+              <span class="badge badge-gold">คงกระพัน</span>
+              <span class="badge badge-emerald">กันระเบิด</span>
+            </div>
+            <div class="flex justify-between mt-2">
+              <span class="text-xs text-muted font-mono">หลักหมื่น–แสนบาท</span>
+              <span class="text-xs text-gold">→ View Details</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LUK OM -->
+        <div class="glass artifact-card" onclick="APP.openPanel('lukom')">
+          <div class="artifact-rank"><span class="badge badge-emerald">BENJAPAKEE</span></div>
+          <div class="artifact-icon" style="background:rgba(45,106,79,0.15);">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#4caf84" stroke-width="1.5">
+              <circle cx="16" cy="16" r="10" fill="rgba(45,106,79,0.2)"/>
+              <circle cx="16" cy="16" r="6" fill="rgba(45,106,79,0.3)"/>
+              <circle cx="16" cy="16" r="2" fill="#4caf84"/>
+              <circle cx="16" cy="16" r="14" stroke-opacity="0.3" stroke-dasharray="3 2"/>
+            </svg>
+          </div>
+          <h3 class="artifact-name" lang="en">Luk Om Maha Kan</h3>
+          <h3 class="artifact-name" lang="th">ลูกอมมหากัน</h3>
+          <div class="artifact-thai" lang="en">ลูกอมมหากัน · Sacred Pill Amulet</div>
+          <div class="artifact-thai" lang="th">ผงนะปัดทะมัง · ตัวนะขอมจารกระดาษสา</div>
+          <p class="artifact-desc">
+            <span lang="en">Active defense at the <em>point of impact</em> — blades cannot draw blood, serpent fangs cannot pierce skin, and malevolent spirits are repelled. Returns home if owner violates its moral code.</span>
+            <span lang="th">ป้องกันที่ <em>จุดปะทะ</em> ของแหลมไม่ได้กินเลือด เขี้ยวอสรพิษเจาะไม่เข้า หากผู้ถือทำผิดศีล ลูกอมจะแตกและกลับมาอยู่ที่กุฏิหลวงพ่อเอง</span>
+          </p>
+          <div class="artifact-metrics">
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Invulnerability</span><span lang="th">คงกระพัน</span></span>
+                <span class="metric-value">98%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill emerald" data-width="98"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Moral Gate</span><span lang="th">จริยธรรม</span></span>
+                <span class="metric-value">Active</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill emerald" data-width="100"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">All-Round Kan</span><span lang="th">สารพัดกัน</span></span>
+                <span class="metric-value">95%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill emerald" data-width="95"></div></div>
+            </div>
+            <div class="flex gap-2 flex-wrap mt-2">
+              <span class="badge badge-emerald">มหากัน</span>
+              <span class="badge badge-gold">คงกระพัน</span>
+              <span class="badge badge-copper">เมตตา</span>
+            </div>
+            <div class="flex justify-between mt-2">
+              <span class="text-xs text-muted font-mono">9,500–40,000+ บาท</span>
+              <span class="text-xs text-gold">→ View Details</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COIN -->
+        <div class="glass artifact-card" onclick="APP.openPanel('coin')">
+          <div class="artifact-rank"><span class="badge badge-copper">BENJAPAKEE #4</span></div>
+          <div class="artifact-icon" style="background:rgba(200,149,108,0.1);">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#c8956c" stroke-width="1.5">
+              <circle cx="16" cy="16" r="12" fill="rgba(200,149,108,0.15)"/>
+              <circle cx="16" cy="16" r="9" stroke-opacity="0.5"/>
+              <path d="M16 8 L17.5 13 L22 13 L18.5 15.5 L20 20 L16 17.5 L12 20 L13.5 15.5 L10 13 L14.5 13Z" fill="rgba(200,149,108,0.5)" stroke="#c8956c" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <h3 class="artifact-name" lang="en">First Issue Coin 2484 BE</h3>
+          <h3 class="artifact-name" lang="th">เหรียญรุ่นแรก พ.ศ. 2484</h3>
+          <div class="artifact-thai" lang="en">เหรียญรุ่นแรก · Benjapakee Rank #4</div>
+          <div class="artifact-thai" lang="th">เนื้อทองแดงรมดำ · ชนวนวัดราชบพิธ</div>
+          <p class="artifact-desc">
+            <span lang="en">Struck for the master's 77th birthday — 3,000 pieces. The "Pad Tan" variety is named after a survivor who was struck by a razor-sharp machete with not a scratch on their skin.</span>
+            <span lang="th">สร้างวาระอายุครบ 77 ปี จำนวน 3,000 เหรียญ ชื่อ "เหรียญปาดตาล" มาจากผู้ที่ถูกมีดปาดตาลฟันอย่างจัง แต่ไม่ระคายผิวแม้แต่น้อย</span>
+          </p>
+          <div class="artifact-metrics">
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Universal Prot.</span><span lang="th">ครอบจักรวาล</span></span>
+                <span class="metric-value">94%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill copper" data-width="94"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Market Value</span><span lang="th">ค่านิยม</span></span>
+                <span class="metric-value">2.5M+</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill copper" data-width="90"></div></div>
+            </div>
+            <div>
+              <div class="metric-row">
+                <span class="metric-label"><span lang="en">Rarity (Serrated)</span><span lang="th">ขอบสตางค์ หายาก</span></span>
+                <span class="metric-value">99%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill copper" data-width="99"></div></div>
+            </div>
+            <div class="flex gap-2 flex-wrap mt-2">
+              <span class="badge badge-copper">ลาภผลพูนทวี</span>
+              <span class="badge badge-gold">คงกระพัน</span>
+              <span class="badge badge-red">มหาระงับ</span>
+            </div>
+            <div class="flex justify-between mt-2">
+              <span class="text-xs text-muted font-mono">1.5–2.5 ล้านบาท</span>
+              <span class="text-xs text-gold">→ View Details</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NETWORK SECTION -->
+  <section id="network">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow"><span lang="en">Sacred Topology</span><span lang="th">โครงข่ายสายวิชา</span></span>
+        <h2 class="section-title"><span lang="en">Knowledge Network</span><span lang="th">เครือข่ายความรู้ศักดิ์สิทธิ์</span></h2>
+        <p class="section-desc"><span lang="en">The polymorphic lineage map — Circles = Masters, Rectangles = Artifacts, Triangles = Temples. Drag to explore, click to inspect.</span><span lang="th">แผนที่เครือข่ายสายวิชา — วงกลม = เกจิ, สี่เหลี่ยม = วัตถุมงคล, สามเหลี่ยม = สถานที่ ลากเพื่อสำรวจ คลิกเพื่อดูรายละเอียด</span></p>
+      </div>
+      <div id="network-container" class="glass anim-glow"></div>
+      <div class="network-controls">
+        <button class="btn btn-ghost" onclick="APP.resetNetwork()">
+          <span lang="en">Reset View</span><span lang="th">รีเซ็ต</span>
+        </button>
+        <div class="network-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#c89b3c;"></div> <span lang="en">Master</span><span lang="th">เกจิ</span></div>
+          <div class="legend-item"><div class="legend-sq" style="background:#c8956c;"></div> <span lang="en">Artifact</span><span lang="th">วัตถุมงคล</span></div>
+          <div class="legend-item"><div class="legend-tri" style="border-bottom-color:#4caf84;"></div> <span lang="en">Temple</span><span lang="th">วัด</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FILTER / EXPLORE -->
+  <section id="filter">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Intelligence Filter</span>
+        <h2 class="section-title"><span lang="en">Explore by Value & Rarity</span><span lang="th">สำรวจตามค่านิยมและความหายาก</span></h2>
+      </div>
+      <div class="glass filter-panel">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label><span lang="en">Min. Power Rating</span><span lang="th">ระดับพลังขั้นต่ำ</span>: <span class="val" id="filter-power-val">0</span>%</label>
+            <input type="range" id="filter-power" min="0" max="100" value="0">
+          </div>
+          <div class="filter-group">
+            <label><span lang="en">Max. Price (M฿)</span><span lang="th">ราคาสูงสุด (ล้านบาท)</span>: <span class="val" id="filter-price-val">3.0</span>M</label>
+            <input type="range" id="filter-price" min="0" max="30" value="30" step="1">
+          </div>
+          <div class="filter-group">
+            <label><span lang="en">Mechanism Type</span><span lang="th">ประเภทกลไก</span></label>
+            <select id="filter-type" style="width:100%; background:var(--surface-el); border:1px solid var(--glass-border); color:var(--text-main); padding:0.5rem; border-radius:6px; font-family:'Sarabun',sans-serif; outline:none; cursor:pointer;">
+              <option value="all">All / ทั้งหมด</option>
+              <option value="suppress">Suppress / ระงับ</option>
+              <option value="conceal">Conceal / อำพราง</option>
+              <option value="shield">Shield / กัน</option>
+              <option value="universal">Universal / ครอบจักรวาล</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="results-grid">
+        <div class="no-results" id="no-results">
+          <div style="font-size:2rem; margin-bottom:0.5rem;">☽</div>
+          No artifacts match current parameters
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section id="compare" style="padding:2rem 0 6rem;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Comparative Analysis</span>
+        <h2 class="section-title"><span lang="en">Three-Mechanism Strategy Map</span><span lang="th">แผนที่กลยุทธ์สามกลไก</span></h2>
+      </div>
+      <div class="glass" style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th><span lang="en">Criterion</span><span lang="th">เกณฑ์</span></th>
+              <th style="color:var(--gold);">ตะกรุดมหาระงับ</th>
+              <th style="color:var(--temple-red);">เสื้อยันต์วิรุฬจำบัง</th>
+              <th style="color:#4caf84;">ลูกอมมหากัน</th>
+              <th style="color:var(--copper);">เหรียญรุ่นแรก</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Primary Mechanism</td>
+              <td>ระงับภัยที่ต้นเหตุ<br><span class="text-xs text-muted">Suppress at source</span></td>
+              <td>อำพราง / ล่องหน<br><span class="text-xs text-muted">Conceal wearer</span></td>
+              <td>กันภัยที่จุดปะทะ<br><span class="text-xs text-muted">Shield at impact</span></td>
+              <td>ครอบจักรวาล<br><span class="text-xs text-muted">Universal protection</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Works On</td>
+              <td>ศัตรู / ต้นเหตุภัย</td>
+              <td>ตัวผู้สวมใส่</td>
+              <td>ผิวกาย / จุดปะทะ</td>
+              <td>ครอบจักรวาล</td>
+            </tr>
+            <tr>
+              <td class="row-label">Analogy</td>
+              <td>ปิดสวิตช์อันตราย</td>
+              <td>เกราะล่องหน</td>
+              <td>เกราะเหล็ก</td>
+              <td>ระบบป้องกันรวม</td>
+            </tr>
+            <tr>
+              <td class="row-label">Coverage</td>
+              <td><span class="badge badge-gold">Group / หมู่คณะ</span></td>
+              <td><span class="badge badge-red">Individual</span></td>
+              <td><span class="badge badge-emerald">Individual</span></td>
+              <td><span class="badge badge-copper">Individual</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Usage</td>
+              <td>พกพา / แขวนบ้าน</td>
+              <td>สวมใส่บนตัว</td>
+              <td>อม / ห้อยคอ</td>
+              <td>ห้อยคอ</td>
+            </tr>
+            <tr>
+              <td class="row-label">National Rank</td>
+              <td><strong class="text-gold">#1 ตะกรุดไทย</strong></td>
+              <td><strong style="color:var(--temple-red);">#1 เสื้อยันต์ไทย</strong></td>
+              <td><strong style="color:#4caf84;">Top 5 ลูกอม</strong></td>
+              <td><strong style="color:var(--copper);">#4 เบญจภาคี</strong></td>
+            </tr>
+            <tr>
+              <td class="row-label">Est. Value</td>
+              <td class="font-mono text-gold" style="font-size:0.8rem;">แสน – ล้าน฿</td>
+              <td class="font-mono" style="color:var(--temple-red); font-size:0.8rem;">หมื่น – แสน฿</td>
+              <td class="font-mono" style="color:#4caf84; font-size:0.8rem;">9,500 – 40,000฿</td>
+              <td class="font-mono" style="color:var(--copper); font-size:0.8rem;">1.5 – 2.5M฿</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LEGENDS -->
+  <section id="legends">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Sacred Chronicles</span>
+        <h2 class="section-title"><span lang="en">Five Unsolved Mysteries of Power</span><span lang="th">5 ปริศนาพลังที่โลกยังต้องถอดรหัส</span></h2>
+      </div>
+
+      <div class="legend-card glass">
+        <div class="legend-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#c89b3c" stroke-width="1.5">
+            <path d="M20 5 L23 13 L32 13 L25 19 L27 27 L20 22 L13 27 L15 19 L8 13 L17 13Z" fill="rgba(200,155,60,0.2)"/>
+            <circle cx="20" cy="20" r="18" stroke-opacity="0.3"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="legend-title"><span lang="en">I. The Funeral Bombers Saw Nothing</span><span lang="th">๑. เครื่องบินระเบิดมองไม่เห็นงานศพ</span></h3>
+          <div class="legend-meta">พ.ศ. 2486 · สงครามมหาเอเชียบูรพา · Wat Bang Ka Phom</div>
+          <p class="legend-text"><span lang="en">In 1943, amid WWII bombing runs over Samut Songkhram, disciples affixed Takrut and Thong Maha Rangap to the funeral pyre's peak — then lit the ceremonial fires in full defiance of blackout protocols. Allied aircraft flew over repeatedly yet dropped nothing, as though the temple had been excised from their perception entirely. Witnesses called it the master's final miracle.</span><span lang="th">ในปี พ.ศ. 2486 ท่ามกลางการโจมตีทางอากาศในสงครามมหาเอเชียบูรพา ลูกศิษย์นำตะกรุดและธงมหาระงับไปติดยอดเมรุแล้วเปิดไฟจัดงานอย่างสว่างจ้า ฝ่าฝืนมาตรการ Blackout เครื่องบินสัมพันธมิตรบินผ่านซ้ำแล้วซ้ำเล่าแต่ไม่มีการทิ้งระเบิด ราวกับพื้นที่ถูกตัดขาดจากการรับรู้ของข้าศึก ผู้เห็นเหตุการณ์เรียกว่าปาฏิหาริย์สุดท้ายของหลวงพ่อ</span></p>
+        </div>
+      </div>
+
+      <div class="legend-card glass">
+        <div class="legend-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#c41e3a" stroke-width="1.5">
+            <path d="M20 5 L35 32 L5 32Z" fill="rgba(196,30,58,0.15)"/>
+            <path d="M20 12 L28 27 L12 27Z" fill="rgba(196,30,58,0.25)" stroke-opacity="0.5"/>
+            <circle cx="20" cy="20" r="3" fill="#c41e3a" opacity="0.7"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="legend-title"><span lang="en">II. Tiger Klaeh & The Invisible Bandit</span><span lang="th">๒. เสือแกละกับโจรล่องหน</span></h3>
+          <div class="legend-meta">ยุคสงครามโลก · แม่กลอง · The Virunchambang Incident</div>
+          <p class="legend-text"><span lang="en">A soldier-turned-bandit named "Klaeh" received the very first Virunchambang vest — five bone buttons, black velvet, full yantra inscription. When police surrounded him, he simply fastened the top button, held his breath, and walked through the cordon undetected. Officers fired dozens of rounds; not one connected. He also bore the Thong Maha Rangap — no bullet could cross its boundary. Only Luang Phor Kong himself could end the standoff.</span><span lang="th">ลูกศิษย์ชื่อ "แกละ" ได้รับเสื้อยันต์วิรุฬจำบังตัวแรก กำมะหยี่ดำ กระดุมกระดูก 5 เม็ด เมื่อตำรวจล้อมจับ เขาเพียงกลัดกระดุมเม็ดบนสุด อึดใจ แล้วเดินฝ่าวงล้อมออกมาโดยไม่มีตำรวจคนไหนมองเห็น ปืนหลายสิบกระบอกยิงไม่ต้อง มีเพียงหลวงพ่อคงเท่านั้นที่ยุติเรื่องนี้ได้</span></p>
+        </div>
+      </div>
+
+      <div class="legend-card glass">
+        <div class="legend-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#4caf84" stroke-width="1.5">
+            <circle cx="20" cy="20" r="14" fill="rgba(45,106,79,0.15)"/>
+            <path d="M14 20 C14 15 26 15 26 20 C26 25 14 25 14 20Z" fill="rgba(45,106,79,0.3)"/>
+            <path d="M20 10 L20 30 M10 20 L30 20" stroke-opacity="0.4"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="legend-title"><span lang="en">III. The Returning Luk Om</span><span lang="th">๓. ลูกอมที่บินกลับบ้าน</span></h3>
+          <div class="legend-meta">Moral Gatekeeping · Karmic Auto-Return Mechanism</div>
+          <p class="legend-text"><span lang="en">Luang Phor Kong established a strict moral covenant with every Luk Om Maha Kan he dispensed: <em>"No fraud. No adultery. No theft."</em> Those who violated the pact found their luk om had cracked, or simply vanished — then reappeared at the monk's kuti. When the transgressor returned seeking a replacement, the master would say: <em>"Not yet, my child. Come back when your conduct is worthy."</em></span><span lang="th">หลวงพ่อคงกำหนดสัญญาทางศีลธรรมกับลูกอมมหากันทุกลูก: <em>"ห้ามคดโกง ห้ามผิดลูกผิดเมีย ห้ามปล้นลัก"</em> ผู้ที่ละเมิดจะพบว่าลูกอมแตกหรือหายไป แล้วปรากฏที่กุฏิหลวงพ่อ เมื่อมาขอใหม่ หลวงพ่อจะบอกว่า <em>"รอไปก่อนนะจ๊ะ ให้มีความประพฤติดีเสียก่อน"</em></span></p>
+        </div>
+      </div>
+
+      <div class="legend-card glass">
+        <div class="legend-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#c8956c" stroke-width="1.5">
+            <circle cx="20" cy="20" r="14" fill="rgba(200,149,108,0.15)"/>
+            <path d="M20 8 L21.5 14 L27 14 L22.5 17.5 L24 23 L20 20 L16 23 L17.5 17.5 L13 14 L18.5 14Z" fill="rgba(200,149,108,0.4)"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="legend-title"><span lang="en">IV. The Pad Tan — Machete That Drew No Blood</span><span lang="th">๔. เหรียญปาดตาล — มีดไม่ระคายผิว</span></h3>
+          <div class="legend-meta">เหรียญรุ่น 2 · Empirical Evidence · Historical Record</div>
+          <p class="legend-text"><span lang="en">A holder of Luang Phor Kong's second coin was struck full-force by a <em>Pad Tan</em> — an extraordinarily sharp jungle machete used to shear sugar-palm fronds. The blade met the skin and left only a faint red mark, no cut, no blood. Villagers immediately began calling the coin <em>"Rian Pad Tan"</em> (the Machete Coin), a name it has carried ever since as empirical proof of its kongkrapan power.</span><span lang="th">ผู้ห้อยเหรียญรุ่นสองถูกมีดปาดตาล ซึ่งมีความคมอย่างยิ่งใช้ตัดจั่นตาล ฟันเข้าที่ลำคออย่างจัง คมมีดกลับไม่ระคายผิว ทิ้งไว้เพียงรอยแดง ชาวบ้านจึงเรียกว่า <em>"เหรียญปาดตาล"</em> นับแต่นั้นมา เป็นหลักฐานเชิงประจักษ์แห่งพุทธคุณ</span></p>
+        </div>
+      </div>
+
+      <div class="legend-card glass">
+        <div class="legend-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#c89b3c" stroke-width="1.5">
+            <path d="M20 5 C25 10 35 10 35 20 C35 30 25 35 20 35 C15 35 5 30 5 20 C5 10 15 10 20 5Z" fill="rgba(200,155,60,0.1)"/>
+            <path d="M20 35 L20 5" stroke-opacity="0.3"/>
+            <circle cx="20" cy="20" r="5" fill="rgba(200,155,60,0.3)"/>
+            <path d="M15 15 L25 25 M25 15 L15 25" stroke-opacity="0.4"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="legend-title"><span lang="en">V. The Sea Burial — Ethics Over Power</span><span lang="th">๕. การถ่วงทิ้งทะเล — จริยธรรมเหนืออำนาจ</span></h3>
+          <div class="legend-meta">Ultimate Override · Karmic Governance · Sacred Sacrifice</div>
+          <p class="legend-text"><span lang="en">When multiple disciples weaponised his sacred artifacts for murder and robbery — and police were powerless to stop them — Luang Phor Kong made a decision no other master in Thai history is recorded to have made: he gathered all remaining Takrut Maha Rangap and cast them to the depths of the sea. He destroyed his greatest creations to protect society. This act of sacrifice explains why so few authentic pieces remain today, and why their value continues to rise without limit.</span><span lang="th">เมื่อลูกศิษย์หลายคนนำวัตถุมงคลไปใช้เป็นอาวุธฆ่าและปล้น จนตำรวจไม่อาจปราบได้ หลวงพ่อคงตัดสินใจที่ไม่เคยมีพระเกจิรูปใดในประวัติศาสตร์ไทยทำ: รวบรวมตะกรุดมหาระงับที่เหลือทั้งหมดไปถ่วงทิ้งทะเล ท่านทำลายผลงานที่ยิ่งใหญ่ที่สุดของตนเองเพื่อปกป้องสังคม การเสียสละนี้คือเหตุผลที่วัตถุมงคลของท่านหายากและมีค่าเพิ่มขึ้นไม่มีที่สิ้นสุด</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LINEAGE CHART -->
+  <section id="lineage">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Lineage Chart</span>
+        <h2 class="section-title"><span lang="en">Benjapakee Coin Rankings</span><span lang="th">ทำเนียบเบญจภาคีเหรียญพระสงฆ์</span></h2>
+      </div>
+      <div class="glass p-6">
+        <canvas id="lineage-chart" style="height:300px;"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="font-display text-xs tracking-widest text-muted mb-2" style="letter-spacing:0.25em;">
+        ⟡ &nbsp; NEXUS // SACRED ARTIFACT — LUANG PHOR KONG &nbsp; ⟡
+      </div>
+      <div class="text-xs text-muted opacity-50">
+        วัดบางกะพ้อม · Amphawa · Samut Songkhram · พ.ศ. 2407–2486
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════
+// 1. SIMPLEX NOISE ENGINE
+// ══════════════════════════════════════════════════════
+class SimplexNoise{constructor(){this.p=new Uint8Array(256);for(let i=0;i<256;i++)this.p[i]=Math.floor(256*Math.random());this.perm=new Uint8Array(512);for(let i=0;i<512;i++)this.perm[i]=this.p[i&255]}dot(g,x,y){return g[0]*x+g[1]*y}noise(xin,yin){const F2=.5*(Math.sqrt(3)-1),G2=(3-Math.sqrt(3))/6;let i=Math.floor(xin+((xin+yin)*F2)),j=Math.floor(yin+((xin+yin)*F2)),t=(i+j)*G2,X0=i-t,Y0=j-t,x0=xin-X0,y0=yin-Y0;let i1,j1;x0>y0?(i1=1,j1=0):(i1=0,j1=1);let x1=x0-i1+G2,y1=y0-j1+G2,x2=x0-1+2*G2,y2=y0-1+2*G2,ii=i&255,jj=j&255,gi0=this.perm[ii+this.perm[jj]]%12,gi1=this.perm[ii+i1+this.perm[jj+j1]]%12,gi2=this.perm[ii+1+this.perm[jj+1]]%12,t0=.5-x0*x0-y0*y0,n0=t0<0?0:Math.pow(t0,4)*this.dot([Math.cos(gi0*0.5236),Math.sin(gi0*0.5236)],x0,y0),t1=.5-x1*x1-y1*y1,n1=t1<0?0:Math.pow(t1,4)*this.dot([Math.cos(gi1*0.5236),Math.sin(gi1*0.5236)],x1,y1),t2=.5-x2*x2-y2*y2,n2=t2<0?0:Math.pow(t2,4)*this.dot([Math.cos(gi2*0.5236),Math.sin(gi2*0.5236)],x2,y2);return 70*(n0+n1+n2)}}
+
+// ══════════════════════════════════════════════════════
+// 2. ANTIGRAVITY PARTICLE ENGINE
+// ══════════════════════════════════════════════════════
+class AntigravityEngine {
+  constructor() {
+    this.canvas = document.getElementById('sacred-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.simplex = new SimplexNoise();
+    this.particles = [];
+    this.mouse = { x: -9999, y: -9999 };
+    this.t = 0;
+    this.resize();
+    this.createParticles();
+    this.animate();
+    window.addEventListener('resize', () => this.resize());
+    window.addEventListener('mousemove', e => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; });
+  }
+
+  resize() {
+    this.W = this.canvas.width = window.innerWidth;
+    this.H = this.canvas.height = window.innerHeight;
+  }
+
+  createParticles() {
+    this.particles = [];
+    const count = Math.min(120, Math.floor(this.W * this.H / 12000));
+    for (let i = 0; i < count; i++) {
+      this.particles.push({
+        x: Math.random() * this.W,
+        y: Math.random() * this.H,
+        vx: 0, vy: 0,
+        size: Math.random() * 1.8 + 0.4,
+        speed: Math.random() * 0.4 + 0.2,
+        noiseOff: Math.random() * 1000,
+        alpha: Math.random() * 0.5 + 0.15,
+        color: Math.random() > 0.7 ? '#c8956c' : '#c89b3c'
+      });
+    }
+  }
+
+  animate() {
+    const { ctx, W, H } = this;
+    this.t += 0.002;
+    ctx.fillStyle = 'rgba(10,6,4,0.15)';
+    ctx.fillRect(0, 0, W, H);
+
+    for (const p of this.particles) {
+      const nx = (p.x / W) * 3 + this.t;
+      const ny = (p.y / H) * 3 + this.t * 0.7;
+      const angle = this.simplex.noise(nx + p.noiseOff, ny) * Math.PI * 2;
+      p.vx += Math.cos(angle) * p.speed * 0.08;
+      p.vy += Math.sin(angle) * p.speed * 0.08;
+
+      // Mouse repulsion
+      const dx = p.x - this.mouse.x, dy = p.y - this.mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const force = (120 - dist) / 120;
+        p.vx += (dx / dist) * force * 2;
+        p.vy += (dy / dist) * force * 2;
+      }
+
+      p.vx *= 0.92; p.vy *= 0.92;
+      p.x += p.vx; p.y += p.vy;
+
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+      // Draw
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 4;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Draw gossamer connections
+    ctx.save();
+    for (let i = 0; i < this.particles.length; i++) {
+      for (let j = i + 1; j < this.particles.length; j++) {
+        const a = this.particles[i], b = this.particles[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 80) {
+          ctx.strokeStyle = `rgba(200,155,60,${0.04 * (1 - d / 80)})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// 3. APP DATA
+// ══════════════════════════════════════════════════════
+const DATA = {
+  artifacts: [
+    { id: 'takrut', name: 'Takrut Maha Rangap', thai: 'ตะกรุดมหาระงับ', type: 'suppress', power: 97, priceM: 1.5, rarity: 95, desc_en: 'Lead/copper cylinder, 3–5 inches. Knotted in crocodile-jaw weave, lacquered red. Suppresses threat at its origin, rendering enemies immobile.', desc_th: 'ตะกรุดตะกั่ว/ทองแดงเถื่อน 3–5 นิ้ว ถักลาย "จระเข้ขบฟัน" จุ่มรักแดง ระงับภัยที่ต้นเหตุ', mechanism: 'Suppress / ระงับ', katha: 'โอมมหาระงับ หลับสิ้นทั้งบ้าน โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ\n\nนะปิดตา โมปิดใจ พุทธปิดปาก ธาปิดหู ยะหลับนิ่งอยู่', teacher: 'หลวงปู่เอี่ยม วัดปากลัด', year: 'ก่อน พ.ศ. 2484' },
+    { id: 'seua', name: 'Seua Yant Virunchambang', thai: 'เสื้อยันต์วิรุฬจำบัง', type: 'conceal', power: 100, priceM: 0.08, rarity: 98, desc_en: 'Black velvet vest (or black-dyed raw cotton in WWII), two layers, bone or rope buttons. Named after the shape-shifting demon of Ramakian. Makes the wearer vanish from enemy perception for one held breath.', desc_th: 'เสื้อกั๊กกำมะหยี่ดำ (หรือผ้าดิบย้อมดำยุคสงคราม) สองชั้น กระดุมกระดูก จารยันต์วิรุฬจำบัง+เกราะแก้ว ทำให้ผู้สวมหายตัวจากสายตาศัตรู', mechanism: 'Conceal / อำพราง', katha: '(กลั้นใจอึดใจหนึ่ง กลัดกระดุมเม็ดบน)\n"วิรุฬจำบัง อำพรางกาย หายตัวพ้นภัย สิทธิสวาหะ"', teacher: 'หลวงพ่อปาน วัดโรงธรรม', year: 'ก่อน พ.ศ. 2484' },
+    { id: 'lukom', name: 'Luk Om Maha Kan', thai: 'ลูกอมมหากัน', type: 'shield', power: 98, priceM: 0.04, rarity: 85, desc_en: 'Small spherical pill made from chalk-dust powder with a Na Khom inscription on sa paper inside. Oral or worn amulet. Active defense: blades, fangs, and spirits cannot penetrate the body.', desc_th: 'ลูกกลมเนื้อผงดินสอพอง ภายในบรรจุตัว "นะ" จารกระดาษสา เนื้อขาว/ดำ/ชมพู กันของแหลม เขี้ยวงา ผีพราย คุณไสย', mechanism: 'Shield / กัน', katha: 'พุทธังเพชชะคงคัง\nธัมมังเพชชะคงคัง\nสังคังเพชชะคงคัง', teacher: 'หลวงพ่อไล้ (ร้าย) วัดเขายี่สาร', year: 'ตลอดช่วงปฏิบัติ' },
+    { id: 'coin', name: 'First Issue Coin 2484 BE', thai: 'เหรียญรุ่นแรก พ.ศ. 2484', type: 'universal', power: 94, priceM: 2.5, rarity: 99, desc_en: '3,000 pieces struck in oxidised copper from Wat Ratchabophit 1938 bell-casting ingots. Serrated-edge variant (200 pcs) is the prized "Benjapakee" specimen. Back: Yantra 5 (Five Buddhas), three Unalome.', desc_th: 'เนื้อทองแดงรมดำ 3,000 เหรียญ ชนวนจากวัดราชบพิธ ขอบสตางค์ 200 เหรียญ หายากที่สุด ด้านหลังยันต์ห้า+อุณาโลม 3 ตัว', mechanism: 'Universal / ครอบจักรวาล', katha: '(บูชาเหรียญก่อนสวดมนต์ประจำวัน)\nอิติปิ โส ภะคะวา อะระหัง สัมมาสัมพุทโธ...\n"ลาภ ผล พูน ทวี"', teacher: 'พ.อ.พระยาศรีสุรสงคราม (ผู้สร้าง)', year: 'พ.ศ. 2484' },
+  ],
+
+  network: {
+    nodes: [
+      { id: 'kong', label: 'หลวงพ่อคง', type: 'monk', group: 'central' },
+      { id: 'eiam', label: 'หลวงปู่เอี่ยม', type: 'monk', group: 'teacher' },
+      { id: 'pan', label: 'หลวงพ่อปาน', type: 'monk', group: 'teacher' },
+      { id: 'tad', label: 'หลวงพ่อตาด', type: 'monk', group: 'teacher' },
+      { id: 'thian', label: 'หลวงพ่อเทียน', type: 'monk', group: 'teacher' },
+      { id: 'lai', label: 'หลวงพ่อไล้', type: 'monk', group: 'teacher' },
+      { id: 'neung', label: 'หลวงพ่อเนื่อง', type: 'monk', group: 'disciple' },
+      { id: 'jai', label: 'หลวงพ่อใจ', type: 'monk', group: 'disciple' },
+      { id: 'it', label: 'หลวงพ่ออิฐ', type: 'monk', group: 'disciple' },
+      { id: 'takrut', label: 'ตะกรุดมหาระงับ', type: 'artifact', group: 'artifact' },
+      { id: 'seua', label: 'เสื้อยันต์', type: 'artifact', group: 'artifact' },
+      { id: 'lukom', label: 'ลูกอมมหากัน', type: 'artifact', group: 'artifact' },
+      { id: 'coin', label: 'เหรียญรุ่นแรก', type: 'artifact', group: 'artifact' },
+      { id: 'thong', label: 'ธงมหาระงับ', type: 'artifact', group: 'artifact' },
+      { id: 'wbkp', label: 'วัดบางกะพ้อม', type: 'temple', group: 'temple' },
+      { id: 'wml', label: 'วัดเหมืองใหม่', type: 'temple', group: 'temple' },
+      { id: 'wpl', label: 'วัดปากลัด', type: 'temple', group: 'temple' },
+      { id: 'wrt', label: 'วัดโรงธรรม', type: 'temple', group: 'temple' },
+      { id: 'wjm', label: 'วัดจุฬามณี', type: 'temple', group: 'temple' },
+    ],
+    links: [
+      { source: 'eiam', target: 'kong', label: 'มหาระงับ' },
+      { source: 'pan', target: 'kong', label: 'วิรุฬจำบัง' },
+      { source: 'tad', target: 'kong', label: 'นะปัดตลอด' },
+      { source: 'thian', target: 'kong', label: 'กายทิพย์' },
+      { source: 'lai', target: 'kong', label: 'มหากัน' },
+      { source: 'kong', target: 'takrut' },
+      { source: 'kong', target: 'seua' },
+      { source: 'kong', target: 'lukom' },
+      { source: 'kong', target: 'coin' },
+      { source: 'kong', target: 'thong' },
+      { source: 'kong', target: 'neung' },
+      { source: 'kong', target: 'jai' },
+      { source: 'neung', target: 'it' },
+      { source: 'kong', target: 'wbkp' },
+      { source: 'kong', target: 'wml' },
+      { source: 'eiam', target: 'wpl' },
+      { source: 'pan', target: 'wrt' },
+      { source: 'it', target: 'wjm' },
+      { source: 'jai', target: 'wjm' },
+    ]
+  }
+};
+
+const PANEL_DATA = {
+  takrut: {
+    title: 'Takrut Maha Rangap',
+    subtitle: 'ตะกรุดมหาระงับ · สุดยอดตะกรุดของประเทศไทย',
+    sections: [
+      { heading: 'Physical Form', body: 'Lead or copper cylinder, 3–5 inches in length. Inscribed with suppression yantras in chamber-grid layout, bordered by Maha Rangap incantation, Parami 30 Tat, and Itipiso in 8 directions. Rolled, wrapped in 7 varieties of sacred herb leaves (Ru Non), then bound in the distinctive "Crocodile-Jaw" knot pattern and lacquered red.' },
+      { heading: 'แบบไทย', body: 'ตะกรุดตะกั่วเถื่อนหรือทองแดงเถื่อน ความยาว 3–5 นิ้ว จารอักขระยันต์แบบแผนผังกั้นห้อง ล้อมด้วยพระคาถามหาระงับ พระคาถาบารมี 30 ทัศ และอิติปิโส 8 ทิศ พอกด้วยว่านยา 7 ชนิด ถักลาย "จระเข้ขบฟัน" จุ่มรักแดง' },
+      { heading: 'Sacred Katha (คาถา)', isKatha: true, body: 'โอมมหาระงับ หลับสิ้นทั้งบ้าน\nโอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ\n\nนะปิดตา โมปิดใจ\nพุทธปิดปาก ธาปิดหู\nยะหลับนิ่งอยู่' },
+      { heading: 'Mechanism', body: 'Unlike standard invulnerability charms, Maha Rangap does not "block" or "shield." It acts at the SOURCE — neutralising the enemy\'s intent. The target becomes dazed, forgetful, drowsy, or simply abandons their hostile purpose. One amulet protects an entire cohort.' },
+      { heading: 'Lineage', body: 'Received from: หลวงปู่เอี่ยม วัดปากลัด. The crocodile-jaw knot is the authentication signature — study it carefully to distinguish authentic pieces.' },
+      { heading: 'Value', body: 'ก่อนปี พ.ศ. 2484. Authentic WWII-era specimens: หลักแสน–ล้านบาท. Signature specimens with documented provenance may exceed this.' }
+    ]
+  },
+  seua: {
+    title: 'Seua Yant Virunchambang',
+    subtitle: 'เสื้อยันต์วิรุฬจำบัง · เสื้อยันต์อันดับ 1 ของไทย',
+    sections: [
+      { heading: 'Physical Form', body: 'First Edition: Black velvet vest (กั๊กกำมะหยี่ดำ), white inner lining, 5 bone or horn buttons — the most ornate construction. WWII Edition: Heavy black-dyed raw cotton, white inner, rope closures — mass-produced for soldier demand. Special Indochina Edition: Two-tone navy-blue, 3 bone buttons, rarest of all.' },
+      { heading: 'Yantra System', body: 'Virunchambang Yantra (central), Kite Yantra in 2 layers, Iti Chaiya, Sappa, Unalome. WWII additions: Kruea Kaew Yantra + "Buddha Phet Khong Khan" inscriptions specifically for bomb protection.' },
+      { heading: 'Sacred Katha (คาถา)', isKatha: true, body: '(กลั้นใจอึดใจหนึ่ง กลัดกระดุมเม็ดบน)\n\n"วิรุฬจำบัง อำพรางกาย\nหายตัวพ้นภัย สิทธิสวาหะ"' },
+      { heading: 'The Tiger Klaeh Incident', body: 'The first vest was given to a soldier named Klaeh who became a famous bandit. When police surrounded him, he simply fastened the top button, held one breath, and walked through the cordon invisibly. Dozens of rounds were fired — not one connected. This incident caused Luang Phor Kong to halt production and require sworn moral oaths before gifting any future vest.' },
+      { heading: 'Why It Is Ranked #1', body: 'No other Thai master has ever created a concealment vest of this specific tradition. It remains unique in the entire history of Thai sacred arts. Authentic pieces are almost exclusively heirlooms, never appearing on open markets.' }
+    ]
+  },
+  lukom: {
+    title: 'Luk Om Maha Kan',
+    subtitle: 'ลูกอมมหากัน · เบญจภาคีลูกอมแห่งเมืองไทย',
+    sections: [
+      { heading: 'Physical Form', body: 'Small spherical pills made from chalk-dust powder (ผงดินสอพอง) accumulated by writing Na characters on a slate board repeatedly. Core: a rolled sa-paper bearing a single Khom "Na" character, wound like a tiny takrut. Must be made exclusively inside an ordination hall. Available in white, black (burnt palm-leaf ash + lacquer), pink (betel-juice), and dark brown.' },
+      { heading: 'แบบไทย', body: 'ลูกกลมเนื้อผงดินสอพอง ทำภายในพระอุโบสถเท่านั้น ด้านในบรรจุกระดาษสาจารตัว "นะ" ขอมเพียงตัวเดียว ม้วนเป็นแกนกลาง' },
+      { heading: 'Sacred Katha (คาถา)', isKatha: true, body: '(ตั้งนะโม 3 จบ แล้วว่า)\n\nพุทธังเพชชะคงคัง\nธัมมังเพชชะคงคัง\nสังคังเพชชะคงคัง' },
+      { heading: 'Moral Auto-Return', body: 'Luang Phor Kong imposed a strict moral covenant: no fraud, no adultery, no theft. If the owner violated this, the pill would crack or vanish — and reappear at his kuti. When the transgressor returned, he would say: "Wait, child. Come back when your conduct is worthy."' },
+      { heading: 'Benjapakee Standing', body: 'Ranked in the five supreme luk om of Thailand alongside: ลูกอมมหาจินดามณี (ปลัดปาน วัดตุ๊กตา), ลูกอมเกราะเพชร (หลวงพ่อปาน วัดบางนมโค), ลูกอมเจ็ดพญาช้างสาร (หลวงพ่อดิ่ง วัดบางวัว), ลูกอมหลวงพ่อพริ้ง (วัดบางปะกอก).' },
+      { heading: 'Value', body: 'Authentic pieces from the master\'s era: 9,500 – 40,000+ บาท depending on condition and certification.' }
+    ]
+  },
+  coin: {
+    title: 'First Issue Coin 2484 BE',
+    subtitle: 'เหรียญรุ่นแรก พ.ศ. 2484 · เบญจภาคีเหรียญอันดับ 4',
+    sections: [
+      { heading: 'Physical Details', body: 'Struck for master\'s 77th birthday. Total: 3,000 pieces. Serrated edge (ขอบสตางค์): 200 pieces — the prized Benjapakee variant. Plain edge: 2,800 pieces. Material: oxidised copper alloyed with 1938 Wat Ratchabophit bell-casting ingots.' },
+      { heading: 'Design', body: 'Obverse: Half-length portrait, robe draped from left shoulder, inscription "พระอุปัชฌาย์คง วัดบางกะพ้อม ชนมายุ ๗๗ ปี พ.ศ. ๒๔๘๔". Reverse: Yantra 5 (Five Buddhas), three Unalome, four rows of Khom script. Upper rim: "ลาภ ผล พูน ทวี".' },
+      { heading: 'The Pad Tan Miracle', body: 'A holder of the second coin was struck full-force by a Pad Tan — an extremely sharp machete for shearing sugar-palm fronds. The blade left only a faint red mark. No cut, no blood. Villagers named the coin "Rian Pad Tan" — a name it carries as empirical proof of kongkrapan power.' },
+      { heading: 'Benjapakee Rankings', body: '#1 หลวงพ่อกลั่น วัดพระญาติ อยุธยา (ปี 2469) — 5–30 ล้านบาท\n#2 หลวงปู่เอี่ยม วัดหนัง (ปี 2467) — 4–5 ล้านบาท\n#3 หลวงปู่ศุข วัดปากคลองมะขามเฒ่า (ปี 2466)\n#4 หลวงพ่อคง วัดบางกะพ้อม (ปี 2484) — 1.5–2.5 ล้านบาท\n#5 หลวงพ่อฉุย วัดคงคาราม (ปี 2465)' },
+      { heading: 'Value', body: 'Serrated edge (Benjapakee): 1.5–2.5 ล้านบาท. Plain edge: lower tier but still highly sought. Rankings compiled by พ.อ.(พิเศษ) ประจน กิตติประวัติ "ตรียัมปวาย" in 2495 BE.' }
+    ]
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// 4. MAIN APP CONTROLLER
+// ══════════════════════════════════════════════════════
+const APP = {
+  lang: 'en',
+  d3simulation: null,
+  chartInstance: null,
+
+  init() {
+    document.getElementById('loading-overlay').classList.add('hidden');
+    new AntigravityEngine();
+    this.animateProgressBars();
+    this.initD3Network();
+    this.initFilters();
+    this.initChart();
+    document.getElementById('panel-overlay').addEventListener('click', () => this.closePanel());
+    this.renderFilterGrid();
+  },
+
+  toggleLang() {
+    this.lang = this.lang === 'en' ? 'th' : 'en';
+    document.body.dataset.lang = this.lang;
+  },
+
+  // ── PROGRESS BARS ─────────────────────────────────
+  animateProgressBars() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fills = entry.target.querySelectorAll('.progress-fill[data-width]');
+          fills.forEach(fill => {
+            const w = fill.dataset.width;
+            setTimeout(() => { fill.style.width = w + '%'; }, 100);
+            delete fill.dataset.width;
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.artifact-card, .result-card').forEach(el => {
+      el.querySelectorAll('.progress-fill').forEach(f => { f.style.width = '0'; });
+      observer.observe(el);
+    });
+  },
+
+  // ── SLIDE PANEL ───────────────────────────────────
+  openPanel(id) {
+    const d = PANEL_DATA[id];
+    if (!d) return;
+    document.getElementById('panel-title').textContent = d.title;
+    document.getElementById('panel-subtitle').textContent = d.subtitle;
+    const body = document.getElementById('panel-body');
+    body.innerHTML = d.sections.map(s => `
+      <div class="panel-section">
+        <h4>${s.heading}</h4>
+        ${s.isKatha
+          ? `<div class="katha-box">${s.body.replace(/\n/g,'<br>')}</div>
+             <button class="copy-btn" onclick="APP.copy(this,'${encodeURIComponent(s.body)}')">⎘ Copy Katha</button>`
+          : `<p>${s.body.replace(/\n/g,'<br>')}</p>`
+        }
+      </div>`).join('');
+    document.getElementById('slide-panel').classList.add('open');
+    document.getElementById('panel-overlay').classList.add('show');
+  },
+
+  closePanel() {
+    document.getElementById('slide-panel').classList.remove('open');
+    document.getElementById('panel-overlay').classList.remove('show');
+  },
+
+  copy(btn, encoded) {
+    const text = decodeURIComponent(encoded);
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.textContent = '⎘ Copy Katha'; }, 2000);
+    });
+  },
+
+  // ── D3 NETWORK ────────────────────────────────────
+  initD3Network() {
+    const container = document.getElementById('network-container');
+    const W = container.clientWidth, H = container.clientHeight;
+    const { nodes, links } = DATA.network;
+
+    const svg = d3.select('#network-container').append('svg')
+      .attr('width', W).attr('height', H);
+
+    // Defs
+    const defs = svg.append('defs');
+    defs.append('filter').attr('id','glow').html(`
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>`);
+    defs.append('marker').attr('id','arrow').attr('viewBox','0 -5 10 10')
+      .attr('refX',20).attr('markerWidth',6).attr('markerHeight',6).attr('orient','auto')
+      .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','rgba(200,155,60,0.4)');
+
+    const g = svg.append('g');
+
+    // Zoom
+    const zoom = d3.zoom().scaleExtent([0.3, 3])
+      .on('zoom', e => g.attr('transform', e.transform));
+    svg.call(zoom);
+
+    // Simulation
+    const sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(d => d.id).distance(d => {
+        const types = [d.source.type, d.target.type];
+        if (types.includes('temple')) return 120;
+        if (types.includes('artifact')) return 100;
+        return 130;
+      }).strength(0.6))
+      .force('charge', d3.forceManyBody().strength(-350))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force('collision', d3.forceCollide(40));
+    this.d3simulation = sim;
+
+    // Links
+    const link = g.append('g').selectAll('line').data(links).enter().append('line')
+      .attr('stroke', 'rgba(200,155,60,0.2)').attr('stroke-width', 1)
+      .attr('marker-end', 'url(#arrow)');
+
+    // Node groups
+    const node = g.append('g').selectAll('g').data(nodes).enter().append('g')
+      .attr('class', 'node').attr('cursor', 'pointer')
+      .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end', (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }))
+      .on('click', (e, d) => {
+        if (PANEL_DATA[d.id]) APP.openPanel(d.id);
+      });
+
+    // Shape-based rendering
+    node.each(function(d) {
+      const el = d3.select(this);
+      const colorMap = { monk: '#c89b3c', artifact: '#c8956c', temple: '#4caf84' };
+      const color = colorMap[d.type] || '#8a7560';
+      const glowColor = color;
+
+      if (d.type === 'monk') {
+        el.append('circle').attr('r', d.group === 'central' ? 22 : 14)
+          .attr('fill', `${color}22`).attr('stroke', color).attr('stroke-width', d.group === 'central' ? 2 : 1.5)
+          .attr('filter', d.group === 'central' ? 'url(#glow)' : '');
+        if (d.group === 'central') {
+          el.append('circle').attr('r', 28).attr('fill','none')
+            .attr('stroke', color).attr('stroke-width', 0.5).attr('stroke-dasharray','3 3').attr('opacity',0.4);
+        }
+      } else if (d.type === 'artifact') {
+        const s = 22;
+        el.append('rect').attr('x', -s/2).attr('y', -s/2).attr('width', s).attr('height', s)
+          .attr('rx', 5).attr('fill', `${color}22`).attr('stroke', color).attr('stroke-width', 1.5);
+      } else if (d.type === 'temple') {
+        const r = 18;
+        el.append('polygon')
+          .attr('points', `0,${-r} ${r*0.87},${r*0.5} ${-r*0.87},${r*0.5}`)
+          .attr('fill', `${color}22`).attr('stroke', color).attr('stroke-width', 1.5);
+      }
+
+      // Label
+      el.append('text').text(d.label)
+        .attr('text-anchor', 'middle').attr('dy', d.type === 'temple' ? 32 : 28)
+        .attr('fill', '#f5e6c8').attr('font-size', '9px')
+        .attr('font-family', "'Sarabun', sans-serif").attr('opacity', 0.85);
+    });
+
+    sim.on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+  },
+
+  resetNetwork() {
+    if (this.d3simulation) { this.d3simulation.alpha(0.5).restart(); }
+  },
+
+  // ── FILTER ────────────────────────────────────────
+  initFilters() {
+    document.getElementById('filter-power').addEventListener('input', e => {
+      document.getElementById('filter-power-val').textContent = e.target.value;
+      this.applyFilters();
+    });
+    document.getElementById('filter-price').addEventListener('input', e => {
+      const v = (e.target.value / 10).toFixed(1);
+      document.getElementById('filter-price-val').textContent = v;
+      this.applyFilters();
+    });
+    document.getElementById('filter-type').addEventListener('change', () => this.applyFilters());
+  },
+
+  renderFilterGrid() {
+    const grid = document.getElementById('results-grid');
+    const existing = grid.querySelectorAll('.result-card');
+    existing.forEach(e => e.remove());
+
+    DATA.artifacts.forEach(a => {
+      const colorMap = { suppress:'var(--gold)', conceal:'var(--temple-red)', shield:'#4caf84', universal:'var(--copper)' };
+      const c = colorMap[a.type];
+      const div = document.createElement('div');
+      div.className = 'glass result-card';
+      div.dataset.power = a.power;
+      div.dataset.price = a.priceM;
+      div.dataset.type = a.type;
+      div.style.cursor = 'pointer';
+      div.onclick = () => APP.openPanel(a.id);
+      div.innerHTML = `
+        <div class="result-header">
+          <div class="result-name font-display" style="color:${c};">${a.thai}</div>
+          <div class="result-price">${a.priceM >= 1 ? a.priceM + 'M฿' : (a.priceM*1000).toFixed(0) + 'K฿'}</div>
+        </div>
+        <div class="text-xs text-muted mb-3">${a.mechanism}</div>
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-muted">Power</span><span style="color:${c}; font-family:'JetBrains Mono',monospace;">${a.power}%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="${a.power}" style="background:linear-gradient(90deg,${c}88,${c});"></div></div>
+        </div>
+        <div class="mt-2">
+          <div class="flex justify-between text-xs mb-1"><span class="text-muted">Rarity</span><span style="color:${c}; font-family:'JetBrains Mono',monospace;">${a.rarity}%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-width="${a.rarity}" style="background:linear-gradient(90deg,${c}44,${c}88);"></div></div>
+        </div>
+        <div class="text-xs text-muted mt-3" style="line-height:1.6;">${this.lang === 'th' ? a.desc_th : a.desc_en}</div>`;
+      grid.appendChild(div);
+    });
+    this.animateProgressBars();
+  },
+
+  applyFilters() {
+    const minPower = +document.getElementById('filter-power').value;
+    const maxPrice = +document.getElementById('filter-price').value / 10;
+    const typeFilter = document.getElementById('filter-type').value;
+
+    let visible = 0;
+    document.querySelectorAll('.result-card').forEach(card => {
+      const power = +card.dataset.power;
+      const price = +card.dataset.price;
+      const type = card.dataset.type;
+      const show = power >= minPower && price <= maxPrice && (typeFilter === 'all' || type === typeFilter);
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+  },
+
+  // ── CHART ─────────────────────────────────────────
+  initChart() {
+    const ctx = document.getElementById('lineage-chart').getContext('2d');
+    Chart.defaults.color = '#8a7560';
+    Chart.defaults.font.family = "'Cinzel', serif";
+    Chart.defaults.font.size = 10;
+
+    this.chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['หลวงพ่อกลั่น\n(#1)', 'หลวงปู่เอี่ยม\n(#2)', 'หลวงปู่ศุข\n(#3)', 'หลวงพ่อคง\n(#4)', 'หลวงพ่อฉุย\n(#5)'],
+        datasets: [{
+          label: 'Est. Max Value (ล้านบาท)',
+          data: [30, 5, 5, 2.5, 2],
+          backgroundColor: ['rgba(200,155,60,0.3)','rgba(200,155,60,0.25)','rgba(200,155,60,0.2)','rgba(200,149,108,0.45)','rgba(200,155,60,0.15)'],
+          borderColor: ['#c89b3c','rgba(200,155,60,0.8)','rgba(200,155,60,0.6)','#c8956c','rgba(200,155,60,0.4)'],
+          borderWidth: 1.5,
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a100b',
+            borderColor: 'rgba(200,155,60,0.3)',
+            borderWidth: 1,
+            callbacks: {
+              label: ctx => `฿${ctx.raw}M estimated max`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(200,155,60,0.06)' }, ticks: { color: '#8a7560', font: { size: 9 } } },
+          y: { grid: { color: 'rgba(200,155,60,0.06)' }, ticks: { color: '#8a7560', callback: v => v + 'M฿' } }
+        }
+      }
+    });
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// 5. RESILIENT LOADER
+// ══════════════════════════════════════════════════════
+function waitForLibs(r = 0) {
+  if (typeof d3 !== 'undefined' && typeof Chart !== 'undefined') {
+    console.log(`[NexusArtifact] Ready after ${r * 100}ms`);
+    APP.init();
+  } else if (r < 60) {
+    setTimeout(() => waitForLibs(r + 1), 100);
+  } else {
+    console.warn('[NexusArtifact] Library timeout — initialising with partial support');
+    APP.init();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => waitForLibs());
+
+// Scroll-based reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.glass, .legend-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  revealObserver.observe(el);
+});
+</script>
+</body>
+</html>
