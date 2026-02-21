@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หลวงพ่อคง วัดบางกะพ้อม — เทพเจ้าแห่งลุ่มน้ำแม่กลอง | Sacred Artifact Repository</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25'%3E%3Cstop offset='0%25' stop-color='%23f5e6c8'/%3E%3Cstop offset='100%25' stop-color='%23c89b3c'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23c89b3c' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23c89b3c' stroke-width='1' opacity='.5'/%3E%3Ccircle cx='50' cy='32' r='14' fill='url(%23g)' opacity='.85'/%3E%3Cellipse cx='50' cy='68' rx='22' ry='20' fill='url(%23g)' opacity='.7'/%3E%3Cpath d='M35 55 Q38 42 50 40 Q62 42 65 55' fill='%23c89b3c' opacity='.6'/%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23e8c060' stroke-width='1' stroke-dasharray='4 6' opacity='.4'/%3E%3Cpath d='M50 8 L53 16 L62 16 L55 21 L58 30 L50 24 L42 30 L45 21 L38 16 L47 16Z' fill='%23e8c060' opacity='.6'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+@layer base, layout, components, utilities, animations;
+
+@layer base {
+:root {
+--void: #0a0604;
+--surface: #1a100b;
+--surface-el: #2a1a12;
+--surface-hi: #3a2a1a;
+--gold: #c89b3c;
+--gold-bright: #e8c060;
+--gold-dim: #8b6914;
+--gold-glow: rgba(200,155,60,0.12);
+--copper: #c8956c;
+--temple-red: #c41e3a;
+--emerald: #2d6a4f;
+--neon: #3b82f6;
+--saffron: #FF9933;
+--lotus: #ff6b9d;
+--text-main: #f5e6c8;
+--text-muted: #8a7560;
+--glass-border: rgba(200,155,60,0.18);
+--ease: cubic-bezier(0.16,1,0.3,1);
+--ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--text-main);font-family:'Sarabun',sans-serif;overflow-x:hidden;line-height:1.7}
+[lang="en"]{display:none}
+body[data-lang="en"] [lang="th"]{display:none}
+body[data-lang="en"] [lang="en"]{display:block}
+body[data-lang="en"] span[lang="en"],body[data-lang="en"] a[lang="en"]{display:inline}
+body[data-lang="th"] span[lang="th"],body[data-lang="th"] a[lang="th"]{display:inline}
+h1,h2,h3,h4{font-family:'Cinzel',serif;line-height:1.3}
+a{color:var(--gold);text-decoration:none}
+::selection{background:var(--gold);color:var(--void)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
+img{max-width:100%;height:auto;display:block}
+}
+
+@layer layout {
+.container{max-width:1320px;margin:0 auto;padding:0 1.5rem}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+@media(max-width:1100px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.container{padding:0 1rem}}
+}
+
+@layer components {
+.glass{
+background:rgba(26,16,11,0.88);
+backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+border:1px solid var(--glass-border);border-radius:14px;
+box-shadow:0 8px 40px rgba(0,0,0,0.5),inset 0 1px 0 rgba(200,155,60,0.08);
+transition:border-color 0.3s var(--ease),transform 0.3s var(--ease),box-shadow 0.3s;
+}
+.glass:hover{border-color:rgba(200,155,60,0.4);transform:translateY(-3px);box-shadow:0 16px 50px rgba(0,0,0,0.6),0 0 30px rgba(200,155,60,0.08)}
+.badge{display:inline-flex;align-items:center;gap:0.3rem;padding:3px 12px;border-radius:99px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border:1px solid;font-family:'Cinzel',serif}
+.badge-gold{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+.badge-red{border-color:var(--temple-red);color:var(--temple-red);background:rgba(196,30,58,0.1)}
+.badge-emerald{border-color:var(--emerald);color:#4caf84;background:rgba(45,106,79,0.15)}
+.badge-copper{border-color:var(--copper);color:var(--copper);background:rgba(200,149,108,0.1)}
+.badge-saffron{border-color:var(--saffron);color:var(--saffron);background:rgba(255,153,51,0.1)}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.3rem;border-radius:8px;font-family:'Cinzel',serif;font-weight:700;font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;border:none;background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--void);transition:all 0.3s var(--ease)}
+.btn:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,155,60,0.3)}
+.btn-ghost{background:transparent;border:1px solid var(--glass-border);color:var(--text-muted)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);box-shadow:none}
+.btn-saffron{background:linear-gradient(135deg,var(--saffron),var(--gold))}
+.btn-sm{padding:0.4rem 1rem;font-size:0.68rem}
+.progress-track{height:5px;background:var(--surface-el);border-radius:3px;overflow:hidden;margin-top:0.4rem}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-bright));transition:width 1.2s var(--ease)}
+.progress-fill.red{background:linear-gradient(90deg,#8b1a2a,var(--temple-red))}
+.progress-fill.emerald{background:linear-gradient(90deg,#1e4a35,#4caf84)}
+.progress-fill.copper{background:linear-gradient(90deg,#8b5e3c,var(--copper))}
+.progress-fill.saffron{background:linear-gradient(90deg,#cc7a00,var(--saffron))}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;background:var(--surface-el);border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid var(--void);transition:transform 0.2s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
+.slide-panel{position:fixed;top:0;right:0;width:100%;max-width:520px;height:100vh;background:var(--surface);border-left:1px solid var(--glass-border);transform:translateX(100%);transition:transform 0.55s var(--ease);z-index:3000;overflow-y:auto;padding:0}
+.slide-panel.open{transform:translateX(0);box-shadow:-20px 0 80px rgba(0,0,0,0.6)}
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2999;opacity:0;pointer-events:none;transition:opacity 0.4s}
+.panel-overlay.show{opacity:1;pointer-events:all}
+#loading-overlay{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s var(--ease)}
+#loading-overlay.hidden{opacity:0;pointer-events:none}
+.lotus-spinner{width:60px;height:60px;position:relative;margin-bottom:1.5rem}
+.lotus-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;animation:orbit linear infinite}
+.lotus-ring:nth-child(1){border-top-color:var(--gold);animation-duration:1.8s}
+.lotus-ring:nth-child(2){inset:8px;border-right-color:var(--copper);animation-duration:1.2s;animation-direction:reverse}
+.lotus-ring:nth-child(3){inset:16px;border-bottom-color:var(--gold-bright);animation-duration:2.4s}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:3rem 0}
+.stat-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:'Cinzel',serif}
+.stat-value{font-size:1.1rem;font-weight:700;color:var(--text-main);font-family:'JetBrains Mono',monospace}
+.katha-box{background:var(--surface-el);border-left:2px solid var(--gold);padding:1rem 1.25rem;border-radius:0 8px 8px 0;font-family:'Sarabun',sans-serif;font-size:0.88rem;font-style:italic;color:var(--text-main);line-height:1.9;margin-top:0.5rem}
+.copy-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--text-muted);cursor:pointer;background:none;border:1px solid var(--glass-border);padding:4px 10px;border-radius:4px;margin-top:0.5rem;transition:all 0.2s;font-family:'JetBrains Mono',monospace}
+.copy-btn:hover{color:var(--gold);border-color:var(--gold)}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-eyebrow{font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.75rem;display:block}
+.section-title{font-size:clamp(1.5rem,3vw,2.2rem);color:var(--text-main);margin-bottom:0.75rem}
+.section-desc{color:var(--text-muted);max-width:600px;margin:0 auto;font-size:0.95rem}
+.video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#000}
+.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.pdf-viewer{width:100%;height:600px;border:none;border-radius:12px;background:var(--surface-el)}
+.media-card{overflow:hidden;border-radius:14px}
+.media-card img{width:100%;transition:transform 0.5s var(--ease)}
+.media-card:hover img{transform:scale(1.03)}
+.tab-nav{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab-btn{padding:0.6rem 1.2rem;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:8px;color:var(--text-muted);font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;transition:all 0.3s var(--ease);font-size:0.85rem}
+.tab-btn:hover{background:rgba(255,255,255,0.1);color:var(--text-main)}
+.tab-btn.active{background:linear-gradient(135deg,var(--saffron),var(--gold));color:var(--void);border-color:transparent}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeUp 0.5s var(--ease)}
+.mantra-section{padding:2rem;border-radius:16px;background:linear-gradient(135deg,rgba(255,153,51,0.08),rgba(200,155,60,0.05));border:1px solid rgba(255,153,51,0.2);position:relative;overflow:hidden}
+.mantra-verse{display:inline-block;padding:0.2rem 0.5rem;margin:0.15rem;background:rgba(255,153,51,0.15);border-radius:4px;border:1px solid rgba(255,153,51,0.25);transition:all 0.4s var(--ease-spring);cursor:pointer;font-size:0.95rem}
+.mantra-verse:hover{background:rgba(255,153,51,0.35);transform:scale(1.05);box-shadow:0 0 15px rgba(255,153,51,0.4)}
+.mantra-verse.highlight{background:var(--saffron);color:var(--void);animation:verseGlow 1s ease-out}
+.matrix-container{display:flex;flex-direction:column;gap:0.4rem;padding:1rem}
+.matrix-row{display:flex;gap:0.4rem;justify-content:center}
+.matrix-cell{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-family:'Sarabun',sans-serif;font-size:1rem;font-weight:600;border-radius:6px;background:rgba(200,155,60,0.08);border:1px solid rgba(200,155,60,0.2);transition:all 0.4s var(--ease-spring);cursor:default}
+.matrix-cell.highlight{background:rgba(200,155,60,0.3);border-color:var(--gold);box-shadow:0 0 12px rgba(200,155,60,0.4);transform:scale(1.08)}
+.verse-card{padding:1.25rem;border-radius:12px;background:linear-gradient(135deg,rgba(200,155,60,0.08),rgba(200,149,108,0.05));border:1px solid var(--glass-border);cursor:pointer;transition:all 0.4s var(--ease);position:relative;overflow:hidden}
+.verse-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--saffron),var(--copper));opacity:0;transition:opacity 0.3s}
+.verse-card:hover::before,.verse-card.active::before{opacity:1}
+.verse-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 24px rgba(200,155,60,0.2)}
+.verse-card.active{border-color:var(--saffron);box-shadow:0 8px 24px rgba(255,153,51,0.25)}
+.verse-number{position:absolute;top:0.6rem;right:0.6rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--void);font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;border-radius:50%}
+.verse-text{font-size:1.2rem;font-weight:700;color:var(--gold);letter-spacing:0.2em;margin-bottom:0.3rem}
+.verse-name{font-size:0.85rem;font-weight:600;color:var(--saffron);margin-bottom:0.3rem}
+.verse-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease)}
+.verse-card:hover .verse-desc,.verse-card.active .verse-desc{max-height:200px}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);padding:0.9rem 1rem;text-align:left;border-bottom:1px solid var(--glass-border)}
+.compare-table td{padding:0.8rem 1rem;font-size:0.85rem;border-bottom:1px solid rgba(200,155,60,0.06);vertical-align:top}
+.compare-table tr:hover td{background:rgba(200,155,60,0.04)}
+.compare-table .row-label{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase}
+.legend-card{padding:1.5rem;margin-bottom:1.25rem;display:grid;grid-template-columns:70px 1fr;gap:1.25rem;align-items:start}
+@media(max-width:600px){.legend-card{grid-template-columns:1fr}}
+.legend-icon-wrap{width:70px;height:70px;border-radius:12px;background:var(--surface-el);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.timeline{position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0.5rem;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold-dim),transparent)}
+.timeline-item{position:relative;margin-bottom:1.5rem}
+.timeline-item::before{content:'';position:absolute;left:-1.5rem;top:0.5rem;width:7px;height:7px;border-radius:50%;background:var(--gold);border:2px solid var(--void)}
+.timeline-year{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--gold);margin-bottom:0.2rem}
+.timeline-event{font-size:0.88rem;color:var(--text-muted);line-height:1.6}
+.timeline-event strong{color:var(--text-main)}
+#nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,6,4,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.15em;color:var(--gold);display:flex;align-items:center;gap:0.5rem}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);transition:color 0.2s;font-family:'Cinzel',serif}
+.nav-links a:hover{color:var(--gold)}
+@media(max-width:900px){.nav-links{display:none}}
+#network-container{width:100%;height:480px;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--glass-border);background:rgba(10,6,4,0.7)}
+#network-container svg{width:100%;height:100%}
+.network-legend{display:flex;gap:1.5rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--text-muted);font-family:'Cinzel',serif}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.filter-panel{padding:1.5rem 2rem;margin-bottom:2rem}
+.filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;align-items:end}
+.filter-group label{display:block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:'Cinzel',serif;margin-bottom:0.5rem}
+.filter-group .val{color:var(--gold);font-family:'JetBrains Mono',monospace}
+#results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.result-card.hidden{display:none}
+.no-results{text-align:center;padding:3rem;color:var(--text-muted);font-family:'Cinzel',serif;letter-spacing:0.1em;font-size:0.85rem;grid-column:1/-1;display:none}
+.panel-header{padding:1.5rem 2rem;border-bottom:1px solid var(--glass-border);background:var(--void);position:sticky;top:0;z-index:10}
+.panel-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:0.25rem;transition:color 0.2s;float:right}
+.panel-close:hover{color:var(--gold)}
+.panel-body{padding:2rem}
+.panel-section{margin-bottom:2rem}
+.panel-section h4{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+.panel-section p{font-size:0.88rem;color:var(--text-muted);line-height:1.8}
+}
+
+@layer utilities {
+.font-display{font-family:'Cinzel',serif}
+.font-mono{font-family:'JetBrains Mono',monospace}
+.text-gold{color:var(--gold)}
+.text-copper{color:var(--copper)}
+.text-saffron{color:var(--saffron)}
+.text-muted{color:var(--text-muted)}
+.text-sm{font-size:0.85rem}
+.text-xs{font-size:0.75rem}
+.text-lg{font-size:1.15rem}
+.text-xl{font-size:1.4rem}
+.text-2xl{font-size:1.75rem}
+.text-3xl{font-size:2.2rem}
+.fw-bold{font-weight:700}
+.tracking-wide{letter-spacing:0.08em}
+.tracking-widest{letter-spacing:0.2em}
+.opacity-50{opacity:0.5}
+.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}
+.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}
+.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}
+.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.flex-wrap{flex-wrap:wrap}
+.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}
+.relative{position:relative}.overflow-hidden{overflow:hidden}
+.w-full{width:100%}.text-center{text-align:center}
+}
+
+@layer animations {
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%,100%{opacity:0.6}50%{opacity:1}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(200,155,60,0.1)}50%{box-shadow:0 0 50px rgba(200,155,60,0.25)}}
+@keyframes flicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:0.6}94%{opacity:1}96%{opacity:0.8}97%{opacity:1}}
+@keyframes verseGlow{0%{box-shadow:0 0 0 rgba(255,153,51,0)}50%{box-shadow:0 0 30px rgba(255,153,51,0.8)}100%{box-shadow:0 0 15px rgba(255,153,51,0.4)}}
+.anim-fade-up{animation:fadeUp 0.7s var(--ease) both}
+.anim-fade-up-d1{animation:fadeUp 0.7s 0.1s var(--ease) both}
+.anim-fade-up-d2{animation:fadeUp 0.7s 0.2s var(--ease) both}
+.anim-fade-up-d3{animation:fadeUp 0.7s 0.3s var(--ease) both}
+.anim-shimmer{animation:shimmer 2.5s ease-in-out infinite}
+.anim-glow{animation:glowPulse 3s ease-in-out infinite}
+.anim-flicker{animation:flicker 8s ease-in-out infinite}
+}
+
+#hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);font-family:'Cinzel',serif}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:1px;background:var(--gold-dim)}
+.hero-title{font-size:clamp(2.2rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text-main) 0%,var(--gold) 50%,var(--copper) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:clamp(1rem,2.5vw,1.5rem);color:var(--gold);margin-bottom:1.5rem;letter-spacing:0.05em}
+.hero-desc{font-size:1rem;color:var(--text-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
+.hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Cinzel',serif;font-size:1.8rem;font-weight:900;color:var(--gold);display:block}
+.hero-stat-lbl{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted)}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-mandala{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(700px,90vw);height:min(700px,90vw);z-index:0;opacity:0.04;animation:orbit 80s linear infinite}
+.hero-portrait{width:200px;height:200px;border-radius:50%;overflow:hidden;margin:0 auto 2rem;border:3px solid var(--gold-dim);box-shadow:0 0 40px rgba(200,155,60,0.2)}
+.hero-portrait img{width:100%;height:100%;object-fit:cover;filter:sepia(0.3) contrast(1.1)}
+#sacred-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+main{position:relative;z-index:1}
+#footer{padding:3rem 0;border-top:1px solid var(--glass-border);text-align:center}
+select{width:100%;background:var(--surface-el);border:1px solid var(--glass-border);color:var(--text-main);padding:0.5rem;border-radius:6px;font-family:'Sarabun',sans-serif;outline:none;cursor:pointer}
+</style>
+</head>
+<body data-lang="th">
+<canvas id="sacred-canvas"></canvas>
+
+<div id="loading-overlay">
+<div class="lotus-spinner"><div class="lotus-ring"></div><div class="lotus-ring"></div><div class="lotus-ring"></div></div>
+<div class="font-display text-xs tracking-widest text-gold anim-shimmer" style="letter-spacing:0.35em">
+<span lang="th">กำลังเริ่มต้นระบบศักดิ์สิทธิ์...</span>
+<span lang="en">INITIALIZING SACRED ARTIFACT...</span>
+</div>
+</div>
+
+<nav id="nav">
+<div class="nav-logo anim-flicker">⟡ <span lang="th">หลวงพ่อคง · วัดบางกะพ้อม</span><span lang="en">LUANG PHOR KONG · Wat Bang Ka Phom</span></div>
+<div class="nav-links">
+<a href="#hero"><span lang="th">หน้าแรก</span><span lang="en">Home</span></a>
+<a href="#bio"><span lang="th">ประวัติ</span><span lang="en">Biography</span></a>
+<a href="#artifacts"><span lang="th">วัตถุมงคล</span><span lang="en">Artifacts</span></a>
+<a href="#media"><span lang="th">สื่อ</span><span lang="en">Media</span></a>
+<a href="#itipiso"><span lang="th">คาถา</span><span lang="en">Mantras</span></a>
+<a href="#legends"><span lang="th">ตำนาน</span><span lang="en">Legends</span></a>
+</div>
+<div class="flex gap-2 items-center">
+<button class="btn btn-sm" onclick="APP.toggleLang()">EN / TH</button>
+</div>
+</nav>
+
+<div id="panel-overlay" class="panel-overlay" onclick="APP.closePanel()"></div>
+<aside id="slide-panel" class="slide-panel">
+<div class="panel-header">
+<button class="panel-close" onclick="APP.closePanel()">✕</button>
+<div id="panel-title" class="font-display text-lg text-gold fw-bold">Detail</div>
+<div id="panel-subtitle" class="text-xs text-muted mt-2 font-mono tracking-wide"></div>
+</div>
+<div class="panel-body" id="panel-body"></div>
+</aside>
+
+<main>
+<!-- HERO -->
+<section id="hero">
+<svg class="hero-mandala" viewBox="0 0 400 400" fill="none" stroke="#c89b3c">
+<circle cx="200" cy="200" r="180"/><circle cx="200" cy="200" r="140"/><circle cx="200" cy="200" r="100"/><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="20"/>
+<line x1="200" y1="20" x2="200" y2="380"/><line x1="20" y1="200" x2="380" y2="200"/>
+<line x1="73" y1="73" x2="327" y2="327"/><line x1="327" y1="73" x2="73" y2="327"/>
+<polygon points="200,60 320,270 80,270" opacity="0.5"/><polygon points="200,340 80,130 320,130" opacity="0.5"/>
+</svg>
+<div class="hero-content">
+<div class="hero-eyebrow anim-fade-up">
+<span lang="th">คลังวัตถุมงคลศักดิ์สิทธิ์</span>
+<span lang="en">Sacred Artifact Repository</span>
+</div>
+<div class="hero-portrait anim-fade-up-d1">
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%231a100b' width='200' height='200'/%3E%3Ccircle cx='100' cy='70' r='35' fill='%23c89b3c' opacity='.15'/%3E%3Cpath d='M60 160Q70 100 100 95Q130 100 140 160' fill='%23c89b3c' opacity='.12'/%3E%3Ctext x='100' y='185' text-anchor='middle' fill='%23c89b3c' font-size='12' opacity='.5'%3Eพระอุปัชฌาย์คง%3C/text%3E%3C/svg%3E" alt="หลวงพ่อคง วัดบางกะพ้อม">
+</div>
+<h1 class="hero-title anim-fade-up-d1">
+<span lang="th">หลวงพ่อคง</span>
+<span lang="en">Luang Phor Kong</span>
+</h1>
+<div class="hero-subtitle anim-fade-up-d1">
+<span lang="th">วัดบางกะพ้อม · เทพเจ้าแห่งลุ่มน้ำแม่กลอง</span>
+<span lang="en">Wat Bang Ka Phom · Deity of the Mae Klong River Basin</span>
+</div>
+<p class="hero-desc anim-fade-up-d2">
+<span lang="th">หนึ่งใน 4 เสือเกจิ "จาด–จง–คง–อี๋" ผู้สร้างวัตถุมงคลที่ครองทุกทำเนียบสุดยอดเครื่องราง ตั้งแต่เหรียญเบญจภาคีอันดับ 4 สู่สุดยอดเสื้อยันต์ของประเทศ ระบบป้องกันภัยครบวงจรที่ไม่ซ้ำซ้อน</span>
+<span lang="en">One of the four legendary masters <em>"Jad–Jong–Kong–Ee"</em> whose sacred artifacts span every pinnacle of Thai amulet rankings — a complete, non-redundant defensive system unmatched in Thai history.</span>
+</p>
+<div class="hero-stats anim-fade-up-d2">
+<div class="hero-stat"><span class="hero-stat-num">78</span><span class="hero-stat-lbl"><span lang="th">ปีแห่งชีวิต</span><span lang="en">Years of Life</span></span></div>
+<div class="hero-stat"><span class="hero-stat-num">58</span><span class="hero-stat-lbl"><span lang="th">พรรษา</span><span lang="en">Rains in Robes</span></span></div>
+<div class="hero-stat"><span class="hero-stat-num">#1</span><span class="hero-stat-lbl"><span lang="th">เสื้อยันต์</span><span lang="en">Seua Yant</span></span></div>
+<div class="hero-stat"><span class="hero-stat-num">#4</span><span class="hero-stat-lbl"><span lang="th">เบญจภาคีเหรียญ</span><span lang="en">Benjapakee Coin</span></span></div>
+</div>
+<div class="hero-actions anim-fade-up-d3">
+<button class="btn" onclick="document.getElementById('artifacts').scrollIntoView({behavior:'smooth'})"><span lang="th">สำรวจวัตถุมงคล</span><span lang="en">Explore Artifacts</span></button>
+<button class="btn btn-saffron" onclick="document.getElementById('itipiso').scrollIntoView({behavior:'smooth'})"><span lang="th">คาถามหาระงับ</span><span lang="en">Sacred Mantras</span></button>
+<button class="btn btn-ghost" onclick="document.getElementById('legends').scrollIntoView({behavior:'smooth'})"><span lang="th">ตำนานศักดิ์สิทธิ์</span><span lang="en">Sacred Legends</span></button>
+</div>
+</div>
+</section>
+
+<!-- MEDIA SECTION -->
+<section id="media" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">สื่อศักดิ์สิทธิ์</span><span lang="en">Sacred Media</span></span>
+<h2 class="section-title"><span lang="th">วิดีโอ เอกสาร และภาพ</span><span lang="en">Video, Documents & Images</span></h2>
+</div>
+<div class="grid-3" style="align-items:start">
+<div class="glass p-4" style="grid-column:span 2">
+<h4 class="font-display text-sm text-gold mb-3 tracking-wide"><span lang="th">วิดีโอ: ตำนานหลวงพ่อคง</span><span lang="en">Video: Legend of Luang Phor Kong</span></h4>
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/k4kPyN3gg7A" title="หลวงพ่อคง วัดบางกะพ้อม" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="glass media-card">
+<a href="http://lunarwisdom.luangpor.com/suppress/suppressive_subjugation.jpg" target="_blank" rel="noopener noreferrer">
+<img src="http://lunarwisdom.luangpor.com/suppress/suppressive_subjugation.jpg" alt="ตะกรุดมหาระงับ - Suppressive Subjugation" loading="lazy" style="border-radius:14px">
+</a>
+<div class="p-4">
+<div class="text-xs text-gold font-display tracking-wide mb-1"><span lang="th">ภาพ: ตะกรุดมหาระงับ</span><span lang="en">Image: Maha Rangap Takrut</span></div>
+<div class="text-xs text-muted"><span lang="th">คลิกเพื่อดูภาพขนาดเต็ม</span><span lang="en">Click to view full size</span></div>
+</div>
+</div>
+<div class="glass p-4">
+<h4 class="font-display text-xs text-gold mb-2 tracking-wide"><span lang="th">เอกสาร: Sacred Engineering</span><span lang="en">Document: Sacred Engineering</span></h4>
+<a href="http://lunarwisdom.luangpor.com/suppress/Sacred_Engineering.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full justify-center" style="font-size:0.7rem">
+<span lang="th">📄 เปิดเอกสาร PDF</span><span lang="en">📄 Open PDF Document</span>
+</a>
+</div>
+</div>
+</div>
+<div class="glass p-4 mt-4">
+<h4 class="font-display text-sm text-gold mb-3 tracking-wide"><span lang="th">เอกสาร: Sacred Engineering (ดูในหน้า)</span><span lang="en">Document: Sacred Engineering (Inline Viewer)</span></h4>
+<iframe src="http://lunarwisdom.luangpor.com/suppress/Sacred_Engineering.pdf" class="pdf-viewer" title="Sacred Engineering PDF" loading="lazy"></iframe>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BIO -->
+<section id="bio" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">ชาติภูมิและสายวิชา</span><span lang="en">Origin & Lineage</span></span>
+<h2 class="section-title"><span lang="th">กำเนิดเทพเจ้า</span><span lang="en">The Making of a Deity</span></h2>
+</div>
+<div class="grid-2" style="align-items:start">
+<div>
+<div class="glass p-6">
+<div class="text-center mb-4">
+<div class="font-display fw-bold text-lg mb-1">พระอุปัชฌาย์คง ธัมมโชโต</div>
+<div class="text-xs text-muted font-mono">Phra Upachaya Kong Dhammachoto</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+<div><div class="stat-label">Born</div><div class="stat-value text-gold" style="font-size:0.85rem">2407 BE</div></div>
+<div><div class="stat-label">Passed</div><div class="stat-value" style="font-size:0.85rem">2486 BE</div></div>
+<div><div class="stat-label">Temple</div><div class="stat-value" style="font-size:0.8rem">Wat Bang Ka Phom</div></div>
+<div><div class="stat-label">Province</div><div class="stat-value" style="font-size:0.8rem">Samut Songkhram</div></div>
+</div>
+</div>
+<div class="glass p-6 mt-4">
+<h4 class="font-display text-xs tracking-widest text-gold mb-4">KNOWLEDGE LINEAGE</h4>
+<div style="display:flex;flex-direction:column;gap:0.5rem">
+<div class="glass" style="padding:0.5rem 0.8rem;background:rgba(200,155,60,0.05)"><div class="text-xs font-mono text-muted">Takrut Maha Rangap</div><div class="text-sm">หลวงปู่เอี่ยม วัดปากลัด</div></div>
+<div class="glass" style="padding:0.5rem 0.8rem;background:rgba(200,155,60,0.05)"><div class="text-xs font-mono text-muted">Seua Yant Virunchambang</div><div class="text-sm">หลวงพ่อปาน วัดโรงธรรม</div></div>
+<div class="glass" style="padding:0.5rem 0.8rem;background:rgba(200,155,60,0.05)"><div class="text-xs font-mono text-muted">Na Pad Ta Lot</div><div class="text-sm">หลวงพ่อตาด วัดบางวันทอง</div></div>
+<div class="glass" style="padding:0.5rem 0.8rem;background:rgba(200,155,60,0.05)"><div class="text-xs font-mono text-muted">Invisible Body / Kay Tip</div><div class="text-sm">หลวงพ่อเทียน วัดละมุดใน</div></div>
+<div class="glass" style="padding:0.5rem 0.8rem;background:rgba(200,155,60,0.05)"><div class="text-xs font-mono text-muted">Luk Om Maha Kan</div><div class="text-sm">หลวงพ่อไล้ วัดเขายี่สาร</div></div>
+</div>
+</div>
+</div>
+<div class="glass p-6">
+<h3 class="font-display fw-bold text-xl text-gold mb-6"><span lang="th">พงศาวดารชีวิต</span><span lang="en">Life Chronicle</span></h3>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-year">พ.ศ. 2407 · 1864</div><div class="timeline-event"><strong>กำเนิดในตระกูลจันทร์ประเสริฐ</strong> ณ บ้านสำโรง ตำบลโรงหีบ อำเภอบางคนที</div></div>
+<div class="timeline-item"><div class="timeline-year">อายุ 12 ปี</div><div class="timeline-event"><strong>บรรพชาเป็นสามเณร</strong> ที่วัดเหมืองใหม่ อำเภออัมพวา</div></div>
+<div class="timeline-item"><div class="timeline-year">พ.ศ. 2427 · 1884</div><div class="timeline-event"><strong>อุปสมบท</strong> ได้รับฉายา <em>ธัมมโชโต</em> "ผู้รุ่งเรืองในธรรม"</div></div>
+<div class="timeline-item"><div class="timeline-year">พ.ศ. 2464 · 1921</div><div class="timeline-event"><strong>ได้รับแต่งตั้งเป็นพระอุปัชฌาย์</strong> มีอำนาจอุปสมบทพระภิกษุทั่วอำเภออัมพวา</div></div>
+<div class="timeline-item"><div class="timeline-year">ยุคสงครามโลก</div><div class="timeline-event"><strong>ยุค "จาด–จง–คง–อี๋"</strong> เกจิผู้ยิ่งใหญ่ 4 รูปที่สร้างตำนาน "ทหารผี"</div></div>
+<div class="timeline-item"><div class="timeline-year">6 ก.พ. 2486 · 1943</div><div class="timeline-event"><strong>มรณภาพ</strong> ขณะนั่งสมาธิบนนั่งร้าน ปาฏิหาริย์สุดท้าย: เครื่องบินระเบิดบินผ่านงานศพโดยไม่โจมตี</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARTIFACTS -->
+<section id="artifacts" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">คลังวัตถุมงคล</span><span lang="en">Sacred Arsenal</span></span>
+<h2 class="section-title"><span lang="th">สี่เสาหลักแห่งพุทธคุณ</span><span lang="en">The Four Pillars of Power</span></h2>
+<p class="section-desc"><span lang="th">วัตถุมงคลแต่ละชิ้นมีกลไกการป้องกันที่แตกต่างกัน ก่อเป็นระบบป้องกันครบวงจร</span><span lang="en">Each artifact targets a distinct mechanism of protection — forming a complete defensive system.</span></p>
+</div>
+<div class="grid-2">
+<!-- TAKRUT -->
+<div class="glass p-6" style="cursor:pointer" onclick="APP.openPanel('takrut')">
+<div class="flex justify-between items-center mb-3"><span class="badge badge-gold">#1 TAKRUT</span><span class="text-xs text-gold">→ Details</span></div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">ตะกรุดมหาระงับ</span><span lang="en">Takrut Maha Rangap</span></h3>
+<div class="text-xs text-gold mb-3"><span lang="th">สายมหาระงับ · ปิดสวิตช์ภัยที่ต้นเหตุ</span><span lang="en">Suppress Line · Switch-off at Source</span></div>
+<p class="text-sm text-muted mb-4"><span lang="th">ระงับภัยที่ต้นเหตุ ทำให้ศัตรูหยุดนิ่ง หลงลืม หรือง่วงนอน ตะกรุดดอกเดียวคุ้มกันทั้งหมู่คณะ</span><span lang="en">Suppresses danger at its source — makes enemies freeze, forget, or fall asleep. One amulet protects an entire group.</span></p>
+<div><div class="flex justify-between text-xs mb-1"><span class="text-muted">Power</span><span class="text-gold font-mono">97%</span></div><div class="progress-track"><div class="progress-fill" data-width="97"></div></div></div>
+<div class="mt-2"><div class="flex justify-between text-xs mb-1"><span class="text-muted">Rarity</span><span class="text-gold font-mono">95%</span></div><div class="progress-track"><div class="progress-fill red" data-width="95"></div></div></div>
+<div class="flex gap-2 flex-wrap mt-3"><span class="badge badge-gold">มหาระงับ</span><span class="badge badge-copper">พรางตา</span><span class="badge badge-emerald">มหาอำนาจ</span></div>
+</div>
+<!-- SEUA YANT -->
+<div class="glass p-6" style="cursor:pointer" onclick="APP.openPanel('seua')">
+<div class="flex justify-between items-center mb-3"><span class="badge badge-red">#1 SEUA YANT</span><span class="text-xs text-gold">→ Details</span></div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">เสื้อยันต์วิรุฬจำบัง</span><span lang="en">Seua Yant Virunchambang</span></h3>
+<div class="text-xs" style="color:var(--temple-red)" >สายอำพราง · เกราะล่องหนพรางตา</div>
+<p class="text-sm text-muted mb-4 mt-2"><span lang="th">ทำให้ผู้สวมใส่หายตัวจากสายตาศัตรู "อึดใจหนึ่ง" เสื้อยันต์ชนิดนี้มีแห่งเดียวในประวัติศาสตร์ไทย</span><span lang="en">Makes the wearer vanish from enemy perception for one held breath. The only vest of its kind in Thai history.</span></p>
+<div><div class="flex justify-between text-xs mb-1"><span class="text-muted">Concealment</span><span class="font-mono" style="color:var(--temple-red)">100%</span></div><div class="progress-track"><div class="progress-fill red" data-width="100"></div></div></div>
+<div class="mt-2"><div class="flex justify-between text-xs mb-1"><span class="text-muted">Uniqueness</span><span class="font-mono" style="color:var(--temple-red)">Absolute</span></div><div class="progress-track"><div class="progress-fill red" data-width="100"></div></div></div>
+<div class="flex gap-2 flex-wrap mt-3"><span class="badge badge-red">วิรุฬจำบัง</span><span class="badge badge-gold">คงกระพัน</span></div>
+</div>
+<!-- LUK OM -->
+<div class="glass p-6" style="cursor:pointer" onclick="APP.openPanel('lukom')">
+<div class="flex justify-between items-center mb-3"><span class="badge badge-emerald">BENJAPAKEE</span><span class="text-xs text-gold">→ Details</span></div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">ลูกอมมหากัน</span><span lang="en">Luk Om Maha Kan</span></h3>
+<div class="text-xs" style="color:#4caf84">สายป้องกัน · เกราะเหล็กสะท้อนภัย</div>
+<p class="text-sm text-muted mb-4 mt-2"><span lang="th">ป้องกันที่จุดปะทะ ของแหลมไม่ได้กินเลือด หากผู้ถือทำผิดศีล ลูกอมจะแตกและกลับมาอยู่ที่กุฏิหลวงพ่อเอง</span><span lang="en">Active defense at the point of impact. Returns home if owner violates its moral code.</span></p>
+<div><div class="flex justify-between text-xs mb-1"><span class="text-muted">Invulnerability</span><span class="font-mono" style="color:#4caf84">98%</span></div><div class="progress-track"><div class="progress-fill emerald" data-width="98"></div></div></div>
+<div class="mt-2"><div class="flex justify-between text-xs mb-1"><span class="text-muted">Moral Gate</span><span class="font-mono" style="color:#4caf84">Active</span></div><div class="progress-track"><div class="progress-fill emerald" data-width="100"></div></div></div>
+<div class="flex gap-2 flex-wrap mt-3"><span class="badge badge-emerald">มหากัน</span><span class="badge badge-gold">คงกระพัน</span><span class="badge badge-copper">เมตตา</span></div>
+</div>
+<!-- COIN -->
+<div class="glass p-6" style="cursor:pointer" onclick="APP.openPanel('coin')">
+<div class="flex justify-between items-center mb-3"><span class="badge badge-copper">BENJAPAKEE #4</span><span class="text-xs text-gold">→ Details</span></div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">เหรียญรุ่นแรก พ.ศ. 2484</span><span lang="en">First Issue Coin 2484 BE</span></h3>
+<div class="text-xs text-copper">สายครอบจักรวาล · เสริมฐานะบารมี</div>
+<p class="text-sm text-muted mb-4 mt-2"><span lang="th">สร้างวาระอายุครบ 77 ปี จำนวน 3,000 เหรียญ ชื่อ "เหรียญปาดตาล" มาจากผู้ที่ถูกมีดปาดตาลฟันอย่างจัง แต่ไม่ระคายผิว</span><span lang="en">Struck for the master's 77th birthday — 3,000 pieces. Named after a survivor struck by a razor-sharp machete with not a scratch.</span></p>
+<div><div class="flex justify-between text-xs mb-1"><span class="text-muted">Universal Prot.</span><span class="font-mono text-copper">94%</span></div><div class="progress-track"><div class="progress-fill copper" data-width="94"></div></div></div>
+<div class="mt-2"><div class="flex justify-between text-xs mb-1"><span class="text-muted">Market Value</span><span class="font-mono text-copper">2.5M+</span></div><div class="progress-track"><div class="progress-fill copper" data-width="90"></div></div></div>
+<div class="flex gap-2 flex-wrap mt-3"><span class="badge badge-copper">ลาภผลพูนทวี</span><span class="badge badge-gold">คงกระพัน</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARISON TABLE -->
+<section style="padding:2rem 0 4rem">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow">Comparative Analysis</span>
+<h2 class="section-title"><span lang="th">แผนที่กลยุทธ์สามกลไก</span><span lang="en">Three-Mechanism Strategy Map</span></h2>
+</div>
+<div class="glass" style="overflow-x:auto">
+<table class="compare-table">
+<thead><tr>
+<th><span lang="th">เกณฑ์</span><span lang="en">Criterion</span></th>
+<th style="color:var(--gold)">ตะกรุดมหาระงับ</th>
+<th style="color:var(--temple-red)">เสื้อยันต์วิรุฬจำบัง</th>
+<th style="color:#4caf84">ลูกอมมหากัน</th>
+<th style="color:var(--copper)">เหรียญรุ่นแรก</th>
+</tr></thead>
+<tbody>
+<tr><td class="row-label">Primary Mechanism</td><td>ระงับภัยที่ต้นเหตุ</td><td>อำพราง / ล่องหน</td><td>กันภัยที่จุดปะทะ</td><td>ครอบจักรวาล</td></tr>
+<tr><td class="row-label">Analogy</td><td>ปิดสวิตช์อันตราย</td><td>เกราะล่องหน</td><td>เกราะเหล็ก</td><td>ระบบป้องกันรวม</td></tr>
+<tr><td class="row-label">Coverage</td><td><span class="badge badge-gold">Group</span></td><td><span class="badge badge-red">Individual</span></td><td><span class="badge badge-emerald">Individual</span></td><td><span class="badge badge-copper">Individual</span></td></tr>
+<tr><td class="row-label">National Rank</td><td class="text-gold fw-bold">#1 ตะกรุดไทย</td><td class="fw-bold" style="color:var(--temple-red)">#1 เสื้อยันต์ไทย</td><td class="fw-bold" style="color:#4caf84">Top 5 ลูกอม</td><td class="fw-bold text-copper">#4 เบญจภาคี</td></tr>
+<tr><td class="row-label">Est. Value</td><td class="font-mono text-gold" style="font-size:0.8rem">แสน–ล้าน฿</td><td class="font-mono" style="color:var(--temple-red);font-size:0.8rem">หมื่น–แสน฿</td><td class="font-mono" style="color:#4caf84;font-size:0.8rem">9,500–40,000฿</td><td class="font-mono text-copper" style="font-size:0.8rem">1.5–2.5M฿</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ITIPISO & MANTRAS -->
+<section id="itipiso" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">พระคาถาศักดิ์สิทธิ์</span><span lang="en">Sacred Mantras</span></span>
+<h2 class="section-title"><span lang="th">คาถาตะกรุดมหาระงับพิสดาร</span><span lang="en">Takrut Maha Rangap Pisadan</span></h2>
+<p class="section-desc"><span lang="th">พระคาถาอิติปิโส ๘ ทิศ ที่ถูกนำมาใช้ในการสร้างตะกรุดมหาระงับ</span><span lang="en">The Itipiso 8 Directions prayer used in creating the Maha Rangap Takrut</span></p>
+</div>
+
+<div class="tab-nav">
+<button class="tab-btn active" data-tab="maha-rangap"><span lang="th">คาถามหาระงับพิสดาร</span><span lang="en">Maha Rangap Mantra</span></button>
+<button class="tab-btn" data-tab="8directions"><span lang="th">อิติปิโส ๘ ทิศ</span><span lang="en">Itipiso 8 Directions</span></button>
+<button class="tab-btn" data-tab="sathon"><span lang="th">คาถาสะท้อนกลับ</span><span lang="en">Reflection Mantras</span></button>
+</div>
+
+<!-- Tab 1: Maha Rangap -->
+<div class="tab-content active" id="tab-maha-rangap">
+<div class="glass p-6">
+<div class="mantra-section">
+<h3 class="font-display text-lg text-saffron mb-4 tracking-wide"><span lang="th">คาถาตะกรุดมหาระงับพิสดาร</span><span lang="en">Takrut Maha Rangap Pisadan</span></h3>
+<div id="maha-rangap-content" style="font-size:1rem;line-height:2.2;white-space:pre-line;position:relative"></div>
+<div class="flex gap-2 mt-6 flex-wrap">
+<button class="btn btn-saffron btn-sm" onclick="APP.copyMantra()"><span lang="th">📋 คัดลอกคาถา</span><span lang="en">📋 Copy Mantra</span></button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Tab 2: 8 Directions -->
+<div class="tab-content" id="tab-8directions">
+<div class="glass p-6 mb-6">
+<h3 class="font-display text-lg text-gold mb-4"><span lang="th">พระคาถา ๘ ทิศ และความหมาย</span><span lang="en">The 8 Directional Verses & Their Meanings</span></h3>
+<div class="grid-2" id="verses-grid"></div>
+</div>
+<div class="grid-2">
+<div class="glass p-4">
+<h4 class="font-display text-sm text-gold mb-3 text-center"><span lang="th">บทสวดดั้งเดิม (อ่านแนวนอน)</span><span lang="en">Original (Read Horizontally)</span></h4>
+<div id="original-matrix" class="matrix-container"></div>
+</div>
+<div class="glass p-4">
+<h4 class="font-display text-sm text-saffron mb-3 text-center"><span lang="th">๘ ทิศ (อ่านจากคอลัมน์)</span><span lang="en">8 Directions (Read from Columns)</span></h4>
+<div id="transformed-matrix" class="matrix-container"></div>
+</div>
+</div>
+</div>
+
+<!-- Tab 3: Reflection Mantras -->
+<div class="tab-content" id="tab-sathon">
+<div class="grid-2">
+<div class="glass p-6">
+<div class="mantra-section">
+<h3 class="font-display text-sm text-saffron mb-4 tracking-wide"><span lang="th">คาถาสะท้อนกลับ ของหลวงพ่อเทศ วัดสระทะเล</span><span lang="en">Reflection Mantra by Luang Por Tet</span></h3>
+<div style="line-height:2.2">
+<p class="text-gold mb-3">ตั้งนะโมฯ ๓ จบ</p>
+<p class="mb-3"><strong class="text-saffron">พุทโธ อะระหัง พุทธังรักษา</strong><br>ผู้คนทั้งหลายคิดร้ายตัวข้า อนัตตา สูญเปล่า</p>
+<p class="mb-3"><strong class="text-saffron">ธัมโม อะระหัง ธัมมังรักษา</strong><br>ฝูงสัตว์ทั้งหลายคิดร้ายตัวข้า อนัตตา สูญเปล่า</p>
+<p><strong class="text-saffron">สังโฆ อะระหัง สังฆังรักษา</strong><br>ฝูงผีทั้งหลายคิดร้ายตัวข้า อนัตตาสูญเปล่า</p>
+</div>
+</div>
+</div>
+<div class="glass p-6">
+<div class="mantra-section">
+<h3 class="font-display text-sm text-saffron mb-4 tracking-wide"><span lang="th">พระคาถามหาสะท้อน ของหลวงพ่อกวย</span><span lang="en">Great Reflection Mantra by Luang Por Kuay</span></h3>
+<div style="line-height:2.2">
+<p class="text-gold mb-3">ตั้งนะโมฯ ๓ จบ</p>
+<p class="mb-3 text-lg"><strong class="text-saffron">นะกั้น โมกาง พุทขวางไว้ ธามามิได้ ยะหวนกลับ</strong></p>
+<p class="mb-3">พระอะระหัง จุติปัด พุทธังปก ธัมมังปิด สังฆังมิด</p>
+<p class="mb-3">นะอะปัดสะ นะโมปัดวะ พุทธะปัดสะ</p>
+<p class="text-gold text-lg">สัมมาทางไหน สัมไปทางนั้น</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NETWORK -->
+<section id="network" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">โครงข่ายสายวิชา</span><span lang="en">Sacred Topology</span></span>
+<h2 class="section-title"><span lang="th">เครือข่ายความรู้ศักดิ์สิทธิ์</span><span lang="en">Knowledge Network</span></h2>
+</div>
+<div id="network-container" class="glass anim-glow"></div>
+<div class="flex gap-4 mt-4 flex-wrap items-center">
+<button class="btn btn-ghost btn-sm" onclick="APP.resetNetwork()"><span lang="th">↺ รีเซ็ต</span><span lang="en">↺ Reset</span></button>
+<div class="network-legend" style="margin-left:auto">
+<div class="legend-item"><div class="legend-dot" style="background:#c89b3c"></div> <span lang="th">เกจิ</span><span lang="en">Master</span></div>
+<div class="legend-item"><div class="legend-dot" style="background:#c8956c;border-radius:2px"></div> <span lang="th">วัตถุมงคล</span><span lang="en">Artifact</span></div>
+<div class="legend-item"><div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #4caf84"></div> <span lang="th">วัด</span><span lang="en">Temple</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEGENDS -->
+<section id="legends" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow">Sacred Chronicles</span>
+<h2 class="section-title"><span lang="th">5 ปริศนาพลังที่โลกยังต้องถอดรหัส</span><span lang="en">Five Unsolved Mysteries of Power</span></h2>
+</div>
+
+<div class="legend-card glass">
+<div class="legend-icon-wrap"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#c89b3c" stroke-width="1.5"><path d="M20 5L23 13L32 13L25 19L27 27L20 22L13 27L15 19L8 13L17 13Z" fill="rgba(200,155,60,0.2)"/></svg></div>
+<div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">๑. เครื่องบินระเบิดมองไม่เห็นงานศพ</span><span lang="en">I. The Funeral Bombers Saw Nothing</span></h3>
+<div class="text-xs font-mono text-gold-dim mb-3">พ.ศ. 2486 · สงครามมหาเอเชียบูรพา</div>
+<p class="text-sm text-muted" style="line-height:1.8"><span lang="th">ลูกศิษย์นำตะกรุดและธงมหาระงับไปติดยอดเมรุแล้วเปิดไฟจัดงานอย่างสว่างจ้า ฝ่าฝืนมาตรการ Blackout เครื่องบินสัมพันธมิตรบินผ่านซ้ำแล้วซ้ำเล่าแต่ไม่มีการทิ้งระเบิด ราวกับพื้นที่ถูกตัดขาดจากการรับรู้ของข้าศึก</span><span lang="en">Disciples affixed Takrut and Thong Maha Rangap to the funeral pyre's peak — then lit the ceremonial fires in full defiance of blackout protocols. Allied aircraft flew over repeatedly yet dropped nothing.</span></p>
+</div>
+</div>
+
+<div class="legend-card glass">
+<div class="legend-icon-wrap"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#c41e3a" stroke-width="1.5"><path d="M20 5L35 32L5 32Z" fill="rgba(196,30,58,0.15)"/><circle cx="20" cy="20" r="3" fill="#c41e3a" opacity="0.7"/></svg></div>
+<div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">๒. เสือแกละกับโจรล่องหน</span><span lang="en">II. Tiger Klaeh & The Invisible Bandit</span></h3>
+<div class="text-xs font-mono text-gold-dim mb-3">ยุคสงครามโลก · The Virunchambang Incident</div>
+<p class="text-sm text-muted" style="line-height:1.8"><span lang="th">เสือแกละสวมเสื้อยันต์วิรุฬจำบัง เพียงกลัดกระดุมเม็ดบนสุด อึดใจ แล้วเดินฝ่าวงล้อมตำรวจออกมาโดยไม่มีใครมองเห็น ปืนหลายสิบกระบอกยิงไม่ต้อง นอกจากนี้ยังนำธงมหาระงับไปปักไว้ ปืนยิงข้ามธงไม่ได้</span><span lang="en">A soldier-turned-bandit named "Klaeh" simply fastened the top button, held his breath, and walked through the police cordon undetected. Officers fired dozens of rounds; not one connected.</span></p>
+</div>
+</div>
+
+<div class="legend-card glass">
+<div class="legend-icon-wrap"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#4caf84" stroke-width="1.5"><circle cx="20" cy="20" r="14" fill="rgba(45,106,79,0.15)"/><circle cx="20" cy="20" r="6" fill="rgba(45,106,79,0.3)"/></svg></div>
+<div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">๓. ลูกอมที่บินกลับบ้าน</span><span lang="en">III. The Returning Luk Om</span></h3>
+<div class="text-xs font-mono text-gold-dim mb-3">Moral Gatekeeping · Karmic Auto-Return</div>
+<p class="text-sm text-muted" style="line-height:1.8"><span lang="th">หลวงพ่อคงกำหนดสัญญาทางศีลธรรม: "ห้ามคดโกง ห้ามผิดลูกผิดเมีย ห้ามปล้นลัก" ผู้ที่ละเมิดจะพบว่าลูกอมแตกหรือหายไป แล้วปรากฏที่กุฏิหลวงพ่อ</span><span lang="en">Those who violated the moral pact found their luk om had cracked, or simply vanished — then reappeared at the monk's kuti.</span></p>
+</div>
+</div>
+
+<div class="legend-card glass">
+<div class="legend-icon-wrap"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#c8956c" stroke-width="1.5"><circle cx="20" cy="20" r="14" fill="rgba(200,149,108,0.15)"/><path d="M20 8L21.5 14L27 14L22.5 17.5L24 23L20 20L16 23L17.5 17.5L13 14L18.5 14Z" fill="rgba(200,149,108,0.4)"/></svg></div>
+<div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">๔. เหรียญปาดตาล — มีดไม่ระคายผิว</span><span lang="en">IV. The Pad Tan — Machete That Drew No Blood</span></h3>
+<div class="text-xs font-mono text-gold-dim mb-3">เหรียญรุ่น 2 · Empirical Evidence</div>
+<p class="text-sm text-muted" style="line-height:1.8"><span lang="th">ผู้ห้อยเหรียญรุ่นสองถูกมีดปาดตาลฟันเข้าที่ลำคออย่างจัง คมมีดกลับไม่ระคายผิว ทิ้งไว้เพียงรอยแดง ชาวบ้านจึงเรียกว่า "เหรียญปาดตาล"</span><span lang="en">A holder was struck full-force by a Pad Tan machete. The blade left only a faint red mark. No cut, no blood.</span></p>
+</div>
+</div>
+
+<div class="legend-card glass">
+<div class="legend-icon-wrap"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#c89b3c" stroke-width="1.5"><path d="M20 5C25 10 35 10 35 20C35 30 25 35 20 35C15 35 5 30 5 20C5 10 15 10 20 5Z" fill="rgba(200,155,60,0.1)"/><circle cx="20" cy="20" r="5" fill="rgba(200,155,60,0.3)"/></svg></div>
+<div>
+<h3 class="font-display fw-bold text-lg mb-1"><span lang="th">๕. การถ่วงทิ้งทะเล — จริยธรรมเหนืออำนาจ</span><span lang="en">V. The Sea Burial — Ethics Over Power</span></h3>
+<div class="text-xs font-mono text-gold-dim mb-3">Ultimate Override · Sacred Sacrifice</div>
+<p class="text-sm text-muted" style="line-height:1.8"><span lang="th">เมื่อลูกศิษย์นำวัตถุมงคลไปใช้เป็นอาวุธจนตำรวจไม่อาจปราบได้ หลวงพ่อคงรวบรวมตะกรุดมหาระงับที่เหลือทั้งหมดไปถ่วงทิ้งทะเล ท่านทำลายผลงานที่ยิ่งใหญ่ที่สุดของตนเองเพื่อปกป้องสังคม</span><span lang="en">He gathered all remaining Takrut Maha Rangap and cast them to the depths of the sea. He destroyed his greatest creations to protect society.</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CHART -->
+<section style="padding:2rem 0 4rem">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow">Lineage Chart</span>
+<h2 class="section-title"><span lang="th">ทำเนียบเบญจภาคีเหรียญพระสงฆ์</span><span lang="en">Benjapakee Coin Rankings</span></h2>
+</div>
+<div class="glass p-6"><canvas id="lineage-chart" style="height:300px"></canvas></div>
+</div>
+</section>
+
+<footer id="footer">
+<div class="container">
+<div class="font-display text-xs tracking-widest text-muted mb-2" style="letter-spacing:0.25em">⟡ NEXUS // SACRED ARTIFACT — LUANG PHOR KONG ⟡</div>
+<div class="text-xs text-muted opacity-50">วัดบางกะพ้อม · Amphawa · Samut Songkhram · พ.ศ. 2407–2486</div>
+</div>
+</footer>
+</main>
+
+<script>
+// ═══════════════════════════════════════════
+// 1. SIMPLEX NOISE
+// ═══════════════════════════════════════════
+class SimplexNoise{constructor(){this.p=new Uint8Array(256);for(let i=0;i<256;i++)this.p[i]=Math.floor(256*Math.random());this.perm=new Uint8Array(512);for(let i=0;i<512;i++)this.perm[i]=this.p[i&255]}dot(g,x,y){return g[0]*x+g[1]*y}noise(xin,yin){const F2=.5*(Math.sqrt(3)-1),G2=(3-Math.sqrt(3))/6;let i=Math.floor(xin+((xin+yin)*F2)),j=Math.floor(yin+((xin+yin)*F2)),t=(i+j)*G2,X0=i-t,Y0=j-t,x0=xin-X0,y0=yin-Y0;let i1,j1;x0>y0?(i1=1,j1=0):(i1=0,j1=1);let x1=x0-i1+G2,y1=y0-j1+G2,x2=x0-1+2*G2,y2=y0-1+2*G2,ii=i&255,jj=j&255,gi0=this.perm[ii+this.perm[jj]]%12,gi1=this.perm[ii+i1+this.perm[jj+j1]]%12,gi2=this.perm[ii+1+this.perm[jj+1]]%12,t0=.5-x0*x0-y0*y0,n0=t0<0?0:Math.pow(t0,4)*this.dot([Math.cos(gi0*0.5236),Math.sin(gi0*0.5236)],x0,y0),t1=.5-x1*x1-y1*y1,n1=t1<0?0:Math.pow(t1,4)*this.dot([Math.cos(gi1*0.5236),Math.sin(gi1*0.5236)],x1,y1),t2=.5-x2*x2-y2*y2,n2=t2<0?0:Math.pow(t2,4)*this.dot([Math.cos(gi2*0.5236),Math.sin(gi2*0.5236)],x2,y2);return 70*(n0+n1+n2)}}
+
+// ═══════════════════════════════════════════
+// 2. ANTIGRAVITY ENGINE
+// ═══════════════════════════════════════════
+class AntigravityEngine{constructor(){this.canvas=document.getElementById('sacred-canvas');this.ctx=this.canvas.getContext('2d');this.simplex=new SimplexNoise();this.particles=[];this.mouse={x:-9999,y:-9999};this.t=0;this.resize();this.createParticles();this.animate();window.addEventListener('resize',()=>this.resize());window.addEventListener('mousemove',e=>{this.mouse.x=e.clientX;this.mouse.y=e.clientY})}resize(){this.W=this.canvas.width=window.innerWidth;this.H=this.canvas.height=window.innerHeight}createParticles(){this.particles=[];const c=Math.min(100,Math.floor(this.W*this.H/14000));for(let i=0;i<c;i++)this.particles.push({x:Math.random()*this.W,y:Math.random()*this.H,vx:0,vy:0,size:Math.random()*1.6+0.4,speed:Math.random()*0.4+0.2,noiseOff:Math.random()*1000,alpha:Math.random()*0.5+0.15,color:Math.random()>0.7?'#c8956c':'#c89b3c'})}animate(){const{ctx,W,H}=this;this.t+=0.002;ctx.fillStyle='rgba(10,6,4,0.15)';ctx.fillRect(0,0,W,H);for(const p of this.particles){const nx=(p.x/W)*3+this.t,ny=(p.y/H)*3+this.t*0.7,angle=this.simplex.noise(nx+p.noiseOff,ny)*Math.PI*2;p.vx+=Math.cos(angle)*p.speed*0.08;p.vy+=Math.sin(angle)*p.speed*0.08;const dx=p.x-this.mouse.x,dy=p.y-this.mouse.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){const f=(120-dist)/120;p.vx+=(dx/dist)*f*2;p.vy+=(dy/dist)*f*2}p.vx*=0.92;p.vy*=0.92;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.restore()}ctx.save();for(let i=0;i<this.particles.length;i++){for(let j=i+1;j<this.particles.length;j++){const a=this.particles[i],b=this.particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<80){ctx.strokeStyle=`rgba(200,155,60,${0.04*(1-d/80)})`;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}ctx.restore();requestAnimationFrame(()=>this.animate())}}
+
+// ═══════════════════════════════════════════
+// 3. DATA
+// ═══════════════════════════════════════════
+const ORIGINAL_MATRIX=[['อิ','ติ','ปิ','โส','ภะ','คะ','วา','อะ'],['ระ','หัง','สัม','มา','สัม','พุท','โธ','วิช'],['ชา','จะ','ระ','ณะ','สัม','ปัน','โน','สุ'],['คะ','โต','โล','กะ','วิ','ทู','อะ','นุต'],['ตะ','โร','ปุ','ริ','สะ','ธัม','มะ','สา'],['ระ','ถิ','สัต','ถา','เท','วะ','มะ','นุส'],['สา','นัง','พุท','โธ','ภะ','คะ','วา','ติ']];
+const TRANSFORMED_MATRIX=[['อิ','ระ','ชา','คะ','ตะ','ระ','สา'],['ติ','หัง','จะ','โต','โร','ถิ','นัง'],['ปิ','สัม','ระ','โล','ปุ','สัต','พุท'],['โส','มา','ณะ','กะ','ริ','ถา','โธ'],['ภะ','สัม','สัม','วิ','สะ','เท','ภะ'],['คะ','พุท','ปัน','ทู','ธัม','วะ','คะ'],['วา','โธ','โน','อะ','มะ','มะ','วา'],['อะ','วิช','สุ','นุต','สา','นุส','ติ']];
+const VERSE_LEGENDS=[
+{verse:'อิ ระ ชา คะ ตะ ระ สา',name:'กระทู้เจ็ดแบก',nameEn:'Seven-Bearer Post',desc:'เป็นบทที่ช่วยให้อยู่ยงคงกระพัน',descEn:'A verse for invulnerability and protection'},
+{verse:'ติ หัง จะ โต โร ถิ นัง',name:'ฝนแสนห่า',nameEn:'Ten Thousand Rains',desc:'ช่วยให้แคล้วคลาดปลอดภัย อยู่ท่ามกลางฝนตกหนัก เม็ดฝนก็ยังกระทบร่างกายไม่ได้',descEn:'For safety and evasion - like standing in heavy rain without being touched'},
+{verse:'ปิ สัม ระ โล ปุ สัต พุท',name:'นารายณ์เคลื่อนสมุทร',nameEn:'Narayana Moves the Ocean',desc:'เอาไว้เสกน้ำมนต์ ถอนคุณ ถอนของต่างๆ',descEn:'For blessing holy water, removing curses and hexes'},
+{verse:'โส มา ณะ กะ ริ ถา โธ',name:'นารายณ์ถอดจักร',nameEn:'Narayana Removes the Discus',desc:'เอาไว้ใช้ลักษณะคล้ายคลึงกับบทที่สาม',descEn:'Used similarly to the third verse for removal and cleansing'},
+{verse:'ภะ สัม สัม วิ สะ เท ภะ',name:'นารายณ์ขว้างจักรตรึงไตรภพ',nameEn:'Narayana Throws Discus Across Three Realms',desc:'เอาไว้เสกหวาย หรือเสกขมิ้น ตีผี จี้ผี ไล่ผีให้ออกจากร่างกาย',descEn:'For blessing rattan or turmeric, driving spirits out of the body'},
+{verse:'คะ พุท ปัน ทู ธัม วะ คะ',name:'นารายณ์พลิกแผ่นดิน',nameEn:'Narayana Overturns the Earth',desc:'เอาไว้สำหรับใช้เวลาต้องคดีความ กลับจากร้ายให้กลายเป็นดี',descEn:'For legal matters - turning bad situations into good outcomes'},
+{verse:'วา โธ โน อะ มะ มะ วา',name:'ตวาดป่าหิมพานต์',nameEn:'Himaphan Forest Roar',desc:'ใช้ในทางมหาอำนาจ เป็นนะจังงัง',descEn:'For great authority and commanding power (Na Jang Ngang)'},
+{verse:'อะ วิช สุ นุต สา นุส ติ',name:'นารายณ์แปลงรูป',nameEn:'Narayana Shape-Shifter',desc:'ใช้สำหรับเวลาอยู่ท่ามกลางศัตรู ทำให้อีกฝ่ายจดจำไม่ได้ว่าเราเป็นใคร',descEn:'For disguise among enemies - making others unable to recognize you'}
+];
+
+const MAHA_RANGAP_TEXT=`"โอมมหาระงับ หลับสิ้นทั้งบ้าน\nโอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ"\n\nนะปิดตา โมปิดใจ พุทปิดปาก ธาปิดหู ยะหลับนิ่งอยู่\n\nอิติปาระมิตาติงสา ระงับอินทรา\nอิติสัพพัญญู มาคะตา ระงับพรัหมา\nอิติโพธิ มะนุปปัตโต ระงับมนุสสา\nอิติปิโส จะเตนะโม ระงับทิสา\n\n[V:1]อิระชาคะตะระสา[/V]\n[V:5]ภะสัมสัมวิสะเทภะ[/V]\n[V:6]คะพุทปันทูธัมวะคะ[/V]\n[V:7]วาโธโนอะมะมะวา[/V]\n[V:8]อะวิชสุนุตสานุสติ[/V]\n[V:2]ติหังจะโตโรถินัง[/V]\n[V:3]ปิสัมระโลปุสัตพุท[/V]\n[V:4]โสมาณะกะริถาโธ[/V]\n\n"พุทธัง ศัตรูร้าย นะจังงังถอย อย่านะละสัง\nพระพุทธังปิด พระธัมมังปิด พระสังฆังปิด\nพระพุทธเจ้าแผลงฤทธิ์ ปิดทวารทั้งเก้า"`;
+
+const PANEL_DATA={
+takrut:{title:'Takrut Maha Rangap',subtitle:'ตะกรุดมหาระงับ · สุดยอดตะกรุดของประเทศไทย',sections:[
+{heading:'Physical Form',body:'Lead or copper cylinder, 3–5 inches. Inscribed with suppression yantras, bordered by Maha Rangap incantation, Parami 30 Tat, and Itipiso in 8 directions. Rolled, wrapped in 7 varieties of sacred herb leaves, then bound in the "Crocodile-Jaw" knot pattern and lacquered red.'},
+{heading:'แบบไทย',body:'ตะกรุดตะกั่วเถื่อนหรือทองแดงเถื่อน ความยาว 3–5 นิ้ว จารอักขระยันต์แบบแผนผังกั้นห้อง ล้อมด้วยพระคาถามหาระงับ พระคาถาบารมี 30 ทัศ และอิติปิโส 8 ทิศ พอกด้วยว่านยา 7 ชนิด ถักลาย "จระเข้ขบฟัน" จุ่มรักแดง'},
+{heading:'Sacred Katha',isKatha:true,body:'โอมมหาระงับ หลับสิ้นทั้งบ้าน\nโอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ\n\nนะปิดตา โมปิดใจ\nพุทธปิดปาก ธาปิดหู\nยะหลับนิ่งอยู่'},
+{heading:'Mechanism',body:'Unlike standard invulnerability charms, Maha Rangap acts at the SOURCE — neutralising the enemy\'s intent. The target becomes dazed, forgetful, drowsy, or simply abandons their hostile purpose. One amulet protects an entire cohort.'},
+{heading:'Lineage',body:'Received from: หลวงปู่เอี่ยม วัดปากลัด. The crocodile-jaw knot is the authentication signature.'},
+{heading:'Value',body:'Authentic WWII-era specimens: หลักแสน–ล้านบาท. Signature specimens with documented provenance may exceed this.'}
+]},
+seua:{title:'Seua Yant Virunchambang',subtitle:'เสื้อยันต์วิรุฬจำบัง · เสื้อยันต์อันดับ 1 ของไทย',sections:[
+{heading:'Physical Form',body:'First Edition: Black velvet vest, white inner lining, 5 bone buttons. WWII Edition: Heavy black-dyed raw cotton, rope closures. Special Indochina Edition: Two-tone navy-blue, 3 bone buttons, rarest of all.'},
+{heading:'Yantra System',body:'Virunchambang Yantra (central), Kite Yantra in 2 layers, Iti Chaiya, Sappa, Unalome. WWII additions: Kruea Kaew Yantra + "Buddha Phet Khong Khan" inscriptions for bomb protection.'},
+{heading:'Sacred Katha',isKatha:true,body:'(กลั้นใจอึดใจหนึ่ง กลัดกระดุมเม็ดบน)\n\n"วิรุฬจำบัง อำพรางกาย\nหายตัวพ้นภัย สิทธิสวาหะ"'},
+{heading:'Why #1',body:'No other Thai master has ever created a concealment vest of this specific tradition. It remains unique in the entire history of Thai sacred arts.'}
+]},
+lukom:{title:'Luk Om Maha Kan',subtitle:'ลูกอมมหากัน · เบญจภาคีลูกอมแห่งเมืองไทย',sections:[
+{heading:'Physical Form',body:'Small spherical pills made from chalk-dust powder. Core: a rolled sa-paper bearing a single Khom "Na" character. Must be made exclusively inside an ordination hall.'},
+{heading:'Sacred Katha',isKatha:true,body:'(ตั้งนะโม 3 จบ แล้วว่า)\n\nพุทธังเพชชะคงคัง\nธัมมังเพชชะคงคัง\nสังคังเพชชะคงคัง'},
+{heading:'Moral Auto-Return',body:'If the owner violated the moral covenant (no fraud, no adultery, no theft), the pill would crack or vanish — and reappear at his kuti.'},
+{heading:'Value',body:'Authentic pieces: 9,500 – 40,000+ บาท depending on condition and certification.'}
+]},
+coin:{title:'First Issue Coin 2484 BE',subtitle:'เหรียญรุ่นแรก พ.ศ. 2484 · เบญจภาคีเหรียญอันดับ 4',sections:[
+{heading:'Physical Details',body:'Struck for master\'s 77th birthday. Total: 3,000 pieces. Serrated edge: 200 pieces — the prized Benjapakee variant. Material: oxidised copper alloyed with 1938 Wat Ratchabophit bell-casting ingots.'},
+{heading:'Design',body:'Obverse: Half-length portrait. Reverse: Yantra 5 (Five Buddhas), three Unalome, four rows of Khom script. Upper rim: "ลาภ ผล พูน ทวี".'},
+{heading:'Benjapakee Rankings',body:'#1 หลวงพ่อกลั่น วัดพระญาติ (5–30 ล้านบาท)\n#2 หลวงปู่เอี่ยม วัดหนัง (4–5 ล้านบาท)\n#3 หลวงปู่ศุข วัดปากคลองมะขามเฒ่า\n#4 หลวงพ่อคง วัดบางกะพ้อม (1.5–2.5 ล้านบาท)\n#5 หลวงพ่อฉุย วัดคงคาราม'},
+{heading:'Value',body:'Serrated edge (Benjapakee): 1.5–2.5 ล้านบาท.'}
+]}
+};
+
+const NETWORK_DATA={
+nodes:[
+{id:'kong',label:'หลวงพ่อคง',type:'monk',group:'central'},
+{id:'eiam',label:'หลวงปู่เอี่ยม',type:'monk',group:'teacher'},
+{id:'pan',label:'หลวงพ่อปาน',type:'monk',group:'teacher'},
+{id:'tad',label:'หลวงพ่อตาด',type:'monk',group:'teacher'},
+{id:'thian',label:'หลวงพ่อเทียน',type:'monk',group:'teacher'},
+{id:'lai',label:'หลวงพ่อไล้',type:'monk',group:'teacher'},
+{id:'neung',label:'หลวงพ่อเนื่อง',type:'monk',group:'disciple'},
+{id:'takrut',label:'ตะกรุดมหาระงับ',type:'artifact',group:'artifact'},
+{id:'seua',label:'เสื้อยันต์',type:'artifact',group:'artifact'},
+{id:'lukom',label:'ลูกอมมหากัน',type:'artifact',group:'artifact'},
+{id:'coin',label:'เหรียญรุ่นแรก',type:'artifact',group:'artifact'},
+{id:'thong',label:'ธงมหาระงับ',type:'artifact',group:'artifact'},
+{id:'wbkp',label:'วัดบางกะพ้อม',type:'temple',group:'temple'},
+{id:'wpl',label:'วัดปากลัด',type:'temple',group:'temple'},
+{id:'wrt',label:'วัดโรงธรรม',type:'temple',group:'temple'}
+],
+links:[
+{source:'eiam',target:'kong'},{source:'pan',target:'kong'},{source:'tad',target:'kong'},{source:'thian',target:'kong'},{source:'lai',target:'kong'},
+{source:'kong',target:'takrut'},{source:'kong',target:'seua'},{source:'kong',target:'lukom'},{source:'kong',target:'coin'},{source:'kong',target:'thong'},
+{source:'kong',target:'neung'},{source:'kong',target:'wbkp'},{source:'eiam',target:'wpl'},{source:'pan',target:'wrt'}
+]
+};
+
+// ═══════════════════════════════════════════
+// 4. APP CONTROLLER
+// ═══════════════════════════════════════════
+const APP={
+lang:'th',
+d3sim:null,
+
+init(){
+document.getElementById('loading-overlay').classList.add('hidden');
+new AntigravityEngine();
+this.animateProgressBars();
+this.initD3Network();
+this.initChart();
+this.renderMatrices();
+this.renderVerses();
+this.renderMahaRangap();
+this.initTabs();
+},
+
+toggleLang(){this.lang=this.lang==='th'?'en':'th';document.body.dataset.lang=this.lang},
+
+// PROGRESS BARS
+animateProgressBars(){
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.progress-fill[data-width]').forEach(f=>{setTimeout(()=>{f.style.width=f.dataset.width+'%'},100);delete f.dataset.width});obs.unobserve(e.target)}})},{threshold:0.2});
+document.querySelectorAll('.glass').forEach(el=>{el.querySelectorAll('.progress-fill').forEach(f=>{if(f.dataset.width)f.style.width='0'});obs.observe(el)});
+},
+
+// PANEL
+openPanel(id){
+const d=PANEL_DATA[id];if(!d)return;
+document.getElementById('panel-title').textContent=d.title;
+document.getElementById('panel-subtitle').textContent=d.subtitle;
+const body=document.getElementById('panel-body');
+body.innerHTML=d.sections.map(s=>`<div class="panel-section"><h4>${s.heading}</h4>${s.isKatha?`<div class="katha-box">${s.body.replace(/\n/g,'<br>')}</div><button class="copy-btn" onclick="APP.copy(this,'${encodeURIComponent(s.body)}')">⎘ Copy</button>`:`<p>${s.body.replace(/\n/g,'<br>')}</p>`}</div>`).join('');
+document.getElementById('slide-panel').classList.add('open');
+document.getElementById('panel-overlay').classList.add('show');
+},
+closePanel(){document.getElementById('slide-panel').classList.remove('open');document.getElementById('panel-overlay').classList.remove('show')},
+copy(btn,enc){const t=decodeURIComponent(enc);navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ Copied!';setTimeout(()=>{btn.textContent='⎘ Copy'},2000)})},
+
+// MANTRA
+copyMantra(){const t=MAHA_RANGAP_TEXT.replace(/\[V:\d+\]/g,'').replace(/\[\/V\]/g,'');navigator.clipboard.writeText(t).then(()=>alert('คัดลอกคาถาเรียบร้อยแล้ว!'))},
+
+renderMahaRangap(){
+const c=document.getElementById('maha-rangap-content');
+let h=MAHA_RANGAP_TEXT.replace(/\[V:(\d+)\]([^\[]+)\[\/V\]/g,(m,n,t)=>`<span class="mantra-verse" data-verse="${n}" onclick="APP.highlightVerse(${n})">${t}</span>`);
+h=h.replace(/\n/g,'<br>');
+c.innerHTML=h;
+},
+
+highlightVerse(n){
+document.querySelectorAll('.verse-card').forEach((c,i)=>c.classList.toggle('active',i===n-1));
+document.querySelectorAll('.mantra-verse').forEach(v=>v.classList.toggle('highlight',parseInt(v.dataset.verse)===n));
+},
+
+// MATRICES
+renderMatrices(){
+const oc=document.getElementById('original-matrix'),tc=document.getElementById('transformed-matrix');
+if(!oc||!tc)return;
+ORIGINAL_MATRIX.forEach((row,ri)=>{const r=document.createElement('div');r.className='matrix-row';row.forEach((cell,ci)=>{const c=document.createElement('div');c.className='matrix-cell';c.textContent=cell;c.dataset.row=ri;c.dataset.col=ci;c.addEventListener('mouseenter',()=>this.hlCol(ci));c.addEventListener('mouseleave',()=>this.clrHL());r.appendChild(c)});oc.appendChild(r)});
+TRANSFORMED_MATRIX.forEach((row,ri)=>{const r=document.createElement('div');r.className='matrix-row';row.forEach((cell,ci)=>{const c=document.createElement('div');c.className='matrix-cell';c.textContent=cell;c.dataset.row=ri;c.dataset.col=ci;c.addEventListener('mouseenter',()=>this.hlRow(ri));c.addEventListener('mouseleave',()=>this.clrHL());r.appendChild(c)});tc.appendChild(r)});
+},
+hlCol(ci){document.querySelectorAll('#original-matrix .matrix-cell').forEach(c=>{if(+c.dataset.col===ci)c.classList.add('highlight')});document.querySelectorAll('#transformed-matrix .matrix-cell').forEach(c=>{if(+c.dataset.row===ci)c.classList.add('highlight')})},
+hlRow(ri){document.querySelectorAll('#transformed-matrix .matrix-cell').forEach(c=>{if(+c.dataset.row===ri)c.classList.add('highlight')});document.querySelectorAll('#original-matrix .matrix-cell').forEach(c=>{if(+c.dataset.col===ri)c.classList.add('highlight')})},
+clrHL(){document.querySelectorAll('.matrix-cell').forEach(c=>c.classList.remove('highlight'))},
+
+// VERSES
+renderVerses(){
+const g=document.getElementById('verses-grid');if(!g)return;
+VERSE_LEGENDS.forEach((l,i)=>{const c=document.createElement('div');c.className='verse-card';c.innerHTML=`<span class="verse-number">${i+1}</span><div class="verse-text">${l.verse}</div><div class="verse-name"><span lang="th">${l.name}</span><span lang="en">${l.nameEn}</span></div><div class="verse-desc"><span lang="th">${l.desc}</span><span lang="en">${l.descEn}</span></div>`;c.addEventListener('click',()=>this.highlightVerse(i+1));g.appendChild(c)});
+},
+
+// TABS
+initTabs(){
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const id=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));const t=document.getElementById('tab-'+id);if(t)t.classList.add('active')})});
+},
+
+// D3 NETWORK
+initD3Network(){
+const container=document.getElementById('network-container');
+const W=container.clientWidth,H=container.clientHeight;
+const{nodes,links}=NETWORK_DATA;
+const svg=d3.select('#network-container').append('svg').attr('width',W).attr('height',H);
+const defs=svg.append('defs');
+defs.append('filter').attr('id','glow').html(`<feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>`);
+const g=svg.append('g');
+const zoom=d3.zoom().scaleExtent([0.3,3]).on('zoom',e=>g.attr('transform',e.transform));
+svg.call(zoom);
+const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(links).id(d=>d.id).distance(110).strength(0.6)).force('charge',d3.forceManyBody().strength(-300)).force('center',d3.forceCenter(W/2,H/2)).force('collision',d3.forceCollide(35));
+this.d3sim=sim;
+const link=g.append('g').selectAll('line').data(links).enter().append('line').attr('stroke','rgba(200,155,60,0.2)').attr('stroke-width',1);
+const node=g.append('g').selectAll('g').data(nodes).enter().append('g').attr('cursor','pointer').call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null})).on('click',(e,d)=>{if(PANEL_DATA[d.id])APP.openPanel(d.id)});
+node.each(function(d){const el=d3.select(this);const cm={monk:'#c89b3c',artifact:'#c8956c',temple:'#4caf84'};const c=cm[d.type]||'#8a7560';if(d.type==='monk'){el.append('circle').attr('r',d.group==='central'?20:12).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',d.group==='central'?2:1.5).attr('filter',d.group==='central'?'url(#glow)':'')}else if(d.type==='artifact'){const s=20;el.append('rect').attr('x',-s/2).attr('y',-s/2).attr('width',s).attr('height',s).attr('rx',4).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5)}else if(d.type==='temple'){const r=16;el.append('polygon').attr('points',`0,${-r} ${r*0.87},${r*0.5} ${-r*0.87},${r*0.5}`).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5)}el.append('text').text(d.label).attr('text-anchor','middle').attr('dy',d.type==='temple'?30:26).attr('fill','#f5e6c8').attr('font-size','9px').attr('font-family',"'Sarabun',sans-serif").attr('opacity',0.85)});
+sim.on('tick',()=>{link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);node.attr('transform',d=>`translate(${d.x},${d.y})`)});
+},
+resetNetwork(){if(this.d3sim)this.d3sim.alpha(0.5).restart()},
+
+// CHART
+initChart(){
+const ctx=document.getElementById('lineage-chart');if(!ctx)return;
+Chart.defaults.color='#8a7560';Chart.defaults.font.family="'Cinzel',serif";Chart.defaults.font.size=10;
+new Chart(ctx.getContext('2d'),{type:'bar',data:{labels:['หลวงพ่อกลั่น\n(#1)','หลวงปู่เอี่ยม\n(#2)','หลวงปู่ศุข\n(#3)','หลวงพ่อคง\n(#4)','หลวงพ่อฉุย\n(#5)'],datasets:[{label:'Est. Max Value (ล้านบาท)',data:[30,5,5,2.5,2],backgroundColor:['rgba(200,155,60,0.3)','rgba(200,155,60,0.25)','rgba(200,155,60,0.2)','rgba(200,149,108,0.45)','rgba(200,155,60,0.15)'],borderColor:['#c89b3c','rgba(200,155,60,0.8)','rgba(200,155,60,0.6)','#c8956c','rgba(200,155,60,0.4)'],borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a100b',borderColor:'rgba(200,155,60,0.3)',borderWidth:1}},scales:{x:{grid:{color:'rgba(200,155,60,0.06)'}},y:{grid:{color:'rgba(200,155,60,0.06)'},ticks:{callback:v=>v+'M฿'}}}}});
+}
+};
+
+// ═══════════════════════════════════════════
+// 5. RESILIENT LOADER
+// ═══════════════════════════════════════════
+function waitForLibs(r=0){
+if(typeof d3!=='undefined'&&typeof Chart!=='undefined'){console.log(`[NexusArtifact] Ready after ${r*100}ms`);APP.init()}
+else if(r<60){setTimeout(()=>waitForLibs(r+1),100)}
+else{console.warn('[NexusArtifact] Library timeout');APP.init()}
+}
+document.addEventListener('DOMContentLoaded',()=>waitForLibs());
+
+// Scroll reveal
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:0.1});
+document.querySelectorAll('.glass,.legend-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.7s ease,transform 0.7s ease';revealObs.observe(el)});
+</script>
+</body>
+</html>
