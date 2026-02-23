@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>หลวงพ่อคง วัดบางกะพ้อม — เทพเจ้าแห่งลุ่มน้ำแม่กลอง | Sacred Artifact Repository</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25'%3E%3Cstop offset='0%25' stop-color='%23f5e6c8'/%3E%3Cstop offset='100%25' stop-color='%23c89b3c'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23c89b3c' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23c89b3c' stroke-width='1' opacity='.5'/%3E%3Ccircle cx='50' cy='32' r='14' fill='url(%23g)' opacity='.85'/%3E%3Cellipse cx='50' cy='68' rx='22' ry='20' fill='url(%23g)' opacity='.7'/%3E%3Cpath d='M35 55 Q38 42 50 40 Q62 42 65 55' fill='%23c89b3c' opacity='.6'/%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23e8c060' stroke-width='1' stroke-dasharray='4 6' opacity='.4'/%3E%3Cpath d='M50 8 L53 16 L62 16 L55 21 L58 30 L50 24 L42 30 L45 21 L38 16 L47 16Z' fill='%23e8c060' opacity='.6'/%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23e8c060'/%3E%3Cstop offset='100%25' stop-color='%23c89b3c'/%3E%3C/radialGradient%3E%3CradialGradient id='h' cx='50%25' cy='35%25' r='55%25'%3E%3Cstop offset='0%25' stop-color='%23d4a853'/%3E%3Cstop offset='100%25' stop-color='%238b6914'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0604'/%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23c89b3c' stroke-width='1.5' opacity='0.6'/%3E%3Cellipse cx='50' cy='34' rx='16' ry='18' fill='url(%23h)'/%3E%3Cellipse cx='34' cy='36' rx='3.5' ry='5.5' fill='%23c8956c'/%3E%3Cellipse cx='66' cy='36' rx='3.5' ry='5.5' fill='%23c8956c'/%3E%3Cellipse cx='43' cy='33' rx='2' ry='1' fill='%230a0604' opacity='0.7'/%3E%3Cellipse cx='57' cy='33' rx='2' ry='1' fill='%230a0604' opacity='0.7'/%3E%3Cpath d='M39 30 Q43 28 47 30' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3Cpath d='M53 30 Q57 28 61 30' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3Cpath d='M50 34 L48.5 39 L51.5 39 Z' fill='%23b8884a' opacity='0.5'/%3E%3Cpath d='M45 42 Q50 45 55 42' fill='none' stroke='%238b6914' stroke-width='0.8'/%3E%3Cpath d='M30 55 Q32 48 50 50 Q68 48 70 55 L75 85 Q50 78 25 85 Z' fill='url(%23g)'/%3E%3Cpath d='M35 52 Q50 58 65 52' fill='none' stroke='%23e8c060' stroke-width='0.8' opacity='0.6'/%3E%3Ccircle cx='50' cy='30' r='24' fill='none' stroke='%23e8c060' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='50' cy='30' r='28' fill='none' stroke='%23c89b3c' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Noto+Serif+Thai:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -17,10 +17,12 @@
 --surface: #1a100b;
 --surface-el: #2a1a12;
 --surface-hi: #3a2a1a;
+--surface-deep: #120c08;
 --gold: #c89b3c;
 --gold-bright: #e8c060;
 --gold-dim: #8b6914;
 --gold-glow: rgba(200,155,60,0.12);
+--gold-glow-strong: rgba(200,155,60,0.35);
 --copper: #c8956c;
 --temple-red: #c41e3a;
 --emerald: #2d6a4f;
@@ -29,34 +31,46 @@
 --lotus: #ff6b9d;
 --text-main: #f5e6c8;
 --text-muted: #8a7560;
+--text-dim: #5a4a3a;
 --glass-border: rgba(200,155,60,0.18);
+--glass-border-hover: rgba(200,155,60,0.4);
 --ease: cubic-bezier(0.16,1,0.3,1);
 --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+--ease-sacred: cubic-bezier(0.22,0.61,0.36,1);
+--font-display: 'Cinzel', serif;
+--font-body: 'Sarabun', sans-serif;
+--font-thai-serif: 'Noto Serif Thai', serif;
+--font-mono: 'JetBrains Mono', monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--text-main);font-family:'Sarabun',sans-serif;overflow-x:hidden;line-height:1.7}
+body{background:var(--void);color:var(--text-main);font-family:var(--font-body);overflow-x:hidden;line-height:1.7;min-height:100vh}
+/* i18n System */
 [lang="en"]{display:none}
 body[data-lang="en"] [lang="th"]{display:none}
 body[data-lang="en"] [lang="en"]{display:block}
+body[data-lang="en"] span[lang="en"],body[data-lang="en"] a[lang="en"],body[data-lang="en"] p[lang="en"],body[data-lang="en"] div[lang="en"],body[data-lang="en"] h1[lang="en"],body[data-lang="en"] h2[lang="en"],body[data-lang="en"] h3[lang="en"],body[data-lang="en"] h4[lang="en"],body[data-lang="en"] section[lang="en"]{display:block}
 body[data-lang="en"] span[lang="en"],body[data-lang="en"] a[lang="en"]{display:inline}
+body[data-lang="th"] span[lang="th"],body[data-lang="th"] a[lang="th"],body[data-lang="th"] p[lang="th"],body[data-lang="th"] div[lang="th"]{display:block}
 body[data-lang="th"] span[lang="th"],body[data-lang="th"] a[lang="th"]{display:inline}
-h1,h2,h3,h4{font-family:'Cinzel',serif;line-height:1.3}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.3}
 a{color:var(--gold);text-decoration:none}
 ::selection{background:var(--gold);color:var(--void)}
-::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:var(--void)}
-::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
 img{max-width:100%;height:auto;display:block}
 }
 
 @layer layout {
-.container{max-width:1320px;margin:0 auto;padding:0 1.5rem}
+.container{max-width:1400px;margin:0 auto;padding:0 1.5rem}
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
 @media(max-width:1100px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.container{padding:0 1rem}}
+@media(min-width:1024px){.container{padding:0 2rem}}
 }
 
 @layer components {
@@ -67,14 +81,20 @@ border:1px solid var(--glass-border);border-radius:14px;
 box-shadow:0 8px 40px rgba(0,0,0,0.5),inset 0 1px 0 rgba(200,155,60,0.08);
 transition:border-color 0.3s var(--ease),transform 0.3s var(--ease),box-shadow 0.3s;
 }
-.glass:hover{border-color:rgba(200,155,60,0.4);transform:translateY(-3px);box-shadow:0 16px 50px rgba(0,0,0,0.6),0 0 30px rgba(200,155,60,0.08)}
-.badge{display:inline-flex;align-items:center;gap:0.3rem;padding:3px 12px;border-radius:99px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border:1px solid;font-family:'Cinzel',serif}
+.glass:hover{border-color:var(--glass-border-hover);transform:translateY(-3px);box-shadow:0 16px 50px rgba(0,0,0,0.6),0 0 30px rgba(200,155,60,0.08)}
+.glass-static{
+background:rgba(26,16,11,0.88);
+backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+border:1px solid var(--glass-border);border-radius:14px;
+box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+.badge{display:inline-flex;align-items:center;gap:0.3rem;padding:3px 12px;border-radius:99px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border:1px solid;font-family:var(--font-display)}
 .badge-gold{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
 .badge-red{border-color:var(--temple-red);color:var(--temple-red);background:rgba(196,30,58,0.1)}
 .badge-emerald{border-color:var(--emerald);color:#4caf84;background:rgba(45,106,79,0.15)}
 .badge-copper{border-color:var(--copper);color:var(--copper);background:rgba(200,149,108,0.1)}
 .badge-saffron{border-color:var(--saffron);color:var(--saffron);background:rgba(255,153,51,0.1)}
-.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.3rem;border-radius:8px;font-family:'Cinzel',serif;font-weight:700;font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;border:none;background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--void);transition:all 0.3s var(--ease)}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.3rem;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;border:none;background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--void);transition:all 0.3s var(--ease)}
 .btn:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,155,60,0.3)}
 .btn-ghost{background:transparent;border:1px solid var(--glass-border);color:var(--text-muted)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);box-shadow:none}
@@ -91,25 +111,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 .slide-panel{position:fixed;top:0;right:0;width:100%;max-width:520px;height:100vh;background:var(--surface);border-left:1px solid var(--glass-border);transform:translateX(100%);transition:transform 0.55s var(--ease);z-index:3000;overflow-y:auto;padding:0}
 .slide-panel.open{transform:translateX(0);box-shadow:-20px 0 80px rgba(0,0,0,0.6)}
-.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2999;opacity:0;pointer-events:none;transition:opacity 0.4s}
-.panel-overlay.show{opacity:1;pointer-events:all}
-#loading-overlay{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s var(--ease)}
+.overlay-backdrop{position:fixed;inset:0;background:rgba(10,6,4,0.6);z-index:2999;opacity:0;pointer-events:none;transition:opacity 0.4s}
+.overlay-backdrop.active{opacity:1;pointer-events:all}
+#loading-overlay{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s var(--ease-sacred)}
 #loading-overlay.hidden{opacity:0;pointer-events:none}
 .lotus-spinner{width:60px;height:60px;position:relative;margin-bottom:1.5rem}
 .lotus-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;animation:orbit linear infinite}
 .lotus-ring:nth-child(1){border-top-color:var(--gold);animation-duration:1.8s}
 .lotus-ring:nth-child(2){inset:8px;border-right-color:var(--copper);animation-duration:1.2s;animation-direction:reverse}
 .lotus-ring:nth-child(3){inset:16px;border-bottom-color:var(--gold-bright);animation-duration:2.4s}
+.lotus-dot{position:absolute;top:50%;left:50%;width:6px;height:6px;background:var(--gold-bright);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--gold)}
 .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:3rem 0}
-.stat-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:'Cinzel',serif}
-.stat-value{font-size:1.1rem;font-weight:700;color:var(--text-main);font-family:'JetBrains Mono',monospace}
-.katha-box{background:var(--surface-el);border-left:2px solid var(--gold);padding:1rem 1.25rem;border-radius:0 8px 8px 0;font-family:'Sarabun',sans-serif;font-size:0.88rem;font-style:italic;color:var(--text-main);line-height:1.9;margin-top:0.5rem}
-.copy-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--text-muted);cursor:pointer;background:none;border:1px solid var(--glass-border);padding:4px 10px;border-radius:4px;margin-top:0.5rem;transition:all 0.2s;font-family:'JetBrains Mono',monospace}
+.divider-wide{width:80%;max-width:600px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:3rem auto}
+.stat-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display)}
+.stat-value{font-size:1.1rem;font-weight:700;color:var(--text-main);font-family:var(--font-mono)}
+.katha-box{background:var(--surface-el);border-left:2px solid var(--gold);padding:1rem 1.25rem;border-radius:0 8px 8px 0;font-family:var(--font-body);font-size:0.88rem;font-style:italic;color:var(--text-main);line-height:1.9;margin-top:0.5rem}
+.copy-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;color:var(--text-muted);cursor:pointer;background:none;border:1px solid var(--glass-border);padding:4px 10px;border-radius:4px;margin-top:0.5rem;transition:all 0.2s;font-family:var(--font-mono)}
 .copy-btn:hover{color:var(--gold);border-color:var(--gold)}
 .section-header{text-align:center;margin-bottom:3rem}
-.section-eyebrow{font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.75rem;display:block}
+.section-eyebrow{font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.75rem;display:block}
 .section-title{font-size:clamp(1.5rem,3vw,2.2rem);color:var(--text-main);margin-bottom:0.75rem}
 .section-desc{color:var(--text-muted);max-width:600px;margin:0 auto;font-size:0.95rem}
+.section-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem}
 .video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#000}
 .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 .pdf-viewer{width:100%;height:600px;border:none;border-radius:12px;background:var(--surface-el)}
@@ -117,7 +140,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 .media-card img{width:100%;transition:transform 0.5s var(--ease)}
 .media-card:hover img{transform:scale(1.03)}
 .tab-nav{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
-.tab-btn{padding:0.6rem 1.2rem;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:8px;color:var(--text-muted);font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;transition:all 0.3s var(--ease);font-size:0.85rem}
+.tab-btn{padding:0.6rem 1.2rem;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:8px;color:var(--text-muted);font-family:var(--font-body);font-weight:600;cursor:pointer;transition:all 0.3s var(--ease);font-size:0.85rem}
 .tab-btn:hover{background:rgba(255,255,255,0.1);color:var(--text-main)}
 .tab-btn.active{background:linear-gradient(135deg,var(--saffron),var(--gold));color:var(--void);border-color:transparent}
 .tab-content{display:none}
@@ -128,23 +151,23 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 .mantra-verse.highlight{background:var(--saffron);color:var(--void);animation:verseGlow 1s ease-out}
 .matrix-container{display:flex;flex-direction:column;gap:0.4rem;padding:1rem}
 .matrix-row{display:flex;gap:0.4rem;justify-content:center}
-.matrix-cell{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-family:'Sarabun',sans-serif;font-size:1rem;font-weight:600;border-radius:6px;background:rgba(200,155,60,0.08);border:1px solid rgba(200,155,60,0.2);transition:all 0.4s var(--ease-spring);cursor:default}
+.matrix-cell{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:1rem;font-weight:600;border-radius:6px;background:rgba(200,155,60,0.08);border:1px solid rgba(200,155,60,0.2);transition:all 0.4s var(--ease-spring);cursor:default}
 .matrix-cell.highlight{background:rgba(200,155,60,0.3);border-color:var(--gold);box-shadow:0 0 12px rgba(200,155,60,0.4);transform:scale(1.08)}
 .verse-card{padding:1.25rem;border-radius:12px;background:linear-gradient(135deg,rgba(200,155,60,0.08),rgba(200,149,108,0.05));border:1px solid var(--glass-border);cursor:pointer;transition:all 0.4s var(--ease);position:relative;overflow:hidden}
 .verse-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--saffron),var(--copper));opacity:0;transition:opacity 0.3s}
 .verse-card:hover::before,.verse-card.active::before{opacity:1}
 .verse-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 24px rgba(200,155,60,0.2)}
 .verse-card.active{border-color:var(--saffron);box-shadow:0 8px 24px rgba(255,153,51,0.25)}
-.verse-number{position:absolute;top:0.6rem;right:0.6rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--void);font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;border-radius:50%}
+.verse-number{position:absolute;top:0.6rem;right:0.6rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--void);font-family:var(--font-display);font-size:0.65rem;font-weight:700;border-radius:50%}
 .verse-text{font-size:1.2rem;font-weight:700;color:var(--gold);letter-spacing:0.2em;margin-bottom:0.3rem}
 .verse-name{font-size:0.85rem;font-weight:600;color:var(--saffron);margin-bottom:0.3rem}
 .verse-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease)}
 .verse-card:hover .verse-desc,.verse-card.active .verse-desc{max-height:200px}
 .compare-table{width:100%;border-collapse:collapse}
-.compare-table th{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);padding:0.9rem 1rem;text-align:left;border-bottom:1px solid var(--glass-border)}
+.compare-table th{font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);padding:0.9rem 1rem;text-align:left;border-bottom:1px solid var(--glass-border)}
 .compare-table td{padding:0.8rem 1rem;font-size:0.85rem;border-bottom:1px solid rgba(200,155,60,0.06);vertical-align:top}
 .compare-table tr:hover td{background:rgba(200,155,60,0.04)}
-.compare-table .row-label{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase}
+.compare-table .row-label{font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase}
 .legend-card{padding:1.5rem;margin-bottom:1.25rem;display:grid;grid-template-columns:70px 1fr;gap:1.25rem;align-items:start}
 @media(max-width:600px){.legend-card{grid-template-columns:1fr}}
 .legend-icon-wrap{width:70px;height:70px;border-radius:12px;background:var(--surface-el);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -152,39 +175,71 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 .timeline::before{content:'';position:absolute;left:0;top:0.5rem;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold-dim),transparent)}
 .timeline-item{position:relative;margin-bottom:1.5rem}
 .timeline-item::before{content:'';position:absolute;left:-1.5rem;top:0.5rem;width:7px;height:7px;border-radius:50%;background:var(--gold);border:2px solid var(--void)}
-.timeline-year{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--gold);margin-bottom:0.2rem}
+.timeline-year{font-family:var(--font-mono);font-size:0.72rem;color:var(--gold);margin-bottom:0.2rem}
 .timeline-event{font-size:0.88rem;color:var(--text-muted);line-height:1.6}
 .timeline-event strong{color:var(--text-main)}
 #nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,6,4,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0.8rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.15em;color:var(--gold);display:flex;align-items:center;gap:0.5rem}
+.nav-logo{font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.15em;color:var(--gold);display:flex;align-items:center;gap:0.5rem}
 .nav-links{display:flex;gap:1.5rem}
-.nav-links a{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);transition:color 0.2s;font-family:'Cinzel',serif}
-.nav-links a:hover{color:var(--gold)}
+.nav-links a{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);transition:color 0.2s;font-family:var(--font-display);padding:0.4rem 0.8rem;border-radius:6px}
+.nav-links a:hover{color:var(--gold);background:var(--gold-glow)}
 @media(max-width:900px){.nav-links{display:none}}
-#network-container{width:100%;height:480px;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--glass-border);background:rgba(10,6,4,0.7)}
+#network-container{width:100%;height:500px;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--glass-border);background:rgba(10,6,4,0.7)}
 #network-container svg{width:100%;height:100%}
 .network-legend{display:flex;gap:1.5rem;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--text-muted);font-family:'Cinzel',serif}
+.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--text-muted);font-family:var(--font-display)}
 .legend-dot{width:10px;height:10px;border-radius:50%}
 .filter-panel{padding:1.5rem 2rem;margin-bottom:2rem}
 .filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;align-items:end}
-.filter-group label{display:block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:'Cinzel',serif;margin-bottom:0.5rem}
-.filter-group .val{color:var(--gold);font-family:'JetBrains Mono',monospace}
+.filter-group label{display:block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display);margin-bottom:0.5rem}
+.filter-group .val{color:var(--gold);font-family:var(--font-mono)}
 #results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
 .result-card.hidden{display:none}
-.no-results{text-align:center;padding:3rem;color:var(--text-muted);font-family:'Cinzel',serif;letter-spacing:0.1em;font-size:0.85rem;grid-column:1/-1;display:none}
+.no-results{text-align:center;padding:3rem;color:var(--text-muted);font-family:var(--font-display);letter-spacing:0.1em;font-size:0.85rem;grid-column:1/-1;display:none}
 .panel-header{padding:1.5rem 2rem;border-bottom:1px solid var(--glass-border);background:var(--void);position:sticky;top:0;z-index:10}
-.panel-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:0.25rem;transition:color 0.2s;float:right}
-.panel-close:hover{color:var(--gold)}
+.panel-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:0.25rem;transition:all 0.2s;float:right;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.panel-close:hover{color:var(--gold);background:var(--gold-glow)}
 .panel-body{padding:2rem}
 .panel-section{margin-bottom:2rem}
-.panel-section h4{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+.panel-section h4{font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
 .panel-section p{font-size:0.88rem;color:var(--text-muted);line-height:1.8}
+/* Sacred Quote */
+.sacred-quote{position:relative;padding:2rem 2rem 2rem 3rem;font-family:var(--font-thai-serif);font-size:1.1rem;line-height:2.2;color:var(--copper);font-style:italic}
+.sacred-quote::before{content:'❝';position:absolute;top:0.5rem;left:0.5rem;font-size:2.5rem;color:var(--gold-dim);opacity:0.5;font-style:normal}
+/* Bio Prose */
+.bio-prose{font-size:1rem;line-height:2;color:var(--text-main);max-width:1080px;width:100%;margin:0 auto;text-align:justify;text-justify:inter-word;hyphens:auto}
+.bio-prose p{margin-bottom:1.5rem}
+.bio-prose .highlight{color:var(--gold);font-weight:600}
+/* Audio / Karaoke */
+.karaoke-container{position:relative;padding:2rem}
+.audio-controls{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.play-btn{width:56px;height:56px;border-radius:50%;border:2px solid var(--gold);background:var(--gold-glow);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0}
+.play-btn:hover{background:var(--gold);color:var(--void);box-shadow:0 0 30px var(--gold-glow-strong)}
+.play-btn svg{width:24px;height:24px}
+.audio-progress-bar{flex:1;min-width:200px;height:6px;background:var(--surface-el);border-radius:3px;cursor:pointer;position:relative;overflow:hidden}
+.audio-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold),var(--gold-bright));border-radius:3px;width:0%;transition:width 0.1s linear}
+.audio-time{font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);min-width:80px;text-align:right}
+.karaoke-scroll-area{max-height:300px;overflow:hidden;position:relative;width:100%}
+.karaoke-scroll-area::before,.karaoke-scroll-area::after{content:'';position:absolute;left:0;right:0;height:60px;z-index:2;pointer-events:none}
+.karaoke-scroll-area::before{top:0;background:linear-gradient(to bottom,rgba(26,16,11,0.95),transparent)}
+.karaoke-scroll-area::after{bottom:0;background:linear-gradient(to top,rgba(26,16,11,0.95),transparent)}
+.karaoke-inner{transition:transform 0.6s var(--ease-sacred);padding:100px 0}
+.karaoke-line{font-family:var(--font-thai-serif);font-size:clamp(1rem,2.5vw,1.35rem);line-height:2;color:var(--text-dim);transition:all 0.5s var(--ease-sacred);padding:0.3rem 0;max-width:760px;width:100%;margin:0 auto;text-align:center}
+.karaoke-line.active{color:var(--gold-bright);text-shadow:0 0 30px var(--gold-glow-strong);transform:scale(1.05);font-weight:700}
+.karaoke-line.past{color:var(--text-muted);opacity:0.6}
+.karaoke-line.far{opacity:0.25;font-size:clamp(0.85rem,2vw,1.1rem)}
+.speed-control{display:flex;align-items:center;gap:0.5rem;margin-top:1rem}
+.speed-btn{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-muted);background:none;border:1px solid var(--glass-border);padding:0.2rem 0.5rem;border-radius:4px;cursor:pointer;transition:all 0.2s}
+.speed-btn:hover,.speed-btn.active{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
+/* Hero Full Figure */
+.hero-full-figure{width:100%;max-width:900px;margin:2rem auto;padding:0.8rem;background:rgba(26,16,11,0.82);border:1px solid var(--glass-border);border-radius:12px;box-shadow:0 0 40px var(--gold-glow),inset 0 1px 0 rgba(200,155,60,0.08)}
+.hero-full-image{width:100%;height:auto;object-fit:contain;display:block;border-radius:8px}
 }
 
 @layer utilities {
-.font-display{font-family:'Cinzel',serif}
-.font-mono{font-family:'JetBrains Mono',monospace}
+.font-display{font-family:var(--font-display)}
+.font-mono{font-family:var(--font-mono)}
+.font-thai{font-family:var(--font-thai-serif)}
 .text-gold{color:var(--gold)}
 .text-copper{color:var(--copper)}
 .text-saffron{color:var(--saffron)}
@@ -206,6 +261,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 .gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}
 .relative{position:relative}.overflow-hidden{overflow:hidden}
 .w-full{width:100%}.text-center{text-align:center}
+.z-10{z-index:10}
 }
 
 @layer animations {
@@ -215,42 +271,48 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.3)}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(200,155,60,0.1)}50%{box-shadow:0 0 50px rgba(200,155,60,0.25)}}
 @keyframes flicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:0.6}94%{opacity:1}96%{opacity:0.8}97%{opacity:1}}
 @keyframes verseGlow{0%{box-shadow:0 0 0 rgba(255,153,51,0)}50%{box-shadow:0 0 30px rgba(255,153,51,0.8)}100%{box-shadow:0 0 15px rgba(255,153,51,0.4)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulseGlow{0%,100%{opacity:0.5}50%{opacity:1}}
 .anim-fade-up{animation:fadeUp 0.7s var(--ease) both}
 .anim-fade-up-d1{animation:fadeUp 0.7s 0.1s var(--ease) both}
 .anim-fade-up-d2{animation:fadeUp 0.7s 0.2s var(--ease) both}
 .anim-fade-up-d3{animation:fadeUp 0.7s 0.3s var(--ease) both}
+.anim-fade-up-d4{animation:fadeUp 0.7s 0.4s var(--ease) both}
+.anim-fade-up-d5{animation:fadeUp 0.7s 0.5s var(--ease) both}
 .anim-shimmer{animation:shimmer 2.5s ease-in-out infinite}
 .anim-glow{animation:glowPulse 3s ease-in-out infinite}
 .anim-flicker{animation:flicker 8s ease-in-out infinite}
+.anim-float{animation:float 4s ease-in-out infinite}
+.anim-pulse-glow{animation:pulseGlow 2.5s ease-in-out infinite}
 }
 
 #hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem}
 .hero-content{position:relative;z-index:2;text-align:center;max-width:900px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);font-family:'Cinzel',serif}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);font-family:var(--font-display)}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:1px;background:var(--gold-dim)}
 .hero-title{font-size:clamp(2.2rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text-main) 0%,var(--gold) 50%,var(--copper) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-subtitle{font-size:clamp(1rem,2.5vw,1.5rem);color:var(--gold);margin-bottom:1.5rem;letter-spacing:0.05em}
 .hero-desc{font-size:1rem;color:var(--text-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
 .hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
 .hero-stat{text-align:center}
-.hero-stat-num{font-family:'Cinzel',serif;font-size:1.8rem;font-weight:900;color:var(--gold);display:block}
+.hero-stat-num{font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--gold);display:block}
 .hero-stat-lbl{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted)}
 .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 .hero-mandala{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(700px,90vw);height:min(700px,90vw);z-index:0;opacity:0.04;animation:orbit 80s linear infinite}
-.hero-portrait{width:200px;height:200px;border-radius:50%;overflow:hidden;margin:0 auto 2rem;border:3px solid var(--gold-dim);box-shadow:0 0 40px rgba(200,155,60,0.2)}
-.hero-portrait img{width:100%;height:100%;object-fit:cover;filter:sepia(0.3) contrast(1.1)}
+.hero-portrait{width:220px;height:220px;border-radius:50%;overflow:hidden;margin:0 auto 2rem;border:3px solid var(--gold);box-shadow:0 0 60px var(--gold-glow-strong),0 0 120px var(--gold-glow);position:relative;z-index:2}
+.hero-portrait img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15) contrast(1.05)}
 #sacred-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 main{position:relative;z-index:1}
-#footer{padding:3rem 0;border-top:1px solid var(--glass-border);text-align:center}
-select{width:100%;background:var(--surface-el);border:1px solid var(--glass-border);color:var(--text-main);padding:0.5rem;border-radius:6px;font-family:'Sarabun',sans-serif;outline:none;cursor:pointer}
+#footer{padding:3rem 0;border-top:1px solid var(--glass-border);text-align:center;margin-top:4rem}
+select{width:100%;background:var(--surface-el);border:1px solid var(--glass-border);color:var(--text-main);padding:0.5rem;border-radius:6px;font-family:var(--font-body);outline:none;cursor:pointer}
 </style>
 </head>
 <body data-lang="th">
 <canvas id="sacred-canvas"></canvas>
 
 <div id="loading-overlay">
-<div class="lotus-spinner"><div class="lotus-ring"></div><div class="lotus-ring"></div><div class="lotus-ring"></div></div>
-<div class="font-display text-xs tracking-widest text-gold anim-shimmer" style="letter-spacing:0.35em">
+<div class="lotus-spinner"><div class="lotus-ring"></div><div class="lotus-ring"></div><div class="lotus-ring"></div><div class="lotus-dot"></div></div>
+<div class="font-display text-xs tracking-widest text-gold anim-pulse-glow" style="letter-spacing:0.35em">
 <span lang="th">กำลังเริ่มต้นระบบศักดิ์สิทธิ์...</span>
 <span lang="en">INITIALIZING SACRED ARTIFACT...</span>
 </div>
@@ -262,6 +324,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <a href="#hero"><span lang="th">หน้าแรก</span><span lang="en">Home</span></a>
 <a href="#bio"><span lang="th">ประวัติ</span><span lang="en">Biography</span></a>
 <a href="#artifacts"><span lang="th">วัตถุมงคล</span><span lang="en">Artifacts</span></a>
+<a href="#karaoke-section"><span lang="th">ฟังคาถา</span><span lang="en">Listen</span></a>
 <a href="#media"><span lang="th">สื่อ</span><span lang="en">Media</span></a>
 <a href="#itipiso"><span lang="th">คาถา</span><span lang="en">Mantras</span></a>
 <a href="#legends"><span lang="th">ตำนาน</span><span lang="en">Legends</span></a>
@@ -271,7 +334,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 </div>
 </nav>
 
-<div id="panel-overlay" class="panel-overlay" onclick="APP.closePanel()"></div>
+<div id="panel-overlay" class="overlay-backdrop" onclick="APP.closePanel()"></div>
 <aside id="slide-panel" class="slide-panel">
 <div class="panel-header">
 <button class="panel-close" onclick="APP.closePanel()">✕</button>
@@ -295,8 +358,10 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <span lang="th">คลังวัตถุมงคลศักดิ์สิทธิ์</span>
 <span lang="en">Sacred Artifact Repository</span>
 </div>
-<div class="hero-portrait anim-fade-up-d1">
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%231a100b' width='200' height='200'/%3E%3Ccircle cx='100' cy='70' r='35' fill='%23c89b3c' opacity='.15'/%3E%3Cpath d='M60 160Q70 100 100 95Q130 100 140 160' fill='%23c89b3c' opacity='.12'/%3E%3Ctext x='100' y='185' text-anchor='middle' fill='%23c89b3c' font-size='12' opacity='.5'%3Eพระอุปัชฌาย์คง%3C/text%3E%3C/svg%3E" alt="หลวงพ่อคง วัดบางกะพ้อม">
+<div class="hero-portrait anim-fade-up-d1 anim-float">
+<img src="http://lunarwisdom.luangpor.com/suppress/LuangPorKhong_FireFly.jpeg"
+     alt="หลวงพ่อคง วัดบางกะพ้อม — Luang Phor Kong"
+     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 200 200%27%3E%3Crect fill=%27%231a100b%27 width=%27200%27 height=%27200%27/%3E%3Ccircle cx=%27100%27 cy=%2770%27 r=%2735%27 fill=%27%23c89b3c%27 opacity=%27.15%27/%3E%3Cpath d=%27M60 160Q70 100 100 95Q130 100 140 160%27 fill=%27%23c89b3c%27 opacity=%27.12%27/%3E%3Ctext x=%27100%27 y=%27185%27 text-anchor=%27middle%27 fill=%27%23c89b3c%27 font-size=%2712%27 opacity=%27.5%27%3Eพระอุปัชฌาย์คง%3C/text%3E%3C/svg%3E';">
 </div>
 <h1 class="hero-title anim-fade-up-d1">
 <span lang="th">หลวงพ่อคง</span>
@@ -305,6 +370,10 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <div class="hero-subtitle anim-fade-up-d1">
 <span lang="th">วัดบางกะพ้อม · เทพเจ้าแห่งลุ่มน้ำแม่กลอง</span>
 <span lang="en">Wat Bang Ka Phom · Deity of the Mae Klong River Basin</span>
+</div>
+<div class="font-mono text-xs text-muted anim-fade-up-d2" style="letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.5rem">
+<span lang="en">AMPHAWA · SAMUT SONGKHRAM · B.E. 2407–2486 · MAHA RANGAP MASTER</span>
+<span lang="th">อัมพวา · สมุทรสงคราม · พ.ศ. ๒๔๐๗–๒๔๘๖ · ปรมาจารย์มหาระงับ</span>
 </div>
 <p class="hero-desc anim-fade-up-d2">
 <span lang="th">หนึ่งใน 4 เสือเกจิ "จาด–จง–คง–อี๋" ผู้สร้างวัตถุมงคลที่ครองทุกทำเนียบสุดยอดเครื่องราง ตั้งแต่เหรียญเบญจภาคีอันดับ 4 สู่สุดยอดเสื้อยันต์ของประเทศ ระบบป้องกันภัยครบวงจรที่ไม่ซ้ำซ้อน</span>
@@ -318,11 +387,78 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 </div>
 <div class="hero-actions anim-fade-up-d3">
 <button class="btn" onclick="document.getElementById('artifacts').scrollIntoView({behavior:'smooth'})"><span lang="th">สำรวจวัตถุมงคล</span><span lang="en">Explore Artifacts</span></button>
-<button class="btn btn-saffron" onclick="document.getElementById('itipiso').scrollIntoView({behavior:'smooth'})"><span lang="th">คาถามหาระงับ</span><span lang="en">Sacred Mantras</span></button>
+<button class="btn btn-saffron" onclick="document.getElementById('karaoke-section').scrollIntoView({behavior:'smooth'})"><span lang="th">ฟังคาถามหาระงับ</span><span lang="en">Listen to Maha Rangap</span></button>
 <button class="btn btn-ghost" onclick="document.getElementById('legends').scrollIntoView({behavior:'smooth'})"><span lang="th">ตำนานศักดิ์สิทธิ์</span><span lang="en">Sacred Legends</span></button>
+</div>
+<!-- Full Figure Portrait -->
+<figure class="hero-full-figure anim-fade-up-d4">
+<img src="http://lunarwisdom.luangpor.com/suppress/LuangPorKhong_FireFly.jpeg"
+     alt="Full portrait of Luang Phor Kong Wat Bang Ka Phom"
+     class="hero-full-image"
+     onerror="this.parentElement.style.display='none';">
+</figure>
+</div>
+</section>
+
+<!-- SACRED QUOTE -->
+<section style="padding:2rem 0">
+<div class="container">
+<div class="glass anim-fade-up">
+<div class="sacred-quote">
+<span lang="th">"โอมมหาระงับ หลับสิ้นทั้งบ้าน โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ"<br>
+<span style="font-size:0.85rem;color:var(--text-muted);font-style:normal;">— พระคาถามหาระงับ · หลวงพ่อคง วัดบางกะพ้อม</span></span>
+<span lang="en">"Om Maha Rangap — all the village falls asleep. Om Chid Maha Chid, Om Pid Maha Pid, Siddhi Svaha."<br>
+<span style="font-size:0.85rem;color:var(--text-muted);font-style:normal;">— Maha Rangap Katha · Luang Phor Kong, Wat Bang Ka Phom</span></span>
+</div>
 </div>
 </div>
 </section>
+
+<div class="divider-wide"></div>
+
+<!-- KARAOKE AUDIO SECTION -->
+<section id="karaoke-section" style="padding:4rem 0">
+<div class="container">
+<div class="section-header">
+<span class="section-eyebrow"><span lang="th">ฟังคาถาศักดิ์สิทธิ์</span><span lang="en">Listen to Sacred Mantras</span></span>
+<h2 class="section-title"><span lang="th">คาถามหาระงับ — ฟังและอ่านตาม</span><span lang="en">Maha Rangap Katha — Listen & Follow</span></h2>
+</div>
+<div class="section-label text-center">
+<span lang="th">บันทึกเสียง · คาถามหาระงับพิสดาร · ถอดความแบบคาราโอเกะ</span>
+<span lang="en">AUDIO RECORDING · MAHA RANGAP PISADAN · KARAOKE TRANSCRIPTION</span>
+</div>
+<div class="glass-static karaoke-container anim-fade-up">
+<div class="audio-controls">
+<button class="play-btn" id="playBtn" onclick="APP.toggleAudio()">
+<svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+<svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+</button>
+<div class="audio-progress-bar" id="progressBar" onclick="APP.seekAudio(event)">
+<div class="audio-progress-fill" id="progressFill"></div>
+</div>
+<div class="audio-time" id="audioTime">0:00 / 0:00</div>
+</div>
+<div class="karaoke-scroll-area">
+<div class="karaoke-inner" id="karaokeInner">
+<!-- Lines generated by JS -->
+</div>
+</div>
+<div class="speed-control">
+<span class="text-xs text-muted font-mono" style="margin-right:0.3rem;">SPEED:</span>
+<button class="speed-btn" onclick="APP.setSpeed(0.75)">0.75×</button>
+<button class="speed-btn active" onclick="APP.setSpeed(1)">1×</button>
+<button class="speed-btn" onclick="APP.setSpeed(1.25)">1.25×</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Hidden Audio Element -->
+<audio id="kathaAudio" preload="auto">
+<source src="http://lunarwisdom.luangpor.com/suppress/MahaRangap_Katha.mp3" type="audio/mpeg">
+</audio>
+
+<div class="divider-wide"></div>
 
 <!-- MEDIA SECTION -->
 <section id="media" style="padding:4rem 0">
@@ -333,7 +469,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 </div>
 <div class="grid-3" style="align-items:start">
 <div class="glass p-4" style="grid-column:span 2">
-<h4 class="font-display text-sm text-gold mb-3 tracking-wide"><span lang="th">วิดีโอ: ตำนานหลวงพ่อคง</span><span lang="en">Video: Legend of Luang Phor Kong</span></h4>
+<div class="section-label mb-2"><span lang="th">วิดีโอ: ตำนานหลวงพ่อคง · ฉบับเต็ม</span><span lang="en">VIDEO: LEGEND OF LUANG PHOR KONG · FULL LENGTH</span></div>
 <div class="video-wrapper">
 <iframe src="https://www.youtube.com/embed/k4kPyN3gg7A" title="หลวงพ่อคง วัดบางกะพ้อม" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
 </div>
@@ -349,7 +485,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 </div>
 </div>
 <div class="glass p-4">
-<h4 class="font-display text-xs text-gold mb-2 tracking-wide"><span lang="th">เอกสาร: Sacred Engineering</span><span lang="en">Document: Sacred Engineering</span></h4>
+<div class="section-label mb-2"><span lang="th">เอกสาร: Sacred Engineering</span><span lang="en">DOCUMENT: SACRED ENGINEERING</span></div>
 <a href="http://lunarwisdom.luangpor.com/suppress/Sacred_Engineering.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full justify-center" style="font-size:0.7rem">
 <span lang="th">📄 เปิดเอกสาร PDF</span><span lang="en">📄 Open PDF Document</span>
 </a>
@@ -357,7 +493,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 </div>
 </div>
 <div class="glass p-4 mt-4">
-<h4 class="font-display text-sm text-gold mb-3 tracking-wide"><span lang="th">เอกสาร: Sacred Engineering (ดูในหน้า)</span><span lang="en">Document: Sacred Engineering (Inline Viewer)</span></h4>
+<div class="section-label mb-2"><span lang="th">เอกสาร: Sacred Engineering (ดูในหน้า)</span><span lang="en">DOCUMENT: SACRED ENGINEERING (INLINE VIEWER)</span></div>
 <iframe src="http://lunarwisdom.luangpor.com/suppress/Sacred_Engineering.pdf" class="pdf-viewer" title="Sacred Engineering PDF" loading="lazy"></iframe>
 </div>
 </div>
@@ -372,6 +508,23 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <span class="section-eyebrow"><span lang="th">ชาติภูมิและสายวิชา</span><span lang="en">Origin & Lineage</span></span>
 <h2 class="section-title"><span lang="th">กำเนิดเทพเจ้า</span><span lang="en">The Making of a Deity</span></h2>
 </div>
+
+<!-- Bio Prose -->
+<div class="glass p-6 mb-8 anim-fade-up">
+<div class="bio-prose" lang="th">
+<p><span class="highlight">พระอุปัชฌาย์คง ธัมมโชโต</span> (หลวงพ่อคง) เกิดเมื่อ พ.ศ. ๒๔๐๗ ในตระกูลจันทร์ประเสริฐ ณ บ้านสำโรง ตำบลโรงหีบ อำเภอบางคนที จังหวัดสมุทรสงคราม จากครอบครัวชาวสวนผู้มีศรัทธาอันมั่นคงในพระพุทธศาสนา</p>
+<p>บรรพชาเป็นสามเณรเมื่ออายุ ๑๒ ปี ที่วัดเหมืองใหม่ อำเภออัมพวา และอุปสมบทเมื่อ พ.ศ. ๒๔๒๗ ได้รับฉายา <span class="highlight">"ธัมมโชโต"</span> แปลว่า "ผู้รุ่งเรืองในธรรม" ท่านมุ่งมั่นศึกษาวิชาจากเกจิอาจารย์ผู้ยิ่งใหญ่หลายสำนัก ทั้ง<span class="highlight">หลวงปู่เอี่ยม วัดปากลัด</span> (วิชาตะกรุดมหาระงับ) <span class="highlight">หลวงพ่อปาน วัดโรงธรรม</span> (วิชาเสื้อยันต์วิรุฬจำบัง) และอาจารย์อีกหลายท่าน</p>
+<p>ในฐานะเจ้าอาวาส<span class="highlight">วัดบางกะพ้อม</span> ท่านได้สร้างวัตถุมงคลที่ครองทุกทำเนียบสุดยอดเครื่องรางของประเทศไทย ตั้งแต่ตะกรุดมหาระงับอันดับ ๑ เสื้อยันต์วิรุฬจำบังอันดับ ๑ ลูกอมมหากันระดับเบญจภาคี ไปจนถึงเหรียญเบญจภาคีอันดับ ๔ ก่อเป็น<span class="highlight">ระบบป้องกันภัยครบวงจรที่ไม่ซ้ำซ้อน</span></p>
+<p>หลวงพ่อคงมรณภาพเมื่อวันที่ ๖ กุมภาพันธ์ พ.ศ. ๒๔๘๖ ขณะนั่งสมาธิบนนั่งร้าน ทิ้งมรดกแห่งวิชาอันล้ำค่าที่ยังคงเป็นตำนานสืบมาจนถึงปัจจุบัน</p>
+</div>
+<div class="bio-prose" lang="en">
+<p><span class="highlight">Phra Upachaya Kong Dhammachoto</span> (Luang Phor Kong) was born in B.E. 2407 (1864 CE) into the Chanprasert family at Ban Samrong, Tambon Rong Heep, Amphoe Bang Khonthi, Samut Songkhram Province — a family of orchard farmers with deep faith in Buddhism.</p>
+<p>Ordained as a novice at age 12 at Wat Mueang Mai, Amphawa, he received full ordination in B.E. 2427 with the Pali name <span class="highlight">"Dhammachoto"</span> — meaning "One Radiant in Dhamma." He devoted himself to studying sacred arts from multiple legendary masters, including <span class="highlight">Luang Pu Eiam of Wat Pak Lat</span> (Takrut Maha Rangap), <span class="highlight">Luang Phor Pan of Wat Rong Tham</span> (Seua Yant Virunchambang), and several others.</p>
+<p>As abbot of <span class="highlight">Wat Bang Ka Phom</span>, he created sacred artifacts that dominate every pinnacle ranking in Thai amulet history — from the #1 Takrut, #1 Seua Yant, Benjapakee-level Luk Om, to the #4 Benjapakee Coin — forming a <span class="highlight">complete, non-redundant defensive system</span> unmatched in Thai sacred arts.</p>
+<p>Luang Phor Kong passed away on February 6, B.E. 2486 (1943), while seated in meditation, leaving behind a legacy of sacred knowledge that remains legendary to this day.</p>
+</div>
+</div>
+
 <div class="grid-2" style="align-items:start">
 <div>
 <div class="glass p-6">
@@ -437,7 +590,7 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <div class="glass p-6" style="cursor:pointer" onclick="APP.openPanel('seua')">
 <div class="flex justify-between items-center mb-3"><span class="badge badge-red">#1 SEUA YANT</span><span class="text-xs text-gold">→ Details</span></div>
 <h3 class="font-display fw-bold text-lg mb-1"><span lang="th">เสื้อยันต์วิรุฬจำบัง</span><span lang="en">Seua Yant Virunchambang</span></h3>
-<div class="text-xs" style="color:var(--temple-red)" >สายอำพราง · เกราะล่องหนพรางตา</div>
+<div class="text-xs" style="color:var(--temple-red)">สายอำพราง · เกราะล่องหนพรางตา</div>
 <p class="text-sm text-muted mb-4 mt-2"><span lang="th">ทำให้ผู้สวมใส่หายตัวจากสายตาศัตรู "อึดใจหนึ่ง" เสื้อยันต์ชนิดนี้มีแห่งเดียวในประวัติศาสตร์ไทย</span><span lang="en">Makes the wearer vanish from enemy perception for one held breath. The only vest of its kind in Thai history.</span></p>
 <div><div class="flex justify-between text-xs mb-1"><span class="text-muted">Concealment</span><span class="font-mono" style="color:var(--temple-red)">100%</span></div><div class="progress-track"><div class="progress-fill red" data-width="100"></div></div></div>
 <div class="mt-2"><div class="flex justify-between text-xs mb-1"><span class="text-muted">Uniqueness</span><span class="font-mono" style="color:var(--temple-red)">Absolute</span></div><div class="progress-track"><div class="progress-fill red" data-width="100"></div></div></div>
@@ -585,12 +738,16 @@ select{width:100%;background:var(--surface-el);border:1px solid var(--glass-bord
 <span class="section-eyebrow"><span lang="th">โครงข่ายสายวิชา</span><span lang="en">Sacred Topology</span></span>
 <h2 class="section-title"><span lang="th">เครือข่ายความรู้ศักดิ์สิทธิ์</span><span lang="en">Knowledge Network</span></h2>
 </div>
-<div id="network-container" class="glass anim-glow"></div>
+<div class="section-label text-center">
+<span lang="th">แผนผังเชิงโต้ตอบ · คลิกที่จุดเพื่อดูรายละเอียด · ลากเพื่อสำรวจ</span>
+<span lang="en">INTERACTIVE MAP · CLICK NODES FOR DETAILS · DRAG TO EXPLORE</span>
+</div>
+<div id="network-container" class="glass-static anim-glow"></div>
 <div class="flex gap-4 mt-4 flex-wrap items-center">
 <button class="btn btn-ghost btn-sm" onclick="APP.resetNetwork()"><span lang="th">↺ รีเซ็ต</span><span lang="en">↺ Reset</span></button>
 <div class="network-legend" style="margin-left:auto">
 <div class="legend-item"><div class="legend-dot" style="background:#c89b3c"></div> <span lang="th">เกจิ</span><span lang="en">Master</span></div>
-<div class="legend-item"><div class="legend-dot" style="background:#c8956c;border-radius:2px"></div> <span lang="th">วัตถุมงคล</span><span lang="en">Artifact</span></div>
+<div class="legend-item"><div class="legend-dot" style="background:#c8956c;border-radius:2px;transform:rotate(45deg)"></div> <span lang="th">วัตถุมงคล</span><span lang="en">Artifact</span></div>
 <div class="legend-item"><div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #4caf84"></div> <span lang="th">วัด</span><span lang="en">Temple</span></div>
 </div>
 </div>
@@ -684,7 +841,7 @@ class SimplexNoise{constructor(){this.p=new Uint8Array(256);for(let i=0;i<256;i+
 // ═══════════════════════════════════════════
 // 2. ANTIGRAVITY ENGINE
 // ═══════════════════════════════════════════
-class AntigravityEngine{constructor(){this.canvas=document.getElementById('sacred-canvas');this.ctx=this.canvas.getContext('2d');this.simplex=new SimplexNoise();this.particles=[];this.mouse={x:-9999,y:-9999};this.t=0;this.resize();this.createParticles();this.animate();window.addEventListener('resize',()=>this.resize());window.addEventListener('mousemove',e=>{this.mouse.x=e.clientX;this.mouse.y=e.clientY})}resize(){this.W=this.canvas.width=window.innerWidth;this.H=this.canvas.height=window.innerHeight}createParticles(){this.particles=[];const c=Math.min(100,Math.floor(this.W*this.H/14000));for(let i=0;i<c;i++)this.particles.push({x:Math.random()*this.W,y:Math.random()*this.H,vx:0,vy:0,size:Math.random()*1.6+0.4,speed:Math.random()*0.4+0.2,noiseOff:Math.random()*1000,alpha:Math.random()*0.5+0.15,color:Math.random()>0.7?'#c8956c':'#c89b3c'})}animate(){const{ctx,W,H}=this;this.t+=0.002;ctx.fillStyle='rgba(10,6,4,0.15)';ctx.fillRect(0,0,W,H);for(const p of this.particles){const nx=(p.x/W)*3+this.t,ny=(p.y/H)*3+this.t*0.7,angle=this.simplex.noise(nx+p.noiseOff,ny)*Math.PI*2;p.vx+=Math.cos(angle)*p.speed*0.08;p.vy+=Math.sin(angle)*p.speed*0.08;const dx=p.x-this.mouse.x,dy=p.y-this.mouse.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){const f=(120-dist)/120;p.vx+=(dx/dist)*f*2;p.vy+=(dy/dist)*f*2}p.vx*=0.92;p.vy*=0.92;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.restore()}ctx.save();for(let i=0;i<this.particles.length;i++){for(let j=i+1;j<this.particles.length;j++){const a=this.particles[i],b=this.particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<80){ctx.strokeStyle=`rgba(200,155,60,${0.04*(1-d/80)})`;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}ctx.restore();requestAnimationFrame(()=>this.animate())}}
+class AntigravityEngine{constructor(){this.canvas=document.getElementById('sacred-canvas');this.ctx=this.canvas.getContext('2d');this.simplex=new SimplexNoise();this.particles=[];this.mouse={x:-9999,y:-9999};this.t=0;this.resize();this.createParticles();this.bindEvents();this.animate()}resize(){this.W=this.canvas.width=window.innerWidth;this.H=this.canvas.height=window.innerHeight}createParticles(){this.particles=[];const c=Math.min(120,Math.floor(this.W*this.H/12000));for(let i=0;i<c;i++)this.particles.push({x:Math.random()*this.W,y:Math.random()*this.H,vx:0,vy:0,size:Math.random()*2+0.5,speed:Math.random()*0.4+0.2,noiseOff:Math.random()*1000,life:Math.random(),hue:Math.random()*30+25,alpha:Math.random()*0.5+0.15,color:Math.random()>0.7?'#c8956c':'#c89b3c'})}bindEvents(){window.addEventListener('resize',()=>{this.resize();this.createParticles()});document.addEventListener('mousemove',e=>{this.mouse.x=e.clientX;this.mouse.y=e.clientY});document.addEventListener('mouseleave',()=>{this.mouse.x=-9999;this.mouse.y=-9999})}animate(){const{ctx,W,H}=this;this.t+=0.003;ctx.clearRect(0,0,W,H);for(const p of this.particles){const nx=(p.x/W)*3+this.t,ny=(p.y/H)*3+this.t*0.7,angle=this.simplex.noise(nx+p.noiseOff,ny)*Math.PI*2;p.vx+=Math.cos(angle)*p.speed*0.08;p.vy+=Math.sin(angle)*p.speed*0.08;const dx=p.x-this.mouse.x,dy=p.y-this.mouse.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){const f=(150-dist)/150;p.vx+=(dx/dist)*f*0.5;p.vy+=(dy/dist)*f*0.5}p.vx*=0.93;p.vy*=0.93;p.x+=p.vx;p.y+=p.vy;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;p.life+=0.005;const alpha=(Math.sin(p.life*Math.PI*2)*0.3+0.3)*0.6;ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=`hsla(${p.hue},70%,55%,${alpha})`;ctx.shadowColor=p.color;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.restore()}ctx.save();for(let i=0;i<this.particles.length;i++){for(let j=i+1;j<this.particles.length;j++){const a=this.particles[i],b=this.particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){ctx.strokeStyle=`rgba(200,155,60,${(1-d/100)*0.08})`;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}ctx.restore();requestAnimationFrame(()=>this.animate())}}
 
 // ═══════════════════════════════════════════
 // 3. DATA
@@ -703,6 +860,28 @@ const VERSE_LEGENDS=[
 ];
 
 const MAHA_RANGAP_TEXT=`"โอมมหาระงับ หลับสิ้นทั้งบ้าน\nโอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ"\n\nนะปิดตา โมปิดใจ พุทปิดปาก ธาปิดหู ยะหลับนิ่งอยู่\n\nอิติปาระมิตาติงสา ระงับอินทรา\nอิติสัพพัญญู มาคะตา ระงับพรัหมา\nอิติโพธิ มะนุปปัตโต ระงับมนุสสา\nอิติปิโส จะเตนะโม ระงับทิสา\n\n[V:1]อิระชาคะตะระสา[/V]\n[V:5]ภะสัมสัมวิสะเทภะ[/V]\n[V:6]คะพุทปันทูธัมวะคะ[/V]\n[V:7]วาโธโนอะมะมะวา[/V]\n[V:8]อะวิชสุนุตสานุสติ[/V]\n[V:2]ติหังจะโตโรถินัง[/V]\n[V:3]ปิสัมระโลปุสัตพุท[/V]\n[V:4]โสมาณะกะริถาโธ[/V]\n\n"พุทธัง ศัตรูร้าย นะจังงังถอย อย่านะละสัง\nพระพุทธังปิด พระธัมมังปิด พระสังฆังปิด\nพระพุทธเจ้าแผลงฤทธิ์ ปิดทวารทั้งเก้า"`;
+
+// Karaoke lines for Maha Rangap katha
+const KARAOKE_LINES=[
+{start:0,end:5,text:"โอมมหาระงับ หลับสิ้นทั้งบ้าน"},
+{start:5,end:10,text:"โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ"},
+{start:10,end:16,text:"นะปิดตา โมปิดใจ พุทปิดปาก ธาปิดหู ยะหลับนิ่งอยู่"},
+{start:16,end:21,text:"อิติปาระมิตาติงสา ระงับอินทรา"},
+{start:21,end:26,text:"อิติสัพพัญญู มาคะตา ระงับพรัหมา"},
+{start:26,end:31,text:"อิติโพธิ มะนุปปัตโต ระงับมนุสสา"},
+{start:31,end:36,text:"อิติปิโส จะเตนะโม ระงับทิสา"},
+{start:36,end:41,text:"อิระชาคะตะระสา"},
+{start:41,end:46,text:"ภะสัมสัมวิสะเทภะ"},
+{start:46,end:51,text:"คะพุทปันทูธัมวะคะ"},
+{start:51,end:56,text:"วาโธโนอะมะมะวา"},
+{start:56,end:61,text:"อะวิชสุนุตสานุสติ"},
+{start:61,end:66,text:"ติหังจะโตโรถินัง"},
+{start:66,end:71,text:"ปิสัมระโลปุสัตพุท"},
+{start:71,end:76,text:"โสมาณะกะริถาโธ"},
+{start:76,end:82,text:"พุทธัง ศัตรูร้าย นะจังงังถอย อย่านะละสัง"},
+{start:82,end:88,text:"พระพุทธังปิด พระธัมมังปิด พระสังฆังปิด"},
+{start:88,end:95,text:"พระพุทธเจ้าแผลงฤทธิ์ ปิดทวารทั้งเก้า"}
+];
 
 const PANEL_DATA={
 takrut:{title:'Takrut Maha Rangap',subtitle:'ตะกรุดมหาระงับ · สุดยอดตะกรุดของประเทศไทย',sections:[
@@ -735,26 +914,27 @@ coin:{title:'First Issue Coin 2484 BE',subtitle:'เหรียญรุ่น�
 
 const NETWORK_DATA={
 nodes:[
-{id:'kong',label:'หลวงพ่อคง',type:'monk',group:'central'},
-{id:'eiam',label:'หลวงปู่เอี่ยม',type:'monk',group:'teacher'},
-{id:'pan',label:'หลวงพ่อปาน',type:'monk',group:'teacher'},
-{id:'tad',label:'หลวงพ่อตาด',type:'monk',group:'teacher'},
-{id:'thian',label:'หลวงพ่อเทียน',type:'monk',group:'teacher'},
-{id:'lai',label:'หลวงพ่อไล้',type:'monk',group:'teacher'},
-{id:'neung',label:'หลวงพ่อเนื่อง',type:'monk',group:'disciple'},
-{id:'takrut',label:'ตะกรุดมหาระงับ',type:'artifact',group:'artifact'},
-{id:'seua',label:'เสื้อยันต์',type:'artifact',group:'artifact'},
-{id:'lukom',label:'ลูกอมมหากัน',type:'artifact',group:'artifact'},
-{id:'coin',label:'เหรียญรุ่นแรก',type:'artifact',group:'artifact'},
-{id:'thong',label:'ธงมหาระงับ',type:'artifact',group:'artifact'},
-{id:'wbkp',label:'วัดบางกะพ้อม',type:'temple',group:'temple'},
-{id:'wpl',label:'วัดปากลัด',type:'temple',group:'temple'},
-{id:'wrt',label:'วัดโรงธรรม',type:'temple',group:'temple'}
+{id:'kong',label:'หลวงพ่อคง',labelEN:'Luang Phor Kong',type:'monk',group:'central',size:28},
+{id:'eiam',label:'หลวงปู่เอี่ยม',labelEN:'Luang Pu Eiam',type:'monk',group:'teacher',size:16},
+{id:'pan',label:'หลวงพ่อปาน',labelEN:'Luang Phor Pan',type:'monk',group:'teacher',size:16},
+{id:'tad',label:'หลวงพ่อตาด',labelEN:'Luang Phor Tad',type:'monk',group:'teacher',size:14},
+{id:'thian',label:'หลวงพ่อเทียน',labelEN:'Luang Phor Thian',type:'monk',group:'teacher',size:14},
+{id:'lai',label:'หลวงพ่อไล้',labelEN:'Luang Phor Lai',type:'monk',group:'teacher',size:14},
+{id:'neung',label:'หลวงพ่อเนื่อง',labelEN:'Luang Phor Neung',type:'monk',group:'disciple',size:14},
+{id:'takrut',label:'ตะกรุดมหาระงับ',labelEN:'Takrut Maha Rangap',type:'artifact',group:'artifact',size:20},
+{id:'seua',label:'เสื้อยันต์',labelEN:'Seua Yant',type:'artifact',group:'artifact',size:18},
+{id:'lukom',label:'ลูกอมมหากัน',labelEN:'Luk Om Maha Kan',type:'artifact',group:'artifact',size:18},
+{id:'coin',label:'เหรียญรุ่นแรก',labelEN:'First Coin',type:'artifact',group:'artifact',size:18},
+{id:'thong',label:'ธงมหาระงับ',labelEN:'Thong Maha Rangap',type:'artifact',group:'artifact',size:16},
+{id:'wbkp',label:'วัดบางกะพ้อม',labelEN:'Wat Bang Ka Phom',type:'temple',group:'temple',size:20},
+{id:'wpl',label:'วัดปากลัด',labelEN:'Wat Pak Lat',type:'temple',group:'temple',size:16},
+{id:'wrt',label:'วัดโรงธรรม',labelEN:'Wat Rong Tham',type:'temple',group:'temple',size:16}
 ],
 links:[
-{source:'eiam',target:'kong'},{source:'pan',target:'kong'},{source:'tad',target:'kong'},{source:'thian',target:'kong'},{source:'lai',target:'kong'},
-{source:'kong',target:'takrut'},{source:'kong',target:'seua'},{source:'kong',target:'lukom'},{source:'kong',target:'coin'},{source:'kong',target:'thong'},
-{source:'kong',target:'neung'},{source:'kong',target:'wbkp'},{source:'eiam',target:'wpl'},{source:'pan',target:'wrt'}
+{source:'eiam',target:'kong',strength:2},{source:'pan',target:'kong',strength:2},{source:'tad',target:'kong',strength:1},{source:'thian',target:'kong',strength:1},{source:'lai',target:'kong',strength:1},
+{source:'kong',target:'takrut',strength:3},{source:'kong',target:'seua',strength:2},{source:'kong',target:'lukom',strength:2},{source:'kong',target:'coin',strength:2},{source:'kong',target:'thong',strength:2},
+{source:'kong',target:'neung',strength:1},{source:'kong',target:'wbkp',strength:2},{source:'eiam',target:'wpl',strength:1},{source:'pan',target:'wrt',strength:1},
+{source:'eiam',target:'takrut',strength:1},{source:'pan',target:'seua',strength:1},{source:'lai',target:'lukom',strength:1}
 ]
 };
 
@@ -764,6 +944,10 @@ links:[
 const APP={
 lang:'th',
 d3sim:null,
+audio:null,
+isPlaying:false,
+currentLine:-1,
+animFrame:null,
 
 init(){
 document.getElementById('loading-overlay').classList.add('hidden');
@@ -775,9 +959,108 @@ this.renderMatrices();
 this.renderVerses();
 this.renderMahaRangap();
 this.initTabs();
+this.initAudio();
+this.initScrollObserver();
 },
 
-toggleLang(){this.lang=this.lang==='th'?'en':'th';document.body.dataset.lang=this.lang},
+toggleLang(){
+this.lang=this.lang==='th'?'en':'th';
+document.body.dataset.lang=this.lang;
+// Update D3 labels
+if(typeof d3!=='undefined'){d3.selectAll('.node-label').text(d=>this.lang==='th'?d.label:d.labelEN)}
+},
+
+// AUDIO / KARAOKE
+initAudio(){
+this.audio=document.getElementById('kathaAudio');
+if(!this.audio)return;
+this.audio.addEventListener('play',()=>{this.setPlaybackState(true);this.startKaraokeLoop()});
+this.audio.addEventListener('pause',()=>{if(!this.audio.ended)this.setPlaybackState(false);this.stopKaraokeLoop()});
+this.audio.addEventListener('ended',()=>this.onAudioEnd());
+this.audio.addEventListener('loadedmetadata',()=>this.updateTimeDisplay());
+this.buildKaraokeLines();
+},
+toggleAudio(){
+if(!this.audio)return;
+const d=Number.isFinite(this.audio.duration)?this.audio.duration:0;
+if(this.audio.paused||this.audio.ended){
+if(d>0&&this.audio.currentTime>=d-0.05){this.audio.currentTime=0;this.currentLine=-1;this.highlightLine(-1)}
+this.audio.play().catch(e=>console.warn('Audio play blocked:',e));
+}else{this.audio.pause()}
+},
+setPlaybackState(playing){
+this.isPlaying=playing;
+document.getElementById('playIcon').style.display=playing?'none':'block';
+document.getElementById('pauseIcon').style.display=playing?'block':'none';
+},
+startKaraokeLoop(){
+if(this.animFrame)return;
+const tick=()=>{this.updateKaraoke();if(this.audio&&!this.audio.paused&&!this.audio.ended){this.animFrame=requestAnimationFrame(tick)}else{this.animFrame=null}};
+this.animFrame=requestAnimationFrame(tick);
+},
+stopKaraokeLoop(){if(this.animFrame){cancelAnimationFrame(this.animFrame);this.animFrame=null}},
+onAudioEnd(){
+this.stopKaraokeLoop();this.setPlaybackState(false);
+document.getElementById('progressFill').style.width='100%';
+const last=KARAOKE_LINES.length?KARAOKE_LINES.length-1:-1;
+this.currentLine=last;this.highlightLine(last);
+},
+seekAudio(e){
+if(!this.audio||!this.audio.duration)return;
+const bar=document.getElementById('progressBar');
+const rect=bar.getBoundingClientRect();
+const pct=Math.min(1,Math.max(0,(e.clientX-rect.left)/rect.width));
+this.audio.currentTime=pct*this.audio.duration;
+this.updateKaraoke();
+},
+setSpeed(rate){
+if(this.audio)this.audio.playbackRate=rate;
+document.querySelectorAll('.speed-btn').forEach(b=>{b.classList.toggle('active',parseFloat(b.textContent)===rate)});
+},
+updateKaraoke(){
+if(!this.audio)return;
+const t=Number.isFinite(this.audio.currentTime)?this.audio.currentTime:0;
+const d=Number.isFinite(this.audio.duration)?this.audio.duration:0;
+const pct=d>0?Math.min(100,(t/d)*100):0;
+document.getElementById('progressFill').style.width=pct+'%';
+this.updateTimeDisplay(t,d);
+const active=this.getActiveLineIndex(t);
+if(active!==this.currentLine){this.currentLine=active;this.highlightLine(active)}
+},
+getActiveLineIndex(t){
+if(!KARAOKE_LINES.length)return -1;
+for(let i=0;i<KARAOKE_LINES.length;i++){if(t>=KARAOKE_LINES[i].start&&t<KARAOKE_LINES[i].end)return i}
+const last=KARAOKE_LINES.length-1;
+if(t>=KARAOKE_LINES[last].start)return last;
+return -1;
+},
+updateTimeDisplay(ct,dur){
+const t=Number.isFinite(ct)?Math.max(0,ct):(this.audio?this.audio.currentTime||0:0);
+const d=Number.isFinite(dur)?Math.max(0,dur):(this.audio?this.audio.duration||0:0);
+const fmt=s=>{const m=Math.floor(s/60);const sec=Math.floor(s%60);return m+':'+sec.toString().padStart(2,'0')};
+document.getElementById('audioTime').textContent=fmt(t)+' / '+fmt(d);
+},
+buildKaraokeLines(){
+const inner=document.getElementById('karaokeInner');
+if(!inner)return;
+inner.innerHTML=KARAOKE_LINES.map((l,i)=>`<div class="karaoke-line far" data-index="${i}">${l.text}</div>`).join('');
+},
+highlightLine(activeIndex){
+const lines=document.querySelectorAll('.karaoke-line');
+const inner=document.getElementById('karaokeInner');
+lines.forEach((el,i)=>{
+el.classList.remove('active','past','far');
+if(i===activeIndex)el.classList.add('active');
+else if(i<activeIndex)el.classList.add('past');
+else if(Math.abs(i-activeIndex)>3)el.classList.add('far');
+});
+if(activeIndex>=0&&lines[activeIndex]){
+const lineEl=lines[activeIndex];
+const containerH=300;
+const scrollTo=lineEl.offsetTop-(containerH/2)+(lineEl.offsetHeight/2);
+inner.style.transform=`translateY(${-Math.max(0,scrollTo)}px)`;
+}
+},
 
 // PROGRESS BARS
 animateProgressBars(){
@@ -793,9 +1076,28 @@ document.getElementById('panel-subtitle').textContent=d.subtitle;
 const body=document.getElementById('panel-body');
 body.innerHTML=d.sections.map(s=>`<div class="panel-section"><h4>${s.heading}</h4>${s.isKatha?`<div class="katha-box">${s.body.replace(/\n/g,'<br>')}</div><button class="copy-btn" onclick="APP.copy(this,'${encodeURIComponent(s.body)}')">⎘ Copy</button>`:`<p>${s.body.replace(/\n/g,'<br>')}</p>`}</div>`).join('');
 document.getElementById('slide-panel').classList.add('open');
-document.getElementById('panel-overlay').classList.add('show');
+document.getElementById('panel-overlay').classList.add('active');
 },
-closePanel(){document.getElementById('slide-panel').classList.remove('open');document.getElementById('panel-overlay').classList.remove('show')},
+openNodePanel(node){
+document.getElementById('panel-title').textContent=this.lang==='th'?node.label:node.labelEN;
+document.getElementById('panel-subtitle').textContent=node.type;
+const connections=NETWORK_DATA.links.filter(l=>(l.source.id||l.source)===node.id||(l.target.id||l.target)===node.id);
+const connHTML=connections.map(l=>{
+const otherId=(l.source.id||l.source)===node.id?(l.target.id||l.target):(l.source.id||l.source);
+const other=NETWORK_DATA.nodes.find(n=>n.id===otherId);
+if(!other)return '';
+return `<div style="padding:0.4rem 0;color:var(--text-main);font-size:0.9rem">→ ${this.lang==='th'?other.label:other.labelEN}</div>`;
+}).join('');
+const body=document.getElementById('panel-body');
+body.innerHTML=`<div class="panel-section"><h4>Connections</h4>${connHTML||'<p class="text-muted">No connections</p>'}</div>`;
+if(PANEL_DATA[node.id]){
+const pd=PANEL_DATA[node.id];
+body.innerHTML+=pd.sections.map(s=>`<div class="panel-section"><h4>${s.heading}</h4>${s.isKatha?`<div class="katha-box">${s.body.replace(/\n/g,'<br>')}</div>`:`<p>${s.body.replace(/\n/g,'<br>')}</p>`}</div>`).join('');
+}
+document.getElementById('slide-panel').classList.add('open');
+document.getElementById('panel-overlay').classList.add('active');
+},
+closePanel(){document.getElementById('slide-panel').classList.remove('open');document.getElementById('panel-overlay').classList.remove('active')},
 copy(btn,enc){const t=decodeURIComponent(enc);navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ Copied!';setTimeout(()=>{btn.textContent='⎘ Copy'},2000)})},
 
 // MANTRA
@@ -835,22 +1137,36 @@ initTabs(){
 document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const id=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));const t=document.getElementById('tab-'+id);if(t)t.classList.add('active')})});
 },
 
-// D3 NETWORK
+// D3 NETWORK (Enhanced with polymorphic shapes & node panel)
 initD3Network(){
 const container=document.getElementById('network-container');
-const W=container.clientWidth,H=container.clientHeight;
+const W=container.clientWidth,H=container.clientHeight||500;
 const{nodes,links}=NETWORK_DATA;
 const svg=d3.select('#network-container').append('svg').attr('width',W).attr('height',H);
 const defs=svg.append('defs');
 defs.append('filter').attr('id','glow').html(`<feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>`);
 const g=svg.append('g');
-const zoom=d3.zoom().scaleExtent([0.3,3]).on('zoom',e=>g.attr('transform',e.transform));
+const zoom=d3.zoom().scaleExtent([0.3,4]).on('zoom',e=>g.attr('transform',e.transform));
 svg.call(zoom);
-const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(links).id(d=>d.id).distance(110).strength(0.6)).force('charge',d3.forceManyBody().strength(-300)).force('center',d3.forceCenter(W/2,H/2)).force('collision',d3.forceCollide(35));
+const colorMap={monk:'#c89b3c',artifact:'#c8956c',temple:'#4caf84'};
+const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(links).id(d=>d.id).distance(d=>120/(d.strength||1)).strength(0.6)).force('charge',d3.forceManyBody().strength(-300)).force('center',d3.forceCenter(W/2,H/2)).force('collision',d3.forceCollide(d=>(d.size||16)+10));
 this.d3sim=sim;
-const link=g.append('g').selectAll('line').data(links).enter().append('line').attr('stroke','rgba(200,155,60,0.2)').attr('stroke-width',1);
-const node=g.append('g').selectAll('g').data(nodes).enter().append('g').attr('cursor','pointer').call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null})).on('click',(e,d)=>{if(PANEL_DATA[d.id])APP.openPanel(d.id)});
-node.each(function(d){const el=d3.select(this);const cm={monk:'#c89b3c',artifact:'#c8956c',temple:'#4caf84'};const c=cm[d.type]||'#8a7560';if(d.type==='monk'){el.append('circle').attr('r',d.group==='central'?20:12).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',d.group==='central'?2:1.5).attr('filter',d.group==='central'?'url(#glow)':'')}else if(d.type==='artifact'){const s=20;el.append('rect').attr('x',-s/2).attr('y',-s/2).attr('width',s).attr('height',s).attr('rx',4).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5)}else if(d.type==='temple'){const r=16;el.append('polygon').attr('points',`0,${-r} ${r*0.87},${r*0.5} ${-r*0.87},${r*0.5}`).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5)}el.append('text').text(d.label).attr('text-anchor','middle').attr('dy',d.type==='temple'?30:26).attr('fill','#f5e6c8').attr('font-size','9px').attr('font-family',"'Sarabun',sans-serif").attr('opacity',0.85)});
+const link=g.append('g').selectAll('line').data(links).enter().append('line').attr('stroke','rgba(200,155,60,0.15)').attr('stroke-width',d=>(d.strength||1)*0.8);
+const node=g.append('g').selectAll('g').data(nodes).enter().append('g').attr('cursor','pointer').attr('filter','url(#glow)').call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null})).on('click',(e,d)=>{e.stopPropagation();APP.openNodePanel(d)});
+node.each(function(d){
+const el=d3.select(this);
+const c=colorMap[d.type]||'#8a7560';
+const s=(d.size||16)/2;
+if(d.type==='monk'){
+el.append('circle').attr('r',s).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',d.group==='central'?2:1.5);
+}else if(d.type==='artifact'){
+// Diamond shape
+el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5);
+}else if(d.type==='temple'){
+el.append('polygon').attr('points',`0,${-s} ${s*0.87},${s*0.5} ${-s*0.87},${s*0.5}`).attr('fill',c+'22').attr('stroke',c).attr('stroke-width',1.5);
+}
+});
+node.append('text').attr('class','node-label').text(d=>this.lang==='th'?d.label:d.labelEN).attr('text-anchor','middle').attr('dy',d=>(d.size||16)/2+14).attr('fill','#f5e6c8').attr('font-size','9px').attr('font-family',"'Sarabun',sans-serif").attr('opacity',0.85);
 sim.on('tick',()=>{link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);node.attr('transform',d=>`translate(${d.x},${d.y})`)});
 },
 resetNetwork(){if(this.d3sim)this.d3sim.alpha(0.5).restart()},
@@ -860,6 +1176,16 @@ initChart(){
 const ctx=document.getElementById('lineage-chart');if(!ctx)return;
 Chart.defaults.color='#8a7560';Chart.defaults.font.family="'Cinzel',serif";Chart.defaults.font.size=10;
 new Chart(ctx.getContext('2d'),{type:'bar',data:{labels:['หลวงพ่อกลั่น\n(#1)','หลวงปู่เอี่ยม\n(#2)','หลวงปู่ศุข\n(#3)','หลวงพ่อคง\n(#4)','หลวงพ่อฉุย\n(#5)'],datasets:[{label:'Est. Max Value (ล้านบาท)',data:[30,5,5,2.5,2],backgroundColor:['rgba(200,155,60,0.3)','rgba(200,155,60,0.25)','rgba(200,155,60,0.2)','rgba(200,149,108,0.45)','rgba(200,155,60,0.15)'],borderColor:['#c89b3c','rgba(200,155,60,0.8)','rgba(200,155,60,0.6)','#c8956c','rgba(200,155,60,0.4)'],borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a100b',borderColor:'rgba(200,155,60,0.3)',borderWidth:1}},scales:{x:{grid:{color:'rgba(200,155,60,0.06)'}},y:{grid:{color:'rgba(200,155,60,0.06)'},ticks:{callback:v=>v+'M฿'}}}}});
+},
+
+// SCROLL OBSERVER (Enhanced)
+initScrollObserver(){
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';e.target.style.animationPlayState='running';obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.glass,.glass-static,.legend-card,.hero-full-figure').forEach(el=>{
+if(!el.classList.contains('anim-fade-up')&&!el.classList.contains('anim-fade-up-d1')&&!el.classList.contains('anim-fade-up-d2')&&!el.classList.contains('anim-fade-up-d3')&&!el.classList.contains('anim-fade-up-d4')){
+el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.7s ease,transform 0.7s ease';
+}
+obs.observe(el)});
 }
 };
 
@@ -869,13 +1195,9 @@ new Chart(ctx.getContext('2d'),{type:'bar',data:{labels:['หลวงพ่อ�
 function waitForLibs(r=0){
 if(typeof d3!=='undefined'&&typeof Chart!=='undefined'){console.log(`[NexusArtifact] Ready after ${r*100}ms`);APP.init()}
 else if(r<60){setTimeout(()=>waitForLibs(r+1),100)}
-else{console.warn('[NexusArtifact] Library timeout');APP.init()}
+else{console.warn('[NexusArtifact] Library timeout');document.getElementById('loading-overlay').classList.add('hidden')}
 }
 document.addEventListener('DOMContentLoaded',()=>waitForLibs());
-
-// Scroll reveal
-const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:0.1});
-document.querySelectorAll('.glass,.legend-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.7s ease,transform 0.7s ease';revealObs.observe(el)});
 </script>
 </body>
 </html>
