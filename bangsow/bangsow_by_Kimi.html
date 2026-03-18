@@ -1,0 +1,1315 @@
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>รายงานวิจัยเชิงลึก: ปลัดขิกกรามช้าง หลวงพ่อวุ่น วัดบางซอ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #CD853F;
+            --accent: #DAA520;
+            --neutral: #F5F5DC;
+            --base-100: #FEFEFE;
+            --base-content: #2C1810;
+        }
+        
+        body {
+            font-family: 'Noto Serif Thai', serif;
+            background: linear-gradient(135deg, var(--neutral) 0%, #F8F6F0 100%);
+            color: var(--base-content);
+            line-height: 1.8;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        
+        .serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, 
+                rgba(139, 69, 19, 0.9) 0%, 
+                rgba(205, 133, 63, 0.8) 50%, 
+                rgba(218, 165, 32, 0.7) 100%);
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(245, 245, 220, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(139, 69, 19, 0.2);
+            z-index: 40;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .grain-texture {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(205, 133, 63, 0.1) 0%, transparent 50%);
+        }
+        
+        .citation-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .citation-link:hover {
+            background: rgba(139, 69, 19, 0.1);
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+            margin: 3rem 0;
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            height: 60vh;
+        }
+        
+        .bento-main {
+            grid-row: 1 / -1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+        }
+        
+        .bento-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .bento-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-fixed.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                height: auto;
+            }
+            
+            .bento-main {
+                grid-row: auto;
+                height: 40vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-gradient h1 {
+                font-size: 1.8rem; /* Reduce heading size */
+            }
+            .hero-gradient p.text-xl {
+                font-size: 1rem; /* Reduce paragraph size */
+            }
+            .bento-grid,
+            .grid-cols-2,
+            .lg\:grid-cols-2,
+            .lg\:grid-cols-3,
+            .xl\:grid-cols-3,
+            .xl\:grid-cols-4 {
+                grid-template-columns: 1fr !important; /* Force single column layout */
+            }
+            .bento-main {
+                height: auto; /* Adjust height for content */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .toc-fixed {
+                width: 100%; /* Full width on small screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-gradient h1 {
+                font-size: 1.5rem; /* Further reduce heading size */
+            }
+            .hero-gradient p.text-xl {
+                font-size: 0.9rem; /* Further reduce paragraph size */
+            }
+        }
+
+        @media (max-width: 390px) {
+            .toc-fixed {
+                padding: 1rem; /* Reduce padding */
+            }
+            .hero-gradient h1 {
+                font-size: 1.3rem; /* Further reduce heading size */
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="grain-texture">
+    <!-- Fixed Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="mb-8">
+        <h3 class="serif-display text-lg font-semibold text-primary mb-4">สารบัญ</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#hero" class="citation-link">บทนำ</a>
+          </li>
+          <li>
+            <a href="#section1" class="citation-link">1. การวิเคราะห์ลักษณะทางกายภาพ</a>
+          </li>
+          <li>
+            <a href="#section2" class="citation-link">2. บริบททางประวัติศาสตร์และศาสนา</a>
+          </li>
+          <li>
+            <a href="#section3" class="citation-link">3. ประวัติการสร้างและความหมาย</a>
+          </li>
+          <li>
+            <a href="#section4" class="citation-link">4. การเปรียบเทียบศิลปะการแกะสลัก</a>
+          </li>
+          <li>
+            <a href="#section5" class="citation-link">5. หลักการพิจารณาตรวจสอบความแท้</a>
+          </li>
+          <li>
+            <a href="#section6" class="citation-link">6. พุทธคุณและความเชื่อ</a>
+          </li>
+          <li>
+            <a href="#section7" class="citation-link">7. สรุปและวิเคราะห์</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="border-t border-primary/20 pt-4">
+        <p class="text-xs text-gray-600">
+          <i class="fas fa-scroll mr-2"></i>
+          รายงานวิจัยเชิงลึก
+        </p>
+        <p class="text-xs text-gray-500 mt-1">ปลัดขิกกรามช้าง หลวงพ่อวุ่น</p>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section id="hero" class="relative min-h-screen flex items-center">
+        <div class="bento-grid w-full max-w-7xl mx-auto px-4 md:px-8">
+          <!-- Main Hero Card -->
+          <div class="bento-main hero-gradient flex items-center justify-center text-white p-8">
+            <div class="text-center z-10 max-w-4xl">
+              <h1 class="serif-display text-4xl sm:text-5xl md:text-7xl font-light italic mb-6 leading-tight">
+                ปลัดขิกกรามช้าง
+                <span class="block text-2xl sm:text-3xl md:text-5xl font-normal mt-2">
+                  หลวงพ่อวุ่น วัดบางซอ
+                </span>
+              </h1>
+              <p class="text-lg sm:text-xl md:text-2xl font-light opacity-90 mb-8">
+                การวิจัยเชิงลึกเกี่ยวกับเครื่องรางหายาก
+                ที่สุดในวงการพระเครื่องไทย
+              </p>
+              <div class="flex justify-center items-center space-x-8 text-sm opacity-75">
+                <span><i class="fas fa-calendar mr-2"></i>ยุคสมัย พ.ศ. 2470</span>
+                <span><i class="fas fa-map-marker-alt mr-2"></i>สุพรรณบุรี</span>
+                <span><i class="fas fa-gem mr-2"></i>วัสดุกรามช้าง</span>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black/30"></div>
+            <img src="https://fixedplaceholder" alt="ปลัดขิกกรามช้างโบราณ" class="absolute inset-0 w-full h-full object-cover opacity-20" size="large" aspect="tall" color="brown" style="photo" query="ปลัดขิกกรามช้างโบราณ" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+          </div>
+
+          <!-- Side Cards -->
+          <div class="bento-side">
+            <div class="bento-card">
+              <h3 class="serif-display text-lg font-semibold text-primary mb-3">
+                เอกลักษณ์เฉพาะตัว
+              </h3>
+              <ul class="text-sm space-y-2 text-gray-700">
+                <li><i class="fas fa-star text-accent mr-2"></i>&#34;ติ่ง&#34; บริเวณยอด</li>
+                <li><i class="fas fa-star text-accent mr-2"></i>ฐานรูปทรงศิวลึงค์</li>
+                <li><i class="fas fa-star text-accent mr-2"></i>การจาร &#34;นะมะพะทะ&#34;</li>
+                <li><i class="fas fa-star text-accent mr-2"></i>การจาร &#34;อุ&#34; สามตัว</li>
+              </ul>
+            </div>
+
+            <div class="bento-card">
+              <h3 class="serif-display text-lg font-semibold text-primary mb-3">
+                พุทธคุณครอบจักรวาล
+              </h3>
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div class="text-center p-2 bg-primary/10 rounded">
+                  <i class="fas fa-heart text-red-500 mb-1"></i>
+                  <div class="font-medium">เมตตามหานิยม</div>
+                </div>
+                <div class="text-center p-2 bg-primary/10 rounded">
+                  <i class="fas fa-shield-alt text-blue-500 mb-1"></i>
+                  <div class="font-medium">คงกระพัน</div>
+                </div>
+                <div class="text-center p-2 bg-primary/10 rounded">
+                  <i class="fas fa-coins text-green-500 mb-1"></i>
+                  <div class="font-medium">ค้าขาย</div>
+                </div>
+                <div class="text-center p-2 bg-primary/10 rounded">
+                  <i class="fas fa-handshake text-purple-500 mb-1"></i>
+                  <div class="font-medium">เจรจาผู้ใหญ่</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1 -->
+      <section id="section1" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            1. การวิเคราะห์ลักษณะทางกายภาพของเครื่องรางจากภาพประกอบ
+          </h2>
+
+          <div class="prose prose-lg max-w-none">
+            <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 mb-8 border border-primary/10">
+              <h3 class="serif-display text-2xl font-medium text-primary mb-6">1.1 วัสดุและองค์ประกอบหลัก</h3>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 class="text-xl font-semibold mb-4 text-secondary">1.1.1 ลักษณะเนื้อกรามช้าง</h4>
+                  <p class="mb-4">
+                    <strong>ปลัดขิกกรามช้าง</strong> ของหลวงพ่อวุ่น วัดบางซอ เป็นเครื่องรางที่สร้างจาก <strong>เนื้อกระดูกช้าง (elephant bone)</strong> ซึ่งแตกต่างอย่างสิ้นเชิงจากปลัดขิกทั่วไปที่มักใช้ไม้หรืองาช้างเป็นวัสดุหลัก <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                  </p>
+                  <p class="mb-4">
+                    กระดูกช้างมีลักษณะทางกายภาพที่เป็นเอกลักษณ์เฉพาะตัว โดยมีโครงสร้างภายในที่เป็น <strong>รูพรุน (porous structure)</strong> ตามธรรมชาติของเนื้อกระดูกสัตว์เลี้ยงลูกด้วยนมขนาดใหญ่ ซึ่งสามารถสังเกตได้ด้วยตาเปล่าหรือผ่านการขยายด้วยกล้องส่องพระ
+                  </p>
+                </div>
+                <div>
+                  <img src="https://kimi-web-img.moonshot.cn/img/www.zoo.gov.tw/73fc3dadbe271f8c60ed8ee6dadfca809d6eb630.png" alt="กระดูกช้างสภาพเก่า" class="w-full h-64 object-cover rounded-lg shadow-lg" size="medium" aspect="wide" color="brown" style="photo" query="กระดูกช้างเก่า" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                </div>
+              </div>
+
+              <div class="bg-neutral/30 p-6 rounded-lg mb-6">
+                <h4 class="text-lg font-semibold mb-3">ความแตกต่างระหว่างกรามช้างกับวัสดุอื่น</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead>
+                      <tr class="border-b border-primary/20">
+                        <th class="text-left py-2">ลักษณะ</th>
+                        <th class="text-center py-2">กรามช้าง</th>
+                        <th class="text-center py-2">งาช้าง</th>
+                        <th class="text-center py-2">ไม้</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-primary/10">
+                      <tr>
+                        <td class="py-2">โครงสร้างเนื้อวัสดุ</td>
+                        <td class="text-center py-2">รูพรุน มีโพรงอากาศเล็กๆ</td>
+                        <td class="text-center py-2">เรียบแน่น ไม่มีรูพรุน</td>
+                        <td class="text-center py-2">มีเส้นใยไม้ชัดเจน</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2">สีธรรมชาติ</td>
+                        <td class="text-center py-2">ขาวนวลถึงครีม</td>
+                        <td class="text-center py-2">ขาวใสถึงเหลืองอำพัน</td>
+                        <td class="text-center py-2">ขึ้นกับชนิดไม้</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2">ความหายาก</td>
+                        <td class="text-center py-2 font-semibold text-accent">สูงที่สุด</td>
+                        <td class="text-center py-2">สูงมาก</td>
+                        <td class="text-center py-2">ปานกลางถึงต่ำ</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 2 -->
+      <section id="section2" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            2. บริบททางประวัติศาสตร์และศาสนาของหลวงพ่อวุ่น วัดบางซอ
+          </h2>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+                <h3 class="serif-display text-2xl font-medium text-primary mb-6">2.1 ประวัติความเป็นมาของหลวงพ่อวุ่น</h3>
+
+                <div class="mb-6">
+                  <h4 class="text-xl font-semibold mb-4 text-secondary">2.1.1 ช่วงชีวิตและยุคสมัย</h4>
+                  <p class="mb-4">
+                    <strong>หลวงพ่อวุ่น</strong> หรือ <strong>พระครูวิมลสุนทร (วุ่น)</strong> เป็นพระเกจิอาจารย์ชื่อดังของจังหวัดสุพรรณบุรี ท่านเกิดในปี <strong>พ.ศ. 2430</strong> และมรณภาพในปี <strong>พ.ศ. 2496</strong> รวมอายุ <strong>66 ปี</strong>
+                    <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                  </p>
+                </div>
+
+                <div class="bg-neutral/30 p-6 rounded-lg mb-6">
+                  <h5 class="font-semibold mb-3">บริบททางประวัติศาสตร์</h5>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                      <span>พ.ศ. 2430 - 2468</span>
+                      <span>ยุคปฏิรูปและสงครามโลกครั้งที่ 1</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>พ.ศ. 2468</span>
+                      <span>การเปลี่ยนแปลงการปกครอง</span>
+                    </div>
+                    <div class="flex justify-between font-semibold text-accent">
+                      <span>พ.ศ. 2470</span>
+                      <span>เริ่มสร้างปลัดขิกกรามช้าง</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">วัดบางซอ</h4>
+                <div class="space-y-3 text-sm">
+                  <div><i class="fas fa-map-marker-alt text-accent mr-2"></i>อำเภอสามชุก, สุพรรณบุรี</div>
+                  <div><i class="fas fa-temple-chinese text-accent mr-2"></i>วัดราษฎร์</div>
+                  <div><i class="fas fa-star text-accent mr-2"></i>สำนักปฏิบัติธรรม</div>
+                </div>
+              </div>
+
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">ความสามารถพิเศษ</h4>
+                <ul class="space-y-2 text-sm">
+                  <li><i class="fas fa-magic text-accent mr-2"></i>วิชาอาคมขั้นสูง</li>
+                  <li><i class="fas fa-coins text-accent mr-2"></i>แพทย์แผนโบราณ</li>
+                  <li><i class="fas fa-eye text-accent mr-2"></i>ทำนายเหตุการณ์</li>
+                  <li><i class="fas fa-hand-paper text-accent mr-2"></i>ปลุกเสกเครื่องราง</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">2.2 ชื่อเสียงในด้านการสร้างเครื่องราง</h3>
+            <blockquote class="border-l-4 border-accent pl-6 py-4 bg-accent/10 rounded-r-lg mb-6">
+              <p class="italic text-lg mb-2">
+                &#34;ที่สำคัญที่สุดโด่งดังที่สุดและหายากที่สุดของท่านคือปลัดขิกนั้นเอง&#34;
+              </p>
+              <cite class="text-sm text-gray-600">
+                — <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">ตำราพระเครื่อง [1]</a>
+              </cite>
+            </blockquote>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-lg font-semibold mb-3 text-secondary">พุทธคุณที่โดดเด่น</h4>
+                <ul class="space-y-2">
+                  <li><i class="fas fa-heart text-red-500 mr-2"></i>เมตตามหานิยม</li>
+                  <li><i class="fas fa-shield-alt text-blue-500 mr-2"></i>คงกระพันชาตรี</li>
+                  <li><i class="fas fa-coins text-green-500 mr-2"></i>ค้าขายเจริญรุ่งเรือง</li>
+                  <li><i class="fas fa-handshake text-purple-500 mr-2"></i>เจรจาผู้หลักผู้ใหญ่</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold mb-3 text-secondary">เรื่องเล่าขาน</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="bg-neutral/30 p-3 rounded">
+                    <strong>ฝนตกไม่เปียก:</strong> หลวงพ่อวุ่นสามารถเดินทางในฝนโดยไม่เปียก
+                  </div>
+                  <div class="bg-neutral/30 p-3 rounded">
+                    <strong>ตะกรุดกระโดด:</strong> เสกตะกรุดจนกระโดดออกจากบาตร
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 3 -->
+      <section id="section3" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            3. ประวัติการสร้างและความหมายของปลัดขิกกรามช้าง
+          </h2>
+
+          <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+              <h3 class="serif-display text-2xl font-medium text-primary mb-6">3.1 ที่มาและประวัติการสร้าง</h3>
+
+              <div class="mb-6">
+                <h4 class="text-xl font-semibold mb-4 text-secondary">3.1.1 ช่วงเวลาการสร้าง</h4>
+                <p class="mb-4">
+                  หลวงพ่อวุ่นเริ่มสร้างปลัดขิกราว <strong>พ.ศ. 2470</strong>
+                  <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                  ซึ่งเป็นช่วงที่ท่านมีอายุประมาณ 40 ปี และมีความรู้ความสามารถเต็มที่
+                </p>
+              </div>
+
+              <div class="bg-neutral/30 p-6 rounded-lg mb-6">
+                <h4 class="text-lg font-semibold mb-3">การเลือกใช้กรามช้าง</h4>
+                <p class="text-sm mb-3">
+                  การเลือกใช้กรามช้างเป็นวัสดุมีความหมายหลายระดับ ทั้งทางวัฒนธรรมและวิทยาคม
+                </p>
+                <ul class="text-sm space-y-1">
+                  <li><i class="fas fa-temple-chinese text-accent mr-2"></i>สัญลักษณ์ของความศักดิ์สิทธิ์ในวัฒนธรรมไทย</li>
+                  <li><i class="fas fa-fist-raised text-accent mr-2"></i>พลังอำนาจและความทนทาน</li>
+                  <li><i class="fas fa-tools text-accent mr-2"></i>ความเหมาะสมในการแกะสลัก</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">กรรมวิธีการสร้าง</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+                    <div>
+                      <h5 class="font-semibold">เตรียมวัสดุ</h5>
+                      <p class="text-sm text-gray-700">คัดเลือก ทำความสะอาด ตากแห้ง</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+                    <div>
+                      <h5 class="font-semibold">แกะสลัก</h5>
+                      <p class="text-sm text-gray-700">สร้างรูปทรง ติ่งที่ยอด ฐานศิวลึงค์</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+                    <div>
+                      <h5 class="font-semibold">จารยันต์</h5>
+                      <p class="text-sm text-gray-700">เขียนอักขระ &#34;นะมะพะทะ&#34; และ &#34;อุ&#34; สามตัว</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+                    <div>
+                      <h5 class="font-semibold">ปลุกเสก</h5>
+                      <p class="text-sm text-gray-700">พิธีกรรมตามตำราโบราณ</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">ความหายาก</h4>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-accent mb-2">หายากสุดๆ</div>
+                  <p class="text-sm text-gray-700">
+                    &#34;พบเจอน้อยมากๆ หายากสุดๆ&#34;
+                    <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">3.2 นัยยะสำคัญทางศาสนาและวัฒนธรรม</h3>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-dharmachakra text-2xl text-primary"></i>
+                </div>
+                <h4 class="font-semibold mb-3">ความหมายทางพุทธศาสนา</h4>
+                <p class="text-sm text-gray-700">
+                  อักขระ &#34;นะมะพะทะ&#34; ระลึกถึงพระรัตนตรัย
+                  และการปฏิบัติธรรมตามหลักพุทธศาสนา
+                </p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-om text-2xl text-secondary"></i>
+                </div>
+                <h4 class="font-semibold mb-3">การผสมผสานความเชื่อ</h4>
+                <p class="text-sm text-gray-700">
+                  รูปทรงศิวลึงค์ที่ฐานแสดงถึง
+                  การผสมผสานระหว่างพุทธศาสนาและฮินดู
+                </p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-elephant text-2xl text-accent"></i>
+                </div>
+                <h4 class="font-semibold mb-3">สัญลักษณ์ของช้าง</h4>
+                <p class="text-sm text-gray-700">
+                  ช้างเป็นสัตว์ศักดิ์สิทธิ์ในวัฒนธรรมไทย
+                  สื่อถึงพลัง สติปัญญา และความอุดมสมบูรณ์
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 4 -->
+      <section id="section4" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            4. การเปรียบเทียบศิลปะการแกะสลักและลวดลาย
+          </h2>
+
+          <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+              <h3 class="serif-display text-2xl font-medium text-primary mb-6">4.1 เอกลักษณ์การแกะสลักของหลวงพ่อวุ่น</h3>
+
+              <blockquote class="border-l-4 border-accent pl-6 py-4 bg-accent/10 rounded-r-lg mb-6">
+                <p class="italic text-lg mb-2">
+                  &#34;ปลัดท่านมีศิลป์เป็นเอกลักษณ์เฉพาะตัว ไม่เหมือนใคร แกะได้สวยงามมาก&#34;
+                </p>
+                <cite class="text-sm text-gray-600">
+                  — <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                </cite>
+              </blockquote>
+
+              <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-star text-accent mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold">เส้นสายที่มั่นคง</h4>
+                    <p class="text-sm text-gray-700">แม้จะเป็นงาน Folk Art แต่เส้นสายมีความมั่นคง ไม่สั่นคลอน</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-balance-scale text-accent mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold">สัดส่วนที่สมดุล</h4>
+                    <p class="text-sm text-gray-700">ส่วนต่างๆ ของเครื่องรางมีสัดส่วนที่เหมาะสม รักษาความสมมาตร</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-gem text-accent mt-1"></i>
+                  <div>
+                    <h4 class="font-semibold">รายละเอียดที่พอดี</h4>
+                    <p class="text-sm text-gray-700">มีรายละเอียดที่จำเป็น สอดคล้องกับหลักการ &#34;พอดี&#34; ในศิลปะไทย</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">องค์ประกอบที่เป็นเอกลักษณ์</h4>
+                <div class="space-y-4">
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold text-secondary mb-2">
+                      <i class="fas fa-arrow-up mr-2"></i>&#34;ติ่ง&#34; บริเวณยอด
+                    </h5>
+                    <p class="text-sm text-gray-700">
+                      ลักษณะส่วนนูนที่ยอด เป็นเครื่องหมายการค้า
+                      ที่ทำให้สามารถระบุได้ทันทีว่าเป็นฝีมือของหลวงพ่อวุ่น
+                      <a href="http://www.pralanna.com/shoppage.php?shopid=209128" class="citation-link" target="_blank">[2]</a>
+                    </p>
+                  </div>
+
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold text-secondary mb-2">
+                      <i class="fas fa-circle-notch mr-2"></i>ฐานศิวลึงค์
+                    </h5>
+                    <p class="text-sm text-gray-700">
+                      รูปทรงโค้งมน ไม่มีขอบคม มีความหมายทางสัญลักษณ์
+                      และทำให้ตั้งได้อย่างมั่นคง
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <img src="https://kimi-web-img.moonshot.cn/img/pianoamulet.com/71125026110975ecce44372c2230f9dc9042848c.jpg" alt="ลายแกะสลักปลัดขิกแบบโบราณ" class="w-full h-48 object-cover rounded-lg shadow-lg" size="medium" aspect="tall" color="brown" style="photo" query="ปลัดขิกโบราณ ลายแกะสลัก" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            </div>
+          </div>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">4.2 การเปรียบเทียบกับปลัดขิกอื่นๆ</h3>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b-2 border-primary/20">
+                    <th class="text-left py-3 px-4">ลักษณะ</th>
+                    <th class="text-center py-3 px-4">หลวงพ่อวุ่น</th>
+                    <th class="text-center py-3 px-4">พ่อค้าแผงทั่วไป</th>
+                    <th class="text-center py-3 px-4">ปลัดขิกรุ่นเก่า</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-primary/10">
+                  <tr>
+                    <td class="py-3 px-4 font-medium">วัสดุ</td>
+                    <td class="text-center py-3 px-4">กรามช้าง (หายาก)</td>
+                    <td class="text-center py-3 px-4">ไม้/งาช้าง</td>
+                    <td class="text-center py-3 px-4">งาช้าง/ไม้</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">การแกะสลัก</td>
+                    <td class="text-center py-3 px-4">ประณีต มีศิล์เฉพาะ</td>
+                    <td class="text-center py-3 px-4">มาตรฐาน</td>
+                    <td class="text-center py-3 px-4">ประณีต</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">ยันต์</td>
+                    <td class="text-center py-3 px-4">&#34;นะมะพะทะ&#34; + &#34;อุ&#34; สาม</td>
+                    <td class="text-center py-3 px-4">แบบมาตรฐาน</td>
+                    <td class="text-center py-3 px-4">แบบดั้งเดิม</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">พิธีกรรม</td>
+                    <td class="text-center py-3 px-4">ปลุกเสกตามตำราโบราณ</td>
+                    <td class="text-center py-3 px-4">ทั่วไป</td>
+                    <td class="text-center py-3 px-4">ตามตำรา</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">ความหายาก</td>
+                    <td class="text-center py-3 px-4 font-semibold text-accent">สูงมาก</td>
+                    <td class="text-center py-3 px-4">ต่ำ</td>
+                    <td class="text-center py-3 px-4">ปานกลาง</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 5 -->
+      <section id="section5" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            5. หลักการพิจารณาตรวจสอบความแท้และอายุของเครื่องราง
+          </h2>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+                <h3 class="serif-display text-2xl font-medium text-primary mb-6">5.1 การพิจารณาความเก่าแก่ตามธรรมชาติ</h3>
+
+                <div class="mb-6">
+                  <h4 class="text-xl font-semibold mb-4 text-secondary">5.1.1 ลักษณะเนื้อกรามช้าง</h4>
+                  <p class="mb-4">
+                    การพิจารณาความเก่าแก่ของกระดูกช้างสามารถทำได้โดยการสังเกต <strong>สีสันและพื้นผิว</strong> ตามธรรมชาติ ซึ่งจะเปลี่ยนแปลงไปตามกาลเวลา
+                  </p>
+                </div>
+
+                <div class="bg-neutral/30 p-6 rounded-lg mb-6">
+                  <h5 class="font-semibold mb-4">ระยะเวลาและลักษณะการเปลี่ยนแปลง</h5>
+                  <div class="space-y-3">
+                    <div class="flex items-center space-x-4">
+                      <div class="w-4 h-4 bg-yellow-100 border border-yellow-300 rounded"></div>
+                      <div class="flex-1">
+                        <div class="font-medium">0-10 ปี</div>
+                        <div class="text-sm text-gray-600">สีขาวนวลถึงครีมอ่อน มีความมันเงาเล็กน้อย</div>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                      <div class="w-4 h-4 bg-yellow-200 border border-yellow-400 rounded"></div>
+                      <div class="flex-1">
+                        <div class="font-medium">10-30 ปี</div>
+                        <div class="text-sm text-gray-600">ครีมเข้มถึงเหลืองอ่อน เริ่มมีคราบสะสม</div>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                      <div class="w-4 h-4 bg-yellow-600 border border-yellow-700 rounded"></div>
+                      <div class="flex-1">
+                        <div class="font-medium">30-50 ปี</div>
+                        <div class="text-sm text-gray-600">เหลืองอมน้ำตาล พัตินาเริ่มชัดเจน</div>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                      <div class="w-4 h-4 bg-amber-800 border border-amber-900 rounded"></div>
+                      <div class="flex-1">
+                        <div class="font-medium">50+ ปี</div>
+                        <div class="text-sm text-gray-600">น้ำตาลเข้มหรือช็อกโกแลต พัตินาหนา</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">จุดสังเกตสำคัญ</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-microscope text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold text-sm">รูพรุนธรรมชาติ</h5>
+                      <p class="text-xs text-gray-700">โครงสร้างรูพรุนเล็กๆ กระจายทั่วพื้นผิว</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-hand-paper text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold text-sm">ความมันวาว</h5>
+                      <p class="text-xs text-gray-700">เกิดจากการสัมผัสในระยะยาว ไม่ใช่สารเคมี</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-weight-hanging text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold text-sm">น้ำหนัก</h5>
+                      <p class="text-xs text-gray-700">เบากว่างาช้าง แต่แน่นกว่าไม้</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <img src="https://kimi-web-img.moonshot.cn/img/www.crystals.eu/08aa987200b46d72684027363bc6862e5a1c7a76.jpg" alt="กระดูกช้างเก่าแสดงรูพรุนธรรมชาติ" class="w-full h-40 object-cover rounded-lg shadow-lg" size="small" aspect="wide" color="brown" style="photo" query="กระดูกช้างเก่า รูพรุน" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            </div>
+          </div>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">5.2 การพิจารณาฝีมือการแกะสลัก</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="text-xl font-semibold mb-4 text-secondary">ร่องรอยจากเครื่องมือช่างโบราณ</h4>
+                <div class="space-y-4">
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">ลักษณะของรอยเครื่องมือ</h5>
+                    <ul class="text-sm space-y-1">
+                      <li><i class="fas fa-check text-green-500 mr-2"></i>รอยไม่สมมาตร เกิดจากการควบคุมด้วยมือ</li>
+                      <li><i class="fas fa-check text-green-500 mr-2"></i>มีความลึกไม่เท่ากันในบางจุด</li>
+                      <li><i class="fas fa-check text-green-500 mr-2"></i>ไม่มีลักษณะของการใช้เครื่องจักร</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">เทคนิคการแกะสลัก</h5>
+                    <ul class="text-sm space-y-1">
+                      <li><i class="fas fa-star text-accent mr-2"></i>เส้นสายมั่นคง ไม่สั่นคลอน</li>
+                      <li><i class="fas fa-star text-accent mr-2"></i>สัดส่วนสมดุลตามหลักศิลปะ</li>
+                      <li><i class="fas fa-star text-accent mr-2"></i>รักษาลักษณะธรรมชาติของวัสดุ</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                <div class="bg-neutral/30 p-6 rounded-lg">
+                  <h4 class="text-lg font-semibold mb-3 text-secondary">การสังเกตร่องรอยการใช้งาน</h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex items-start space-x-3">
+                      <i class="fas fa-hand-paper text-accent mt-1"></i>
+                      <div>
+                        <h5 class="font-semibold">การสึกหรอจากการสัมผัส</h5>
+                        <p class="text-gray-700">ผิวเรียบขึ้น ขอบมนลง จากการใช้งานในระยะยาว</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <i class="fas fa-tint text-accent mt-1"></i>
+                      <div>
+                        <h5 class="font-semibold">คราบจากน้ำมัน</h5>
+                        <p class="text-gray-700">เกิดจากการสัมผัสกับน้ำมันจากผิวหนังและเสื้อผ้า</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <i class="fas fa-sun text-accent mt-1"></i>
+                      <div>
+                        <h5 class="font-semibold">การเปลี่ยนสีจากออกซิเดชัน</h5>
+                        <p class="text-gray-700">สีเข้มขึ้น มีความลึก เกิดจากการสัมผัสกับอากาศ</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                  <h5 class="font-semibold text-red-800 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>สิ่งที่ควรระวัง
+                  </h5>
+                  <p class="text-sm text-red-700">
+                    ของปลอมมักมีลักษณะสีสม่ำเสมอเกินไป
+                    ผิวเรียบเนียนแบบพลาสติก
+                    และขาดร่องรอยการใช้งานตามธรรมชาติ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 6 -->
+      <section id="section6" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            6. พุทธคุณ คติความเชื่อแต่โบราณ และประสบการณ์ตรงของผู้บูชา
+          </h2>
+
+          <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+              <h3 class="serif-display text-2xl font-medium text-primary mb-6">6.1 พุทธคุณครอบจักรวาล</h3>
+
+              <div class="mb-6">
+                <p class="mb-4">
+                  ปลัดขิกกรามช้างของหลวงพ่อวุ่นมีชื่อเสียงในด้าน <strong>พุทธคุณครอบจักรวาล</strong>
+                  ที่หลากหลายและครบถ้วน ตามที่ได้รับการยืนยันว่า
+                  <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg text-center">
+                  <i class="fas fa-heart text-2xl text-red-600 mb-2"></i>
+                  <h4 class="font-semibold text-red-800">เมตตามหานิยม</h4>
+                  <p class="text-xs text-red-600 mt-1">เป็นที่รักใคร่เอ็นดูของผู้พบเห็น</p>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg text-center">
+                  <i class="fas fa-shield-alt text-2xl text-blue-600 mb-2"></i>
+                  <h4 class="font-semibold text-blue-800">คงกระพันชาตรี</h4>
+                  <p class="text-xs text-blue-600 mt-1">ป้องกันภัยอันตรายทั้งปวง</p>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg text-center">
+                  <i class="fas fa-coins text-2xl text-green-600 mb-2"></i>
+                  <h4 class="font-semibold text-green-800">ค้าขาย</h4>
+                  <p class="text-xs text-green-600 mt-1">เจริญรุ่งเรืองในธุรกิจการค้า</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg text-center">
+                  <i class="fas fa-handshake text-2xl text-purple-600 mb-2"></i>
+                  <h4 class="font-semibold text-purple-800">เจรจาผู้ใหญ่</h4>
+                  <p class="text-xs text-purple-600 mt-1">ประสบความสำเร็จในการเจรจา</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">คติความเชื่อแต่โบราณ</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-om text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold">ความเชื่อเรื่องพลังของช้าง</h5>
+                      <p class="text-sm text-gray-700">ช้างเป็นสัตว์คู่บ้านคู่เมือง สื่อถึงอำนาจและสติปัญญา</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-yin-yang text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold">หลักวิทยาคมไทย</h5>
+                      <p class="text-sm text-gray-700">การใช้กระดูกสัตว์ในเครื่องรางเพื่อถ่ายทอดพลัง</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-dharma-wheel text-accent mt-1"></i>
+                    <div>
+                      <h5 class="font-semibold">พุทธคติ</h5>
+                      <p class="text-sm text-gray-700">อักขระ &#34;นะมะพะทะ&#34; เป็นคาถามหาอำนาจ</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <img src="https://kimi-web-img.moonshot.cn/img/www.buddhism-amulet.com/96c14f7bd23b533120bde93ea753d9c93d92977e.jpg" alt="พิธีกรรมบูชาเครื่องรางไทยโบราณ" class="w-full h-40 object-cover rounded-lg shadow-lg" size="medium" aspect="wide" style="photo" query="พิธีบูชาเครื่องรางไทย" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            </div>
+          </div>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">6.2 ประสบการณ์ตรงของผู้บูชา</h3>
+
+            <blockquote class="border-l-4 border-accent pl-6 py-4 bg-accent/10 rounded-r-lg mb-6">
+              <p class="italic text-lg mb-2">
+                &#34;เซียนพระรุ่นเก่าหลายท่านใช้แล้วเกิดประสบการณ์และอภินิหารต่างๆ มากมาย
+                จนต่างกว้านซื้อกันจนเกลี้ยง&#34;
+              </p>
+              <cite class="text-sm text-gray-600">
+                — <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">ตำราพระเครื่อง [1]</a>
+              </cite>
+            </blockquote>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-xl font-semibold mb-4 text-secondary">เรื่องเล่าจากชุมชน</h4>
+                <div class="space-y-4">
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">คุณตาทวดเล่าเรื่องตะกรุด</h5>
+                    <p class="text-sm text-gray-700 italic">
+                      &#34;ท่านบวชเณรอยู่กับหลวงพ่อวุ่น เคยนั่งดูหลวงพ่อวุ่นเสกตะกรุดจนกระโดดออกจากบาตร
+                      แล้วค่อยแจกลูกศิษย์&#34;
+                    </p>
+                  </div>
+
+                  <div class="bg-neutral/30 p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">คนเฒ่าคนแก่เล่าเรื่องฝน</h5>
+                    <p class="text-sm text-gray-700 italic">
+                      &#34;สมัยก่อนเดินตามหลวงพ่อวุ่น ฝนตก หลวงพ่อก็บอกให้รีบวิ่งไปก่อน
+                      พอมาถึงวัดท่านก็เห็นหลวงพ่อยืนรออยู่ที่ศาลา ไม่เปียกฝนแม้แต่หยดเดียว&#34;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="text-xl font-semibold mb-4 text-secondary">อิทธิพลต่อสังคมไทย</h4>
+                <div class="space-y-4">
+                  <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                    <h5 class="font-semibold text-green-800 mb-2">ความศรัทธาในพระเกจิ</h5>
+                    <p class="text-sm text-green-700">
+                      สะท้อนความเชื่อมั่นในพลังจิตของพระเกจิอาจารย์
+                      ที่สามารถถ่ายทอดลงสู่วัตถุได้
+                    </p>
+                  </div>
+
+                  <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                    <h5 class="font-semibold text-blue-800 mb-2">วัฒนธรรมการสะสม</h5>
+                    <p class="text-sm text-blue-700">
+                      ก่อให้เกิดวัฒนธรรมการสะสมเครื่องราง
+                      และการศึกษาประวัติศาสตร์ท้องถิ่น
+                    </p>
+                  </div>
+
+                  <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
+                    <h5 class="font-semibold text-purple-800 mb-2">คติชนวิทยา</h5>
+                    <p class="text-sm text-purple-700">
+                      สะท้อนการสร้างความหมายและให้คุณค่า
+                      กับวัตถุสิ่งของในวัฒนธรรมไทย
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 7 -->
+      <section id="section7" class="py-16 px-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="serif-display text-4xl font-light text-primary mb-8 border-l-4 border-accent pl-6">
+            7. สรุปและวิเคราะห์
+          </h2>
+
+          <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10 mb-8">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">7.1 การสังเคราะห์ข้อมูลทั้งหมด</h3>
+
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg mb-6">
+                จากการวิจัยเชิงลึกเกี่ยวกับ <strong>ปลัดขิกกรามช้างหลวงพ่อวุ่น วัดบางซอ</strong>
+                พบว่าเป็นเครื่องรางที่มีความโดดเด่นทั้งในด้านประวัติศาสตร์ วัฒนธรรม ศาสนา และศิลปะ
+                โดยมีเอกลักษณ์เฉพาะตัวที่ไม่เหมือนใคร
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div>
+                  <h4 class="text-xl font-semibold mb-4 text-secondary">ด้านประวัติศาสตร์</h4>
+                  <ul class="space-y-2 text-sm">
+                    <li><i class="fas fa-calendar-alt text-accent mr-2"></i>สร้างในช่วง พ.ศ. 2470 ยุคทองของพระเครื่อง</li>
+                    <li><i class="fas fa-map-marker-alt text-accent mr-2"></i>เชื่อมโยงกับวัดบางซอ สุพรรณบุรี</li>
+                    <li><i class="fas fa-user text-accent mr-2"></i>หลวงพ่อวุ่น เกจิอาจารย์ชื่อดังแห่งยุค</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="text-xl font-semibold mb-4 text-secondary">ด้านวัสดุและศิลปะ</h4>
+                  <ul class="space-y-2 text-sm">
+                    <li><i class="fas fa-elephant text-accent mr-2"></i>ใช้กรามช้าง วัสดุหายากสุดๆ</li>
+                    <li><i class="fas fa-star text-accent mr-2"></i>มี &#34;ติ่ง&#34; ที่ยอดเป็นเอกลักษณ์</li>
+                    <li><i class="fas fa-circle-notch text-accent mr-2"></i>ฐานศิวลึงค์ ผสมผสานความเชื่อ</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-8 border border-primary/10">
+                <h3 class="serif-display text-2xl font-medium text-primary mb-6">7.2 ความสำคัญทางวัฒนธรรมและศาสนา</h3>
+
+                <div class="mb-6">
+                  <p class="mb-4">
+                    ปลัดขิกกรามช้างของหลวงพ่อวุ่นแสดงให้เห็นถึง <strong>การผสมผสานความเชื่อหลายระบบ</strong>
+                    อย่างกลมกลืน ซึ่งเป็นลักษณะเฉพาะของพุทธศาสนาไทย
+                  </p>
+                </div>
+
+                <div class="bg-gradient-to-r from-primary/5 to-accent/5 p-6 rounded-lg">
+                  <h4 class="text-lg font-semibold mb-4">การผสมผสานความเชื่อ</h4>
+                  <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-dharmachakra text-primary"></i>
+                      <span>พุทธศาสนาเถรวาท</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-om text-secondary"></i>
+                      <span>ฮินดู-พราหมณ์</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-mountain text-accent"></i>
+                      <span>ความเชื่อพื้นบ้าน</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-magic text-primary"></i>
+                      <span>วิทยาคมไทย</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">มูลค่าและความหายาก</h4>
+                <div class="text-center">
+                  <div class="text-4xl font-bold text-accent mb-2">หายากสุดๆ</div>
+                  <p class="text-sm text-gray-700 mb-4">
+                    &#34;พบเจอน้อยมากๆ หายากสุดๆ&#34;
+                    <a href="http://www.thanaset.99wat.com/product/184753/%E0%B8%9B%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B9%88%E0%B8%AD%E0%B8%A7%E0%B8%B8%E0%B9%88%E0%B8%99%20%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%8B%E0%B8%AD%20" class="citation-link" target="_blank">[1]</a>
+                  </p>
+                  <div class="space-y-2 text-xs">
+                    <div class="flex justify-between">
+                      <span>วัสดุหายาก</span>
+                      <span class="font-semibold">ช้างในท้องถิ่น</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>การสร้าง</span>
+                      <span class="font-semibold">จำกัดจำนวน</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>ผู้ครอบครอง</span>
+                      <span class="font-semibold">ไม่ขายต่อ</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white/60 backdrop-blur-sm rounded-lg p-6 border border-primary/10">
+                <h4 class="serif-display text-lg font-semibold text-primary mb-4">พุทธคุณหลัก</h4>
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                  <div class="text-center p-2 bg-red-50 rounded">
+                    <i class="fas fa-heart text-red-500 mb-1"></i>
+                    <div class="font-medium">เมตตา</div>
+                  </div>
+                  <div class="text-center p-2 bg-blue-50 rounded">
+                    <i class="fas fa-shield-alt text-blue-500 mb-1"></i>
+                    <div class="font-medium">คงกระพัน</div>
+                  </div>
+                  <div class="text-center p-2 bg-green-50 rounded">
+                    <i class="fas fa-coins text-green-500 mb-1"></i>
+                    <div class="font-medium">ค้าขาย</div>
+                  </div>
+                  <div class="text-center p-2 bg-purple-50 rounded">
+                    <i class="fas fa-handshake text-purple-500 mb-1"></i>
+                    <div class="font-medium">เจรจา</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-primary/10 to-accent/10 p-8 rounded-lg border border-primary/20">
+            <h3 class="serif-display text-2xl font-medium text-primary mb-6">7.3 ข้อสรุปและข้อเสนอแนะ</h3>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+              <div class="bg-white/80 p-4 rounded-lg">
+                <h4 class="font-semibold text-secondary mb-3">
+                  <i class="fas fa-gem mr-2"></i>คุณค่าทางประวัติศาสตร์
+                </h4>
+                <p class="text-sm text-gray-700">
+                  เป็นหลักฐานสำคัญของยุคทองการสร้างพระเครื่อง
+                  ในช่วง พ.ศ. 2470 และสะท้อนบริบทสังคมไทยในยุคนั้น
+                </p>
+              </div>
+
+              <div class="bg-white/80 p-4 rounded-lg">
+                <h4 class="font-semibold text-secondary mb-3">
+                  <i class="fas fa-palette mr-2"></i>คุณค่าทางศิลปะ
+                </h4>
+                <p class="text-sm text-gray-700">
+                  แสดงฝีมือการแกะสลักที่ประณีต
+                  และการผสมผสานศิลปะจากหลายวัฒนธรรมอย่างกลมกลืน
+                </p>
+              </div>
+
+              <div class="bg-white/80 p-4 rounded-lg">
+                <h4 class="font-semibold text-secondary mb-3">
+                  <i class="fas fa-om mr-2"></i>คุณค่าทางจิตวิญญาณ
+                </h4>
+                <p class="text-sm text-gray-700">
+                  สื่อถึงความเชื่อมั่นทางศาสนาและวิทยาคม
+                  ที่ยังคงมีอิทธิพลในสังคมไทยจนถึงปัจจุบัน
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white/60 p-6 rounded-lg">
+              <h4 class="text-lg font-semibold mb-4 text-primary">ข้อเสนอแนะสำหรับการศึกษาต่อไป</h4>
+              <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-sm">
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-search text-accent mt-1"></i>
+                    <span>การศึกษาเชิงวิทยาศาสตร์เกี่ยวกับวัสดุกรามช้าง</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-microscope text-accent mt-1"></i>
+                    <span>การวิเคราะห์องค์ประกอบทางเคมีของเนื้อกระดูก</span>
+                  </li>
+                </ul>
+                <ul class="space-y-2 text-sm">
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-book-open text-accent mt-1"></i>
+                    <span>การค้นคว้าเอกสารประวัติศาสสตร์เพิ่มเติม</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-users text-accent mt-1"></i>
+                    <span>การบันทึก oral history จากชุมชนท้องถิ่น</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Final Image -->
+          <div class="mt-12 text-center">
+            <img src="https://fixedplaceholder" alt="ปลัดขิกกรามช้างโบราณในบรรยากาศวัด" class="w-full max-w-4xl mx-auto h-64 object-cover rounded-lg shadow-2xl" size="medium" aspect="wide" style="photo" query="ปลัดขิกกรามช้างโบราณ บรรยากาศวัด" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-8 px-8 border-t border-primary/20">
+        <div class="max-w-6xl mx-auto text-center">
+          <p class="text-sm text-gray-600 mb-4">
+            <i class="fas fa-scroll mr-2"></i>
+            รายงานวิจัยเชิงลึก: ปลัดขิกกรามช้าง หลวงพ่อวุ่น วัดบางซอ
+          </p>
+          <div class="flex justify-center space-x-6 text-xs text-gray-500">
+            <span>วันที่จัดทำ: 2025</span>
+            <span>•</span>
+            <span>สำนักงานวิจัยเชิงลึก</span>
+            <span>•</span>
+            <span>สำหรับวิชาการเท่านั้น</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const toggleMobileMenu = () => {
+            const toc = document.querySelector('.toc-fixed');
+            toc.classList.toggle('open');
+        };
+
+        // Function to close mobile menu
+        const closeMobileMenu = () => {
+            const toc = document.querySelector('.toc-fixed');
+            toc.classList.remove('open');
+        };
+
+        // Add mobile menu button for small screens
+        if (window.innerWidth <= 1024) {
+            const mobileButton = document.createElement('button');
+            mobileButton.innerHTML = '<i class="fas fa-bars"></i>';
+            mobileButton.className = 'fixed top-4 left-4 z-50 bg-primary text-white p-3 rounded-lg shadow-lg';
+            mobileButton.onclick = toggleMobileMenu;
+            document.body.appendChild(mobileButton);
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const toc = document.querySelector('.toc-fixed');
+            const mobileButton = document.querySelector('button[onclick="toggleMobileMenu()"]');
+            
+            // Check if click is outside TOC and not on mobile button
+            if (toc.classList.contains('open') && 
+                !toc.contains(event.target) && 
+                event.target !== mobileButton) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when scrolling
+        window.addEventListener('scroll', function() {
+            const toc = document.querySelector('.toc-fixed');
+            if (toc.classList.contains('open')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Highlight active section in TOC
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.toc-fixed a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('font-semibold', 'text-accent');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('font-semibold', 'text-accent');
+                }
+            });
+        });
+    </script>
+  
+
+</body></html>
