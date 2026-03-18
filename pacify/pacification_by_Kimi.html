@@ -1,0 +1,1507 @@
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ตะกรุดมหาระงับพิสดาร: ตำนาน คาถา และการเปรียบเทียบเชิงวิญญาณ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary-gold: #B8860B;
+            --deep-gold: #8B6914;
+            --light-gold: #DAA520;
+            --saffron: #FF9933;
+            --cream: #FFF8DC;
+            --charcoal: #2C2C2C;
+            --warm-gray: #F5F5F0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-gray) 100%);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--deep-gold) 0%, var(--primary-gold) 50%, var(--saffron) 100%);
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 280px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid var(--primary-gold);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .main-content {
+            margin-left: 320px;
+            max-width: 900px;
+            transition: all 0.3s ease;
+        }
+        
+        .citation-link {
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dotted var(--primary-gold);
+            transition: all 0.3s ease;
+        }
+        
+        .citation-link:hover {
+            background-color: var(--light-gold);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .bento-item {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(184, 134, 11, 0.1);
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--deep-gold), var(--saffron));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .mantra-box {
+            background: linear-gradient(135deg, var(--warm-gray), white);
+            border-left: 6px solid var(--primary-gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .bento-item {
+                padding: 1rem;
+            }
+            .toc-fixed {
+                display: none;
+            }
+            .main-content {
+                padding: 0 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+            margin: 4rem 0;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 153, 51, 0.05);
+            border: 1px solid rgba(255, 153, 51, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .grid-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body>
+    <!-- Fixed Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="p-6">
+        <h3 class="serif-font text-lg font-bold mb-4" style="color: var(--primary-gold)">
+          <i class="fas fa-list-ul mr-2"></i>สารบัญ
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#section1" class="citation-link">1. ตะกรุดมหาระงับพิสดาร หลวงพ่อเทียม</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section1-1" class="citation-link">1.1 ที่มาและตำนาน</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section1-2" class="citation-link">1.2 คาถาอาราธนา</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section1-3" class="citation-link">1.3 อานุภาพมหาระงับ</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section1-4" class="citation-link">1.4 กลไกเชิงวิญญาณ</a>
+          </li>
+
+          <li>
+            <a href="#section2" class="citation-link">2. ตะกรุดมหาระงับ หลวงพ่อคง</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section2-1" class="citation-link">2.1 ที่มาและตำนานยุคใหม่</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section2-2" class="citation-link">2.2 คาถาอาราธนา</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section2-3" class="citation-link">2.3 อานุภาพมหาระงับ</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section2-4" class="citation-link">2.4 กลไกเชิงวิญญาณ</a>
+          </li>
+
+          <li>
+            <a href="#section3" class="citation-link">3. ตะกรุดไมยราพณ์สะกดทัพ หลวงพ่อกุน</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section3-1" class="citation-link">3.1 ที่มาและตำนาน</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section3-2" class="citation-link">3.2 คาถาอาราธนา</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section3-3" class="citation-link">3.3 อานุภาพหลัก</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section3-4" class="citation-link">3.4 กลไกเชิงวิญญาณ</a>
+          </li>
+
+          <li>
+            <a href="#section4" class="citation-link">4. การเปรียบเทียบเชิงวิญญาณ</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section4-1" class="citation-link">4.1 ความเหมือนเชิงโครงสร้าง</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section4-2" class="citation-link">4.2 ความแตกต่างเชิงกลไก</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section4-3" class="citation-link">4.3 บริบทประวัติศาสตร์</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section4-4" class="citation-link">4.4 อานุภาพเฉพาะด้าน</a>
+          </li>
+          <li class="ml-3">
+            <a href="#section4-5" class="citation-link">4.5 สรุปการเปรียบเทียบ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Hero Section with Bento Grid -->
+      <section class="py-12">
+        <div class="bento-grid">
+          <!-- Main Title Card -->
+          <div class="bento-item col-span-2" style="background: linear-gradient(135deg, rgba(184, 134, 11, 0.05), rgba(255, 153, 51, 0.05));">
+            <div class="hero-title serif-font font-bold mb-6">
+              ตะกรุดมหาระงับพิสดาร หลวงพ่อเทียม วัดกษัตราธิราช
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+              ตำนาน คาถา และการเปรียบเทียบเชิงวิญญาณกับตะกรุดมหาระงับหลวงพ่อคง และตะกรุดไมยราพณ์สะกดทัพหลวงพ่อกุน
+            </p>
+            <div class="flex items-center space-x-4 text-sm text-gray-600">
+              <span><i class="fas fa-scroll mr-2" style="color: var(--primary-gold);"></i>วิจัยเชิงลึก</span>
+              <span><i class="fas fa-dharmachakra mr-2" style="color: var(--primary-gold);"></i>พุทธาคม</span>
+              <span><i class="fas fa-shield-alt mr-2" style="color: var(--primary-gold);"></i>อานุภาพ</span>
+            </div>
+          </div>
+
+          <!-- Key Highlights -->
+          <div class="bento-item" style="background: linear-gradient(135deg, rgba(139, 105, 20, 0.1), rgba(184, 134, 11, 0.05));">
+            <h3 class="serif-font text-xl font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-star mr-2"></i>จุดเด่น
+            </h3>
+            <ul class="space-y-2 text-sm">
+              <li><i class="fas fa-check-circle mr-2" style="color: var(--primary-gold);"></i>รากฐานจากตำราอาสนวิหารยุคกรุงศรีอยุธยา</li>
+              <li><i class="fas fa-check-circle mr-2" style="color: var(--primary-gold);"></i>คาถา &#34;โอมระงับมหาระงับ หลับสิ้นทั้งบ้าน&#34;</li>
+              <li><i class="fas fa-check-circle mr-2" style="color: var(--primary-gold);"></i>กลไกมหาระงับแบบบูรณาการหลายมิติ</li>
+            </ul>
+          </div>
+
+          <!-- Visual Element -->
+          <div class="bento-item">
+            <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/77f89763d0a27eea298dcb44dda40ff252482bd4.jpg" alt="วัดกษัตราธิราชในพระนครศรีอยุธยา" class="w-full h-48 object-cover rounded-lg mb-4" size="medium" aspect="wide" style="photo" query="วัดกษัตราธิราช อยุธยา" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            <p class="text-sm text-gray-600 italic">
+              วัดกษัตราธิราช สำนักสืบทอดตำรามหาระงับพิสดาร
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section class="mb-12" style="background: linear-gradient(135deg, rgba(184, 134, 11, 0.05), rgba(255, 153, 51, 0.05)); border-radius: 16px; padding: 2rem;">
+        <h2 class="serif-font text-2xl font-bold mb-6" style="color: var(--deep-gold);">
+          <i class="fas fa-scroll mr-3"></i>สรุปสาระสำคัญ
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white p-4 rounded-lg">
+            <h4 class="font-bold mb-2" style="color: var(--primary-gold);">ตำนานอันศักดิ์สิทธิ์</h4>
+            <p class="text-sm">มีรากฐานจากตำราอาสนวิหารยุคกรุงศรีอยุธยาที่สมเด็จพระพนรัตน์สร้างถวายพระนเรศวรมหาราช</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg">
+            <h4 class="font-bold mb-2" style="color: var(--primary-gold);">คาถาอันเร้นลับ</h4>
+            <p class="text-sm">โดดเด่นด้วยคาถา &#34;โอมระงับมหาระงับ หลับสิ้นทั้งบ้าน&#34; และคาถาสมาธิ &#34;โอมชิดมหาชิด โอมปิดมหาปิด&#34;</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg">
+            <h4 class="font-bold mb-2" style="color: var(--primary-gold);">กลไกอันลึกซึ้ง</h4>
+            <p class="text-sm">กลไกมหาระงับแบบบูรณาการหลายมิติ ครอบคลุมการระงับภัยจากมนุษย์ อัคคีภัย และเหตุร้ายทั่วไป</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: หลวงพ่อเทียม -->
+      <section id="section1" class="mb-16">
+        <div class="section-divider"></div>
+
+        <h2 class="serif-font text-3xl font-bold mb-8" style="color: var(--deep-gold);">
+          1. ตะกรุดมหาระงับพิสดาร หลวงพ่อเทียม วัดกษัตราธิราช
+        </h2>
+
+        <!-- 1.1 ที่มาและตำนาน -->
+        <div id="section1-1" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            1.1 ที่มาและตำนานทางประวัติศาสตร์
+          </h3>
+
+          <div class="highlight-box">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-crown mr-2"></i>ยุคกรุงศรีอยุธยาและสมเด็จพระพนรัตน์
+            </h4>
+            <p class="mb-4">
+              <strong>ตะกรุดมหาระงับพิสดาร</strong> มีรากฐานทางประวัติศาสตร์ย้อนไปสู่ยุคกรุงศรีอยุธยา ซึ่งเป็นยุคทองของตำราพระเวทและพุทธาคมในสยามประเทศ ตำนานเล่าว่า <strong>สมเด็จพระพนรัตน์</strong> แห่งวัดป่าแก้ว พระสังฆราชฝ่ายอรัญวาสีผู้ทรงพลังวิทยาคมสูงส่ง ได้ทรงคิดค้นและผูกพระยันต์อันทรงอานุภาพขึ้นเพื่อถวายแด่พระมหากษัตริย์ไทยในยามที่ประเทศชาติต้องเผชิญกับภัยคุกคามจากศัตรูภายนอก <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+              <a href="http://www.tumlawyer.99wat.com/product/328016" class="citation-link" target="_blank">[59]</a>
+            </p>
+          </div>
+
+          <div class="mb-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-scroll mr-2"></i>การสร้างตะกรุดอาสนวิหารถวายพระนเรศวรมหาราช
+            </h4>
+            <p class="mb-4">
+              จุดเปลี่ยนสำคัญในประวัติศาสตร์ของตะกรุดมหาระงับเกิดขึ้นเมื่อ <strong>สมเด็จพระพนรัตน์ทรงผูกพระยันต์เป็นตะกรุดถวายสมเด็จพระนเรศวรมหาราช</strong> พระมหากษัตริย์ผู้ทรงพระปรีชาสามารถยิ่งใหญ่ที่สุดพระองค์หนึ่งของกรุงศรีอยุธยา ตำนานเล่าว่าพระยันต์นี้ถูกสร้างขึ้นในช่วงที่พระนเรศวรทรงเตรียมการทศกรณ์สงครามเพื่อปลดแอกกรุงศรีอยุธยาจากการครอบงำของพม่า <a href="https://www.thaprachan.com/amulet_detail/WB28015568" class="citation-link" target="_blank">[63]</a>
+            </p>
+
+            <div class="mantra-box">
+              <h5 class="font-bold mb-2" style="color: var(--primary-gold);">การสะพายคู่พระวรกาย</h5>
+              <p class="text-sm">
+                ตะกรุดที่ถูกถวายในครั้งนั้นมีลักษณะพิเศษที่เรียกว่า <strong>&#34;อาสนวิหาร&#34;</strong> หรือตะกรุดที่สามารถสะพายคู่พระวรกายได้ ซึ่งแตกต่างจากตะกรุดทั่วไปที่มักถูกห้อยหรือพกพาในลักษณะอื่น การสะพายคู่พระวรกายนี้มีความหมายเชิงสัญลักษณ์อย่างลึกซึ้ง
+              </p>
+            </div>
+          </div>
+
+          <div class="mb-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-temple mr-2"></i>การอัญเชิญมาประดิษฐานที่วัดกษัตราธิราช
+            </h4>
+            <p class="mb-4">
+              หลังจากยุคกรุงศรีอยุธยา ตำราตะกรุดมหาระงับได้รับการสืบทอดและรักษาไว้ที่วัดประดู่ทรงธรรมเป็นเวลานานหลายร้อยปี จนกระทั่งถึงยุคของ <strong>หลวงพ่อเทียม สิริปุญโญ พระครูพิพิธวิหารการ</strong> แห่ง <strong>วัดกษัตราธิราช</strong> จังหวัดพระนครศรีอยุธยา <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+            </p>
+
+            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+              <h5 class="font-bold mb-2" style="color: var(--deep-gold);">เหตุการณ์อัศจรรย์ พ.ศ. 2506</h5>
+              <p class="text-sm">
+                เมื่อมีการจัดพิธีหล่อพระโดยนำแผ่นจารอักขระของคณาจารย์จากทั่วประเทศมาหลอมด้วยไฟแรงสูง ปรากฏว่าแผ่นจารอักขระของคณาจารย์อื่นๆ ล้วนหลอมละลายหมด <strong>ยกเว้นแผ่นของหลวงปู่เทียมเท่านั้นที่ไม่ยอมหลอมละลาย</strong>
+                <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1.2 คาถาอาราธนา -->
+        <div id="section1-2" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            1.2 คาถาอาราธนา
+          </h3>
+
+          <div class="grid-comparison">
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-om mr-2"></i>คาถาหลัก
+              </h4>
+              <div class="mantra-box">
+                <p class="text-center font-bold text-lg mb-2">&#34;โอมระงับมหาระงับ หลับสิ้นทั้งบ้าน&#34;</p>
+                <p class="text-sm">
+                  คำว่า <strong>&#34;หลับสิ้นทั้งบ้าน&#34;</strong> มีความหมายลึกซึ้ง หมายถึงการทำให้สิ่งชั่วร้ายทั้งหลายหลับใหลและสิ้นสุดไปจากที่นี้
+                  <a href="https://www.watthakhanun.com/webboard/showthread.php?t=9707" class="citation-link" target="_blank">[61]</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-dharmachakra mr-2"></i>คาถาสมาธิ
+              </h4>
+              <div class="mantra-box">
+                <p class="text-center font-bold text-lg mb-2">&#34;โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหะ&#34;</p>
+                <p class="text-sm">
+                  คาถานี้มีความสำคัญในการปลุกเสกและมีความคล้ายคลึงกับคาถาของตะกรุดมหาระงับหลวงพ่อคง
+                  <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[66]</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-shield-alt mr-2"></i>คาถาบูชาตะกรุดอาสนวิหาร
+              </h4>
+              <div class="mantra-box">
+                <p class="text-center font-bold text-lg mb-2">&#34;นะปิดตา โมปิดใจ พุทปิดปาก ธาปิดหู ยะหลับนิ่งอยู่&#34;</p>
+                <p class="text-sm">
+                  คาถานี้เป็นการกำหนดให้องค์ประกอบต่างๆ ของศัตรูถูกปิดกั้น ระงับศัตรูแบบครอบจักรวาล
+                  <a href="https://www.watthakhanun.com/webboard/showthread.php?t=9707" class="citation-link" target="_blank">[61]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-lg">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-book mr-2"></i>คาถาอาราธนาฉบับสมบูรณ์
+            </h4>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <h5 class="font-bold mb-2">คาถาต้น</h5>
+                <p>โอมมหาระงับ หลับสิ้นทั้งบ้าน</p>
+                <p>โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหับ</p>
+              </div>
+              <div>
+                <h5 class="font-bold mb-2">คาถากลาง</h5>
+                <p>นะปิดตา โมปิดใจ พุทปิดปาก ธาปิดหู ยะหลับนิ่งอยู่</p>
+              </div>
+              <div>
+                <h5 class="font-bold mb-2">คาถาปิดทวาร</h5>
+                <p>อิระชาคะตะระสา ภะสัมสัมวิสะเทภะ</p>
+                <p>คะพุทปันทูทัมวะคะ วาโธโนอะมะมะวา</p>
+              </div>
+              <div>
+                <h5 class="font-bold mb-2">คาถาปิดท้าย</h5>
+                <p>พุทธัง ศัตรูร้าย นะจังงังถอย อย่า</p>
+                <p>นะละสัง พระพุทธังปิด พระธัมมังปิด พระสังฆังปิด</p>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mt-4">
+              <a href="https://www.watthakhanun.com/webboard/showthread.php?t=9707" class="citation-link" target="_blank">[61]</a>
+              คาถาชุดนี้มีความสมบูรณ์และครอบคลุมทุกด้านของการระงับ
+            </p>
+          </div>
+        </div>
+
+        <!-- 1.3 อานุภาพด้านมหาระงับ -->
+        <div id="section1-3" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            1.3 อานุภาพด้านมหาระงับ
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border-l-4 border-yellow-400">
+              <h4 class="font-bold mb-3" style="color: var(--deep-gold);">
+                <i class="fas fa-user-shield mr-2"></i>ระงับโจรผู้ร้ายและภัยจากมนุษย์
+              </h4>
+              <p class="text-sm mb-3">
+                อานุภาพหลักประการแรกคือความสามารถในการ <strong>ระงับโจรผู้ร้ายและภัยอันตรายที่มาจากมนุษย์ด้วยกัน</strong> ตามใบฝอยของวัดกษัตราธิราชที่บันทึกไว้
+                <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+              </p>
+              <div class="text-xs text-gray-600">
+                <strong>กลไกการทำงาน:</strong> ทำให้ศัตรูหมดกำลังใจ หมดสติ หรือไม่สามารถดำเนินการอันตรายใดๆ ได้
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-l-4 border-red-400">
+              <h4 class="font-bold mb-3" style="color: var(--deep-gold);">
+                <i class="fas fa-fire mr-2"></i>ระงับอัคคีภัยและภัยธรรมชาติ
+              </h4>
+              <p class="text-sm mb-3">
+                มีอานุภาพในการ <strong>ระงับอัคคีภัยและภัยธรรมชาติอื่นๆ</strong> บ้านเรือนของผู้ที่มีตะกรุดนี้บูชาจะไม่ถูกไฟไหม้
+                <a href="http://www.pralanna.com/shoppage.php?shopid=891634" class="citation-link" target="_blank">[62]</a>
+              </p>
+              <div class="text-xs text-gray-600">
+                <strong>เชื่อมโยงกับ:</strong> คำว่า &#34;ทั้งบ้าน&#34; ในคาถาหลัก หมายถึงการทำให้ภัยอันตรายทั้งปวงสูญเสียพลังไป
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-l-4 border-blue-400">
+              <h4 class="font-bold mb-3" style="color: var(--deep-gold);">
+                <i class="fas fa-exclamation-triangle mr-2"></i>ระงับเหตุร้ายและอุบัติเหตุ
+              </h4>
+              <p class="text-sm mb-3">
+                อานุภาพในการ <strong>ระงับเหตุร้ายและอุบัติเหตุต่างๆ</strong> ผู้ที่มีตะกรุดนี้ติดตัวจะรอดพ้นจากอุบัติเหตุที่น่าจะถึงแก่ชีวิตได้หลายครั้ง
+              </p>
+              <div class="text-xs text-gray-600">
+                <strong>กลไก:</strong> การ &#34;ระงับ&#34; เหตุการณ์ร้ายให้ไม่เกิดขึ้น หรือทำให้ความรุนแรงลดลง
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-l-4 border-green-400">
+              <h4 class="font-bold mb-3" style="color: var(--deep-gold);">
+                <i class="fas fa-tint mr-2"></i>ใช้น้ำมนต์เพื่ออำนวยพร
+              </h4>
+              <p class="text-sm mb-3">
+                หลวงพ่อเทียมสามารถใช้ <strong>น้ำมนต์ที่ปลุกเสกด้วยตะกรุดมหาระงับพิสดาร</strong> เพื่ออำนวยพรให้ผู้อื่นได้ด้วย
+                <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+              </p>
+              <div class="text-xs text-gray-600">
+                <strong>ประโยชน์:</strong> รักษาโรคภัยไข้เจ็บ ขจัดสิ่งอัปมงคล และนำโชคลาภมาให้
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1.4 กลไกมหาระงับเชิงวิญญาณ -->
+        <div id="section1-4" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            1.4 กลไกมหาระงับเชิงวิญญาณ
+          </h3>
+
+          <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-meditation mr-2"></i>หลักการระงับผ่านพลังสมาธิและปลุกเสก
+            </h4>
+            <p class="mb-4">
+              กลไกมหาระงับของตะกรุดหลวงพ่อเทียมทำงานผ่าน <strong>พลังสมาธิและการปลุกเสก</strong> ที่หลวงพ่อเทียมได้ฝึกฝนมาอย่างยาวนาน ตำนานเล่าว่าหลวงพ่อเทียมใช้เวลาหลายชั่วโมงในการนั่งสมาธิก่อนที่จะปลุกเสกตะกรุดแต่ละดอก
+              <a href="https://www.tnews.co.th/variety/353442" class="citation-link" target="_blank">[58]</a>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4 mt-6">
+              <div class="bg-white p-4 rounded-lg">
+                <h5 class="font-bold mb-2" style="color: var(--primary-gold);">การทำงานแบบ &#34;นุ่มนวล&#34;</h5>
+                <p class="text-sm">
+                  ไม่ใช่การบังคับหรือควบคุมผู้อื่น แต่เป็นการ <strong>เปลี่ยนแปลงสภาวะจิตของผู้ที่มุ่งร้ายให้สูญเสียความตั้งใจไป</strong> ไม่สร้างกรรมร้ายให้กับผู้บูชา
+                </p>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <h5 class="font-bold mb-2" style="color: var(--primary-gold);">การบูรณาการพระเวทและพุทธาคม</h5>
+                <p class="text-sm">
+                  เป็นการ <strong>บูรณาการระหว่างพุทธาคมและตำราพระเวท</strong> โดยเลือกสรรและปรับปรุงให้เข้ากับหลักการของพุทธาคม ที่ไม่ให้ทำร้ายผู้อื่นโดยตรง
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-6 bg-red-50 rounded-lg border border-red-200">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-bed mr-2"></i>ลักษณะการ &#34;หลับสิ้น&#34; ของภูติอาถรรพ์และศัตรู
+            </h4>
+            <p class="mb-4">
+              ลักษณะการทำงานที่เป็นเอกลักษณ์ของตะกรุดมหาระงับพิสดารคือการ <strong>&#34;หลับสิ้น&#34;</strong> หรือการทำให้เป้าหมายสูญเสียความสามารถในการกระทำไปอย่างสิ้นเชิง ไม่ใช่การทำลายหรือทำร้าย แต่เป็นการทำให้ <strong>&#34;หลับ&#34;</strong> หรือหยุดนิ่ง
+              <a href="https://www.watthakhanun.com/webboard/showthread.php?t=9707" class="citation-link" target="_blank">[61]</a>
+            </p>
+
+            <div class="bg-white p-4 rounded-lg mt-4">
+              <h5 class="font-bold mb-2">หลักการที่สอดคล้องกับพระพุทธศาสนา</h5>
+              <p class="text-sm">
+                ศัตรูที่ถูกระงับด้วยวิธีนี้สามารถฟื้นคืนสติได้เมื่อพ้นอิทธิพลของตะกรุด ไม่ได้รับอันตรายถาวร ซึ่งสอดคล้องกับหลักการไม่เบียดเบียนของพระพุทธศาสนา
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: หลวงพ่อคง -->
+      <section id="section2" class="mb-16">
+        <div class="section-divider"></div>
+
+        <h2 class="serif-font text-3xl font-bold mb-8" style="color: var(--deep-gold);">
+          2. ตะกรุดมหาระงับ หลวงพ่อคง วัดบางกะพ้อม
+        </h2>
+
+        <!-- 2.1 ที่มาและตำนานยุคใหม่ -->
+        <div id="section2-1" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            2.1 ที่มาและตำนานยุคใหม่
+          </h3>
+
+          <div class="highlight-box">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                  <i class="fas fa-user-graduate mr-2"></i>หลวงพ่อคงกับยุคสงครามโลกครั้งที่สอง
+                </h4>
+                <p class="text-sm mb-4">
+                  <strong>หลวงพ่อคง วัดบางกะพ้อม</strong> หรือ <strong>พระอุปัชฌาย์คง ธัมมโชโต</strong> เกิดเมื่อวันอาทิตย์ที่ 3 เมษายน พ.ศ. 2407 และมรณภาพเมื่อวันที่ 6 กุมภาพันธ์ พ.ศ. 2486 รวมสิริอายุ 78 ปี 58 พรรษา <a href="https://www.pramuangnue.com/page/product-detail-75572" class="citation-link" target="_blank">[44]</a>
+                </p>
+                <p class="text-sm">
+                  ท่านเป็นพระเกจิอาจารย์ชื่อดังแห่งลุ่มน้ำแม่กลอง จังหวัดสมุทรสงคราม ที่มีชื่อเสียงโด่งดังในด้าน <strong>ตะกรุดมหาระงับและตะกรุดมหาปราบ</strong>
+                </p>
+              </div>
+              <div>
+                <img src="https://kimi-web-img.moonshot.cn/img/cms.dmpcdn.com/b62e30a8fcaf939f2c3eda729c5a50879bfeac12.webp" alt="วัดบางกะพ้อม จังหวัดสมุทรสงคราม" class="w-full h-48 object-cover rounded-lg" size="medium" aspect="wide" style="photo" query="วัดบางกะพ้อม สมุทรสงคราม" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mt-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-gavel mr-2"></i>ตำนานตำรวจขอให้เลิกสร้าง
+            </h4>
+            <p class="mb-4">
+              ตำนานที่โด่งดังที่สุดเกี่ยวกับตะกรุดมหาระงับของหลวงพ่อคงคือเรื่องราวที่ <strong>ตำรวจต้องมาขอร้องให้ท่านเลิกสร้างตะกรุด</strong> ตำนานเล่าว่าลูกศิษย์ของหลวงพ่อคงหลายคนได้นำตะกรุดไปใช้ในการเป็นโจร
+              <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[24]</a>
+            </p>
+
+            <div class="bg-white p-4 rounded-lg mb-4">
+              <h5 class="font-bold mb-2">เหตุการณ์ที่น่าอัศจรรย์</h5>
+              <p class="text-sm">
+                เมื่อตำรวจยิงปืนใส่โจรที่มีตะกรุดของหลวงพ่อคง <strong>ปืนกลับยิงไม่ออก หรือยิงออกแต่ไม่ถูกตัว</strong> ในขณะที่โจรยิงตอบโต่กลับมา ตำรวจกลับได้รับบาดเจ็บหรือเสียชีวิต
+              </p>
+            </div>
+
+            <p class="text-sm">
+              สถานการณ์นี้ทำให้เจ้าหน้าที่ตำรวจต้องมาขอร้องหลวงพ่อคงให้เลิกสร้างตะกรุด เพราะกลัวว่าลูกศิษย์จะกลายเป็นโจรหมด
+            </p>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-water mr-2"></i>การทิ้งตะกรุดลงทะเลและความหายาก
+            </h4>
+            <p class="mb-4">
+              เมื่อถูกกดดันจากเจ้าหน้าที่ หลวงพ่อคงได้ตอบว่า <strong>&#34;ลูกศิษย์ที่ดี ๆ ก็มีมาก&#34;</strong> และว่า <strong>&#34;ตอนอยู่ต่อหน้าฉันเขาดีนี่จ๊ะ&#34;</strong> แสดงถึงความเมตตาและความเชื่อมั่นในความดีของมนุษย์ของท่าน <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[24]</a>
+            </p>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="text-sm">
+                อย่างไรก็ตาม ด้วยความกดดันทางสังคม หลวงพ่อคงในที่สุดก็ต้องยอมนำตะกรุดและวัตถุมงคลอื่นๆ <strong>ไปทิ้งลงทะเล</strong> การกระทำนี้ทำให้ <strong>ตะกรุดมหาระงับของหลวงพ่อคงกลายเป็นของหายากอย่างยิ่งในปัจจุบัน</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.2 คาถาอาราธนา -->
+        <div id="section2-2" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            2.2 คาถาอาราธนา
+          </h3>
+
+          <div class="mantra-box">
+            <h4 class="font-bold mb-4 text-center" style="color: var(--deep-gold);">
+              <i class="fas fa-om mr-2"></i>คาถาหลักของตะกรุดมหาระงับหลวงพ่อคง
+            </h4>
+            <p class="text-center font-bold text-xl mb-4">
+              &#34;โอมชิดมหาชิด โอมปิดมหาปิด สิทธิสวาหะ&#34;
+            </p>
+            <p class="text-center text-sm mb-4">
+              ความเหมือนกับคาถาของหลวงพ่อเทียมอย่างน่าอัศจรรย์ บ่งบอกถึงการสืบทอดตำราจากแหล่งเดียวกัน
+              <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[24]</a>
+              <a href="https://forum.uamulet.com/view_topic.aspx?bid=7&amp;qid=28000" class="citation-link" target="_blank">[29]</a>
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mt-8">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-balance-scale mr-2"></i>ความเหมือนกับคาถาหลวงพ่อเทียม
+              </h4>
+              <p class="text-sm mb-4">
+                ความเหมือนกันของคาถาระหว่างสองสำนักนี้เป็นหลักฐานสำคัญที่ชี้ให้เห็นว่า <strong>ตะกรุดมหาระงับพิสดารของหลวงพ่อเทียมและตะกรุดมหาระงับของหลวงพ่อคงมีรากฐานจากตำราเดียวกัน</strong>
+              </p>
+              <p class="text-xs text-gray-600">
+                ความเหมือนนี้ไม่ใช่เรื่องบังเอิญ หากแต่เป็นผลจากการสืบทอดความรู้ทางพระเวทที่มีมาช้านานในสยามประเทศ
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-magic mr-2"></i>คาถาเสริมสำหรับการระงับเฉพาะกิจ
+              </h4>
+              <p class="text-sm mb-4">
+                นอกจากคาถาหลักแล้ว ตำราของหลวงพ่อคงยังมี <strong>คาถาเสริมสำหรับการใช้งานเฉพาะกิจ</strong> อาทิ คาถาสำหรับใช้เมื่อมีคดีความ คาถาสำหรับใช้เมื่อเดินทางไกล
+              </p>
+              <p class="text-xs text-gray-600">
+                คาถาเหล่านี้มักยาวกว่าคาถาหลัก และมีรายละเอียดเฉพาะเจาะจงมากกว่า
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.3 อานุภาพด้านมหาระงับ -->
+        <div id="section2-3" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            2.3 อานุภาพด้านมหาระงับ
+          </h3>
+
+          <div class="grid-comparison">
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-ban mr-2"></i>ระงับเรื่องไม่ดีและเหตุเภทภัยทั้งปวง
+              </h4>
+              <p class="text-sm mb-4">
+                อานุภาพหลักของตะกรุดมหาระงับหลวงพ่อคงคือการ <strong>&#34;ระงับเรื่องไม่ดี&#34;</strong> ซึ่งเป็นคำอธิบายที่กระชับและครอบคลุม <a href="https://www.watthakhanun.com/webboard/showthread.php?t=11319" class="citation-link" target="_blank">[33]</a>
+              </p>
+              <div class="bg-yellow-50 p-3 rounded text-xs">
+                <strong>&#34;เรื่องไม่ดี&#34;</strong> รวมถึงทุกสิ่งที่อาจก่อให้เกิดอันตราย ไม่ว่าจะเป็นโจรผู้ร้าย อุบัติเหตุ โรคภัยไข้เจ็บ หรือแม้กระทั่งคดีความทางกฎหมาย
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-handcuffs mr-2"></i>การป้องกันตัวจากการจับกุม
+              </h4>
+              <p class="text-sm mb-4">
+                จากตำนานที่เล่าขานกันมา ตะกรุดมหาระงับของหลวงพ่อคงมีอานุภาพพิเศษในการ <strong>ป้องกันตัวจากการจับกุมของเจ้าหน้าที่</strong>
+                <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[24]</a>
+              </p>
+              <div class="bg-blue-50 p-3 rounded text-xs">
+                <strong>หมายความ:</strong> ความสามารถในการหลบหนีจากสถานการณ์ที่อันตราย หรือการได้รับความยุติธรรมในกระบวนการทางกฎหมาย
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-balance-scale mr-2"></i>อานุภาพที่มีต่อกฎหมายและความยุติธรรม
+              </h4>
+              <p class="text-sm mb-4">
+                นอกจากการป้องกันตัวแล้ว ตะกรุดมหาระงับของหลวงพ่อคงยังเชื่อกันว่ามีอานุภาพในการ <strong>ช่วยให้ผู้มีคดีความได้รับความยุติธรรม</strong>
+              </p>
+              <div class="bg-green-50 p-3 rounded text-xs">
+                สะท้อนถึงบริบททางสังคมในยุคของหลวงพ่อคง ที่การเผชิญหน้ากับกฎหมายและเจ้าหน้าที่รัฐเป็นสิ่งที่ประชาชนทั่วไปต้องเผชิญอยู่เสมอ
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.4 กลไกมหาระงับเชิงวิญญาณ -->
+        <div id="section2-4" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            2.4 กลไกมหาระงับเชิงวิญญาณ
+          </h3>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg border-t-4 border-yellow-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-target mr-2"></i>หลักการ &#34;ระงับเรื่องไม่ดี&#34; แบบเบ็ดเสร็จ
+              </h4>
+              <p class="text-sm">
+                กลไกหลักของตะกรุดมหาระงับหลวงพ่อคงคือการ <strong>&#34;ระงับเรื่องไม่ดี&#34; แบบเบ็ดเสร็จ</strong> ไม่ใช่การระงับเฉพาะด้านหรือเฉพาะสถานการณ์ แต่ระงับทุกสิ่งที่อาจก่อให้เกิดอันตรายแก่ผู้บูชา
+                <a href="https://www.watthakhanun.com/webboard/showthread.php?t=11319" class="citation-link" target="_blank">[33]</a>
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-t-4 border-blue-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-difference mr-2"></i>ความแตกต่างจากการ &#34;สะกดให้หลับ&#34;
+              </h4>
+              <p class="text-sm">
+                ตะกรุดมหาระงับของหลวงพ่อคง <strong>ไม่ได้เน้นการ &#34;สะกดให้หลับ&#34;</strong> ศัตรูโดยตรง แต่เน้นการ <strong>&#34;ระงับ&#34;</strong> หรือหยุดยั้งเหตุการณ์ร้าย การหลับในที่นี้หากเกิดขึ้นก็เป็นผลพลอยได้จากการระงับ
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-t-4 border-green-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-bolt mr-2"></i>ลักษณะการทำงานเชิงรุก
+              </h4>
+              <p class="text-sm">
+                ตะกรุดมหาระงับของหลวงพ่อคงมีลักษณะการทำงานที่ <strong>เชิงรุกมากกว่าเชิงรับ</strong> ไม่ใช่การรอให้ภัยมาถึงแล้วจึงป้องกัน แต่เป็นการ <strong>เข้าไประงับที่ต้นเหตุของภัย</strong>
+                <a href="https://www.watthakhanun.com/webboard/showthread.php?p=208157" class="citation-link" target="_blank">[24]</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: หลวงพ่อกุน -->
+      <section id="section3" class="mb-16">
+        <div class="section-divider"></div>
+
+        <h2 class="serif-font text-3xl font-bold mb-8" style="color: var(--deep-gold);">
+          3. ตะกรุดไมยราพณ์สะกดทัพ หลวงพ่อกุน วัดพระนอน
+        </h2>
+
+        <!-- 3.1 ที่มาและตำนาน -->
+        <div id="section3-1" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            3.1 ที่มาและตำนาน
+          </h3>
+
+          <div class="highlight-box">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                  <i class="fas fa-temple mr-2"></i>หลวงพ่อกุนกับสำนักวัดพระนอน
+                </h4>
+                <p class="text-sm mb-4">
+                  <strong>หลวงพ่อกุน วัดพระนอน</strong> เป็นพระเกจิอาจารย์อีกรูปหนึ่งที่มีชื่อเสียงในด้านตะกรุดสะกด โดยเฉพาะอย่างยิ่ง <strong>ตะกรุดไมยราพณ์สะกดทัพ</strong> ซึ่งมีลักษณะเฉพาะที่แตกต่างจากตะกรุดมหาระงับทั่วไป
+                </p>
+                <p class="text-sm">
+                  วัดพระนอนเป็นสำนักที่มีความสำคัญทางประวัติศาสตร์และจิตวิญญาณ โดยเฉพาะอย่างยิ่งในการสืบทอดวิชาไมยราพณ์หรือวิชาสะกด
+                </p>
+              </div>
+              <div>
+                <img src="https://fixedplaceholder" alt="พระพุทธรูปนอนที่วัดพระนอน" class="w-full h-48 object-cover rounded-lg" size="medium" aspect="wide" style="photo" query="วัดพระนอน" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-book-open mr-2"></i>ความสัมพันธ์กับตำราของหลวงพ่อคง
+            </h4>
+            <p class="mb-4">
+              มีการสันนิษฐานว่าหลวงพ่อกุนอาจมีความสัมพันธ์ทางวิชากับสายหลวงพ่อคง วัดบางกะพ้อม เนื่องจากทั้งสองอยู่ในยุคสมัยใกล้เคียงกัน และมีการแลกเปลี่ยนความรู้ทางวิทยาคมระหว่างสำนักในภาคกลาง
+            </p>
+
+            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+              <h5 class="font-bold mb-2">ตำราไมยราพณ์สะกดทัพ</h5>
+              <p class="text-sm">
+                ตำราไมยราพณ์สะกดทัพได้รับการสืบทอดมาจากยุคโบราณ โดยมีรากฐานจากตำราพระเวทที่กล่าวถึงวิชาการสะกดหรือมายาวิชา การสะกดในที่นี้ไม่ใช่การทำให้หลับธรรมดา แต่เป็นการ <strong>ทำให้สูญเสียสติชั่วคราว หมดสติปัญญาในการต่อสู้</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3.2 คาถาอาราธนา -->
+        <div id="section3-2" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            3.2 คาถาอาราธนา
+          </h3>
+
+          <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-spell-book mr-2"></i>คาถาเฉพาะของตะกรุดไมยราพณ์สะกดทัพ
+            </h4>
+            <p class="mb-4">
+              คาถาอาราธนาของตะกรุดไมยราพณ์สะกดทัพมีลักษณะเฉพาะที่เน้นการ <strong>&#34;สะกด&#34;</strong> หรือ <strong>&#34;หลับ&#34;</strong> โดยตรง แตกต่างจากคาถามหาระงับที่เน้นการ &#34;ระงับ&#34;
+            </p>
+
+            <div class="mantra-box">
+              <h5 class="font-bold mb-2">โครงสร้างคาถา</h5>
+              <ol class="list-decimal list-inside text-sm space-y-1">
+                <li>การอาราธนาพลังของไมยราพณ์</li>
+                <li>การกำหนดเป้าหมายที่จะสะกด</li>
+                <li>การยืนยันผลของการสะกด</li>
+              </ol>
+              <p class="text-xs mt-3">
+                <strong>หมายเหตุ:</strong> คาถานี้ต้องสวดด้วยจิตที่แน่วแน่และมีสมาธิสูง เนื่องจากการสะกดต้องอาศัยพลังจิตที่เข้มข้นกว่าการระงับทั่วไป
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-comparison mr-2"></i>ความแตกต่างจากคาถามหาระงับ
+            </h4>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border-collapse border border-gray-300">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="border border-gray-300 p-3 text-left">ด้าน</th>
+                    <th class="border border-gray-300 p-3 text-left">คาถามหาระงับ</th>
+                    <th class="border border-gray-300 p-3 text-left">คาถาไมยราพณ์สะกดทัพ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-medium">เป้าหมายหลัก</td>
+                    <td class="border border-gray-300 p-3">ระงับ หยุดยั้ง</td>
+                    <td class="border border-gray-300 p-3">สะกด หลับ</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="border border-gray-300 p-3 font-medium">ผลที่เกิด</td>
+                    <td class="border border-gray-300 p-3">หมดพลัง ไม่สามารถทำร้าย</td>
+                    <td class="border border-gray-300 p-3">สูญเสียสติ หมดสติปัญญา</td>
+                  </tr>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-medium">ระยะเวลา</td>
+                    <td class="border border-gray-300 p-3">อาจฟื้นคืนสภาพได้เร็ว</td>
+                    <td class="border border-gray-300 p-3">หลับลึก ตื่นยาก</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="border border-gray-300 p-3 font-medium">ระดับการใช้</td>
+                    <td class="border border-gray-300 p-3">บุคคล ชุมชน</td>
+                    <td class="border border-gray-300 p-3">กองทัพ หมู่มาก</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3.3 อานุภาพหลัก -->
+        <div id="section3-3" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            3.3 อานุภาพหลัก
+          </h3>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-eye-slash mr-2"></i>การสะกดให้หลับของศัตรู
+              </h4>
+              <p class="text-sm mb-4">
+                อานุภาพหลักคือการ <strong>สะกดให้หลับของศัตรูและผู้คุกคาม</strong> การหลับในที่นี้หมายถึงสภาวะที่ <strong>สูญเสียสติปัญญา ไม่สามารถคิด วิเคราะห์ หรือตอบสนองต่อสถานการณ์ได้</strong>
+              </p>
+              <div class="bg-purple-50 p-3 rounded text-xs">
+                ผู้ที่ถูกสะกดจะรู้สึกเหมือนอยู่ในฝัน ไม่สามารถแยกแยะระหว่างความจริงกับภาพลวงตาได้
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-red-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-chess-king mr-2"></i>การสะกดทัพและยับยั้งกำลังรบ
+              </h4>
+              <p class="text-sm mb-4">
+                ความพิเศษคือสามารถใช้ได้ใน <strong>ระดับกองทัพหรือหมู่มาก</strong> ไม่จำกัดเพียงบุคคลเดียว ตำนานเล่าว่าในสมัยโบราณมีการใช้เพื่อ <strong>สะกดทัพศัตรูให้หลับหรือหมดกำลังใจก่อนการรบ</strong>
+              </p>
+              <div class="bg-red-50 p-3 rounded text-xs">
+                ทำให้สามารถเอาชนะได้โดยไม่ต้องเสียเลือดเนื้อมากนัก
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-chart-line mr-2"></i>ความแตกต่างจากอานุภาพระงับทั่วไป
+              </h4>
+              <p class="text-sm mb-4">
+                ความแตกต่างสำคัญคือ <strong>การสะกด</strong> ทำให้สูญเสียสติ ไม่รู้ตัว หรืออยู่ในภาวะหลับลึม มีผลรุนแรงกว่าและยาวนานกว่าการระงับ
+              </p>
+              <div class="bg-blue-50 p-3 rounded text-xs">
+                อยู่ระหว่างการระงับกับการทำลาย มีความรุนแรงมากกว่าการระงับแต่น้อยกว่าการทำลาย
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3.4 กลไก "สะกดให้หลับ" เชิงวิญญาณ -->
+        <div id="section3-4" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            3.4 กลไก &#34;สะกดให้หลับ&#34; เชิงวิญญาณ
+          </h3>
+
+          <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-brain mr-2"></i>หลักการทำให้ฝ่ายตรงข้ามสูญเสียสติชั่วคราว
+            </h4>
+            <p class="mb-4">
+              กลไกหลักของตะกรุดไมยราพณ์สะกดทัพคือการ <strong>ทำให้ฝ่ายตรงข้ามสูญเสียสติชั่วคราว</strong> โดยการรบกวนหรือควบคุมพลังงานทางจิตที่ควบคุมสติปัญญา
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4 mt-6">
+              <div class="bg-white p-4 rounded-lg">
+                <h5 class="font-bold mb-2" style="color: var(--primary-gold);">การทำร้ายทางจิตวิญญาณชั่วคราว</h5>
+                <p class="text-sm">
+                  การสะกดนี้ไม่ใช่การทำร้ายร่างกาย แต่เป็นการ <strong>ทำร้ายทางจิตวิญญาณชั่วคราว</strong> ทำให้ฝ่ายตรงข้ามไม่สามารถใช้สติปัญญาหรือความรู้ความสามารถที่มีอยู่ได้
+                </p>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <h5 class="font-bold mb-2" style="color: var(--primary-gold);">ประสิทธิภาพสูงในการสงคราม</h5>
+                <p class="text-sm">
+                  นี่เป็นกลไกที่มีประสิทธิภาพสูงในการสงคราม เนื่องจากสามารถเอาชนะศัตรูที่แข็งแกร่งกว่าโดยไม่ต้องใช้กำลัง
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-comparison mr-2"></i>ความแตกต่างจากการระงับหรือทำลาย
+            </h4>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border-collapse border border-gray-300">
+                <thead>
+                  <tr class="bg-gray-50">
+                    <th class="border border-gray-300 p-3 text-left">กลไก</th>
+                    <th class="border border-gray-300 p-3 text-left">ผลที่เกิด</th>
+                    <th class="border border-gray-300 p-3 text-left">ระยะเวลา</th>
+                    <th class="border border-gray-300 p-3 text-left">ความรุนแรง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-medium">ระงับ</td>
+                    <td class="border border-gray-300 p-3">หยุดนิ่ง หมดพลัง</td>
+                    <td class="border border-gray-300 p-3">ชั่วคราว ฟื้นเร็ว</td>
+                    <td class="border border-gray-300 p-3">น้อย</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="border border-gray-300 p-3 font-medium">ทำลาย</td>
+                    <td class="border border-gray-300 p-3">บาดเจ็บ เสียชีวิต</td>
+                    <td class="border border-gray-300 p-3">ถาวร</td>
+                    <td class="border border-gray-300 p-3">มากที่สุด</td>
+                  </tr>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-medium">สะกด</td>
+                    <td class="border border-gray-300 p-3">สูญเสียสติ หลับลึม</td>
+                    <td class="border border-gray-300 p-3">นาน ฟื้นยาก</td>
+                    <td class="border border-gray-300 p-3">ปานกลางถึงมาก</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-4 bg-green-50 p-4 rounded-lg">
+              <p class="text-sm">
+                <strong>การสะกด</strong> จึงอยู่ระหว่างการระงับกับการทำลาย มีความรุนแรงมากกว่าการระงับแต่น้อยกว่าการทำลาย ทำให้เป็นทางเลือกที่เหมาะสมในการสงครามที่ต้องการเอาชนะโดยไม่ต้องฆ่าฟัน
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8 bg-teal-50 p-6 rounded-lg border border-teal-200">
+            <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+              <i class="fas fa-bed mr-2"></i>ลักษณะการทำงานแบบ &#34;หลับสิ้น&#34; แต่ไม่ถึงกับทำลาย
+            </h4>
+            <p class="mb-4">
+              ตะกรุดไมยราพณ์สะกดทัพมีลักษณะการทำงานที่ <strong>&#34;หลับสิ้น&#34;</strong> คล้ายกับตะกรุดมหาระงับ แต่มีความหมายที่ลึกซึ้งกว่า การหลับสิ้นในที่นี้หมายถึงการ <strong>เข้าสู่สภาวะที่ไม่สามารถตื่นขึ้นมาได้เอง</strong>
+            </p>
+
+            <div class="bg-white p-4 rounded-lg mt-4">
+              <h5 class="font-bold mb-2">หลักการที่สอดคล้องกับศีลธรรมทางศาสนา</h5>
+              <p class="text-sm">
+                อย่างไรก็ตาม การหลับสิ้นนี้ <strong>ไม่ถึงกับทำลายชีวิตหรือร่างกาย</strong> ผู้ถูกสะกดยังคงมีชีวิตอยู่และสามารถฟื้นคืนสภาพได้ นี่เป็นหลักการที่สอดคล้องกับศีลธรรมทางศาสนา ที่ไม่สนับสนุนการฆ่าฟัน แต่ยอมรับการป้องกันตนเองโดยวิธีการที่ไม่รุนแรงเกินไป
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: การเปรียบเทียบ -->
+      <section id="section4" class="mb-16">
+        <div class="section-divider"></div>
+
+        <h2 class="serif-font text-3xl font-bold mb-8" style="color: var(--deep-gold);">
+          4. การเปรียบเทียบเชิงวิญญาณ: ตำนานและอานุภาพ
+        </h2>
+
+        <!-- 4.1 ความเหมือนกันเชิงโครงสร้าง -->
+        <div id="section4-1" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            4.1 ความเหมือนกันเชิงโครงสร้าง
+          </h3>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-foundation mr-2"></i>รากฐานจากตำราพระเวทและพุทธาคม
+              </h4>
+              <p class="text-sm mb-4">
+                ตะกรุดทั้งสามชนิดมี <strong>รากฐานจากตำราพระเวทและพุทธาคม</strong> ร่วมกัน โดยเฉพาะอย่างยิ่งตำราที่สืบทอดมาจากยุคกรุงศรีอยุธยา
+              </p>
+
+              <div class="bg-gray-50 p-3 rounded text-xs">
+                <table class="w-full">
+                  <tbody><tr>
+                    <td class="font-medium">หลวงพ่อเทียม</td>
+                    <td>บูรณาการสมดุล</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">หลวงพ่อคง</td>
+                    <td>เน้นพุทธาคมปฏิบัติ</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">หลวงพ่อกุน</td>
+                    <td>เน้นพระเวทมายา</td>
+                  </tr>
+                </tbody></table>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-chant mr-2"></i>การใช้คาถาอาราธนารูปแบบคล้ายคลึง
+              </h4>
+              <p class="text-sm mb-4">
+                คาถาอาราธนาของตะกรุดทั้งสามมี <strong>รูปแบบที่คล้ายคลึงกัน</strong> โดยเฉพาะอย่างยิ่งการใช้คำว่า <strong>&#34;โอม&#34;</strong> เป็นการเปิดคาถา และการใช้คำว่า <strong>&#34;ชิด-ปิด&#34;</strong> ในคาถาสมาธิ
+              </p>
+              <div class="bg-yellow-50 p-3 rounded text-xs">
+                ความคล้ายคลึงนี้บ่งบอกถึงการสืบทอดจากตำราเดียวกันหรือตำราที่มีความสัมพันธ์ใกล้ชิดกัน
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-shield mr-2"></i>เป้าหมายในการปกป้องผู้บูชา
+              </h4>
+              <p class="text-sm mb-4">
+                แม้จะมีความแตกต่างในกลไกการทำงาน แต่ตะกรุดทั้งสามมี <strong>เป้าหมายร่วมกันคือการปกป้องผู้บูชา</strong> จากภัยอันตรายทั้งปวง
+              </p>
+              <div class="bg-green-50 p-3 rounded text-xs">
+                ความแตกต่างอยู่ที่วิธีการและระดับของการป้องกัน ไม่ใช่ที่เป้าหมาย
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.2 ความแตกต่างเชิงกลไกมหาระงับ -->
+        <div id="section4-2" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            4.2 ความแตกต่างเชิงกลไกมหาระงับ
+          </h3>
+
+          <div class="grid-comparison">
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-puzzle-piece mr-2"></i>หลวงพ่อเทียม: มหาระงับแบบบูรณาการหลายมิติ
+              </h4>
+              <p class="text-sm mb-4">
+                ตะกรุดมหาระงับพิสดารของหลวงพ่อเทียมมีลักษณะเป็น <strong>มหาระงับแบบบูรณาการหลายมิติ</strong> คือสามารถระงับภัยได้หลายประเภท หลายระดับ และหลายสถานการณ์
+              </p>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                  <span>ภัยจากมนุษย์</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                  <span>อัคคีภัย</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                  <span>ภัยธรรมชาติ</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                  <span>การใช้น้ำมนต์เพื่ออำนวยพร</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-bolt mr-2"></i>หลวงพ่อคง: มหาระงับแบบระงับเรื่องไม่ดีโดยตรง
+              </h4>
+              <p class="text-sm mb-4">
+                ตะกรุดมหาระงับของหลวงพ่อคงเน้น <strong>การระงับเรื่องไม่ดีโดยตรง</strong> ไม่แบ่งแยกประเภทของภัย แต่ระงับทุกสิ่งที่อาจก่อให้เกิดอันตราย
+              </p>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-500 mr-2"></i>
+                  <span>กระชับและรวดเร็ว</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-500 mr-2"></i>
+                  <span>ทำงานเชิงรุก</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-500 mr-2"></i>
+                  <span>เข้าไประงับที่ต้นเหตุ</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-card">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-magic mr-2"></i>หลวงพ่อกุน: สะกดให้หลับแทนการระงับ
+              </h4>
+              <p class="text-sm mb-4">
+                ตะกรุดไมยราพณ์สะกดทัพของหลวงพ่อกุนมีกลไกที่ <strong>แตกต่างอย่างสำคัญ</strong> คือ <strong>การสะกดให้หลับแทนการระงับ</strong>
+              </p>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center">
+                  <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                  <span>มีผลรุนแรงกว่าและยาวนานกว่า</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                  <span>เหมาะสำหรับสถานการณ์ที่ต้องการผลรวดเร็ว</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                  <span>เฉพาะกิจในระดับกองทัพ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.3 ความแตกต่างเชิงตำนานและบริบทประวัติศาสตร์ -->
+        <div id="section4-3" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            4.3 ความแตกต่างเชิงตำนานและบริบทประวัติศาสตร์
+          </h3>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse border border-gray-300">
+              <thead>
+                <tr class="bg-gradient-to-r from-yellow-100 to-orange-100">
+                  <th class="border border-gray-300 p-3 text-left">ด้าน</th>
+                  <th class="border border-gray-300 p-3 text-left">หลวงพ่อเทียม</th>
+                  <th class="border border-gray-300 p-3 text-left">หลวงพ่อคง</th>
+                  <th class="border border-gray-300 p-3 text-left">หลวงพ่อกุน</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 p-3 font-medium">บริบทยุค</td>
+                  <td class="border border-gray-300 p-3">ราชวงศ์ สงคราม</td>
+                  <td class="border border-gray-300 p-3">ยุคใหม่ กฎหมาย</td>
+                  <td class="border border-gray-300 p-3">สงคราม กองทัพ</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-medium">ตำนานหลัก</td>
+                  <td class="border border-gray-300 p-3">ถวายพระนเรศวร</td>
+                  <td class="border border-gray-300 p-3">ตำรวจขอให้เลิกสร้าง</td>
+                  <td class="border border-gray-300 p-3">สะกดทัพศัตรู</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-3 font-medium">บทบาททางสังคม</td>
+                  <td class="border border-gray-300 p-3">คุ้มครองพระมหากษัตริย์</td>
+                  <td class="border border-gray-300 p-3">ช่วยเหลือประชาชน</td>
+                  <td class="border border-gray-300 p-3">รับใช้กองทัพ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mt-8">
+            <div class="bg-white p-6 rounded-lg border-l-4 border-yellow-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-crown mr-2"></i>การสร้างเพื่อพระมหากษัตริย์กับการสร้างเพื่อประชาชน
+              </h4>
+              <p class="text-sm mb-4">
+                ตะกรุดหลวงพ่อเทียมสร้างขึ้นเพื่อ <strong>ถวายพระมหากษัตริย์และคุ้มครองราชวงศ์</strong> ตามตำรับดั้งเดิม ในขณะที่ตะกรุดหลวงพ่อคงสร้างขึ้นเพื่อ <strong>ช่วยเหลือประชาชนทั่วไป</strong>
+              </p>
+              <div class="bg-yellow-50 p-3 rounded text-xs">
+                ความแตกต่างนี้สะท้อนถึงการเปลี่ยนแปลงของสังคมไทยจากยุคสมบูรณาญาสิทธิราชย์สู่ยุคประชาธิปไตย
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-l-4 border-blue-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-water mr-2"></i>ตำนานการทิ้งทะเลกับตำนานการอัญเชิญ
+              </h4>
+              <p class="text-sm mb-4">
+                ตำนานการทิ้งตะกรุดลงทะเลของหลวงพ่อคง แตกต่างอย่างสิ้นเชิงจากตำนานการอัญเชิญตะกรุดของหลวงพ่อเทียม
+              </p>
+              <div class="bg-blue-50 p-3 rounded text-xs">
+                ตำนานของหลวงพ่อคงสะท้อนถึง <strong>ความขัดแย้งระหว่างวิทยาคมกับกฎหมาย</strong> ในขณะที่ตำนานของหลวงพ่อเทียมสะท้อนถึง <strong>ความสืบเนื่องของมรดกทางวัฒนธรรม</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.4 ความแตกต่างเชิงอานุภาพเฉพาะด้าน -->
+        <div id="section4-4" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            4.4 ความแตกต่างเชิงอานุภาพเฉพาะด้าน
+          </h3>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-shield-alt mr-2"></i>การป้องกันภัยทั่วไปกับการป้องกันเฉพาะกิจ
+              </h4>
+              <div class="text-xs">
+                <table class="w-full">
+                  <tbody><tr class="border-b">
+                    <td class="p-2 font-medium">ตะกรุด</td>
+                    <td class="p-2">ภัยทั่วไป</td>
+                    <td class="p-2">เฉพาะกิจ</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อเทียม</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อคง</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อกุน</td>
+                    <td class="p-2">⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                  </tr>
+                </tbody></table>
+              </div>
+              <p class="text-xs text-gray-600 mt-3">
+                ⭐⭐⭐⭐⭐ = ดีเยี่ยม, ⭐⭐⭐⭐ = ดี, ⭐⭐⭐ = ปานกลาง
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-tint mr-2"></i>การใช้น้ำมนต์กับการใช้ตัวตะกรุดโดยตรง
+              </h4>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                  <span><strong>หลวงพ่อเทียม:</strong> มีการใช้น้ำมนต์เพื่ออำนวยพร</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                  <span><strong>หลวงพ่อคง:</strong> เน้นการใช้ตัวตะกรุดโดยตรง</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                  <span><strong>หลวงพ่อกุน:</strong> เน้นการใช้ตัวตะกรุดโดยตรง</span>
+                </div>
+              </div>
+              <p class="text-xs text-gray-600 mt-3">
+                ความสามารถในการใช้น้ำมนต์ทำให้ตะกรุดหลวงพ่อเทียมมีความยืดหยุ่นในการใช้งานมากกว่า
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-400">
+              <h4 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-ghost mr-2"></i>การทำงานกับภูติอาถรรพ์กับการทำงานกับมนุษย์
+              </h4>
+              <div class="text-xs">
+                <table class="w-full">
+                  <tbody><tr class="border-b">
+                    <td class="p-2 font-medium">ตะกรุด</td>
+                    <td class="p-2">ภูติอาถรรพ์</td>
+                    <td class="p-2">มนุษย์</td>
+                    <td class="p-2">กองทัพ/หมู่มาก</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อเทียม</td>
+                    <td class="p-2">⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อคง</td>
+                    <td class="p-2">⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">หลวงพ่อกุน</td>
+                    <td class="p-2">⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐</td>
+                    <td class="p-2">⭐⭐⭐⭐⭐</td>
+                  </tr>
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.5 สรุปการเปรียบเทียบกลไกมหาระงับ -->
+        <div id="section4-5" class="mb-12">
+          <h3 class="serif-font text-2xl font-semibold mb-6" style="color: var(--primary-gold);">
+            4.5 สรุปการเปรียบเทียบกลไกมหาระงับ
+          </h3>
+
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg border border-blue-200">
+            <h4 class="font-bold mb-6 text-center" style="color: var(--deep-gold);">
+              <i class="fas fa-balance-scale mr-3"></i>การวิเคราะห์เชิงลึก
+            </h4>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="bg-white p-6 rounded-lg">
+                <h5 class="font-bold mb-4" style="color: var(--primary-gold);">
+                  <i class="fas fa-handshake mr-2"></i>หลวงพ่อเทียมและหลวงพ่อคง: มหาระงับในรูปแบบใกล้เคียงกัน
+                </h5>
+                <p class="text-sm mb-4">
+                  <strong>ตะกรุดมหาระงับพิสดารของหลวงพ่อเทียมและตะกรุดมหาระงับของหลวงพ่อคงมีกลไกการทำงานที่ใกล้เคียงกัน</strong> โดยเฉพาะอย่างยิ่งในการใช้คาถาสมาธิร่วมกัน และหลักการ &#34;ระงับ&#34; แทนการ &#34;ทำลาย&#34;
+                </p>
+
+                <div class="space-y-2 text-xs">
+                  <div class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>หลวงพ่อเทียม:</strong> เน้นความสมบูรณ์แบบของตำรา การบูรณาการหลายมิติ และการใช้น้ำมนต์
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <i class="fas fa-circle text-green-500 mr-2 mt-1"></i>
+                    <div>
+                      <strong>หลวงพ่อคง:</strong> เน้นความกระชับรวดเร็ว การระงับเรื่องไม่ดีโดยตรง และการใช้งานในชีวิตประจำวัน
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-6 rounded-lg">
+                <h5 class="font-bold mb-4" style="color: var(--primary-gold);">
+                  <i class="fas fa-magic mr-2"></i>หลวงพ่อกุน: กลไกสะกดที่แตกต่างอย่างมีนัยสำคัญ
+                </h5>
+                <p class="text-sm mb-4">
+                  <strong>ตะกรุดไมยราพณ์สะกดทัพของหลวงพ่อกุนมีกลไกที่แตกต่างอย่างมีนัยสำคัญ</strong> จากตะกรุดมหาระงับทั้งสองชนิด การเปลี่ยนจาก &#34;ระงับ&#34; เป็น &#34;สะกด&#34; หมายถึงการเปลี่ยนระดับของพลัง ระยะเวลาของผล และวิธีการทำงาน
+                </p>
+
+                <div class="bg-red-50 p-4 rounded-lg mt-4">
+                  <p class="text-xs">
+                    <strong>ความเหมาะสม:</strong> เหมาะสำหรับสถานการณ์ที่ต้องการผลรวดเร็วและรุนแรง โดยเฉพาะอย่างยิ่งในระดับกองทัพ แต่อาจไม่เหมาะสำหรับการใช้ในชีวิตประจำวันเท่ากับตะกรุดอีกสองชนิด
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 bg-white p-6 rounded-lg">
+              <h5 class="font-bold mb-4" style="color: var(--deep-gold);">
+                <i class="fas fa-compass mr-2"></i>การเลือกใช้ตามลักษณะภัยและสถานการณ์
+              </h5>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm border-collapse border border-gray-300">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="border border-gray-300 p-3 text-left">สถานการณ์</th>
+                      <th class="border border-gray-300 p-3 text-left">ตะกรุดที่เหมาะสม</th>
+                      <th class="border border-gray-300 p-3 text-left">เหตุผล</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="border border-gray-300 p-3">คุ้มครองบ้านเรือน ครอบครัว</td>
+                      <td class="border border-gray-300 p-3">หลวงพ่อเทียม</td>
+                      <td class="border border-gray-300 p-3">ครอบคลุมหลายมิติ ใช้น้ำมนต์ได้</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 p-3">ป้องกันภัยเฉพาะกิจ คดีความ</td>
+                      <td class="border border-gray-300 p-3">หลวงพ่อคง</td>
+                      <td class="border border-gray-300 p-3">ระงับเรื่องไม่ดีโดยตรง รวดเร็ว</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-3">สงคราม กองทัพ หมู่มาก</td>
+                      <td class="border border-gray-300 p-3">หลวงพ่อกุน</td>
+                      <td class="border border-gray-300 p-3">สะกดทัพได้ ครอบคลุมพื้นที่กว้าง</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 p-3">เดินทาง อุบัติเหตุ</td>
+                      <td class="border border-gray-300 p-3">หลวงพ่อเทียม หรือ หลวงพ่อคง</td>
+                      <td class="border border-gray-300 p-3">ระงับเหตุร้าย อุบัติเหตุ</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 p-3">โจรผู้ร้าย ภัยจากมนุษย์</td>
+                      <td class="border border-gray-300 p-3">ทั้งสามชนิด</td>
+                      <td class="border border-gray-300 p-3">มีอานุภาพใกล้เคียงกัน</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="bg-yellow-50 p-4 rounded-lg mt-6 border-l-4 border-yellow-400">
+                <p class="text-sm">
+                  <i class="fas fa-lightbulb mr-2 text-yellow-600"></i>
+                  <strong>ข้อสรุป:</strong> ความเข้าใจในกลไกและอานุภาพของตะกรุดแต่ละชนิดจึงเป็นกุญแจสำคัญในการเลือกใช้ให้เหมาะสมกับสถานการณ์ และการศึกษาตำนานและคาถาอาราธนาอย่างลึกซึ้งจะช่วยให้สามารถใช้ตะกรุดได้อย่างมีประสิทธิภาพสูงสุด
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-8 border-t border-gray-200">
+        <div class="text-center text-sm text-gray-600">
+          <p class="mb-2">
+            <i class="fas fa-book mr-2" style="color: var(--primary-gold);"></i>
+            การวิจัยนี้รวบรวมจากแหล่งข้อมูลทางประวัติศาสตร์และตำนานพุทธาคม
+          </p>
+          <p>
+            เพื่อการศึกษาและการเข้าใจในวัฒนธรรมทางจิตวิญญาณของไทย
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active section highlighting in TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-fixed a[href^="#"]');
+
+        function highlightActiveSection() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('font-bold', 'text-yellow-700');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('font-bold', 'text-yellow-700');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightActiveSection);
+        highlightActiveSection(); // Initial call
+    </script>
+  
+
+</body></html>
