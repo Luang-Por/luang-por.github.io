@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<!--
+  ═══════════════════════════════════════════════════════════════════════════
+  FIRST BUDDHA · สมเด็จองค์ปฐม
+  Nexus-Architect Protocol v19.0  ·  revision r19.0  ·  2026-09-02
+  Single file · no build step · no external CSS · Spectrum Light tokens
+
+  Changes from v18.0 are recorded in ADR-019 (accompanying note).
+  Data contract is unchanged: data/track{1,2}.json  → { lines:[ {s, w:[[txt,s,e],…]} ] }
+  ═══════════════════════════════════════════════════════════════════════════
+-->
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <title>หลวงพ่อสมปอง สุธัมมสันตจิตโต — สมเด็จองค์ปฐม | First Buddha</title>
+    <meta name="description" content="ธรรมบรรยายเรื่องสมเด็จองค์ปฐม พระพุทธสิขีทศพลที่ ๑ โดยพระเดชพระคุณหลวงพ่อสมปอง สุธัมมสันตจิตโต (ท่านจิตโต) ณ ศาลา ๑๒ ไร่ ๘ ธันวาคม ๒๕๔๔ — เสียงธรรมพร้อมบทถอดความซิงโครไนซ์ระดับคำแบบคาราโอเกะ">
+    <link rel="canonical" href="https://lunarwisdom.luangpor.com/First_Buddha/">
+    <meta property="og:title" content="หลวงพ่อสมปอง สุธัมมสันตจิตโต — สมเด็จองค์ปฐม">
+    <meta property="og:description" content="เสียงธรรมบรรยาย พร้อมบทถอดความที่เลื่อนตามเสียงและไฮไลต์ทีละคำแบบคาราโอเกะ">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="th_TH">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:url" content="https://lunarwisdom.luangpor.com/First_Buddha/">
+    <meta property="og:image" content="https://lunarwisdom.luangpor.com/First_Buddha/img/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="สมเด็จองค์ปฐม — หลวงพ่อสมปอง สุธัมมสันตจิตโต">
+    <meta name="twitter:description" content="เสียงธรรมพร้อมบทถอดความที่ส่องสว่างทีละคำ">
+    <meta name="twitter:image" content="https://lunarwisdom.luangpor.com/First_Buddha/img/og.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230071e3'/%3E%3Cstop offset='.5' stop-color='%23bf5af2'/%3E%3Cstop offset='1' stop-color='%23ff375f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f5f5f7'/%3E%3Cg fill='none' stroke='url(%23s)' stroke-width='3' stroke-linecap='round'%3E%3Ccircle cx='32' cy='32' r='22'/%3E%3Ccircle cx='32' cy='32' r='7'/%3E%3Cpath d='M32 10v15M32 39v15M10 32h15M39 32h15M16.4 16.4l10.6 10.6M37 37l10.6 10.6M47.6 16.4L37 27M27 37L16.4 47.6'/%3E%3C/g%3E%3C/svg%3E">
+
+    <!-- Critical path: audio + transcript. Everything below is off it. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" as="image" href="img/hero.jpg" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Sarabun:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Analysis tier. Pinned to exact versions and checked byte-for-byte (SRI). -->
+    <script defer id="lib-d3" crossorigin="anonymous"
+        integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+        src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script defer id="lib-chart" crossorigin="anonymous"
+        integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- three.js is NOT fetched here. The halo picks its tier first, then imports
+         on demand — devices that get the Canvas tier never download 691 KB. -->
+    <script type="importmap">
+    {
+      "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" },
+      "integrity": { "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js": "sha384-IDC7sAMAIMB/TZ6dgKKPPAKZ2bXXXP8+FBMBC8cU319eBhKITx+PaalhfDkDNH28" }
+    }
+    </script>
+
+    <style>
+        @layer base, layout, components, utilities, animations;
+
+        @layer base {
+            :root {
+                --canvas: #f5f5f7; --canvas-deep: #ffffff; --panel: #ffffff;
+                --ink: #1d1d1f; --ink-soft: #6e6e73; --hairline: rgba(0,0,0,.08);
+                --blue: #0071e3; --indigo: #5e5ce6; --purple: #bf5af2; --pink: #ff375f;
+                --orange: #ff9f0a; --yellow: #ffd60a; --green: #30d158; --mint: #00c7be;
+                --spectrum: linear-gradient(135deg, #0071e3 0%, #bf5af2 50%, #ff375f 100%);
+                --glass: rgba(255,255,255,.72); --glass-strong: rgba(255,255,255,.85);
+                --shadow-soft: 0 8px 32px rgba(29,29,31,.08);
+                --shadow-lift: 0 16px 48px rgba(29,29,31,.14);
+                --ease: cubic-bezier(0.16, 1, 0.3, 1); --radius: 18px;
+                --header-h: 4.5rem;
+                --tr-font: 1.06rem;
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            html { scroll-behavior: smooth; }
+            body {
+                background: var(--canvas); color: var(--ink);
+                font-family: 'Sarabun', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                overflow-x: hidden; -webkit-font-smoothing: antialiased;
+            }
+            body::before {
+                content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+                background: radial-gradient(circle at 50% 42%,
+                    rgba(0,113,227,.10), rgba(191,90,242,.05) 40%, transparent 65%);
+            }
+            ::selection { background: rgba(0,113,227,.2); }
+            body[data-lang="th"] [lang="en"] { display: none !important; }
+            body[data-lang="en"] [lang="th"] { display: none !important; }
+            h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.01em; }
+            a { color: var(--blue); text-decoration: none; }
+            img { max-width: 100%; display: block; }
+            section[id] { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+            :focus-visible {
+                outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px;
+            }
+            .skip-link {
+                position: fixed; top: .5rem; left: 50%; transform: translate(-50%, -200%);
+                z-index: 5000; background: var(--blue); color: #fff; padding: .6rem 1.2rem;
+                border-radius: 980px; font-size: .85rem; font-weight: 600;
+                transition: transform .25s var(--ease);
+            }
+            .skip-link:focus { transform: translate(-50%, 0); }
+        }
+
+        @layer components {
+            .glass-panel {
+                background: var(--glass); backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border: 1px solid var(--hairline); border-radius: var(--radius);
+                box-shadow: var(--shadow-soft);
+                transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+            }
+            .glass-panel.lift:hover {
+                border-color: rgba(0,113,227,.35); transform: translateY(-4px);
+                box-shadow: var(--shadow-lift);
+            }
+            .hero-title {
+                background: var(--spectrum); -webkit-background-clip: text;
+                background-clip: text; color: transparent;
+                font-weight: 800; letter-spacing: -0.02em;
+            }
+            input[type=range] {
+                -webkit-appearance: none; appearance: none; width: 100%; height: 4px;
+                border-radius: 2px; outline: none; cursor: pointer;
+                background: linear-gradient(90deg, var(--blue) var(--fill, 50%), #d2d2d7 var(--fill, 50%));
+            }
+            input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+                background: #ffffff; border: none; margin-top: -8px;
+                box-shadow: 0 1px 4px rgba(0,0,0,.25); transition: transform .2s var(--ease);
+            }
+            input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+            input[type=range]::-moz-range-thumb {
+                width: 20px; height: 20px; border-radius: 50%; background: #fff; border: none;
+                box-shadow: 0 1px 4px rgba(0,0,0,.25);
+            }
+            .progress-track { height: 6px; background: #e8e8ed; border-radius: 3px; overflow: hidden; }
+            .progress-fill { height: 100%; background: var(--spectrum); border-radius: 3px; transition: width .5s var(--ease); }
+            .btn {
+                display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.4rem;
+                background: var(--blue); color: #ffffff; border-radius: 980px;
+                font-weight: 600; font-family: 'Sarabun', 'Inter', sans-serif; font-size: .9rem;
+                cursor: pointer; border: none; transition: all .3s var(--ease);
+            }
+            .btn:hover { background: #0077ed; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,113,227,.35); }
+            .btn-spectrum { background: var(--spectrum); }
+            .btn-spectrum:hover { box-shadow: 0 6px 24px rgba(191,90,242,.45); filter: saturate(1.15); }
+            .btn-ghost { background: transparent; color: var(--blue); border: 1px solid var(--blue); }
+            .btn-ghost:hover { background: rgba(0,113,227,.08); box-shadow: none; transform: translateY(-2px); }
+            .btn-icon {
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--hairline);
+                background: var(--glass-strong); color: var(--ink); cursor: pointer;
+                transition: all .3s var(--ease); flex: none;
+            }
+            .btn-icon:hover { border-color: rgba(0,113,227,.4); color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+            .btn-play {
+                width: 64px; height: 64px; background: var(--spectrum); color: #fff; border: none;
+            }
+            .btn-play:hover { color: #fff; box-shadow: 0 8px 28px rgba(191,90,242,.5); }
+            .slide-panel {
+                position: fixed; top: 0; right: 0; width: 100%; max-width: 450px; height: 100%;
+                background: var(--glass-strong); backdrop-filter: blur(30px) saturate(180%);
+                -webkit-backdrop-filter: blur(30px) saturate(180%);
+                border-left: 1px solid var(--hairline); box-shadow: -12px 0 40px rgba(29,29,31,.10);
+                transform: translateX(100%); transition: transform .5s var(--ease), visibility .5s;
+                z-index: 2000; padding: 2rem 1.5rem; overflow-y: auto; visibility: hidden;
+                overscroll-behavior: contain;
+            }
+            .slide-panel.open { transform: translateX(0); visibility: visible; }
+            .panel-scrim {
+                position: fixed; inset: 0; z-index: 1990; background: rgba(29,29,31,.18);
+                opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility .4s;
+                backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            }
+            .panel-scrim.open { opacity: 1; visibility: visible; }
+            .toast {
+                position: fixed; bottom: 2rem; left: 50%; transform: translate(-50%, 150%);
+                background: var(--glass-strong); backdrop-filter: blur(20px) saturate(180%);
+                border: 1px solid var(--hairline); border-radius: 980px; padding: .7rem 1.4rem;
+                font-size: .85rem; font-weight: 600; color: var(--ink); max-width: min(90vw, 460px);
+                text-align: center; box-shadow: var(--shadow-lift); z-index: 3000;
+                transition: transform .4s var(--ease);
+            }
+            .toast.show { transform: translate(-50%, 0); }
+            .spinner {
+                width: 44px; height: 44px; border-radius: 50%;
+                background: conic-gradient(from 0deg, #0071e3, #bf5af2, #ff375f, #0071e3);
+                -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+                mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 0);
+                animation: spin 1s linear infinite;
+            }
+            .chip {
+                display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .9rem;
+                border-radius: 980px; font-size: .75rem; font-weight: 600;
+                background: rgba(0,113,227,.08); color: var(--blue);
+            }
+
+            /* ---- Hero ---- */
+            .hero-figure {
+                border-radius: var(--radius); overflow: hidden; position: relative;
+                box-shadow: var(--shadow-lift); border: 1px solid var(--hairline);
+                background: #ececed;
+            }
+            .hero-figure img { width: 100%; height: auto; aspect-ratio: 1800 / 1349; object-fit: cover; }
+            .hero-figure figcaption {
+                position: absolute; inset-inline: 0; bottom: 0; padding: 2.2rem 1.4rem .9rem;
+                background: linear-gradient(transparent, rgba(20,15,8,.72));
+                color: #fff; font-size: .85rem; text-align: center;
+            }
+
+            /* ---- Track cards ---- */
+            .track-card { cursor: pointer; padding: 1.25rem 1.5rem; text-align: left; width: 100%; font-family: inherit; color: inherit; }
+            .track-card[aria-current="true"] { border-color: rgba(0,113,227,.5); box-shadow: 0 0 0 3px rgba(0,113,227,.12), var(--shadow-soft); }
+
+            /* ---- Transcript / Karaoke ---- */
+            .transcript {
+                position: relative; overflow-y: auto; overscroll-behavior: contain;
+                max-height: min(62vh, 620px); padding: 1.5rem 1.75rem 40vh;
+                font-size: var(--tr-font); line-height: 2.05; scrollbar-width: thin;
+            }
+            .tl {
+                position: relative; padding: .15rem .6rem .15rem 4.2rem; border-radius: 12px;
+                color: var(--ink-soft); transition: background .4s var(--ease), color .4s var(--ease);
+                cursor: pointer; contain: layout style;
+            }
+            .tl:hover { background: rgba(0,113,227,.05); }
+            .tl .tstamp {
+                position: absolute; left: .4rem; top: .55em; font-family: 'JetBrains Mono', monospace;
+                font-size: .66rem; color: rgba(110,110,115,.65); letter-spacing: .02em;
+                background: rgba(0,0,0,.035); border-radius: 6px; padding: .1rem .35rem;
+                border: none; cursor: pointer; line-height: inherit;
+            }
+            .tl.on { color: var(--ink); background: rgba(255,255,255,.75); box-shadow: var(--shadow-soft); }
+            .tl.on .tstamp { color: var(--blue); background: rgba(0,113,227,.08); }
+            .tl.past { color: rgba(29,29,31,.55); }
+            .tl.found { background: rgba(255,214,10,.16); }
+            .w { border-radius: 4px; }
+            .tl.on .w { color: rgba(29,29,31,.62); }
+            .w.sung { color: var(--blue); }
+            .tl.on .w.sung { color: var(--blue); }
+            .w.kar {
+                background-image: linear-gradient(105deg, #0071e3 0%, #bf5af2 calc(var(--p) * 1% - 12%), #ff375f calc(var(--p) * 1%), rgba(29,29,31,.56) calc(var(--p) * 1%));
+                -webkit-background-clip: text; background-clip: text; color: transparent !important;
+            }
+            .resume-chip {
+                position: absolute; inset-inline: 0; bottom: 1rem; z-index: 5;
+                display: flex; justify-content: center; pointer-events: none;
+                opacity: 0; visibility: hidden; transform: translateY(12px);
+                transition: opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+            }
+            .resume-chip.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+            /* ---- panel rows / search hits ---- */
+            .hit-row {
+                display: flex; gap: .8rem; align-items: baseline; padding: .7rem .8rem; border-radius: 12px;
+                cursor: pointer; transition: background .25s var(--ease); border: 1px solid transparent;
+                width: 100%; text-align: left; background: transparent; font-family: inherit;
+            }
+            .hit-row:hover { background: rgba(0,113,227,.07); border-color: rgba(0,113,227,.2); }
+            .hit-time { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--blue); flex: none; }
+            .hit-text { font-size: .86rem; color: var(--ink); line-height: 1.7; }
+            .hit-text b { color: var(--pink); }
+
+            .quote-card { padding: 1.5rem; cursor: pointer; display: flex; flex-direction: column; gap: 1rem; text-align: left; font-family: inherit; color: inherit; }
+            .quote-mark { color: var(--purple); opacity: .9; }
+            .quote-th { font-size: 1.02rem; line-height: 1.9; font-weight: 600; }
+
+            .searchbox {
+                display: flex; align-items: center; gap: .6rem; padding: .55rem 1rem;
+                border-radius: 980px; background: var(--glass-strong); border: 1px solid var(--hairline);
+            }
+            .searchbox input {
+                border: none; outline: none; background: transparent; font-family: inherit;
+                font-size: .9rem; color: var(--ink); width: 100%;
+            }
+            .searchbox:focus-within { border-color: rgba(0,113,227,.45); }
+
+            .empty-state {
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                gap: .8rem; height: 100%; padding: 2rem; text-align: center;
+                color: var(--ink-soft); font-size: .875rem; line-height: 1.8;
+            }
+            .footnote { font-size: .8rem; color: var(--ink-soft); line-height: 1.8; }
+            kbd {
+                font-family: 'JetBrains Mono', monospace; font-size: .72rem; padding: .1rem .4rem;
+                border: 1px solid var(--hairline); border-bottom-width: 2px; border-radius: 5px;
+                background: rgba(255,255,255,.7); color: var(--ink);
+            }
+        }
+
+        @layer utilities {
+            .fixed { position: fixed; } .relative { position: relative; } .absolute { position: absolute; }
+            .inset-0 { inset: 0; }
+            .z-bg { z-index: 0; } .z-content { z-index: 10; } .z-nav { z-index: 50; } .z-top { z-index: 9999; }
+            .flex { display: flex; } .flex-col { flex-direction: column; } .flex-1 { flex: 1; }
+            .flex-wrap { flex-wrap: wrap; }
+            .items-center { align-items: center; } .items-baseline { align-items: baseline; }
+            .justify-between { justify-content: space-between; } .justify-center { justify-content: center; }
+            .gap-1 { gap: .25rem; } .gap-2 { gap: .5rem; } .gap-3 { gap: .75rem; } .gap-4 { gap: 1rem; }
+            .gap-6 { gap: 1.5rem; } .gap-8 { gap: 2rem; }
+            .grid { display: grid; } .grid-1 { grid-template-columns: 1fr; }
+            .container { max-width: 1200px; margin-inline: auto; }
+            .container-narrow { max-width: 880px; margin-inline: auto; }
+            .pointer-none { pointer-events: none; }
+            .text-soft { color: var(--ink-soft); } .text-blue { color: var(--blue); }
+            .text-center { text-align: center; }
+            .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .font-mono { font-family: 'JetBrains Mono', monospace; }
+            .w-full { width: 100%; } .h-380 { height: 380px; } .h-500 { height: 500px; }
+            .overflow-hidden { overflow: hidden; }
+            .w-screen { width: 100vw; } .h-screen { height: 100vh; }
+            .mt-2 { margin-top: .5rem; } .mt-4 { margin-top: 1rem; } .mt-6 { margin-top: 1.5rem; } .mt-8 { margin-top: 2rem; }
+            .mt-12 { margin-top: 3rem; } .mt-16 { margin-top: 4rem; }
+            .mb-2 { margin-bottom: .5rem; } .mb-4 { margin-bottom: 1rem; } .mb-6 { margin-bottom: 1.5rem; } .mb-8 { margin-bottom: 2rem; }
+            .p-1 { padding: .25rem; } .p-4 { padding: 1rem; } .p-6 { padding: 1.5rem; } .px-6 { padding-inline: 1.5rem; }
+            .py-4 { padding-block: 1rem; } .pt-24 { padding-top: 6rem; } .pb-12 { padding-bottom: 3rem; }
+            .text-xs { font-size: .75rem; } .text-sm { font-size: .875rem; } .text-md { font-size: 1rem; }
+            .text-lg { font-size: 1.125rem; } .text-xl { font-size: 1.5rem; }
+            .tracking-wide { letter-spacing: .08em; }
+            .font-bold { font-weight: 700; } .font-semi { font-weight: 600; }
+            .sr-only {
+                position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+                overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+            }
+            /* Nav is a scrollable rail on phones instead of disappearing entirely */
+            .nav-rail {
+                display: flex; gap: 1.25rem; overflow-x: auto; scrollbar-width: none;
+                -webkit-overflow-scrolling: touch; max-width: 42vw; padding-block: .2rem;
+            }
+            .nav-rail::-webkit-scrollbar { display: none; }
+            .nav-rail a { white-space: nowrap; }
+            @media (min-width: 768px) {
+                .md\:flex-row { flex-direction: row; } .md\:grid-2 { grid-template-columns: repeat(2, 1fr); }
+                .nav-rail { max-width: none; overflow: visible; gap: 1.5rem; }
+            }
+            @media (min-width: 1024px) { .lg\:grid-3 { grid-template-columns: repeat(3, 1fr); } .lg\:col-span-2 { grid-column: span 2; } }
+            @media (max-width: 520px) {
+                .btn { padding: .55rem 1.1rem; font-size: .85rem; }
+                .transcript { padding-inline: 1rem; }
+                .tl { padding-left: 3.6rem; }
+            }
+        }
+
+        @layer animations {
+            @keyframes spin { to { transform: rotate(1turn); } }
+            @keyframes pulse-soft { 50% { opacity: .5; } }
+            .animate-pulse { animation: pulse-soft 2s var(--ease) infinite; }
+            .fade-out { opacity: 0 !important; transition: opacity .8s; }
+            @media (prefers-reduced-motion: reduce) {
+                html { scroll-behavior: auto; }
+                *, *::before, *::after {
+                    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+                    transition-duration: .001ms !important;
+                }
+                .spinner { animation: none; background: conic-gradient(from 0deg, #0071e3, #bf5af2, #ff375f, #0071e3); }
+            }
+        }
+
+        /* The transcript is the reason this page exists — let it print cleanly. */
+        @media print {
+            #halo-canvas, header, #listen .glass-panel > .flex, .resume-chip, .slide-panel,
+            .panel-scrim, .toast, #insights, #teachings, #loading-overlay, .skip-link { display: none !important; }
+            body { background: #fff; }
+            body::before { display: none; }
+            .transcript { max-height: none; overflow: visible; padding: 0; font-size: 11pt; line-height: 1.9; }
+            .glass-panel { box-shadow: none; border: none; background: none; backdrop-filter: none; }
+            .tl { color: #000; page-break-inside: avoid; padding-left: 3.4rem; }
+            .tl.on, .tl.past, .tl.found { background: none; box-shadow: none; color: #000; }
+            .w.sung, .w.kar { color: #000 !important; background: none; -webkit-text-fill-color: #000; }
+            main { padding-top: 0; }
+        }
+    </style>
+</head>
+<body data-lang="th">
+    <a class="skip-link" href="#transcript"><span lang="th">ข้ามไปยังบทถอดความ</span><span lang="en">Skip to transcript</span></a>
+    <canvas id="halo-canvas" class="fixed inset-0 w-screen h-screen z-bg pointer-none" aria-hidden="true"></canvas>
+
+    <div id="loading-overlay" class="fixed inset-0 z-top flex flex-col items-center justify-center" style="background: var(--canvas-deep); transition: opacity .8s;">
+        <div class="spinner mb-4"></div>
+        <div class="text-sm text-soft tracking-wide animate-pulse">
+            <span lang="th">กำลังอัญเชิญธรรม…</span><span lang="en">Inviting the Dhamma…</span>
+        </div>
+    </div>
+
+    <header class="fixed z-nav glass-panel px-6 py-4 flex justify-between items-center w-full gap-4" style="top: 0; border-radius: 0; border-top: none; border-inline: none; min-height: var(--header-h);">
+        <div class="flex items-center gap-3">
+            <span id="logo-slot" class="text-blue flex" aria-hidden="true"></span>
+            <h1 class="font-bold text-md tracking-wide truncate">FIRST BUDDHA <span class="hero-title">· สมเด็จองค์ปฐม</span></h1>
+        </div>
+        <nav class="nav-rail items-center text-sm font-semi" aria-label="ส่วนต่าง ๆ ของหน้า">
+            <a href="#listen"><span lang="th">ฟังธรรม</span><span lang="en">Listen</span></a>
+            <a href="#teachings"><span lang="th">คำสอน</span><span lang="en">Teachings</span></a>
+            <a href="#insights"><span lang="th">แผนผังธรรม</span><span lang="en">Insights</span></a>
+            <a href="#about"><span lang="th">เกี่ยวกับ</span><span lang="en">About</span></a>
+        </nav>
+        <button class="btn" id="btn-lang" aria-label="เปลี่ยนภาษาเป็นอังกฤษ">EN / ไทย</button>
+    </header>
+
+    <main id="main" class="relative z-content container pt-24 px-6 pb-12">
+
+        <!-- ═══ HERO ═══ -->
+        <section class="container-narrow" aria-label="บทนำ">
+            <figure class="hero-figure">
+                <img src="img/hero.jpg" width="1800" height="1349" fetchpriority="high"
+                     alt="พระเดชพระคุณหลวงพ่อสมปอง สุธัมมสันตจิตโต ในจีวรสีส้ม นั่งสมาธิเบื้องหน้าพระพุทธรูปทองคำ ณ ศาลาไม้ โดยมี Tanat Tonguthaisri นั่งพับเพียบอยู่ด้านข้าง">
+                <figcaption>
+                    <span lang="th">พระเดชพระคุณหลวงพ่อสมปอง สุธัมมสันตจิตโต (ท่านจิตโต) กับ Tanat Tonguthaisri</span>
+                    <span lang="en">Venerable Luang Por Sompong Sudhammasantacitto (Than Jitto) with Tanat Tonguthaisri</span>
+                </figcaption>
+            </figure>
+
+            <div class="text-center mt-8">
+                <div class="chip mb-4"><span lang="th">ธรรมบรรยาย ณ ศาลา ๑๒ ไร่ · ๘ ธันวาคม ๒๕๔๔</span><span lang="en">Dhamma talk · Sala 12 Rai · 8 December 2001</span></div>
+                <h2 class="hero-title" style="font-size: clamp(2rem, 5.5vw, 3.4rem); line-height: 1.25;">
+                    หลวงพ่อสมปอง สุธัมมสันตจิตโต
+                </h2>
+                <p class="text-lg text-soft mt-4" style="line-height: 1.9;">
+                    <span lang="th">สมเด็จองค์ปฐม · พระพุทธสิขีทศพลที่ ๑ — เสียงธรรมสองตอน พร้อมบทถอดความ
+                    ที่เลื่อนตามเสียงและส่องสว่างทีละคำ ดุจแสงจันทร์ไล้ผิวน้ำ</span>
+                    <span lang="en">Somdej Ong Pathom · The First Buddha, Sikhī Dasabala I — a two-part Dhamma talk with a
+                    transcript that scrolls with the voice and illuminates word by word, karaoke-style.</span>
+                </p>
+                <div class="flex justify-center gap-3 mt-6 flex-wrap">
+                    <a class="btn btn-spectrum" href="#listen" id="cta-listen"></a>
+                    <a class="btn btn-ghost" href="#about"><span lang="th">ที่มาของบันทึกเสียง</span><span lang="en">About this recording</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ PLAYER ═══ -->
+        <section id="listen" class="mt-16" aria-label="เครื่องเล่นและบทถอดความ">
+            <div class="flex items-baseline justify-between flex-wrap gap-3 mb-6">
+                <h3 class="text-xl"><span lang="th">ฟังธรรม · บทถอดความคาราโอเกะ</span><span lang="en">Listen · Karaoke Transcript</span></h3>
+                <div class="text-xs text-soft"><span lang="th">บทถอดความ ตรวจทานโดย Teera Jarawuttiyakorn — คลิกคำใดก็ได้เพื่อข้ามไปฟังตรงนั้น</span><span lang="en">Transcript proof-read by Teera Jarawuttiyakorn — click any word to jump there</span></div>
+            </div>
+
+            <div class="grid grid-1 md:grid-2 gap-6 mb-6" id="track-cards"></div>
+
+            <div class="glass-panel p-6">
+                <!-- controls row -->
+                <div class="flex items-center gap-4 flex-wrap">
+                    <button class="btn-icon" id="btn-back" title="ย้อนกลับ 10 วินาที (←)" aria-label="ย้อนกลับ 10 วินาที"></button>
+                    <button class="btn-icon btn-play" id="btn-play" title="เล่น/หยุด (เว้นวรรค)" aria-label="เล่น"></button>
+                    <button class="btn-icon" id="btn-fwd" title="เดินหน้า 10 วินาที (→)" aria-label="เดินหน้า 10 วินาที"></button>
+                    <div class="flex-1" style="min-width: 220px;">
+                        <div class="flex justify-between text-xs mb-2 text-blue gap-3">
+                            <span class="font-mono" id="t-cur">00:00</span>
+                            <span id="np-title" class="font-semi truncate" style="color: var(--ink-soft);"></span>
+                            <span class="font-mono" id="t-dur">00:00</span>
+                        </div>
+                        <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="ตำแหน่งการเล่น">
+                    </div>
+                    <button class="btn-icon" id="btn-share" title="คัดลอกลิงก์ ณ เวลานี้" aria-label="คัดลอกลิงก์ ณ เวลานี้"></button>
+                </div>
+
+                <!-- sliders row -->
+                <div class="flex flex-col md:flex-row gap-6 mt-6">
+                    <div class="w-full">
+                        <div class="flex justify-between text-xs mb-2 text-blue">
+                            <label for="input-speed"><span lang="th">ความเร็วเสียง</span><span lang="en">Speed</span></label>
+                            <span id="val-speed" class="font-mono">1.00×</span>
+                        </div>
+                        <input type="range" id="input-speed" min="50" max="200" value="100" aria-label="ความเร็วในการเล่น">
+                    </div>
+                    <div class="w-full">
+                        <div class="flex justify-between text-xs mb-2 text-blue">
+                            <label for="input-font"><span lang="th">ขนาดตัวอักษร</span><span lang="en">Text size</span></label>
+                            <span id="val-font" class="font-mono">106%</span>
+                        </div>
+                        <input type="range" id="input-font" min="88" max="160" value="106" aria-label="ขนาดตัวอักษรของบทถอดความ">
+                    </div>
+                    <div class="w-full">
+                        <div class="flex justify-between text-xs mb-2 text-blue">
+                            <label for="search"><span lang="th">ค้นหาในบทถอดความ</span><span lang="en">Search</span></label>
+                            <span class="font-mono" id="val-hits"></span>
+                        </div>
+                        <div class="searchbox">
+                            <span class="text-soft flex" id="search-ico" aria-hidden="true"></span>
+                            <input id="search" type="search" placeholder="เช่น ความสุข, นิพพาน, องค์ปฐม…" aria-label="ค้นหาในบทถอดความ" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- transcript -->
+                <div class="relative mt-6">
+                    <div class="transcript glass-panel" id="transcript" style="background: rgba(255,255,255,.55);" tabindex="0" role="region" aria-label="บทถอดความ" aria-busy="true">
+                        <div class="empty-state" id="tr-empty">
+                            <span lang="th">กำลังเตรียมบทถอดความ…</span><span lang="en">Preparing the transcript…</span>
+                        </div>
+                    </div>
+                    <div class="resume-chip" id="resume-chip">
+                        <button class="btn" style="pointer-events: auto;" id="btn-resume"></button>
+                    </div>
+                </div>
+                <p class="footnote mt-4 text-center">
+                    <span lang="th"><kbd>Space</kbd> เล่น/หยุด · <kbd>←</kbd> <kbd>→</kbd> ถอย/เดิน ๕ วินาที · <kbd>↑</kbd> <kbd>↓</kbd> วรรคก่อนหน้า/ถัดไป · <kbd>/</kbd> ค้นหา</span>
+                    <span lang="en"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> ±5 s · <kbd>↑</kbd> <kbd>↓</kbd> previous/next line · <kbd>/</kbd> search</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- ═══ TEACHINGS ═══ -->
+        <section id="teachings" class="mt-16" aria-label="วรรคทองแห่งธรรม">
+            <h3 class="text-xl mb-2"><span lang="th">วรรคทองแห่งธรรม</span><span lang="en">Golden Passages</span></h3>
+            <p class="text-sm text-soft mb-6"><span lang="th">คำสอนคัดสรรจากบทถอดความ — คลิกการ์ดเพื่อฟังท่อนนั้น แถบสีคือตำแหน่งในการบรรยาย</span><span lang="en">Selected passages — click a card to listen from that moment; the bar shows its position in the talk</span></p>
+            <div class="grid grid-1 md:grid-2 lg:grid-3 gap-6" id="quote-grid"></div>
+        </section>
+
+        <!-- ═══ INSIGHTS ═══ -->
+        <section id="insights" class="mt-16" aria-label="แผนผังธรรม">
+            <h3 class="text-xl mb-2"><span lang="th">แผนผังธรรม · สายธารแห่งเสียง</span><span lang="en">Dhamma Topology · Stream of the Voice</span></h3>
+            <p class="text-sm text-soft mb-6"><span lang="th">โครงข่ายมโนทัศน์จากบทถอดความ — ลากเลื่อนและซูมดูได้ คลิกดวงใดเพื่อเปิดรายการทุกวรรคที่เอ่ยถึง แล้วข้ามไปฟังทันที กราฟด้านขวาคือจังหวะถ้อยธรรมตลอดการบรรยาย คลิกเพื่อข้ามเวลา</span><span lang="en">A concept network of the talk — drag to explore, click a node to list every passage mentioning it and jump straight to the audio. The chart traces the cadence of the voice; click it to seek.</span></p>
+            <div class="grid grid-1 lg:grid-3 gap-6">
+                <div class="lg:col-span-2 glass-panel p-1 h-500 relative overflow-hidden" id="viz-container"></div>
+                <div class="glass-panel p-6 flex flex-col h-500">
+                    <h4 class="text-md font-bold mb-4 text-blue"><span lang="th">จังหวะถ้อยธรรม (คำ/นาที)</span><span lang="en">Cadence (words/min)</span></h4>
+                    <div class="relative flex-1 w-full"><canvas id="analyticsChart" aria-label="กราฟจังหวะถ้อยธรรม" role="img"></canvas></div>
+                    <div class="footnote mt-4"><span lang="th">ช่วงเงียบคือวรรคแห่งสมาธิ — ความนิ่งก็คือธรรม</span><span lang="en">The quiet valleys are meditative pauses — stillness, too, is a teaching</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ ABOUT ═══ -->
+        <section id="about" class="mt-16 container-narrow" aria-label="เกี่ยวกับบันทึกเสียง">
+            <div class="glass-panel p-6">
+                <h3 class="text-xl mb-4"><span lang="th">เกี่ยวกับบันทึกเสียงนี้</span><span lang="en">About this recording</span></h3>
+                <div style="line-height: 2;" class="text-md">
+                    <p lang="th">
+                        ธรรมบรรยายสองตอนนี้ พระเดชพระคุณหลวงพ่อสมปอง สุธัมมสันตจิตโต (ท่านจิตโต)
+                        แสดงไว้ ณ ศาลา ๑๒ ไร่ เมื่อวันที่ ๘ ธันวาคม พ.ศ. ๒๕๔๔ ว่าด้วยสมเด็จองค์ปฐม —
+                        พระพุทธสิขีทศพลที่ ๑ พระพุทธเจ้าพระองค์แรก — ท่านค่อย ๆ พาใจผู้ฟังจากความรัก
+                        อันบริสุทธิ์ของพ่อแม่ที่มีต่อลูก ขึ้นสู่พระมหากรุณาอันหาประมาณมิได้
+                        ของพระผู้ทรงเป็น "พ่อ" ของทุกดวงจิต จวบจนถ้อยสุดท้ายว่า <em>"พ่อจงชุ่มชื่นใจเถิด"</em>
+                    </p>
+                    <p lang="en">
+                        In this two-part talk, given at Sala 12 Rai on 8 December 2001, Venerable Luang Por
+                        Sompong Sudhammasantacitto (Than Jitto) speaks of Somdej Ong Pathom — Sikhī Dasabala I,
+                        the First Buddha. He gently leads the listener's heart from the pure love of parents for
+                        their children up to the boundless compassion of the one who is "father" to every mind,
+                        closing with the words: <em>"Father, may your heart be gladdened."</em>
+                    </p>
+                    <p class="mt-4" lang="th">
+                        บทถอดความตรวจทานโดย <b>Teera Jarawuttiyakorn</b> · ภาพประกอบด้านบนผ่านการปรับแต่งด้วยปัญญาประดิษฐ์
+                        · การซิงโครไนซ์ระดับคำจัดทำด้วยการจับคู่บทถอดความกับจังหวะเสียงโดยอัตโนมัติ
+                        ความคลาดเคลื่อนเล็กน้อยอาจมีได้ — ถ้อยธรรมที่ถูกต้องยึดตามบทถอดความและเสียงต้นฉบับ
+                    </p>
+                    <p class="mt-4" lang="en">
+                        Transcript proof-read by <b>Teera Jarawuttiyakorn</b> · the photograph above is AI-enhanced ·
+                        word-level synchronization was produced by automatic alignment of the transcript to the audio;
+                        minor drift may occur — the proof-read text and original audio remain authoritative.
+                    </p>
+                </div>
+                <div class="flex gap-3 mt-6 flex-wrap">
+                    <a class="btn btn-ghost" href="audio/OngPathom1.mp3" download><span id="dl-ico-1" class="flex" aria-hidden="true"></span><span lang="th">ดาวน์โหลด ตอนที่ ๑ (MP3)</span><span lang="en">Download Part 1 (MP3)</span></a>
+                    <a class="btn btn-ghost" href="audio/OngPathom2.mp3" download><span id="dl-ico-2" class="flex" aria-hidden="true"></span><span lang="th">ดาวน์โหลด ตอนที่ ๒ (MP3)</span><span lang="en">Download Part 2 (MP3)</span></a>
+                    <button class="btn btn-ghost" id="btn-print"><span lang="th">พิมพ์บทถอดความ</span><span lang="en">Print the transcript</span></button>
+                </div>
+            </div>
+            <p class="text-center footnote mt-8">
+                <span lang="th">จัดทำขึ้นเพื่อน้อมถวายเป็นอาจริยบูชา แด่พระเดชพระคุณหลวงพ่อสมปอง สุธัมมสันตจิตโต<br>ขอเสียงแห่งธรรมนี้ ยังความชุ่มชื่นใจให้บังเกิดแก่ทุกดวงจิต</span>
+                <span lang="en">Created in loving tribute to Venerable Luang Por Sompong Sudhammasantacitto.<br>May this voice of Dhamma gladden every heart it reaches.</span>
+                <br><span class="font-mono" style="opacity:.55">Nexus-Architect Protocol v19.0</span>
+            </p>
+        </section>
+    </main>
+
+    <div id="panel-scrim" class="panel-scrim" hidden></div>
+    <aside id="slide-panel" class="slide-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" tabindex="-1">
+        <button id="panel-close" class="btn-icon absolute" style="top: 1rem; right: 1rem;" aria-label="ปิด">✕</button>
+        <div id="panel-content"></div>
+    </aside>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <noscript><div style="position:fixed;inset:0;z-index:99999;background:#f5f5f7;padding:4rem 2rem;text-align:center;font-family:sans-serif;">
+        หน้านี้ต้องใช้ JavaScript เพื่อเล่นเสียงพร้อมบทถอดความ · ดาวน์โหลดเสียงได้ที่
+        <a href="audio/OngPathom1.mp3">ตอนที่ ๑</a> · <a href="audio/OngPathom2.mp3">ตอนที่ ๒</a>
+    </div></noscript>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "AudioObject",
+          "name": "สมเด็จองค์ปฐม พระพุทธสิขีทศพลที่ ๑ — ตอนที่ ๑",
+          "description": "ธรรมบรรยาย ณ ศาลา ๑๒ ไร่ ๘ ธันวาคม ๒๕๔๔ โดยหลวงพ่อสมปอง สุธัมมสันตจิตโต",
+          "contentUrl": "https://lunarwisdom.luangpor.com/First_Buddha/audio/OngPathom1.mp3",
+          "encodingFormat": "audio/mpeg", "inLanguage": "th", "duration": "PT30M42S",
+          "datePublished": "2001-12-08",
+          "creator": { "@type": "Person", "name": "หลวงพ่อสมปอง สุธัมมสันตจิตโต" }
+        },
+        {
+          "@type": "AudioObject",
+          "name": "สมเด็จองค์ปฐม พระพุทธสิขีทศพลที่ ๑ — ตอนที่ ๒ พ่อจงชุ่มชื่นใจเถิด",
+          "description": "ธรรมบรรยาย ณ ศาลา ๑๒ ไร่ ๘ ธันวาคม ๒๕๔๔ โดยหลวงพ่อสมปอง สุธัมมสันตจิตโต",
+          "contentUrl": "https://lunarwisdom.luangpor.com/First_Buddha/audio/OngPathom2.mp3",
+          "encodingFormat": "audio/mpeg", "inLanguage": "th", "duration": "PT28M31S",
+          "datePublished": "2001-12-08",
+          "creator": { "@type": "Person", "name": "หลวงพ่อสมปอง สุธัมมสันตจิตโต" }
+        }
+      ]
+    }
+    </script>
+    <script>
+'use strict';
+// ═══ 1. ASSETS ═══
+const ICONS = {
+    logo: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h2M5.6 5.6l4.3 4.3M14.1 14.1l4.3 4.3M18.4 5.6L14.1 9.9M9.9 14.1l-4.3 4.3M21 12h0"/></svg>`,
+    play: `<svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5z"/></svg>`,
+    pause: `<svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`,
+    back: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M11 8L7 12l4 4"/><path d="M7 12h9a4 4 0 1 1 0 8h-2"/><text x="5" y="7" font-size="7" fill="currentColor" stroke="none" font-family="Inter,sans-serif" font-weight="700">10</text></svg>`,
+    fwd: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M13 8l4 4-4 4"/><path d="M17 12H8a4 4 0 1 0 0 8h2"/><text x="13" y="7" font-size="7" fill="currentColor" stroke="none" font-family="Inter,sans-serif" font-weight="700">10</text></svg>`,
+    share: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>`,
+    search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>`,
+    down: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 4v12"/><path d="M8 12l4 4 4-4"/><path d="M5 20h14"/></svg>`,
+    lotus: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M12 20c-5 0-9-3-9-7 2 0 4 .8 5 2-1-3 0-7 4-9 4 2 5 6 4 9 1-1.2 3-2 5-2 0 4-4 7-9 7z"/></svg>`,
+    quote: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M10 7H6a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-7a0 0 0 0 0 0 0zM21 7h-4a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-7a0 0 0 0 0 0 0z" opacity=".85"/></svg>`
+};
+
+// ═══ 2. NOISE (Simplex — JS, used by home-sampling and Tier B) ═══
+class SimplexNoise{constructor(){this.p=new Uint8Array(256);for(let i=0;i<256;i++)this.p[i]=Math.floor(256*Math.random());this.perm=new Uint8Array(512);for(let i=0;i<512;i++)this.perm[i]=this.p[i&255]}dot(g,x,y){return g[0]*x+g[1]*y}noise(xin,yin){const F2=.5*(Math.sqrt(3)-1),G2=(3-Math.sqrt(3))/6;let i=Math.floor(xin+((xin+yin)*F2)),j=Math.floor(yin+((xin+yin)*F2)),t=(i+j)*G2,X0=i-t,Y0=j-t,x0=xin-X0,y0=yin-Y0;let i1,j1;if(x0>y0){i1=1;j1=0}else{i1=0;j1=1}let x1=x0-i1+G2,y1=y0-j1+G2,x2=x0-1+2*G2,y2=y0-1+2*G2,ii=i&255,jj=j&255,gi0=this.perm[ii+this.perm[jj]]%12,gi1=this.perm[ii+i1+this.perm[jj+j1]]%12,gi2=this.perm[ii+1+this.perm[jj+1]]%12,t0=.5-x0*x0-y0*y0,n0=t0<0?0:Math.pow(t0,4)*this.dot([Math.cos(gi0),Math.sin(gi0)],x0,y0),t1=.5-x1*x1-y1*y1,n1=t1<0?0:Math.pow(t1,4)*this.dot([Math.cos(gi1),Math.sin(gi1)],x1,y1),t2=.5-x2*x2-y2*y2,n2=t2<0?0:Math.pow(t2,4)*this.dot([Math.cos(gi2),Math.sin(gi2)],x2,y2);return 70*(n0+n1+n2)}n3(x,y,z){return this.noise(x+z*.7,y-z*.7)}}
+
+// ═══ 3. SHARED HALO CONSTANTS + FAST HOME SAMPLER ═══
+const HALO = {
+    N: 65536, SIM: 256,
+    C1: [0,113,227], C2: [191,90,242], C3: [255,55,95], H: 0.8,
+    RING_SHARE: 0.9,
+    pScale(pxR) { return Math.min(1.15, Math.max(.6, pxR / 420)); },
+    sampleHomes(N, R, bx, by, noise) {
+        const out = new Float32Array(N * 2);
+        const w1 = 0.12 * R, w2 = 0.055 * R, rMax = R + 2 * w1;
+        const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+        const profile = r =>
+            Math.max(0, ss(R - 2 * w1, R, r) - ss(R, R + w1, r)) ** 2
+          + Math.max(0, ss(R - 2 * w2, R, r) - ss(R, R + w2, r)) ** 3 * 3
+          + ss(R + w2, R, r) * 0.15;
+        for (let i = 0; i < N; i++) {
+            let x, y, guard = 0;
+            if (i < N * this.RING_SHARE) {
+                let r;
+                // rejection sampling, but never let one particle stall the loop
+                do { r = Math.random() * rMax; }
+                while (Math.random() * 3.2 > profile(r) * (0.2 + 0.8 * r / rMax) && ++guard < 48);
+                const a = Math.random() * Math.PI * 2;
+                x = Math.cos(a) * r; y = Math.sin(a) * r;
+            } else {
+                do { x = (Math.random() - .5) * 2 * bx; y = (Math.random() - .5) * 2 * by; }
+                while (Math.random() > Math.pow((noise.noise(x * 2.5 / R, y * 2.5 / R) + 1.5) * .5, 2) * 0.55 && ++guard < 48);
+            }
+            out[i * 2] = x; out[i * 2 + 1] = y;
+        }
+        return out;
+    }
+};
+
+// ═══ 4. VIEWPORT CHANGE FILTER ═══
+// Mobile browsers fire `resize` every time the URL bar hides or shows. Re-seeding
+// 65,536 particles on each of those is the single biggest scroll stutter on phones,
+// so a height-only change on a touch device is ignored.
+function makeViewportWatcher(onChange, delay = 220) {
+    let w = innerWidth, h = innerHeight, timer = 0;
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    addEventListener('resize', () => {
+        const dw = Math.abs(innerWidth - w), dh = Math.abs(innerHeight - h);
+        if (dw < 2 && (dh < 2 || (coarse && dh <= 140))) { h = innerHeight; return; }
+        w = innerWidth; h = innerHeight;
+        clearTimeout(timer);
+        timer = setTimeout(onChange, delay);
+    }, { passive: true });
+}
+
+// ═══ 5a. TIER A — HaloGL (three.js GPGPU FBO ping-pong) ═══
+const GLSL_SNOISE = `
+    vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+    vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+    vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+    vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+    float snoise(vec3 v){
+        const vec2 C=vec2(1.0/6.0,1.0/3.0); const vec4 D=vec4(0.0,0.5,1.0,2.0);
+        vec3 i=floor(v+dot(v,C.yyy)); vec3 x0=v-i+dot(i,C.xxx);
+        vec3 g=step(x0.yzx,x0.xyz); vec3 l=1.0-g;
+        vec3 i1=min(g.xyz,l.zxy); vec3 i2=max(g.xyz,l.zxy);
+        vec3 x1=x0-i1+C.xxx; vec3 x2=x0-i2+C.yyy; vec3 x3=x0-D.yyy;
+        i=mod289(i);
+        vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+        float n_=0.142857142857; vec3 ns=n_*D.wyz-D.xzx;
+        vec4 j=p-49.0*floor(p*ns.z*ns.z);
+        vec4 x_=floor(j*ns.z); vec4 y_=floor(j-7.0*x_);
+        vec4 x=x_*ns.x+ns.yyyy; vec4 y=y_*ns.x+ns.yyyy;
+        vec4 h=1.0-abs(x)-abs(y);
+        vec4 b0=vec4(x.xy,y.xy); vec4 b1=vec4(x.zw,y.zw);
+        vec4 s0=floor(b0)*2.0+1.0; vec4 s1=floor(b1)*2.0+1.0;
+        vec4 sh=-step(h,vec4(0.0));
+        vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy; vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+        vec3 p0=vec3(a0.xy,h.x); vec3 p1=vec3(a0.zw,h.y); vec3 p2=vec3(a1.xy,h.z); vec3 p3=vec3(a1.zw,h.w);
+        vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+        p0*=norm.x; p1*=norm.y; p2*=norm.z; p3*=norm.w;
+        vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0); m=m*m;
+        return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+    }`;
+
+class HaloGL {
+    constructor(canvas, THREE) {
+        const T = THREE;
+        if (!T) throw new Error('three missing');
+        this.T = T; this.cv = canvas; this.js = new SimplexNoise();
+        this.renderer = new T.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+        if (!this.renderer.capabilities.isWebGL2) { this.renderer.dispose(); throw new Error('WebGL2 required'); }
+        this.dpr = Math.min(devicePixelRatio || 1, 2);
+        this.renderer.setPixelRatio(this.dpr);
+        this.rtType = this.renderer.extensions.get('EXT_color_buffer_float') ? T.FloatType : T.HalfFloatType;
+        this.camera = new T.PerspectiveCamera(40, 1, 0.1, 1000);
+        this.camera.position.z = 3.1;
+        this.scene = new T.Scene();
+        this.hover = 0; this.hoverTarget = 0; this.pulse = 1e9;
+        this.mouse = new T.Vector2(1e4, 1e4);
+        this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.budget = 1000 / 61; this.lastDraw = 0;
+        this.computeView(); this.initSim(); this.initPoints();
+        this._onPointer = e => this.onPointer(e);
+        this._onLeave = () => { this.hoverTarget = 0; };
+        this._onClick = e => { if (!e.target.closest('.slide-panel, button, a, input')) this.pulse = 0; };
+        makeViewportWatcher(() => this.onResize());
+        addEventListener('pointermove', this._onPointer, { passive: true });
+        addEventListener('pointerleave', this._onLeave);
+        addEventListener('click', this._onClick, { passive: true });
+        canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); this.dead = true; this.onContextLost && this.onContextLost(); });
+        this.t = 0; this.frames = 0; this.last = performance.now();
+        requestAnimationFrame(ts => this.loop(ts));
+    }
+    setBudget(fps) { this.budget = 1000 / (fps + 1); }
+    computeView() {
+        const w = innerWidth, h = innerHeight;
+        this.renderer.setSize(w, h, false);
+        this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
+        this.visH = 2 * Math.tan(20 * Math.PI / 180) * 3.1;
+        this.visW = this.visH * this.camera.aspect;
+        this.R = 0.36 * Math.min(this.visW, this.visH);
+        this.yOff = 0.06 * this.visH;
+        this.pScale = HALO.pScale(innerHeight * this.R / this.visH);
+    }
+    makeHomesTexture() {
+        const T = this.T, S = HALO.SIM;
+        const homes = HALO.sampleHomes(HALO.N, this.R, this.visW / 2, this.visH / 2 + this.yOff, this.js);
+        const refs = new Float32Array(S * S * 4), pos = new Float32Array(S * S * 4);
+        for (let i = 0; i < HALO.N; i++) {
+            refs[i * 4] = homes[i * 2];     refs[i * 4 + 1] = homes[i * 2 + 1];
+            refs[i * 4 + 2] = Math.random(); refs[i * 4 + 3] = Math.random();
+            pos[i * 4] = homes[i * 2];      pos[i * 4 + 1] = homes[i * 2 + 1];
+        }
+        const mk = data => { const t = new T.DataTexture(data, S, S, T.RGBAFormat, T.FloatType);
+            t.minFilter = t.magFilter = T.NearestFilter; t.needsUpdate = true; return t; };
+        if (this.refsTex) this.refsTex.dispose();
+        if (this.posTex) this.posTex.dispose();
+        this.refsTex = mk(refs); this.posTex = mk(pos);
+    }
+    initSim() {
+        const T = this.T, S = HALO.SIM;
+        this.makeHomesTexture();
+        const rt = () => new T.WebGLRenderTarget(S, S, { type: this.rtType,
+            minFilter: T.NearestFilter, magFilter: T.NearestFilter, depthBuffer: false });
+        this.rtA = rt(); this.rtB = rt(); this.flip = false;
+        this.simMat = new T.ShaderMaterial({
+            uniforms: {
+                uPosition: { value: this.posTex }, uPosRefs: { value: this.refsTex },
+                uTime: { value: 0 }, uHover: { value: 0 }, uMouse: { value: this.mouse },
+                uRingPos: { value: new T.Vector2(0, 0) }, uRingRadius: { value: this.R },
+                uRingWidth: { value: 0.12 * this.R }, uRingWidth2: { value: 0.055 * this.R },
+                uGather: { value: 0.15 * Math.min(this.visW, this.visH) }
+            },
+            vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`,
+            fragmentShader: `
+                precision highp float;
+                uniform sampler2D uPosition; uniform sampler2D uPosRefs;
+                uniform float uTime, uHover, uRingRadius, uRingWidth, uRingWidth2, uGather;
+                uniform vec2 uMouse, uRingPos;
+                varying vec2 vUv;
+                ${GLSL_SNOISE}
+                void main() {
+                    vec4 p = texture2D(uPosition, vUv);
+                    vec4 r = texture2D(uPosRefs, vUv);
+                    vec2 ref = r.xy; float seed = r.z, seed2 = r.w;
+                    float scale = p.z;
+                    float time = uTime * .5;
+                    float lifeEnd = 3. + sin(seed2 * 100.);
+                    float lifeTime = mod(seed * 100. + time, lifeEnd);
+                    float d = distance(ref, uRingPos);
+                    float n0 = snoise(vec3(ref * .2 + vec2(18.49, 72.97), time * .5));
+                    float d1 = distance(ref + n0 * .005, uRingPos);
+                    float t  = smoothstep(uRingRadius - uRingWidth * 2., uRingRadius, d)  - smoothstep(uRingRadius, uRingRadius + uRingWidth,  d1);
+                    float t2 = smoothstep(uRingRadius - uRingWidth2 * 2., uRingRadius, d) - smoothstep(uRingRadius, uRingRadius + uRingWidth2, d1);
+                    float t3 = smoothstep(uRingRadius + uRingWidth2, uRingRadius, d);
+                    t = pow(max(t, 0.), 2.); t2 = pow(max(t2, 0.), 3.);
+                    float mask = t + t2 * 3. + t3 * .4;
+                    float nS = snoise(vec3(ref * 2. + vec2(18.49, 72.97), time * .5));
+                    mask += pow((nS + 1.5) * .5, 2.) * .6;
+                    float k = 1. / uRingRadius;
+                    vec2 disp = vec2(
+                        snoise(vec3(ref * k * 4. + vec2(88.49, 32.44), time * .35)),
+                        snoise(vec3(ref * k * 4. + vec2(50.90, 120.94), time * .35))) * .03 * uRingRadius;
+                    disp += vec2(
+                        snoise(vec3(ref * k * 20. + vec2(18.49, 72.97), time * .5)),
+                        snoise(vec3(ref * k * 20. + vec2(50.90, 120.94), time * .5))) * .005 * uRingRadius;
+                    vec2 target = ref + disp * min(mask, 1.6);
+                    float md = distance(uMouse, p.xy);
+                    float pull = smoothstep(uGather, 0., md) * uHover;
+                    target = mix(target, uMouse, pull * pull * .85);
+                    float velocity = pull;
+                    vec2 pos = p.xy + (target - p.xy) * .2;
+                    if (lifeTime < .02) { pos = ref; scale = 0.; }
+                    float targetScale = smoothstep(.01, .5, lifeTime) - smoothstep(.5, 1., lifeTime / lifeEnd);
+                    targetScale += pull * 1.5;
+                    scale += (targetScale - scale) * .1;
+                    gl_FragColor = vec4(pos, scale, velocity);
+                }`
+        });
+        this.simScene = new T.Scene();
+        this.simCam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        this.simScene.add(new T.Mesh(new T.PlaneGeometry(2, 2), this.simMat));
+    }
+    makePointsMaterial(glowPass) {
+        const T = this.T;
+        return new T.ShaderMaterial({
+            transparent: true, depthTest: false, depthWrite: false,
+            uniforms: {
+                uPosition: { value: this.posTex },
+                uTime: { value: 0 }, uHover: { value: 0 }, uPulse: { value: 1e3 },
+                uPixelRatio: { value: this.dpr }, uParticleScale: { value: this.pScale },
+                uSizeMul: { value: glowPass ? 2.8 : 1 }, uAlpha: { value: glowPass ? .05 : .55 },
+                uGlow: { value: glowPass ? 1 : 0 },
+                uRingPos: { value: new T.Vector2(0, 0) }, uRingRadius: { value: this.R },
+                uColor1: { value: new T.Color('#0071e3') },
+                uColor2: { value: new T.Color('#bf5af2') },
+                uColor3: { value: new T.Color('#ff375f') }
+            },
+            vertexShader: `
+                attribute vec4 seeds;
+                uniform sampler2D uPosition;
+                uniform float uTime, uHover, uPulse, uPixelRatio, uParticleScale, uSizeMul, uRingRadius;
+                varying float vVel; varying float vScale; varying vec2 vLocalPos;
+                ${GLSL_SNOISE}
+                void main() {
+                    vec4 pos = texture2D(uPosition, uv);
+                    float k = 1. / uRingRadius;
+                    float noiseX  = snoise(vec3(pos.xy * k * 10., uTime * .2 + 100.));
+                    float noiseY  = snoise(vec3(pos.xy * k * 10., uTime * .2));
+                    float noiseX2 = snoise(vec3(pos.xy * k * .5,  uTime * .15 + 45.));
+                    float noiseY2 = snoise(vec3(pos.xy * k * .5,  uTime * .15 + 87.));
+                    float cDist = length(pos.xy) / (uRingRadius * 2.2);
+                    float pt = smoothstep(uPulse - .25, uPulse, cDist) - smoothstep(uPulse, uPulse + .25, cDist);
+                    pt *= smoothstep(1., 0., cDist);
+                    pos.xy *= 1. + (pt * .02);
+                    float dist = smoothstep(0., .9, pos.w); dist = mix(0., dist, uHover);
+                    pos.x += noiseX * .005 * uRingRadius * dist;
+                    pos.y += noiseY * .005 * uRingRadius * dist;
+                    pos.x += noiseX2 * .02 * uRingRadius;
+                    pos.y += noiseY2 * .02 * uRingRadius;
+                    vVel = pos.w; vScale = pos.z; vLocalPos = pos.xy;
+                    vec4 mv = modelViewMatrix * vec4(pos.xy, 0., 1.);
+                    gl_Position = projectionMatrix * mv;
+                    gl_PointSize = (((vScale * 7.) * (uPixelRatio * .5) * uParticleScale) + .25 * uPixelRatio) * uSizeMul;
+                }`,
+            fragmentShader: `
+                precision highp float;
+                varying float vVel; varying float vScale; varying vec2 vLocalPos;
+                uniform vec3 uColor1, uColor2, uColor3;
+                uniform vec2 uRingPos;
+                uniform float uTime, uAlpha, uGlow, uRingRadius;
+                ${GLSL_SNOISE}
+                float sdRoundBox(in vec2 p, in vec2 b, in vec4 r) {
+                    r.xy = (p.x > 0.) ? r.xy : r.zw; r.x = (p.y > 0.) ? r.x : r.y;
+                    vec2 q = abs(p) - b + r.x;
+                    return min(max(q.x, q.y), 0.) + length(max(q, 0.)) - r.x;
+                }
+                vec2 rotate(vec2 v, float a) { float s = sin(a), c = cos(a); return mat2(c, s, -s, c) * v; }
+                void main() {
+                    float k = 1. / uRingRadius;
+                    float noiseAngle = snoise(vec3(vLocalPos * k * 10. + vec2(18.49, 72.97), uTime * .85));
+                    float noiseColor = snoise(vec3(vLocalPos * k * 2. + vec2(74.66, 91.55), uTime * .5));
+                    noiseColor = (noiseColor + 1.) * .5;
+                    float angle = atan(vLocalPos.y - uRingPos.y, vLocalPos.x - uRingPos.x);
+                    vec2 uv = gl_PointCoord.xy - .5; uv.y *= -1.;
+                    uv = rotate(uv, -angle + noiseAngle * .5);
+                    float h = .8;
+                    float progress = smoothstep(0., .75, pow(noiseColor, 2.));
+                    progress = min(progress + vVel, 1.);
+                    vec3 col = mix(mix(uColor1, uColor2, progress / h),
+                                   mix(uColor2, uColor3, (progress - h) / (1. - h)), step(h, progress));
+                    float a;
+                    if (uGlow > .5) {
+                        a = uAlpha * smoothstep(.5, .05, length(uv)) * smoothstep(.1, .2, vScale);
+                    } else {
+                        float rounded = sdRoundBox(uv, vec2(.5, .2), vec4(.25));
+                        rounded = smoothstep(.1, 0., rounded);
+                        a = uAlpha * rounded * smoothstep(.1, .2, vScale);
+                    }
+                    if (a < .01) discard;
+                    gl_FragColor = vec4(col, a);
+                }`
+        });
+    }
+    initPoints() {
+        const T = this.T, S = HALO.SIM, N = HALO.N;
+        const geo = new T.BufferGeometry();
+        const posAttr = new Float32Array(N * 3), uvAttr = new Float32Array(N * 2), seeds = new Float32Array(N * 4);
+        for (let i = 0; i < N; i++) {
+            uvAttr[i * 2] = ((i % S) + .5) / S; uvAttr[i * 2 + 1] = (Math.floor(i / S) + .5) / S;
+            for (let j = 0; j < 4; j++) seeds[i * 4 + j] = Math.random();
+        }
+        geo.setAttribute('position', new T.BufferAttribute(posAttr, 3));
+        geo.setAttribute('uv', new T.BufferAttribute(uvAttr, 2));
+        geo.setAttribute('seeds', new T.BufferAttribute(seeds, 4));
+        this.glowMat = this.makePointsMaterial(true);
+        this.coreMat = this.makePointsMaterial(false);
+        this.glowPts = new T.Points(geo, this.glowMat); this.glowPts.renderOrder = 0;
+        this.corePts = new T.Points(geo, this.coreMat); this.corePts.renderOrder = 1;
+        this.glowPts.frustumCulled = this.corePts.frustumCulled = false;
+        this.glowPts.position.y = this.corePts.position.y = this.yOff;
+        this.scene.add(this.glowPts, this.corePts);
+    }
+    onResize() {
+        if (this.dead) return;
+        this.computeView();
+        this.makeHomesTexture();
+        this.simMat.uniforms.uPosRefs.value = this.refsTex;
+        this.simMat.uniforms.uPosition.value = this.posTex; this.flip = false; this.started = false;
+        this.simMat.uniforms.uRingRadius.value = this.R;
+        this.simMat.uniforms.uRingWidth.value = .12 * this.R;
+        this.simMat.uniforms.uRingWidth2.value = .055 * this.R;
+        this.simMat.uniforms.uGather.value = .15 * Math.min(this.visW, this.visH);
+        this.glowMat.uniforms.uRingRadius.value = this.coreMat.uniforms.uRingRadius.value = this.R;
+        this.glowMat.uniforms.uParticleScale.value = this.coreMat.uniforms.uParticleScale.value = this.pScale;
+        this.glowPts.position.y = this.corePts.position.y = this.yOff;
+    }
+    onPointer(e) {
+        this.mouse.set((e.clientX / innerWidth * 2 - 1) * this.visW / 2,
+                      -(e.clientY / innerHeight * 2 - 1) * this.visH / 2 - this.yOff);
+        this.hoverTarget = 1;
+    }
+    loop(ts) {
+        if (this.dead) return;
+        if (!this.reduced || this.frames++ < 30) requestAnimationFrame(t2 => this.loop(t2));
+        if (document.hidden) { this.last = ts; return; }
+        if (ts - this.lastDraw < this.budget) return;          // frame budget governor
+        const dt = Math.min(.05, (ts - this.last) / 1000);
+        this.last = ts; this.lastDraw = ts;
+        this.t += dt; this.stepAndRender(dt);
+    }
+    stepAndRender(dt) {
+        this.hover += (this.hoverTarget - this.hover) * Math.min(1, dt / .4);
+        if (this.pulse < 1.6) this.pulse += dt / 1.2;
+        const rp = this.simMat.uniforms.uRingPos.value;
+        rp.set(this.js.noise(this.t * .05, 7.3) * .03 * this.R,
+               this.js.noise(this.t * .05, 91.7) * .03 * this.R);
+        this.coreMat.uniforms.uRingPos.value.copy(rp);
+        this.glowMat.uniforms.uRingPos.value.copy(rp);
+        this.simMat.uniforms.uRingRadius.value = this.R * (1 + this.js.noise(this.t * .07, 41.1) * .015);
+        const su = this.simMat.uniforms;
+        su.uTime.value = this.t; su.uHover.value = this.hover;
+        const read = this.flip ? this.rtB : this.rtA, write = this.flip ? this.rtA : this.rtB;
+        if (this.started) su.uPosition.value = read.texture;
+        this.renderer.setRenderTarget(write);
+        this.renderer.render(this.simScene, this.simCam);
+        this.renderer.setRenderTarget(null);
+        this.flip = !this.flip; this.started = true;
+        for (const m of [this.glowMat, this.coreMat]) {
+            m.uniforms.uPosition.value = write.texture;
+            m.uniforms.uTime.value = this.t;
+            m.uniforms.uHover.value = this.hover;
+            m.uniforms.uPulse.value = Math.min(this.pulse, 1e3);
+        }
+        this.renderer.render(this.scene, this.camera);
+    }
+    destroy() {
+        this.dead = true;
+        removeEventListener('pointermove', this._onPointer);
+        removeEventListener('pointerleave', this._onLeave);
+        removeEventListener('click', this._onClick);
+        try { this.renderer.dispose(); } catch (e) { /* already gone */ }
+    }
+}
+
+// ═══ 5b. TIER B — HaloCanvas (Canvas 2D fallback, full 65,536 population) ═══
+class HaloCanvas {
+    constructor(canvas) {
+        this.cv = canvas; this.ctx = canvas.getContext('2d');
+        this.noise = new SimplexNoise();
+        this.BUCKETS = 24; this.ANGLES = 32;
+        this.hover = 0; this.hoverTarget = 0; this.pulse = 1e9;
+        this.pointer = { x: -1e4, y: -1e4 };
+        this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const weak = (navigator.hardwareConcurrency || 8) <= 4 || matchMedia('(pointer: coarse)').matches;
+        this.renderScale = weak ? .5 : 1; this.frameEMA = 16; this.slowFrames = 0;
+        this.budget = 1000 / 61; this.lastDraw = 0;
+        this.G = 40; this.grid = new Float32Array(this.G * this.G * 5); this.gridClock = 0;
+        this.resize(); this.buildAtlas(); this.seed();
+        this._onMove = e => { this.pointer.x = e.clientX; this.pointer.y = e.clientY; this.hoverTarget = 1; };
+        this._onLeave = () => { this.hoverTarget = 0; };
+        this._onClick = e => { if (!e.target.closest('.slide-panel, button, a, input')) this.pulse = 0; };
+        makeViewportWatcher(() => { this.resize(); this.seed(); if (this.settled || this.reduced) this.renderStill(); });
+        addEventListener('pointermove', this._onMove, { passive: true });
+        addEventListener('pointerleave', this._onLeave);
+        addEventListener('click', this._onClick, { passive: true });
+        this.t = 0; this.last = performance.now();
+        this.reduced ? this.renderStill() : requestAnimationFrame(ts => this.loop(ts));
+    }
+    setBudget(fps) { this.budget = 1000 / (fps + 1); }
+    renderStill() { this.updateGrid(); this.step(1 / 60); this.draw(); }
+    resize() {
+        this.dpr = Math.min(devicePixelRatio || 1, 2);
+        this.applyScale();
+        this.R = Math.min(innerWidth, innerHeight) * 0.36;
+        this.cx = innerWidth * 0.5; this.cy = innerHeight * 0.44;
+        this.pScale = HALO.pScale(this.R);
+    }
+    applyScale() {
+        const s = this.dpr * this.renderScale;
+        this.cv.width = Math.round(innerWidth * s); this.cv.height = Math.round(innerHeight * s);
+        this.pxScale = s;
+        this.ctx.imageSmoothingEnabled = this.renderScale >= 1;
+    }
+    mix(a, b, t) { return a + (b - a) * t; }
+    smooth(e0, e1, x) { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
+    ramp(p) {
+        const h = HALO.H, [A, B] = p < h ? [HALO.C1, HALO.C2] : [HALO.C2, HALO.C3];
+        const t = p < h ? p / h : (p - h) / (1 - h);
+        return A.map((c, i) => Math.round(this.mix(c, B[i], t)));
+    }
+    buildAtlas() {
+        const CELL = this.CELL = 26;
+        const atlas = this.atlas = document.createElement('canvas');
+        atlas.width = CELL * this.BUCKETS; atlas.height = CELL * this.ANGLES;
+        const c = atlas.getContext('2d');
+        for (let b = 0; b < this.BUCKETS; b++) {
+            const [r, g, bl] = this.ramp(b / (this.BUCKETS - 1));
+            for (let a = 0; a < this.ANGLES; a++) {
+                c.save();
+                c.translate(b * CELL + CELL / 2, a * CELL + CELL / 2);
+                c.rotate(a / this.ANGLES * Math.PI);
+                c.fillStyle = `rgb(${r},${g},${bl})`;
+                c.beginPath(); c.roundRect(-11, -4.5, 22, 9, 4.5); c.fill();
+                c.restore();
+            }
+        }
+    }
+    seed() {
+        const N = HALO.N;
+        const homes = HALO.sampleHomes(N, this.R, innerWidth / 2, innerHeight / 2, this.noise);
+        if (!this.hx) {
+            this.hx = new Float32Array(N); this.hy = new Float32Array(N);
+            this.x = new Float32Array(N);  this.y = new Float32Array(N);
+            this.sc = new Float32Array(N); this.sd = new Float32Array(N);
+            this.lf = new Float32Array(N); this.ht = new Float32Array(N);
+            this.wb = new Float32Array(N); this.cn = new Float32Array(N);
+            for (let i = 0; i < N; i++) { this.sd[i] = Math.random(); this.lf[i] = 3 + (Math.random() * 2 - 1); }
+        }
+        for (let i = 0; i < N; i++) {
+            this.hx[i] = homes[i * 2] + this.cx; this.hy[i] = homes[i * 2 + 1] + this.cy;
+            this.x[i] = this.hx[i]; this.y[i] = this.hy[i];
+        }
+    }
+    updateGrid() {
+        const n = this.noise, t = this.t, R = this.R, G = this.G, k = 1 / R;
+        for (let gy = 0; gy < G; gy++) for (let gx = 0; gx < G; gx++) {
+            const wx = (gx + .5) / G * innerWidth, wy = (gy + .5) / G * innerHeight;
+            const o = (gy * G + gx) * 5;
+            this.grid[o]     = (n.n3(wx * k * 4, wy * k * 4, t * .35) * .03
+                              + n.n3(wx * k * .5, wy * k * .5, t * .15) * .025) * R;
+            this.grid[o + 1] = (n.n3(wx * k * 4 + 33, wy * k * 4 + 33, t * .35) * .03
+                              + n.n3(wx * k * .5 + 87, wy * k * .5 + 87, t * .15) * .025) * R;
+            this.grid[o + 2] = n.n3(wx * k * 10, wy * k * 10, t * .85) * .5;
+            this.grid[o + 3] = this.smooth(0, .75, ((n.n3(wx * k * 2, wy * k * 2, t * .5) + 1) / 2) ** 2);
+        }
+    }
+    sampleGrid(x, y, out) {
+        const G = this.G;
+        const fx = Math.min(G - 1.001, Math.max(0, x / innerWidth * G - .5));
+        const fy = Math.min(G - 1.001, Math.max(0, y / innerHeight * G - .5));
+        const x0 = fx | 0, y0 = fy | 0, tx = fx - x0, ty = fy - y0;
+        const o00 = (y0 * G + x0) * 5, o10 = o00 + 5, o01 = o00 + G * 5, o11 = o01 + 5;
+        for (let c = 0; c < 4; c++) {
+            const a = this.grid[o00 + c] + (this.grid[o10 + c] - this.grid[o00 + c]) * tx;
+            const b = this.grid[o01 + c] + (this.grid[o11 + c] - this.grid[o01 + c]) * tx;
+            out[c] = a + (b - a) * ty;
+        }
+    }
+    loop(ts) {
+        if (this.settled) return;
+        requestAnimationFrame(t2 => this.loop(t2));
+        if (document.hidden) { this.last = ts; return; }
+        if (ts - this.lastDraw < this.budget) return;
+        const raw = ts - this.last, dt = Math.min(.05, raw / 1000);
+        this.last = ts; this.lastDraw = ts;
+        this.t += dt;
+        this.frameEMA = this.frameEMA * .95 + raw * .05;
+        this.govern();
+        if ((this.gridClock += dt) >= 1 / 30) { this.gridClock = 0; this.updateGrid(); }
+        this.step(dt); this.draw();
+    }
+    govern() {
+        const LADDER = [1, .75, .5, .35, .25];
+        const i = LADDER.indexOf(this.renderScale);
+        if (this.frameEMA > 24 && i < LADDER.length - 1) { this.renderScale = LADDER[i + 1]; this.applyScale(); this.frameEMA = 16; }
+        else if (this.frameEMA < 11 && i > 0)            { this.renderScale = LADDER[i - 1]; this.applyScale(); this.frameEMA = 16; }
+        // Resolution cannot rescue a CPU-bound O(N) loop: if the device is still
+        // over budget at the ladder floor for ~5 s, settle to a serene static frame
+        // (the same result as prefers-reduced-motion) and give the thread back.
+        if (this.renderScale === LADDER[LADDER.length - 1] && this.frameEMA > 34) {
+            if (++this.slowFrames > 90) {
+                this.settled = true;
+                this.renderScale = .75; this.applyScale();
+                this.renderStill();
+                console.warn('Halo settled to a static frame (CPU-bound device)');
+            }
+        } else this.slowFrames = 0;
+    }
+    step(dt) {
+        const N = HALO.N, t = this.t, g = this.gtmp || (this.gtmp = new Float32Array(4));
+        const gatherR = .15 * Math.min(innerWidth, innerHeight);
+        this.hover += (this.hoverTarget - this.hover) * Math.min(1, dt / .4);
+        if (this.pulse < 1.6) this.pulse += dt / 1.2;
+        const px = this.pointer.x, py = this.pointer.y, hov = this.hover;
+        for (let i = 0; i < N; i++) {
+            const lt = (this.sd[i] * 100 + t * .5) % this.lf[i];
+            let target = this.smooth(.01, .5, lt) - this.smooth(.5, 1, lt / this.lf[i]);
+            this.sampleGrid(this.hx[i], this.hy[i], g);
+            this.wb[i] = g[2]; this.cn[i] = g[3];
+            let tx = this.hx[i] + g[0], ty = this.hy[i] + g[1];
+            if (hov > .01) {
+                const dxp = px - this.x[i], dyp = py - this.y[i];
+                const pd = Math.sqrt(dxp * dxp + dyp * dyp);
+                const pull = this.smooth(gatherR, 0, pd) * hov;
+                if (pull > .001) {
+                    tx = this.mix(tx, px, pull * .6); ty = this.mix(ty, py, pull * .6);
+                    target += pull * 1.5;
+                }
+                this.ht[i] += (pull - this.ht[i]) * .1;
+            } else if (this.ht[i] > .001) this.ht[i] *= .9;
+            if (this.pulse < 1) {
+                const dr = Math.hypot(this.hx[i] - this.cx, this.hy[i] - this.cy) / this.R;
+                const w = (this.smooth(this.pulse - .25, this.pulse, dr)
+                         - this.smooth(this.pulse, this.pulse + .25, dr))
+                         * this.smooth(1, 0, dr) * .02;
+                tx = this.cx + (tx - this.cx) * (1 + w);
+                ty = this.cy + (ty - this.cy) * (1 + w);
+            }
+            this.x[i] += (tx - this.x[i]) * .2; this.y[i] += (ty - this.y[i]) * .2;
+            this.sc[i] += (target - this.sc[i]) * .1;
+        }
+    }
+    draw() {
+        const { ctx } = this, N = HALO.N, s0 = this.pxScale;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, this.cv.width, this.cv.height);
+        const CELL = this.CELL, A = this.ANGLES, B = this.BUCKETS, PI = Math.PI;
+        for (let i = 0; i < N; i++) {
+            const sc = this.sc[i];
+            if (sc < .06) continue;
+            const prog = Math.min(1, this.cn[i] + this.ht[i]);
+            let ang = Math.atan2(this.y[i] - this.cy, this.x[i] - this.cx) + this.wb[i];
+            ang = ((ang % PI) + PI) % PI;
+            const bi = (prog * (B - 1) + .5) | 0;
+            const ai = (ang / PI * A) | 0;
+            const sz = (sc * 7 * this.dpr * .5 * this.pScale + .5) / 9;
+            const w = CELL * sz * s0 / this.dpr;
+            ctx.globalAlpha = Math.min(1, sc) * .55;
+            ctx.drawImage(this.atlas, bi * CELL, (ai === A ? 0 : ai) * CELL, CELL, CELL,
+                          this.x[i] * s0 - w / 2, this.y[i] * s0 - w / 2, w, w);
+        }
+        ctx.globalAlpha = 1;
+    }
+    destroy() {
+        this.settled = true;
+        removeEventListener('pointermove', this._onMove);
+        removeEventListener('pointerleave', this._onLeave);
+        removeEventListener('click', this._onClick);
+    }
+}
+
+// ═══ 5c. TIER SELECTOR — decide first, download second ═══
+function pickHaloTier() {
+    const forced = new URLSearchParams(location.search).get('halo');
+    if (forced === 'off' || forced === '2d' || forced === 'gl') return forced;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return '2d';
+    const conn = navigator.connection;
+    if (conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''))) return '2d';
+    if ((navigator.hardwareConcurrency || 8) <= 4) return '2d';
+    if ((navigator.deviceMemory || 8) <= 2) return '2d';
+    return 'gl';
+}
+
+async function createHalo(canvas) {
+    const tier = pickHaloTier();
+    if (tier === 'off') return null;
+    if (tier === 'gl') {
+        try {
+            const THREE = await import('three');
+            const gl = new HaloGL(canvas, THREE);
+            gl.onContextLost = () => {
+                console.warn('WebGL context lost — Canvas tier takes over');
+                gl.destroy();
+                const fresh = canvas.cloneNode();
+                canvas.replaceWith(fresh);
+                APP.halo = new HaloCanvas(fresh);
+                APP.applyHaloBudget();
+            };
+            return gl;
+        } catch (e) { console.warn('WebGL tier unavailable — Canvas tier', e); }
+    }
+    return new HaloCanvas(canvas);
+}
+
+// ═══ 6. CONFIGURATION ═══
+const TRACKS = [
+    { n: 1, data: 'data/track1.json', audio: 'audio/OngPathom1.mp3', dur: 1842.39,
+      th: 'ตอนที่ ๑ · สมเด็จองค์ปฐม', en: 'Part 1 · Somdej Ong Pathom' },
+    { n: 2, data: 'data/track2.json', audio: 'audio/OngPathom2.mp3', dur: 1711.31,
+      th: 'ตอนที่ ๒ · พ่อจงชุ่มชื่นใจเถิด', en: 'Part 2 · Father, Be Gladdened' }
+];
+const QUOTES = [
+    { t: 1, q: 'ท่านคงรู้จักคำว่าความสุขที่เกิดจากการไม่ยึดไม่ถืออะไร', en: 'You surely know the happiness born of clinging to nothing at all.' },
+    { t: 1, q: 'ก็เรียกว่านิพพาน ความสุขอย่างนี้มันเกิดขึ้นกับทุกดวงจิตดวงใจที่คิดไปในทางเดียวกัน', en: 'It is called Nibbāna — a happiness that arises in every heart turned the same way.' },
+    { t: 1, q: 'มันเป็นความรักที่บริสุทธิ์ใจอย่างยิ่ง', en: 'It is a love of the utmost purity of heart.' },
+    { t: 2, q: 'คือสมเด็จองค์ปฐมเมื่อสมัยนั้นย้อนถอยหลังมาหกสิบอสงไขยเศษ', en: 'It was Somdej Ong Pathom — more than sixty asaṅkhyeyya ago.' },
+    { t: 2, q: 'นี่เป็นความรักที่บริสุทธิ์มากที่สุด', en: 'This is the purest love there is.' },
+    { t: 2, q: 'พ่อจงชุ่มชื่นใจเถิด', en: 'Father, may your heart be gladdened.' }
+];
+const CONCEPTS = [
+    { id: 'สมเด็จองค์ปฐม', terms: ['สมเด็จองค์ปฐม', 'องค์ปฐม', 'พระพุทธสิขี'], cat: 0 },
+    { id: 'พระพุทธเจ้า', terms: ['พระพุทธเจ้า'], cat: 0 },
+    { id: 'พ่อ', terms: ['พ่อ'], cat: 0 },
+    { id: 'แม่', terms: ['แม่'], cat: 0 },
+    { id: 'ลูก', terms: ['ลูก'], cat: 0 },
+    { id: 'ความสุข', terms: ['ความสุข'], cat: 1 },
+    { id: 'ความรัก', terms: ['ความรัก', 'รัก'], cat: 1 },
+    { id: 'ความทุกข์', terms: ['ความทุกข์', 'ทุกข์'], cat: 1 },
+    { id: 'พระนิพพาน', terms: ['นิพพาน'], cat: 1 },
+    { id: 'บารมี', terms: ['บารมี'], cat: 1 },
+    { id: 'จิตใจ', terms: ['ดวงจิต', 'จิต'], cat: 2 },
+    { id: 'ร่างกาย', terms: ['ร่างกาย'], cat: 2 },
+    { id: 'มนุษย์', terms: ['มนุษย์'], cat: 2 },
+    { id: 'พรหม·เทวดา', terms: ['พรหม', 'เทวดา', 'นางฟ้า'], cat: 2 }
+];
+const CAT_COLOR = ['#0071e3', '#bf5af2', '#ff9f0a'];
+const TH_NUM = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+
+// ═══ 7. SMALL UTILITIES ═══
+const $ = id => document.getElementById(id);
+const fmt = s => {
+    s = Math.max(0, Math.floor(s || 0));
+    const m = Math.floor(s / 60), ss = String(s % 60).padStart(2, '0');
+    return `${String(m).padStart(2, '0')}:${ss}`;
+};
+const isSpace = c => c === ' ' || c === '\n' || c === '\t' || c === '\r' || c === '\u00A0' || c === '\u200B';
+const stripSpace = s => { let o = ''; for (let i = 0; i < s.length; i++) if (!isSpace(s[i])) o += s[i]; return o; };
+// Storage throws under "block all cookies" — a preference must never kill the page.
+const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignored */ } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { /* ignored */ } }
+};
+const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+};
+const bi = (th, en) => { // one bilingual pair; CSS decides which is shown
+    const f = document.createDocumentFragment();
+    const a = el('span', null, th); a.lang = 'th';
+    const b = el('span', null, en); b.lang = 'en';
+    f.append(a, b); return f;
+};
+// Event-driven library readiness — no polling, no fixed delay.
+const libReady = (test, id) => new Promise(resolve => {
+    if (test()) return resolve(true);
+    const s = $(id);
+    if (!s) return resolve(false);
+    s.addEventListener('load', () => resolve(test()), { once: true });
+    s.addEventListener('error', () => resolve(false), { once: true });
+    setTimeout(() => resolve(test()), 12000);
+});
+
+// ═══ 8. APP ═══
+const APP = {
+    lang: store.get('fb_lang') === 'en' ? 'en' : 'th',
+    track: null, index: {}, indexP: {}, words: [], lineEls: [],
+    painted: -1, karIdx: -1, lineIdx: -1, autoScroll: true, raf: 0,
+    chart: null, sim: null, loadSeq: 0, searchSeq: 0, insightsSeen: false, insightsFor: 0,
+
+    // ---------- boot ----------
+    init() {
+        this.applyLang(this.lang, true);
+        this.audio = $('audio');
+        this.paintIcons();
+        this.restorePrefs();
+        this.buildTrackCards();
+        this.buildQuoteCards();
+        this.initControls();
+        this.initPanel();
+        this.initMediaSession();
+        this.libD3 = libReady(() => typeof d3 !== 'undefined', 'lib-d3');
+        this.libChart = libReady(() => typeof Chart !== 'undefined', 'lib-chart');
+
+        // Phase 1 — the page is usable the moment the shell is painted.
+        const overlay = $('loading-overlay');
+        overlay.classList.add('fade-out');
+        overlay.style.pointerEvents = 'none';
+        setTimeout(() => overlay.remove(), 900);
+
+        // Deep link:  ?track=2&t=123
+        const p = new URLSearchParams(location.search);
+        const tn = TRACKS.some(t => t.n === parseInt(p.get('track'))) ? parseInt(p.get('track')) : 1;
+        const tt = parseFloat(p.get('t'));
+        this.loadTrack(tn, isNaN(tt) ? null : tt, false);
+
+        // Phase 2 — analysis renders only once the reader scrolls to it.
+        new IntersectionObserver(entries => {
+            if (entries.some(e => e.isIntersecting)) { this.insightsSeen = true; this.buildInsights(); }
+        }, { rootMargin: '250px' }).observe($('insights'));
+
+        // Phase 3 — the halo is ambience; it waits for an idle moment.
+        const startHalo = () => createHalo($('halo-canvas')).then(h => { this.halo = h; this.applyHaloBudget(); });
+        'requestIdleCallback' in window
+            ? requestIdleCallback(startHalo, { timeout: 2500 })
+            : setTimeout(startHalo, 1200);
+    },
+
+    paintIcons() {
+        $('logo-slot').innerHTML = ICONS.logo;
+        $('btn-play').innerHTML = ICONS.play;
+        $('btn-back').innerHTML = ICONS.back;
+        $('btn-fwd').innerHTML = ICONS.fwd;
+        $('btn-share').innerHTML = ICONS.share;
+        $('search-ico').innerHTML = ICONS.search;
+        $('dl-ico-1').innerHTML = ICONS.down;
+        $('dl-ico-2').innerHTML = ICONS.down;
+        $('cta-listen').innerHTML =
+            `${ICONS.lotus}<span lang="th">เริ่มฟังธรรม</span><span lang="en">Begin Listening</span>`;
+        $('btn-resume').innerHTML =
+            `<span lang="th">กลับสู่บรรทัดปัจจุบัน</span><span lang="en">Back to current line</span>`;
+    },
+
+    restorePrefs() {
+        const sp = parseInt(store.get('fb_speed'));
+        if (sp >= 50 && sp <= 200) {
+            $('input-speed').value = sp;
+            this.audio.playbackRate = sp / 100;
+            $('val-speed').textContent = (sp / 100).toFixed(2) + '×';
+        }
+        const fs = parseInt(store.get('fb_font'));
+        if (fs >= 88 && fs <= 160) {
+            $('input-font').value = fs;
+            document.documentElement.style.setProperty('--tr-font', fs / 100 + 'rem');
+            $('val-font').textContent = fs + '%';
+        }
+    },
+
+    // ---------- one index per track, four consumers ----------
+    // Transcript timestamps, search, quote anchoring and the concept graph all read
+    // from this. It is built once per track instead of being recomputed per keystroke.
+    loadIndex(n) {
+        if (!this.indexP[n]) {
+            this.indexP[n] = fetch(TRACKS[n - 1].data)
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(data => {
+                    const lines = data.lines || [];
+                    const L = lines.map(l => {
+                        const raw = l.w.map(w => w[0]).join('');
+                        let norm = ''; const map = [];
+                        for (let i = 0; i < raw.length; i++) if (!isSpace(raw[i])) { norm += raw[i]; map.push(i); }
+                        return { s: l.s, raw, norm, map: Int32Array.from(map) };
+                    });
+                    let all = ''; const owner = [];
+                    L.forEach((x, li) => { all += x.norm; for (let k = 0; k < x.norm.length; k++) owner.push(li); });
+                    const idx = { lines, L, all, owner: Int32Array.from(owner) };
+                    this.index[n] = idx;
+                    return idx;
+                })
+                .catch(e => { delete this.indexP[n]; throw e; });
+        }
+        return this.indexP[n];
+    },
+
+    durOf(n) {
+        const tr = TRACKS[n - 1];
+        if (n === this.track && isFinite(this.audio.duration) && this.audio.duration > 1) return this.audio.duration;
+        return tr.dur;
+    },
+
+    async loadTrack(n, seekTo = null, autoplay = false) {
+        const tr = TRACKS[n - 1];
+        if (!tr) return;
+        if (this.track === n) {
+            if (seekTo != null) this.seek(seekTo);
+            if (autoplay) this.play();
+            return;
+        }
+        const seq = ++this.loadSeq;
+        this.track = n;
+        this.savePosKey = 'fb_pos_' + n;
+        this.setNowPlaying(tr);
+        this.audio.src = tr.audio;
+        this.audio.playbackRate = ($('input-speed').value || 100) / 100;
+        this.markActiveCard();
+
+        const saved = parseFloat(store.get(this.savePosKey));
+        const t0 = seekTo != null ? seekTo
+            : (!isNaN(saved) && saved > 10 && saved < tr.dur - 20 ? saved : 0);
+        this._pendingSeek = t0;
+        if (t0 > 0) this.audio.currentTime = t0;
+        if (autoplay) this.play();   // stay inside the user-gesture window
+
+        $('transcript').setAttribute('aria-busy', 'true');
+        let idx;
+        try { idx = await this.loadIndex(n); }
+        catch (e) {
+            console.error(e);
+            if (seq === this.loadSeq) {
+                this.track = null;            // let the same card retry
+                this.showTranscriptError();
+                this.toast('โหลดบทถอดความไม่สำเร็จ — แตะตอนนั้นอีกครั้งเพื่อลองใหม่',
+                           'The transcript did not load. Tap the part again to retry.');
+            }
+            return;
+        }
+        if (seq !== this.loadSeq) return;      // a newer load superseded this one
+        this.buildTranscript(idx);
+        this.placeQuotes();
+        this.insightsFor = 0;
+        this.buildInsights();
+        this.syncNow(this.audio.currentTime * 1000, true);
+        this.updateSeekUI(true);
+    },
+
+    setNowPlaying(tr) {
+        const t = $('np-title');
+        t.textContent = '';
+        t.append(bi(tr.th, tr.en));
+        $('t-dur').textContent = fmt(this.durOf(tr.n));
+    },
+
+    // ---------- transcript ----------
+    buildTranscript(idx) {
+        const box = $('transcript');
+        box.textContent = '';
+        this.words = []; this.lineEls = []; this._found = [];
+        this.painted = -1; this.karIdx = -1; this.lineIdx = -1;
+        const frag = document.createDocumentFragment();
+        idx.lines.forEach((line, li) => {
+            const p = el('p', 'tl');
+            p.dataset.li = li;
+            const st = el('button', 'tstamp', fmt(line.s / 1000));
+            st.type = 'button';
+            st.setAttribute('aria-label',
+                (this.lang === 'th' ? 'ฟังจากนาที ' : 'Play from ') + fmt(line.s / 1000));
+            p.appendChild(st);
+            for (const [txt, s, e] of line.w) {
+                if (e > s) {
+                    const sp = el('span', 'w', txt);
+                    sp.dataset.wi = this.words.length;
+                    this.words.push({ s, e, el: sp, li });
+                    p.appendChild(sp);
+                } else {
+                    p.appendChild(document.createTextNode(txt));
+                }
+            }
+            frag.appendChild(p);
+            this.lineEls.push(p);
+        });
+        box.appendChild(frag);
+        box.setAttribute('aria-busy', 'false');
+        box.scrollTop = 0;
+    },
+
+    showTranscriptError() {
+        const box = $('transcript');
+        box.textContent = '';
+        const d = el('div', 'empty-state');
+        d.append(bi('บทถอดความยังมาไม่ถึง เสียงยังฟังได้ตามปกติ — แตะการ์ดตอนอีกครั้งเพื่อโหลดใหม่',
+                    'The transcript did not arrive. Audio still plays — tap the part again to reload.'));
+        box.appendChild(d);
+        box.setAttribute('aria-busy', 'false');
+    },
+
+    // ---------- karaoke ----------
+    findIdx(ms) {                              // last word starting at or before ms
+        const W = this.words;
+        let lo = 0, hi = W.length - 1, ans = -1;
+        while (lo <= hi) {
+            const mid = (lo + hi) >> 1;
+            if (W[mid].s <= ms) { ans = mid; lo = mid + 1; } else hi = mid - 1;
+        }
+        return ans;
+    },
+
+    paintWords(i) {                            // O(changed), never O(all)
+        const W = this.words;
+        if (i > this.painted) { for (let k = this.painted + 1; k <= i; k++) W[k].el.classList.add('sung'); }
+        else if (i < this.painted) { for (let k = this.painted; k > i; k--) W[k].el.classList.remove('sung'); }
+        this.painted = i;
+    },
+
+    setLine(li) {
+        const prev = this.lineIdx;
+        if (li === prev) return;
+        if (prev >= 0 && this.lineEls[prev]) this.lineEls[prev].classList.remove('on');
+        if (li > prev) { for (let k = Math.max(0, prev); k < li; k++) this.lineEls[k] && this.lineEls[k].classList.add('past'); }
+        else { for (let k = li; k <= prev; k++) this.lineEls[k] && this.lineEls[k].classList.remove('past'); }
+        this.lineIdx = li;
+        const node = this.lineEls[li];
+        if (node) {
+            node.classList.add('on'); node.classList.remove('past');
+            if (this.autoScroll) this.centerLine(node);
+        }
+    },
+
+    syncNow(ms, force = false) {
+        const W = this.words;
+        if (!W.length) return;
+        const i = this.findIdx(ms);
+        if (i !== this.painted || force) {
+            this.paintWords(i);
+            this.setLine(i >= 0 ? W[i].li : 0);
+            if (force && this.lineEls[this.lineIdx] && this.autoScroll) this.centerLine(this.lineEls[this.lineIdx]);
+        }
+        if (this.karIdx >= 0 && this.karIdx !== i) {       // release the previous sweep
+            const prev = W[this.karIdx].el;
+            prev.classList.remove('kar');
+            prev.classList.toggle('sung', this.karIdx <= this.painted);
+            this.karIdx = -1;
+        }
+        if (i >= 0) {
+            const w = W[i];
+            if (ms >= w.s && ms < w.e) {
+                w.el.classList.add('kar'); w.el.classList.remove('sung');
+                w.el.style.setProperty('--p', ((ms - w.s) / (w.e - w.s) * 100).toFixed(1));
+                this.karIdx = i;
+            }
+        }
+    },
+
+    // A smooth scroll can outlive any fixed timer, and when it does the reader gets
+    // told they scrolled away when they did not. So: a long jump lands instantly, a
+    // short follow glides, and the "this was us" flag is cleared by scrollend or by
+    // a timer sized to the distance actually travelled.
+    centerLine(node) {
+        const box = $('transcript');
+        const target = node.offsetTop - box.clientHeight * 0.38 + node.offsetHeight / 2;
+        const distance = Math.abs(box.scrollTop - target);
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const jump = reduced || distance > box.clientHeight * 1.5;
+        this._prog = true;
+        clearTimeout(this._progT);
+        this._progT = setTimeout(() => { this._prog = false; }, jump ? 150 : Math.min(2400, 600 + distance));
+        box.scrollTo({ top: target, behavior: jump ? 'auto' : 'smooth' });
+    },
+
+    userScrolled() {
+        if (!this.autoScroll) return;
+        this.autoScroll = false;
+        $('resume-chip').classList.add('show');
+    },
+
+    resumeScroll() {
+        this.autoScroll = true;
+        $('resume-chip').classList.remove('show');
+        if (this.lineEls[this.lineIdx]) this.centerLine(this.lineEls[this.lineIdx]);
+    },
+
+    tick() {
+        const a = this.audio;
+        this.syncNow(a.currentTime * 1000);
+        this.updateSeekUI();
+        if (!a.paused) this.raf = requestAnimationFrame(() => this.tick());
+    },
+
+    // ---------- transport ----------
+    play() { const p = this.audio.play(); if (p && p.catch) p.catch(() => {}); },
+
+    seek(t) {
+        const dur = this.durOf(this.track);
+        this.audio.currentTime = Math.max(0, Math.min(dur - .2, t));
+        this.syncNow(this.audio.currentTime * 1000, true);
+        this.updateSeekUI(true);
+    },
+
+    seekLine(delta) {
+        if (!this.lineEls.length) return;
+        const idx = this.index[this.track];
+        const target = Math.max(0, Math.min(idx.lines.length - 1, this.lineIdx + delta));
+        this.seek(idx.lines[target].s / 1000);
+    },
+
+    updateSeekUI(force = false) {
+        const a = this.audio, dur = this.durOf(this.track);
+        const sec = Math.floor(a.currentTime);
+        if (!force && sec === this._lastSec) return;    // 60 fps loop, ~1 Hz of DOM writes
+        this._lastSec = sec;
+        $('t-cur').textContent = fmt(sec);
+        $('t-dur').textContent = fmt(dur);
+        const seek = $('seek');
+        const v = Math.round(a.currentTime / dur * 1000) || 0;
+        if (parseInt(seek.value) !== v) {
+            seek.value = v;
+            seek.style.setProperty('--fill', `${v / 10}%`);
+        }
+        seek.setAttribute('aria-valuetext', `${fmt(a.currentTime)} / ${fmt(dur)}`);
+        if ('mediaSession' in navigator && navigator.mediaSession.setPositionState && isFinite(dur)) {
+            try {
+                navigator.mediaSession.setPositionState({
+                    duration: dur, position: Math.min(a.currentTime, dur), playbackRate: a.playbackRate
+                });
+            } catch (e) { /* Safari is picky about position state */ }
+        }
+    },
+
+    applyHaloBudget() {                              // give the karaoke loop the headroom
+        if (this.halo && this.halo.setBudget) this.halo.setBudget(this.audio.paused ? 60 : 36);
+    },
+
+    initControls() {
+        const a = this.audio, playBtn = $('btn-play');
+        playBtn.onclick = () => a.paused ? this.play() : a.pause();
+        $('btn-back').onclick = () => this.seek(a.currentTime - 10);
+        $('btn-fwd').onclick = () => this.seek(a.currentTime + 10);
+        $('btn-resume').onclick = () => this.resumeScroll();
+        $('btn-lang').onclick = () => this.toggleLang();
+        $('btn-print').onclick = () => window.print();
+        $('btn-share').onclick = () => {
+            const url = `${location.origin}${location.pathname}?track=${this.track}&t=${Math.floor(a.currentTime)}`;
+            this.copyToClipboard(url, 'คัดลอกลิงก์ ณ เวลานี้แล้ว', 'Link at the current moment copied');
+        };
+
+        this.initTranscriptListeners();
+
+        a.addEventListener('play', () => {
+            playBtn.innerHTML = ICONS.pause;
+            playBtn.setAttribute('aria-label', this.lang === 'th' ? 'หยุดชั่วคราว' : 'Pause');
+            this.applyHaloBudget();
+            cancelAnimationFrame(this.raf); this.tick();
+        });
+        a.addEventListener('pause', () => {
+            playBtn.innerHTML = ICONS.play;
+            playBtn.setAttribute('aria-label', this.lang === 'th' ? 'เล่น' : 'Play');
+            this.applyHaloBudget();
+            cancelAnimationFrame(this.raf);
+            this.savePosition();
+        });
+        a.addEventListener('seeked', () => { this.syncNow(a.currentTime * 1000, true); this.updateSeekUI(true); });
+        a.addEventListener('loadedmetadata', () => {
+            if (this._pendingSeek > 0 && Math.abs(a.currentTime - this._pendingSeek) > 1) a.currentTime = this._pendingSeek;
+            this._pendingSeek = 0;
+            this.updateSeekUI(true);
+            this.updateTrackProgress();
+        });
+        a.addEventListener('error', () => {
+            const tr = TRACKS[this.track - 1];
+            console.error('audio error', a.error);
+            this.toast('เปิดไฟล์เสียงไม่ได้ ลองดาวน์โหลด MP3 จากหัวข้อ "เกี่ยวกับ"',
+                       'That audio file would not open. The MP3 is downloadable under “About”.');
+            if (tr) $('np-title').setAttribute('title', tr.audio);
+        });
+        a.addEventListener('ended', () => {
+            store.del(this.savePosKey);
+            if (this.track < TRACKS.length) this.loadTrack(this.track + 1, 0, true);
+        });
+
+        setInterval(() => { this.savePosition(); this.updateTrackProgress(); }, 5000);
+        addEventListener('pagehide', () => this.savePosition());
+        document.addEventListener('visibilitychange', () => { if (document.hidden) this.savePosition(); });
+
+        const syncFill = node => node.style.setProperty('--fill',
+            `${(node.value - node.min) / (node.max - node.min) * 100}%`);
+        document.querySelectorAll('input[type=range]').forEach(node => {
+            node.addEventListener('input', () => syncFill(node)); syncFill(node);
+        });
+        $('seek').addEventListener('input', e => this.seek(e.target.value / 1000 * this.durOf(this.track)));
+        $('input-speed').addEventListener('input', e => {
+            const v = e.target.value / 100;
+            a.playbackRate = v;
+            $('val-speed').textContent = v.toFixed(2) + '×';
+            store.set('fb_speed', e.target.value);
+        });
+        $('input-font').addEventListener('input', e => {
+            document.documentElement.style.setProperty('--tr-font', e.target.value / 100 + 'rem');
+            $('val-font').textContent = e.target.value + '%';
+            store.set('fb_font', e.target.value);
+        });
+
+        let debounce;
+        $('search').addEventListener('input', e => {
+            clearTimeout(debounce);
+            const q = e.target.value.trim();
+            debounce = setTimeout(() => this.doSearch(q), 220);
+        });
+
+        addEventListener('keydown', e => {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            const typing = e.target.closest('input, textarea, select') || e.target.isContentEditable;
+            if (e.key === 'Escape') { if (typing) e.target.blur(); this.closePanel(); return; }
+            if (typing) return;
+            if (e.key === '/') { e.preventDefault(); $('search').focus(); return; }
+            if (e.target.closest('button, a, [role=button]')) return;
+            if (e.code === 'Space') { e.preventDefault(); playBtn.click(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); this.seek(a.currentTime - 5); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); this.seek(a.currentTime + 5); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); this.seekLine(-1); }
+            else if (e.key === 'ArrowDown') { e.preventDefault(); this.seekLine(1); }
+        });
+    },
+
+    savePosition() {
+        if (this.savePosKey && this.audio.currentTime > 1) store.set(this.savePosKey, this.audio.currentTime.toFixed(1));
+    },
+
+    initTranscriptListeners() {                 // bound once; #transcript is never replaced
+        const box = $('transcript');
+        const byHand = () => { this._prog = false; this.userScrolled(); };
+        box.addEventListener('wheel', byHand, { passive: true });          // direct input
+        box.addEventListener('touchmove', byHand, { passive: true });      // is never ours
+        box.addEventListener('scroll', () => { if (!this._prog) this.userScrolled(); }, { passive: true });
+        if ('onscrollend' in window) box.addEventListener('scrollend', () => {
+            clearTimeout(this._progT); this._prog = false;
+        });
+        box.addEventListener('click', e => {
+            const tl = e.target.closest('.tl');
+            if (!tl) return;
+            const w = e.target.closest('.w');
+            if (w && w.dataset.wi != null) {
+                const rec = this.words[+w.dataset.wi];
+                if (rec) { this.seek(rec.s / 1000); this.play(); return; }
+            }
+            const line = (this.index[this.track] || {}).lines;
+            if (line && line[tl.dataset.li]) { this.seek(line[tl.dataset.li].s / 1000); this.play(); }
+        });
+    },
+
+    initMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        const ms = navigator.mediaSession;
+        this.audio.addEventListener('play', () => {
+            const tr = TRACKS[this.track - 1];
+            if (!tr) return;
+            try {
+                ms.metadata = new MediaMetadata({
+                    title: this.lang === 'th' ? tr.th : tr.en,
+                    artist: 'หลวงพ่อสมปอง สุธัมมสันตจิตโต',
+                    album: 'สมเด็จองค์ปฐม · ศาลา ๑๒ ไร่ ๒๕๔๔',
+                    artwork: [{ src: 'img/og.jpg', sizes: '1200x899', type: 'image/jpeg' }]
+                });
+            } catch (e) { /* metadata is a nicety */ }
+        });
+        const on = (name, fn) => { try { ms.setActionHandler(name, fn); } catch (e) { /* unsupported */ } };
+        on('play', () => this.play());
+        on('pause', () => this.audio.pause());
+        on('seekbackward', d => this.seek(this.audio.currentTime - ((d && d.seekOffset) || 10)));
+        on('seekforward', d => this.seek(this.audio.currentTime + ((d && d.seekOffset) || 10)));
+        on('seekto', d => { if (d && d.seekTime != null) this.seek(d.seekTime); });
+        on('previoustrack', () => this.track > 1 && this.loadTrack(this.track - 1, 0, true));
+        on('nexttrack', () => this.track < TRACKS.length && this.loadTrack(this.track + 1, 0, true));
+    },
+
+    // ---------- track cards (built once; language is pure CSS) ----------
+    buildTrackCards() {
+        const host = $('track-cards');
+        host.textContent = '';
+        this.cardEls = TRACKS.map(tr => {
+            const b = el('button', 'glass-panel lift track-card');
+            b.type = 'button';
+            const head = el('div', 'flex justify-between items-center mb-2 gap-3');
+            const name = el('span', 'font-bold text-md');
+            name.append(bi(tr.th, tr.en));
+            const dur = el('span', 'chip font-mono', fmt(tr.dur));
+            head.append(name, dur);
+            const track = el('div', 'progress-track');
+            const fill = el('div', 'progress-fill');
+            fill.style.width = '0%';
+            track.appendChild(fill);
+            const state = el('div', 'text-xs text-soft mt-2');
+            const th = el('span'); th.lang = 'th';
+            const en = el('span'); en.lang = 'en';
+            state.append(th, en);
+            b.append(head, track, state);
+            b.onclick = () => this.loadTrack(tr.n, null, true);
+            host.appendChild(b);
+            return { tr, b, fill, dur, th, en };
+        });
+        this.updateTrackProgress();
+    },
+
+    markActiveCard() {
+        this.cardEls.forEach(c => c.b.setAttribute('aria-current', String(c.tr.n === this.track)));
+    },
+
+    updateTrackProgress() {
+        if (!this.cardEls) return;
+        this.cardEls.forEach(c => {
+            const live = c.tr.n === this.track;
+            const at = live ? this.audio.currentTime : parseFloat(store.get('fb_pos_' + c.tr.n)) || 0;
+            const dur = this.durOf(c.tr.n);
+            c.fill.style.width = Math.min(100, at / dur * 100) + '%';
+            c.dur.textContent = fmt(dur);
+            if (at > 10) {
+                c.th.textContent = 'ฟังค้างไว้ที่ ' + fmt(at);
+                c.en.textContent = 'Resume at ' + fmt(at);
+            } else {
+                c.th.textContent = 'เริ่มฟังตั้งแต่ต้น';
+                c.en.textContent = 'Start from the beginning';
+            }
+        });
+    },
+
+    // ---------- golden passages ----------
+    buildQuoteCards() {
+        const host = $('quote-grid');
+        host.textContent = '';
+        this.quoteEls = QUOTES.map(q => {
+            const card = el('button', 'glass-panel lift quote-card');
+            card.type = 'button';
+            const mark = el('span', 'quote-mark');
+            mark.innerHTML = ICONS.quote;
+            const th = el('span', 'quote-th', '"' + q.q + '"'); th.lang = 'th';
+            const en = el('span', 'quote-th', '"' + q.en + '"'); en.lang = 'en';
+            const loc = el('span', 'text-xs text-soft');
+            const lth = el('span'); lth.lang = 'th'; lth.textContent = TRACKS[q.t - 1].th;
+            const len = el('span'); len.lang = 'en'; len.textContent = TRACKS[q.t - 1].en;
+            loc.append(lth, len);
+            const bar = el('span', 'progress-track w-full');
+            const fill = el('span', 'progress-fill');
+            fill.style.display = 'block'; fill.style.width = '0%';
+            bar.appendChild(fill);
+            card.append(mark, th, en, loc, bar);
+            card.onclick = () => {
+                $('listen').scrollIntoView({ behavior: 'smooth' });
+                this.loadTrack(q.t, q.ms != null ? q.ms / 1000 : 0, true);
+            };
+            host.appendChild(card);
+            return { q, fill, lth, len };
+        });
+        this.placeQuotes();
+    },
+
+    // Quotes are anchored against the whitespace-free concatenation of the whole
+    // talk, so a passage that straddles two transcript lines still resolves.
+    async placeQuotes() {
+        for (const item of this.quoteEls) {
+            const q = item.q;
+            if (q.ms != null) continue;
+            let idx;
+            try { idx = this.index[q.t] || await this.loadIndex(q.t); } catch (e) { continue; }
+            const at = idx.all.indexOf(stripSpace(q.q));
+            if (at < 0) continue;
+            const line = idx.lines[idx.owner[at]];
+            q.ms = line.s;
+            const dur = this.durOf(q.t);
+            item.fill.style.width = (line.s / 1000 / dur * 100).toFixed(1) + '%';
+            item.lth.textContent = TRACKS[q.t - 1].th + ' · ' + fmt(line.s / 1000);
+            item.len.textContent = TRACKS[q.t - 1].en + ' · ' + fmt(line.s / 1000);
+        }
+    },
+
+    // ---------- search ----------
+    async doSearch(query) {
+        const seq = ++this.searchSeq;
+        const valEl = $('val-hits');
+        const q = stripSpace(query);
+        if (!q) { valEl.textContent = ''; this.markFound(null); this.closePanel(); return; }
+
+        const hits = [];
+        for (const tr of TRACKS) {
+            let idx;
+            try { idx = this.index[tr.n] || await this.loadIndex(tr.n); } catch (e) { continue; }
+            if (seq !== this.searchSeq) return;             // a newer query is already running
+            idx.L.forEach((line, li) => {
+                const at = line.norm.indexOf(q);
+                if (at < 0) return;
+                const from = line.map[at];
+                const to = (line.map[at + q.length - 1] ?? line.map[line.map.length - 1]) + 1;
+                hits.push({ tr: tr.n, li, s: line.s, raw: line.raw, from, to });
+            });
+        }
+        if (seq !== this.searchSeq) return;
+        valEl.textContent = hits.length;
+        this.markFound(hits);
+
+        const body = document.createDocumentFragment();
+        if (!hits.length) {
+            const empty = el('div', 'empty-state');
+            const ico = el('div');
+            ico.style.opacity = '.5';
+            ico.innerHTML = ICONS.search.replace('width="16" height="16"', 'width="40" height="40"');
+            empty.append(ico, bi(`ไม่พบ "${query}" ในบทถอดความทั้งสองตอน ลองคำที่สั้นลง`,
+                                 `No passage contains "${query}". Try a shorter word.`));
+            body.appendChild(empty);
+        } else {
+            hits.slice(0, 80).forEach(h => {
+                const row = el('button', 'hit-row');
+                row.type = 'button';
+                row.append(el('span', 'hit-time', `${TH_NUM[h.tr]} · ${fmt(h.s / 1000)}`));
+                const text = el('span', 'hit-text');
+                const head = h.raw.slice(Math.max(0, h.from - 44), h.from);
+                text.append(document.createTextNode((h.from > 44 ? '…' : '') + head));
+                text.append(el('b', null, h.raw.slice(h.from, h.to)));
+                text.append(document.createTextNode(h.raw.slice(h.to, h.to + 64)));
+                row.appendChild(text);
+                row.onclick = () => {
+                    this.loadTrack(h.tr, h.s / 1000, true);
+                    $('listen').scrollIntoView({ behavior: 'smooth' });
+                };
+                body.appendChild(row);
+            });
+            if (hits.length > 80) {
+                const more = el('p', 'footnote mt-4 text-center');
+                more.append(bi(`แสดง ๘๐ วรรคแรกจาก ${hits.length} วรรค`, `Showing the first 80 of ${hits.length} passages`));
+                body.appendChild(more);
+            }
+        }
+        this.openPanel(
+            this.lang === 'th' ? `ผลการค้นหา · ${hits.length}` : `Search results · ${hits.length}`,
+            body, false);
+    },
+
+    markFound(hits) {                      // a quiet wash on matching lines of the open track
+        if (this._found) this._found.forEach(node => node.classList.remove('found'));
+        this._found = [];
+        if (!hits) return;
+        hits.forEach(h => {
+            if (h.tr !== this.track) return;
+            const node = this.lineEls[h.li];
+            if (node) { node.classList.add('found'); this._found.push(node); }
+        });
+    },
+
+    // ---------- side panel ----------
+    initPanel() {
+        $('panel-close').onclick = () => this.closePanel();
+        $('panel-scrim').onclick = () => this.closePanel();
+    },
+
+    openPanel(title, bodyNode, modal) {
+        const panel = $('slide-panel'), pc = $('panel-content'), scrim = $('panel-scrim');
+        pc.textContent = '';
+        const h = el('h4', 'text-md font-bold mb-4 text-blue', title);
+        h.id = 'panel-title';
+        pc.append(h, bodyNode);
+        panel.setAttribute('aria-modal', String(!!modal));
+        panel.classList.add('open');
+        this.panelModal = !!modal;
+        if (modal) {
+            scrim.hidden = false;
+            requestAnimationFrame(() => scrim.classList.add('open'));
+            this._lastFocus = document.activeElement;
+            $('main').inert = true;
+            document.querySelector('header').inert = true;
+            $('panel-close').focus();
+        }
+    },
+
+    closePanel() {
+        const panel = $('slide-panel'), scrim = $('panel-scrim');
+        if (!panel.classList.contains('open')) return;
+        panel.classList.remove('open');
+        scrim.classList.remove('open');
+        setTimeout(() => { scrim.hidden = true; }, 420);
+        if (this.panelModal) {
+            $('main').inert = false;
+            document.querySelector('header').inert = false;
+            if (this._lastFocus && this._lastFocus.focus) this._lastFocus.focus();
+        }
+        this.panelModal = false;
+    },
+
+    // ---------- analysis tier (built on first sight of the section) ----------
+    async buildInsights() {
+        if (!this.insightsSeen || !this.track) return;
+        const idx = this.index[this.track];
+        if (!idx || this.insightsFor === this.track) return;
+        this.insightsFor = this.track;
+        const [okChart, okD3] = await Promise.all([this.libChart, this.libD3]);
+        if (this.insightsFor !== this.track) return;
+        okChart ? this.buildChart(idx) : this.chartUnavailable();
+        okD3 ? this.buildTopology(idx) : this.topologyUnavailable();
+    },
+
+    chartUnavailable() {
+        const c = $('analyticsChart');
+        if (!c.parentElement) return;
+        const note = el('div', 'empty-state');
+        note.append(bi('กราฟจังหวะถ้อยธรรมต้องใช้ไลบรารีภายนอกที่โหลดไม่สำเร็จ เสียงและบทถอดความยังใช้ได้ตามปกติ',
+                       'The cadence chart needs a library that did not load. Audio and transcript are unaffected.'));
+        c.replaceWith(note);
+    },
+
+    topologyUnavailable() {
+        const host = $('viz-container');
+        host.textContent = '';
+        const note = el('div', 'empty-state');
+        note.append(bi('แผนผังมโนทัศน์ต้องใช้ไลบรารีภายนอกที่โหลดไม่สำเร็จ ลองค้นหาคำในบทถอดความแทนได้',
+                       'The concept map needs a library that did not load. Searching the transcript works instead.'));
+        host.appendChild(note);
+    },
+
+    buildChart(idx) {
+        const canvas = $('analyticsChart');
+        if (typeof Chart === 'undefined' || !canvas) return;
+        const BUCKET = 30, dur = this.durOf(this.track);
+        const nB = Math.max(1, Math.ceil(dur / BUCKET));
+        const counts = new Array(nB).fill(0);
+        for (const l of idx.lines) for (const w of l.w) if (w[2] > w[1]) {
+            counts[Math.min(nB - 1, Math.floor(w[1] / 1000 / BUCKET))]++;
+        }
+        const wpm = counts.map(c => c * (60 / BUCKET));
+        const labels = counts.map((_, i) => fmt(i * BUCKET));
+        Chart.defaults.color = '#6e6e73';
+        Chart.defaults.font.family = "'Inter','Sarabun',sans-serif";
+        if (this.chart) this.chart.destroy();
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, 'rgba(0,113,227,.35)'); grad.addColorStop(1, 'rgba(0,113,227,0)');
+        this.chart = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets: [{
+                label: 'words/min', data: wpm, borderColor: '#0071e3', backgroundColor: grad,
+                fill: true, tension: .35, pointRadius: 0, pointHitRadius: 12, borderWidth: 2
+            }]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                animation: matchMedia('(prefers-reduced-motion: reduce)').matches ? false : undefined,
+                onClick: (ev, els, chart) => {
+                    const x = chart.scales.x.getValueForPixel(ev.x);
+                    if (x == null) return;
+                    this.seek(Math.max(0, Math.min(dur - 1, x * BUCKET)));
+                    this.play();
+                },
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(255,255,255,.9)', titleColor: '#1d1d1f',
+                        bodyColor: '#1d1d1f', borderColor: 'rgba(0,0,0,.08)', borderWidth: 1,
+                        cornerRadius: 12, displayColors: false,
+                        callbacks: { label: c => ` ${Math.round(c.parsed.y)} ${this.lang === 'th' ? 'คำ/นาที' : 'words/min'}` }
+                    }
+                },
+                scales: {
+                    x: { grid: { color: 'rgba(29,29,31,.06)' }, ticks: { maxTicksLimit: 7 } },
+                    y: { grid: { color: 'rgba(29,29,31,.06)' }, beginAtZero: true }
+                }
+            }
+        });
+    },
+
+    buildTopology(idx) {
+        const host = $('viz-container');
+        if (typeof d3 === 'undefined' || !host) return;
+        if (this.sim) { this.sim.stop(); this.sim = null; }   // never leave a simulation ticking
+        host.textContent = '';
+        const W = host.clientWidth || 700, H = host.clientHeight || 500;
+
+        const nodes = [{ id: 'ธรรมบรรยาย', cat: 3, r: 34, hub: true, count: 0 }];
+        const links = [];
+        for (const c of CONCEPTS) {
+            const terms = c.terms.map(stripSpace);
+            const occ = [];
+            idx.L.forEach((line, li) => {
+                if (terms.some(t => line.norm.includes(t))) occ.push({ li, s: line.s, text: line.raw });
+            });
+            if (!occ.length) continue;
+            nodes.push({ id: c.id, cat: c.cat, count: occ.length, occ, r: 10 + Math.sqrt(occ.length) * 3.2 });
+            links.push({ source: 'ธรรมบรรยาย', target: c.id });
+        }
+        const rel = [['ลูก', 'ความรัก'], ['พ่อ', 'ลูก'], ['แม่', 'ลูก'], ['ความสุข', 'พระนิพพาน'],
+                     ['จิตใจ', 'ความสุข'], ['สมเด็จองค์ปฐม', 'พ่อ'], ['ความทุกข์', 'ร่างกาย'], ['สมเด็จองค์ปฐม', 'บารมี']];
+        const have = new Set(nodes.map(n => n.id));
+        for (const [a, b] of rel) if (have.has(a) && have.has(b)) links.push({ source: a, target: b, soft: true });
+
+        const svg = d3.select(host).append('svg')
+            .attr('width', '100%').attr('height', '100%')
+            .attr('viewBox', `0 0 ${W} ${H}`)
+            .attr('role', 'img')
+            .attr('aria-label', this.lang === 'th' ? 'แผนผังมโนทัศน์จากบทถอดความ' : 'Concept map of the talk');
+        const defs = svg.append('defs');
+        const sg = defs.append('linearGradient').attr('id', 'spectrumGrad')
+            .attr('x1', '0').attr('y1', '0').attr('x2', '1').attr('y2', '1');
+        sg.append('stop').attr('offset', '0%').attr('stop-color', '#0071e3');
+        sg.append('stop').attr('offset', '50%').attr('stop-color', '#bf5af2');
+        sg.append('stop').attr('offset', '100%').attr('stop-color', '#ff375f');
+
+        const g = svg.append('g');
+        svg.call(d3.zoom().scaleExtent([.5, 3]).on('zoom', ev => g.attr('transform', ev.transform)));
+
+        const link = g.selectAll('line').data(links).join('line')
+            .attr('stroke', 'rgba(29,29,31,.12)')
+            .attr('stroke-width', d => d.soft ? 1 : 1.6)
+            .attr('stroke-dasharray', d => d.soft ? '3 4' : null);
+
+        const sim = this.sim = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.soft ? 110 : 150))
+            .force('charge', d3.forceManyBody().strength(-320))
+            .force('center', d3.forceCenter(W / 2, H / 2))
+            .force('collide', d3.forceCollide().radius(d => d.r + 26));
+
+        const node = g.selectAll('g.node').data(nodes).join('g')
+            .attr('class', 'node').style('cursor', 'pointer')
+            .call(d3.drag()
+                .on('start', (ev, d) => { if (!ev.active) sim.alphaTarget(.25).restart(); d.fx = d.x; d.fy = d.y; })
+                .on('drag', (ev, d) => { d.fx = ev.x; d.fy = ev.y; })
+                .on('end', (ev, d) => { if (!ev.active) sim.alphaTarget(0); d.fx = d.fy = null; }));
+
+        // Shape encodes the family of the idea: person, quality, or realm.
+        node.each(function (d) {
+            const sel = d3.select(this);
+            const color = d.hub ? 'url(#spectrumGrad)' : CAT_COLOR[d.cat];
+            if (d.hub || d.cat === 0) {
+                sel.append('circle').attr('r', d.r).attr('fill', color).attr('stroke', '#fff').attr('stroke-width', 2);
+            } else if (d.cat === 1) {
+                sel.append('rect').attr('x', -d.r).attr('y', -d.r * .8).attr('width', d.r * 2)
+                   .attr('height', d.r * 1.6).attr('rx', 9).attr('fill', color)
+                   .attr('stroke', '#fff').attr('stroke-width', 2);
+            } else {
+                const r = d.r, pts = d3.range(6).map(i => {
+                    const a = Math.PI / 3 * i - Math.PI / 6;
+                    return [r * Math.cos(a), r * Math.sin(a)];
+                });
+                sel.append('polygon').attr('points', pts.map(p => p.join(',')).join(' '))
+                   .attr('fill', color).attr('stroke', '#fff').attr('stroke-width', 2);
+            }
+            sel.append('text').text(d.id)
+               .attr('text-anchor', 'middle').attr('dy', d.r + 16)
+               .attr('font-size', 12).attr('font-weight', 600)
+               .attr('font-family', "'Sarabun',sans-serif").attr('fill', '#1d1d1f');
+            if (!d.hub) sel.append('text').text(d.count)
+               .attr('text-anchor', 'middle').attr('dy', 5)
+               .attr('font-size', 11).attr('font-weight', 700)
+               .attr('font-family', "'JetBrains Mono',monospace").attr('fill', '#fff');
+        });
+
+        node.on('click', (ev, d) => { if (!d.hub) this.openConcept(d); });
+
+        sim.on('tick', () => {
+            link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+            node.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+    },
+
+    openConcept(d) {
+        const tr = TRACKS[this.track - 1];
+        const body = document.createDocumentFragment();
+        const sub = el('div', 'text-xs text-soft mb-4');
+        sub.append(bi(`${d.count} วรรคใน ${tr.th}`, `${d.count} passages in ${tr.en}`));
+        body.appendChild(sub);
+        d.occ.slice(0, 60).forEach(o => {
+            const row = el('button', 'hit-row');
+            row.type = 'button';
+            row.append(el('span', 'hit-time', fmt(o.s / 1000)));
+            row.append(el('span', 'hit-text', o.text.slice(0, 92) + (o.text.length > 92 ? '…' : '')));
+            row.onclick = () => {
+                this.seek(o.s / 1000); this.play();
+                this.closePanel();
+                $('listen').scrollIntoView({ behavior: 'smooth' });
+            };
+            body.appendChild(row);
+        });
+        this.openPanel(d.id, body, true);
+    },
+
+    // ---------- language, clipboard, toast ----------
+    applyLang(lang, silent) {
+        this.lang = lang;
+        document.body.dataset.lang = lang;
+        document.documentElement.lang = lang;
+        $('btn-lang').setAttribute('aria-label',
+            lang === 'th' ? 'Switch to English' : 'เปลี่ยนเป็นภาษาไทย');
+        $('search').placeholder = lang === 'th'
+            ? 'เช่น ความสุข, นิพพาน, องค์ปฐม…'
+            : 'e.g. ความสุข, นิพพาน, องค์ปฐม…';
+        if (!silent) store.set('fb_lang', lang);
+    },
+
+    toggleLang() { this.applyLang(this.lang === 'th' ? 'en' : 'th'); },
+
+    copyToClipboard(text, th, en) {
+        const done = () => this.toast(th, en);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, () => this.copyFallback(text, th, en));
+        } else this.copyFallback(text, th, en);
+    },
+
+    copyFallback(text, th, en) {                 // plain-http and older WebViews
+        try {
+            const ta = el('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            this.toast(th, en);
+        } catch (e) {
+            this.toast('คัดลอกไม่ได้ในเบราว์เซอร์นี้ — คัดลอกจากแถบที่อยู่แทนได้',
+                       'This browser blocked the copy. The address bar has the same link.');
+        }
+    },
+
+    toast(th, en) {
+        const t = $('toast');
+        t.textContent = '';
+        t.append(bi(th, en != null ? en : th));
+        t.classList.add('show');
+        clearTimeout(this._tt);
+        this._tt = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+};
+
+// ═══ 9. BOOT ═══
+// No polling, no artificial delay: the shell is interactive as soon as the DOM is.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => APP.init(), { once: true });
+} else {
+    APP.init();
+}
+    </script>
+</body>
+</html>
